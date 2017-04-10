@@ -1,7 +1,6 @@
-package me.Salt;
+package me.Salt.Event;
 
 
-import me.Salt.Event.JGenericMessageEvent;
 import net.dv8tion.jda.core.events.message.GenericMessageEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 

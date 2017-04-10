@@ -1,5 +1,6 @@
 package me.Salt;
 
+import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.MissingDataException;
 import me.Salt.SaltAPI.Salt;
 import me.Salt.SaltAPI.SaltBuilder;
@@ -16,13 +17,11 @@ import javax.security.auth.login.LoginException;
 public class Main {
     public static JDA jda;
     public static Salt salt;
-    public static String cmdPrefix = ".";
 
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException {
 
         jda = new JDABuilder(AccountType.CLIENT).setToken("MTEyNjMzNTAwNDQ3ODM4MjA4.CSAEbA.JwKwlcs0Mif0Xc9zoKJBm9QRx5s").addListener(new EventDistributor()).buildBlocking();
-        salt = new SaltBuilder().setCmdPrefix(".").build();
-
+        salt = new SaltBuilder(".").build();
     }
 
     //TODO add unit tests

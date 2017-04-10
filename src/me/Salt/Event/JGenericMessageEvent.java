@@ -19,7 +19,7 @@ public class JGenericMessageEvent implements JEvent {
 
         if (event.getMessage().getRawContent().toLowerCase().contains("xd") || event.getMessage().getRawContent().toLowerCase().contains("eggs d")) {
             r1.add(Arrays.asList("\uD83E\uDD5A", "\uD83C\uDF46"), event.getMessage());
-            JLogger.writeToConsole(JLogger.Level.INFO,"Reacted to: \"" + event.getMessage().getRawContent() + "\" with unicode '\\uD83E\\uDD5A' '\\uD83C\\uDF46' (\uD83E\uDD5A \uD83C\uDF46)");
+            JLogger.writeToConsole(JLogger.Level.INFO, "Reacted to: \"" + event.getMessage().getRawContent() + "\" with unicode '\\uD83E\\uDD5A' '\\uD83C\\uDF46' (\uD83E\uDD5A \uD83C\uDF46)");
         }
     }
 

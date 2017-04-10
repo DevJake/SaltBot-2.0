@@ -8,9 +8,8 @@ import me.Salt.Exception.MissingDataException;
 public class SaltBuilder {
     private String cmdPrefix;
 
-    public SaltBuilder setCmdPrefix(String cmdPrefix) {
+    public SaltBuilder(String cmdPrefix) {
         this.cmdPrefix = cmdPrefix;
-        return this;
     }
 
     public Salt build() throws MissingDataException {
