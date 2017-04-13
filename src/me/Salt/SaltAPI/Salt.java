@@ -5,6 +5,7 @@ import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.List;
+import java.util.Map;
 
 /**
  * ->> SaltBot-2.0 <<-
@@ -25,5 +26,11 @@ public interface Salt {
 
     public List<JGuild> getJGuildsByName(String name);
 
-    public User getAuthor(); //TODO
+    public Map<User, Rank> getTeam(); //TODO
+
+    public enum Rank {
+        DEVELOPER,
+        CONTRIBUTOR,
+        TESTER
+    }
 }
