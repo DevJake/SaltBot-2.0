@@ -10,7 +10,7 @@ import java.util.List;
 /**
  * Created by Salt001 on 09/04/2017.
  */
-public class JGenericMessageEvent implements JEvent {
+public class JGenericMessageEvent implements IEvent {
     static Reaction r1 = (r, m) -> r.forEach((p) -> m.addReaction(p).queue());
 
     public static void process(GenericMessageEvent event) {
