@@ -31,7 +31,7 @@ public class TubeManager {
             //We are at the last station of this line
         } else return null; //Not possible to continue. Line must only have 1 station
 
-
+        return null;
     }
 
 
