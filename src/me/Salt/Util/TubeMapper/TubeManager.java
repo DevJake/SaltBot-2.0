@@ -3,7 +3,6 @@ package me.Salt.Util.TubeMapper;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.stream.Collectors;
 
 /**
  * ->> SaltBot-2.0 <<-
@@ -11,52 +10,30 @@ import java.util.stream.Collectors;
  */
 public class TubeManager {
     private List<TubeLine> tubeLines = new ArrayList<>();
-    private HashMap<String, String> stations; //String station, String tubeline
-    private HashMap<String, TubeLine> tubeLineLookup; //String linename, TubeLine line;
+    private HashMap<String, Station> stationLookup; //String station, Station station
+    private HashMap<Station, TubeLine> stationToTubeline; //String station, Station station
+    private HashMap<String, TubeLine> tubeLineLookup; //String linename, TubeLine line
 
     public List<Station> getShortestRoute(Station start, Station end) {
-        List<String> routes = new ArrayList<>();
+        List<Road> priorityQueue = new ArrayList<>();
 
-        getTubeStations().forEach(s1 -> this.getTubeStations().forEach(s2 -> routes.add(s1.getName() + ":" + s2.getName())));
+        for (Station s : tubeLines.get(0).getStations()){
+            priorityQueue.add(new Road(s, null, 0));
+        }
 
-        routes.stream().filter(s -> {
-            String[] j = s.split(":");
-            return !j[0].equals(j[1]);
-        }).collect(Collectors.toList()).stream().distinct().forEach(System.out::println);
-//.distinct() usage is effectively pointless, but used as a safety measure
-//        if ((getStationsByName(start.getName()).size()>0 && getStationsByName(end.getName()).size()>0)) {
-        //if (getStationsByName(start.getName()).get(0) getStationsByName(end.getName()).size() > 0)
-        //}
+        int index = tubeLines.get(0).getStations().indexOf(start);
 
-        return new ArrayList<>();
+        if (index==0 && tubeLines.get(0).getStations().size()>0){
+            //We are at the first station of the line, and there are more stations
+        } else if (index>0 && tubeLines.get(0).getStations().size()!=index){
+            //We are not at the first station of the line. There is atleast 1 station behind us.
+        } else if (index>0){
+            //We are at the last station of this line
+        } else return null; //Not possible to continue. Line must only have 1 station
+
+
     }
 
-    public List<TubeLine> getTubeLines() {
-        return tubeLines;
-    }
-
-    public TubeLine getTubeByStation(String name) {
-        return tubeLineLookup.get(stations.get(name));
-    }
-
-    public List<Station> getStationsByName(String name) {
-        return getTubeStations().stream().filter(station -> station.getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList());
-    }
-
-    public Station getStationByName(String name) {
-        return getTubeStations().stream().filter(station -> station.getName().toLowerCase().equals(name.toLowerCase())).collect(Collectors.toList()).get(0);
-    }
-
-    public List<Station> getTubeStations() {
-        List<Station> s = new ArrayList<>();
-        Runnable r = () -> tubeLines.forEach(tubeLine -> s.addAll(tubeLine.getStations()));
-        r.run();
-        return s;
-    }
-
-//    public static TubeLine getStationByName(){
-//        //TODO
-//    }
 
     public void init() {
         List<Station> stations = new ArrayList<>();
@@ -88,10 +65,6 @@ public class TubeManager {
         stations.add(new Station("Elephant & Castle", false));
 
         tubeLines.add(new TubeLine("Bakerloo", TubeLine.Colour.BROWN, stations));
-
-        tubeLines.forEach(tubeLine -> tubeLine.getStations().forEach(station -> this.stations.put(station.getName(), tubeLine.getName())));
-
-        tubeLines.forEach(tubeLine -> tubeLineLookup.put(tubeLine.getName(), tubeLine));
     }
 
     //TODO this is a complete mess. Rework.
