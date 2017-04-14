@@ -8,9 +8,10 @@ import java.util.List;
 
 
 /**
- * Created by Salt001 on 09/04/2017.
+ ->> SaltBot-2.0 <<-
+ * Created by Salt on 09/04/2017.
  */
-public class CommandBuilder {
+public class CommandDescriptionBuilder {
 
     private HashMap<String, Boolean> parameters;
     private HashMap<String, Boolean> definers;
@@ -22,37 +23,37 @@ public class CommandBuilder {
     private boolean supportsPermissions;
     private List<Permission> requiredPermissions;
 
-    public CommandBuilder setName(String name) {
+    public CommandDescriptionBuilder setName(String name) {
         this.name = name;
         return this;
     }
 
-    public CommandBuilder setDescription(String description) {
+    public CommandDescriptionBuilder setDescription(String description) {
         this.description = description;
         return this;
     }
 
-    public CommandBuilder setAuthor(String author) {
+    public CommandDescriptionBuilder setAuthor(String author) {
         this.author = author;
         return this;
     }
 
-    public CommandBuilder setComplete(boolean complete) {
+    public CommandDescriptionBuilder setComplete(boolean complete) {
         isComplete = complete;
         return this;
     }
 
-    public CommandBuilder setSupportsPermissions(boolean supportsPermissions) {
+    public CommandDescriptionBuilder setSupportsPermissions(boolean supportsPermissions) {
         this.supportsPermissions = supportsPermissions;
         return this;
     }
 
-    public CommandBuilder setRequiredPermissions(List<Permission> requiredPermissions) {
+    public CommandDescriptionBuilder setRequiredPermissions(List<Permission> requiredPermissions) {
         this.requiredPermissions = requiredPermissions;
         return this;
     }
 
-    public CommandBuilder setHelpMessage(String helpMessage) {
+    public CommandDescriptionBuilder setHelpMessage(String helpMessage) {
         this.helpMessage = helpMessage;
         return this;
     }
