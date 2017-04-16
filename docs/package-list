@@ -1,0 +1,17 @@
+me.Salt
+me.Salt.Command
+me.Salt.Container
+me.Salt.Event
+me.Salt.Exception
+me.Salt.Logging
+me.Salt.Permissions
+me.Salt.SaltAPI
+me.Salt.SaltAPI.Entities
+me.Salt.SaltAPI.Entities.Impl
+me.Salt.SaltAPI.Guild
+me.Salt.SaltAPI.Guild.Impl
+me.Salt.SaltAPI.User
+me.Salt.SaltAPI.User.Impl
+me.Salt.SaltAPI.Util
+me.Salt.Util
+me.Salt.Util.TubeMapper
