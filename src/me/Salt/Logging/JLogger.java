@@ -1,17 +1,33 @@
+/*
+ * Copyright (c) 2017 DevJake
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package me.Salt.Logging;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
 
 /**
- * Allows for the logging of information to the console, text file, or both.
+ * Allows for the logging of information to the console, text file, or both. Currently supports just console logging.
  */
 public class JLogger {
 
     /**
-     * Attempts to write data to the console
+     * Attempts to write a string to the console.
      *
-     * @return Boolean - If the operation was successful
+     * @param message String - The message to be written
      */
 
     public static void writeToConsole(String message) {
@@ -19,19 +35,50 @@ public class JLogger {
         //TODO add a call to a private writeToFile and writeToChannel method
     }
 
+    /**
+     * Attempts to write a string to the console, as well as details about a specified object.
+     *
+     * @param message String - The message to be written
+     * @param o       Object - The object to write details about
+     */
     public static void writeToConsole(String message, Object o) {
         System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + Level.INFO.name() + "] " + message + ". Thrown by class: " + o.getClass().getName());
     }
 
+    /**
+     * Attempts to write a string to the console, prepended by a warning level
+     *
+     * @param level   Level - The level of the log entry
+     * @param message String - The message to be written
+     */
     public static void writeToConsole(Level level, String message) {
         System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + level.name() + "] " + message);
     }
 
+    /**
+     * Attempts to write a string to the console, prepended by a warning level. Information about the object is also included.
+     *
+     * @param level   Level - The level of the log entry
+     * @param message String - The message to be written
+     * @param o       Object - The object to write details about
+     */
     public static void writeToConsole(Level level, String message, Object o) {
         System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + level.name() + "] " + message + ". Thrown by class: " + o.getClass().getName());
     }
 
-
+    /**
+     * The level of the warning that should be used when creating log and/or console entries.
+     * <p>
+     * INFO - Information and details of generic operation
+     * <br>
+     * CONFIG - Information about changes related to configurations
+     * <br>
+     * WARNING - A notice of improper behaviour in the application
+     * <br>
+     * SEVERE - A notice of extremely improper - potentially crash-causing - behaviour
+     * <br>
+     * FATAL - A notice of crash-causing details; often composing the final set of entries to a log file
+     */
     public enum Level {
         INFO, //Information and details of generic operation
         CONFIG, //Information about changes related to configurations
