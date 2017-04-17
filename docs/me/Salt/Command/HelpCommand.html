@@ -99,7 +99,7 @@ var activeTableTab = "activeTableTab";
 <li>java.lang.Object</li>
 <li>
 <ul class="inheritance">
-<li>me.Salt.Command.HelpCommand</li>
+<li>me.Salt.Command.Commands.HelpCommand</li>
 </ul>
 </li>
 </ul>
@@ -153,15 +153,15 @@ implements <a href="../../../me/Salt/Command/ICommand.html" title="interface in 
 </tr>
 <tr id="i0" class="altColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../me/Salt/Command/HelpCommand.html#execute-me.Salt.Container.CommandParser.CommandContainer-">execute</a></span>(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../me/Salt/Command/HelpCommand.html#execute-me.Salt.Command.Container.CommandParser.ParsedCommandContainer-">execute</a></span>(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Command.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</code>&nbsp;</td>
 </tr>
 <tr id="i1" class="rowColor">
 <td class="colFirst"><code>void</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../me/Salt/Command/HelpCommand.html#postExecution-me.Salt.Container.CommandParser.CommandContainer-">postExecution</a></span>(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../me/Salt/Command/HelpCommand.html#postExecution-me.Salt.Command.Container.CommandParser.ParsedCommandContainer-">postExecution</a></span>(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Command.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</code>&nbsp;</td>
 </tr>
 <tr id="i2" class="altColor">
 <td class="colFirst"><code>boolean</code></td>
-<td class="colLast"><code><span class="memberNameLink"><a href="../../../me/Salt/Command/HelpCommand.html#preExecution-me.Salt.Container.CommandParser.CommandContainer-">preExecution</a></span>(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</code>&nbsp;</td>
+<td class="colLast"><code><span class="memberNameLink"><a href="../../../me/Salt/Command/HelpCommand.html#preExecution-me.Salt.Command.Container.CommandParser.ParsedCommandContainer-">preExecution</a></span>(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Command.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</code>&nbsp;</td>
 </tr>
 </table>
 <ul class="blockList">
@@ -202,42 +202,42 @@ implements <a href="../../../me/Salt/Command/ICommand.html" title="interface in 
 <!--   -->
 </a>
 <h3>Method Detail</h3>
-<a name="preExecution-me.Salt.Container.CommandParser.CommandContainer-">
+<a name="preExecution-me.Salt.Command.Container.CommandParser.CommandContainer-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>preExecution</h4>
-<pre>public&nbsp;boolean&nbsp;preExecution(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</pre>
+<pre>public&nbsp;boolean&nbsp;preExecution(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Command.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../me/Salt/Command/ICommand.html#preExecution-me.Salt.Container.CommandParser.CommandContainer-">preExecution</a></code>&nbsp;in interface&nbsp;<code><a href="../../../me/Salt/Command/ICommand.html" title="interface in me.Salt.Command">ICommand</a></code></dd>
+<dd><code><a href="../../../me/Salt/Command/ICommand.html#preExecution-me.Salt.Command.Container.CommandParser.ParsedCommandContainer-">preExecution</a></code>&nbsp;in interface&nbsp;<code><a href="../../../me/Salt/Command/ICommand.html" title="interface in me.Salt.Command">ICommand</a></code></dd>
 </dl>
 </li>
 </ul>
-<a name="execute-me.Salt.Container.CommandParser.CommandContainer-">
+<a name="execute-me.Salt.Command.Container.CommandParser.CommandContainer-">
 <!--   -->
 </a>
 <ul class="blockList">
 <li class="blockList">
 <h4>execute</h4>
-<pre>public&nbsp;void&nbsp;execute(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</pre>
+<pre>public&nbsp;void&nbsp;execute(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Command.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../me/Salt/Command/ICommand.html#execute-me.Salt.Container.CommandParser.CommandContainer-">execute</a></code>&nbsp;in interface&nbsp;<code><a href="../../../me/Salt/Command/ICommand.html" title="interface in me.Salt.Command">ICommand</a></code></dd>
+<dd><code><a href="../../../me/Salt/Command/ICommand.html#execute-me.Salt.Command.Container.CommandParser.ParsedCommandContainer-">execute</a></code>&nbsp;in interface&nbsp;<code><a href="../../../me/Salt/Command/ICommand.html" title="interface in me.Salt.Command">ICommand</a></code></dd>
 </dl>
 </li>
 </ul>
-<a name="postExecution-me.Salt.Container.CommandParser.CommandContainer-">
+<a name="postExecution-me.Salt.Command.Container.CommandParser.CommandContainer-">
 <!--   -->
 </a>
 <ul class="blockListLast">
 <li class="blockList">
 <h4>postExecution</h4>
-<pre>public&nbsp;void&nbsp;postExecution(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</pre>
+<pre>public&nbsp;void&nbsp;postExecution(<a href="../../../me/Salt/Container/CommandParser.CommandContainer.html" title="class in me.Salt.Command.Container">CommandParser.CommandContainer</a>&nbsp;cmd)</pre>
 <dl>
 <dt><span class="overrideSpecifyLabel">Specified by:</span></dt>
-<dd><code><a href="../../../me/Salt/Command/ICommand.html#postExecution-me.Salt.Container.CommandParser.CommandContainer-">postExecution</a></code>&nbsp;in interface&nbsp;<code><a href="../../../me/Salt/Command/ICommand.html" title="interface in me.Salt.Command">ICommand</a></code></dd>
+<dd><code><a href="../../../me/Salt/Command/ICommand.html#postExecution-me.Salt.Command.Container.CommandParser.ParsedCommandContainer-">postExecution</a></code>&nbsp;in interface&nbsp;<code><a href="../../../me/Salt/Command/ICommand.html" title="interface in me.Salt.Command">ICommand</a></code></dd>
 </dl>
 </li>
 </ul>

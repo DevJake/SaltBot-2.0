@@ -1,6 +1,6 @@
 me.Salt
 me.Salt.Command
-me.Salt.Container
+me.Salt.Command.Container
 me.Salt.Event
 me.Salt.Exception
 me.Salt.Logging
