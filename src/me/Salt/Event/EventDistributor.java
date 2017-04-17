@@ -17,18 +17,42 @@
 package me.Salt.Event;
 
 
-import net.dv8tion.jda.core.events.message.GenericMessageEvent;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Exception.MalformedParametersException;
+import me.Salt.Logging.JLogger;
+import me.Salt.Main;
+import me.Salt.Util.CommandExecutor;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 
 /**
- * Created by Salt001 on 05/04/2017.
+ * Project title: SaltBot-2.0
+ * Authored by Salt on 05/04/2017.
  */
 public class EventDistributor extends ListenerAdapter {
+//TODO redesign the below methods and methods in CommandExecutor. Complete mess. Maybe have a Command class for each event type.
 
     @Override
-    public void onGenericMessage(GenericMessageEvent event) {
-        JGenericMessageEvent.process(event);
+    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
+
+        try {
+            CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
+        } catch (MalformedParametersException e) {
+            JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage());
+        }
     }
 
+    @Override
+    public void onPrivateMessageReceived(PrivateMessageReceivedEvent event) {
+        if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
+
+        try {
+            CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
+        } catch (MalformedParametersException e) {
+            JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage());
+        }
+    }
 }

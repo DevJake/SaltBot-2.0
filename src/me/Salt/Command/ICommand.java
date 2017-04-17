@@ -16,15 +16,27 @@
 
 package me.Salt.Command;
 
-import me.Salt.Container.CommandParser;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Exception.MissingDataException;
+import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
+import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 /**
- * Created by Salt001 on 10/04/2017.
+ * Project title: SaltBot-2.0
+ * Authored by Salt on 10/04/2017.
  */
 public interface ICommand {
-    public boolean preExecution(CommandParser.CommandContainer cmd);
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, Event event);
 
-    public void execute(CommandParser.CommandContainer cmd);
+    public void executeGuildMessageEvent(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e);
 
-    public void postExecution(CommandParser.CommandContainer cmd);
+    public void executePrivateMessageEvent(CommandParser.ParsedCommandContainer cmd, PrivateMessageReceivedEvent e);
+
+
+    public void postExecution(CommandParser.ParsedCommandContainer cmd);
+
+    public CommandContainer getCmdContainer() throws MissingDataException; //Ensures the command extends Command.class
+
+    public void setCmdContainer(CommandContainer cmdContainer); //Ensures the command extends Command.class
 }
