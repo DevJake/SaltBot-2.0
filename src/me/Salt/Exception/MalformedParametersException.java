@@ -19,7 +19,7 @@ package me.Salt.Exception;
 /**
  * Created by Salt001 on 10/04/2017.
  */
-public class MalformedParametersException extends Exception {
+public class MalformedParametersException extends GenericBotException {
     public MalformedParametersException() {
         super();
     }

@@ -14,27 +14,26 @@
  * limitations under the License.
  */
 
-package me.Salt.Command;
-
-import me.Salt.Container.CommandParser;
+package me.Salt.Exception;
 
 /**
- * Created by Salt001 on 10/04/2017.
+ * Project title: SaltBot-2.0
+ * Authored by Salt on 10/04/2017.
  */
-public class HelpCommand implements ICommand {
-
-    @Override
-    public boolean preExecution(CommandParser.CommandContainer cmd) {
-        return false;
+public class GenericBotException extends Exception {
+    public GenericBotException() {
+        super();
     }
 
-    @Override
-    public void execute(CommandParser.CommandContainer cmd) {
-
+    public GenericBotException(String message) {
+        super(message);
     }
 
-    @Override
-    public void postExecution(CommandParser.CommandContainer cmd) {
+    public GenericBotException(String message, Throwable cause) {
+        super(message, cause);
+    }
 
+    public GenericBotException(Throwable cause) {
+        super(cause);
     }
 }

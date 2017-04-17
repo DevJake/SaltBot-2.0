@@ -19,7 +19,7 @@ package me.Salt.Exception;
 /**
  * Created by Salt001 on 09/04/2017.
  */
-public class MissingDataException extends Exception {
+public class MissingDataException extends GenericBotException {
     public MissingDataException() {
         super();
     }
