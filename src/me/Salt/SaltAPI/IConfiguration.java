@@ -16,12 +16,13 @@
 
 package me.Salt.SaltAPI;
 
+import me.Salt.Command.ICommand;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
 
+import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 /**
  * Project title: SaltBot-2.0
@@ -30,21 +31,34 @@ import java.util.Map;
 public interface IConfiguration {
     public String getCmdPrefix();
 
-    public List<JUser> getJUsers();
+//    public List<JUser> getJUsers();
+//
+//    public JUser getJUserByID(String id); //TODO Develop unique method of converting users to an ID. Could use inbuilt IDs, but would be difficult to discriminate between default ID and API-wide ID.
+//
+//    public List<JUser> getJUsersByName(String name);
+//
+//    public List<JGuild> getJGuilds();
+//
+//    public JGuild getJGuildByID(String id);
+//
+//    public List<JGuild> getJGuildsByName(String name);
 
-    public JUser getJUserByID(String id); //TODO Develop unique method of converting users to an ID. Could use inbuilt IDs, but would be difficult to discriminate between default ID and API-wide ID.
+    public HashMap<User, List<IConfiguration.Authority>> getStaff(); //TODO
 
-    public List<JUser> getJUsersByName(String name);
+    public HashMap<String, ICommand> getCommands();
 
-    public List<JGuild> getJGuilds();
+    public String getName();
 
-    public JGuild getJGuildByID(String id);
+    public String getWebsite();
 
-    public List<JGuild> getJGuildsByName(String name);
+    public long getStartupTime();
 
-    public Map<User, Rank> getTeam(); //TODO
+    public long getUptime();
 
-    public enum Rank {
+    public boolean isDebugMode();
+
+    public enum Authority {
+        OWNER,
         DEVELOPER,
         CONTRIBUTOR,
         TESTER

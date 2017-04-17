@@ -16,29 +16,57 @@
 
 package me.Salt.SaltAPI;
 
+import me.Salt.Command.ICommand;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
 
-import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
-import java.util.stream.Collectors;
 
 /**
  * Project title: SaltBot-2.0
  * Created by Salt on 10/04/2017.
  */
 public class ConfigurationImpl implements IConfiguration {
+    private final long startupTime;
     private String cmdPrefix;
+    private String name;
+    private String website;
     private HashMap<String, JUser> JUsers; //Store by ID, JUser
     private HashMap<String, JGuild> JGuilds; //As above; Store by ID, Guild
-    private Map<User, Rank> staff;
+    private HashMap<User, List<IConfiguration.Authority>> staff;
+    private HashMap<String, ICommand> commands;
+    private boolean debugMode;
 
-    public ConfigurationImpl(String cmdPrefix, Map<User, Rank> staff) {
+    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode) {
+        this.startupTime = startupTime;
         this.cmdPrefix = cmdPrefix;
+        this.name = name;
+        this.website = website;
         this.staff = staff;
+        this.commands = commands;
+        this.debugMode = debugMode;
+    }
+
+    @Override
+    public HashMap<User, List<Authority>> getStaff() {
+        return staff;
+    }
+
+    @Override
+    public long getStartupTime() {
+        return startupTime;
+    }
+
+    @Override
+    public long getUptime() {
+        return System.currentTimeMillis()-startupTime;
+    }
+
+    @Override
+    public boolean isDebugMode() {
+        return debugMode;
     }
 
     @Override
@@ -46,39 +74,49 @@ public class ConfigurationImpl implements IConfiguration {
         return cmdPrefix;
     }
 
+//    @Override
+//    public List<JUser> getJUsers() {
+//        return new ArrayList<>(JUsers.values());
+//    }
+//
+//    @Override
+//    public JUser getJUserByID(String id) {
+//        return JUsers.get(id); //TODO Add safety check
+//    }
+//
+//    @Override
+//    public List<JUser> getJUsersByName(String name) {
+//        return JUsers.size() > 0 ? JUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+//    }
+//
+//    @Override
+//    public List<JGuild> getJGuilds() {
+//        return new ArrayList<>(JGuilds.values());
+//    }
+//
+//    @Override
+//    public JGuild getJGuildByID(String id) {
+//        return JGuilds.get(id); //TODO Add safety check
+//    }
+//
+//    @Override
+//    public List<JGuild> getJGuildsByName(String name) {
+//        return JGuilds.size() > 0 ? JGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+//    }
+
     @Override
-    public List<JUser> getJUsers() {
-        return new ArrayList<>(JUsers.values());
+    public HashMap<String, ICommand> getCommands() {
+        return commands;
     }
 
     @Override
-    public JUser getJUserByID(String id) {
-        return JUsers.get(id); //TODO Add safety check
+    public String getName() {
+        return name;
     }
 
     @Override
-    public List<JUser> getJUsersByName(String name) {
-        return JUsers.size() > 0 ? JUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
-    }
-
-    @Override
-    public List<JGuild> getJGuilds() {
-        return new ArrayList<>(JGuilds.values());
-    }
-
-    @Override
-    public JGuild getJGuildByID(String id) {
-        return JGuilds.get(id); //TODO Add safety check
-    }
-
-    @Override
-    public List<JGuild> getJGuildsByName(String name) {
-        return JGuilds.size() > 0 ? JGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
-    }
-
-    @Override
-    public Map<User, Rank> getTeam() {
-        return staff;
+    public String getWebsite() {
+        return website;
     }
 
 
