@@ -19,7 +19,6 @@ package me.Salt.Command;
 import me.Salt.Permissions.Permission;
 import net.dv8tion.jda.core.entities.User;
 
-import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -27,38 +26,34 @@ import java.util.List;
  * Created by Salt on 09/04/2017.
  */
 public class CommandDescription {
-    private HashMap<String, Boolean> parameters;
-    private HashMap<String, Boolean> definers;
+    private List<Field> fields; //List of parameters and definers
+    //TODO Make wiki entry on what parameters and definers are
     private String name;
-    private String description;
-    private User author;
+    private String description; //Summary of fullDescription
+    private String fullDescription; //A full description of the command, including how it's used, example usages, etc.
+    private List<User> authors;
     private boolean isComplete;
-    private boolean supportsPermissions;
     private List<Permission> requiredPermissions;
     private String helpMessage;
     private boolean deprecated;
-    private List<String> commandCallers; //What text is to be identified by the program as pointing to this command
+    private List<String> aliases; //What text is to be identified by the program as pointing to this command
 
-    public CommandDescription(HashMap<String, Boolean> parameters, HashMap<String, Boolean> definers, String name, String description, User author, boolean isComplete, boolean supportsPermissions, List<Permission> requiredPermissions, String helpMessage, boolean deprecated, List<String> commandCallers) {
-        this.parameters = parameters;
-        this.definers = definers;
+    public CommandDescription(List<Field> fields, String name, String description, String fullDescription, List<User> authors, boolean isComplete, List<Permission> requiredPermissions, String helpMessage, boolean deprecated, List<String> aliases) {
+
+        this.fields = fields;
         this.name = name;
         this.description = description;
-        this.author = author;
+        this.fullDescription = fullDescription;
+        this.authors = authors;
         this.isComplete = isComplete;
-        this.supportsPermissions = supportsPermissions;
         this.requiredPermissions = requiredPermissions;
         this.helpMessage = helpMessage;
         this.deprecated = deprecated;
-        this.commandCallers = commandCallers;
+        this.aliases = aliases;
     }
 
-    public HashMap<String, Boolean> getParameters() {
-        return parameters;
-    }
-
-    public HashMap<String, Boolean> getDefiners() {
-        return definers;
+    public List<Field> getFields() {
+        return fields;
     }
 
     public String getName() {
@@ -69,16 +64,16 @@ public class CommandDescription {
         return description;
     }
 
-    public User getAuthor() {
-        return author;
+    public String getFullDescription() {
+        return fullDescription;
+    }
+
+    public List<User> getAuthors() {
+        return authors;
     }
 
     public boolean isComplete() {
         return isComplete;
-    }
-
-    public boolean isSupportsPermissions() {
-        return supportsPermissions;
     }
 
     public List<Permission> getRequiredPermissions() {
@@ -93,8 +88,8 @@ public class CommandDescription {
         return deprecated;
     }
 
-    public List<String> getCommandCallers() {
-        return commandCallers;
+    public List<String> getAliases() {
+        return aliases;
     }
 
     @Override
@@ -102,7 +97,7 @@ public class CommandDescription {
         return "CommandDescription{" +
                 "name='" + name + '\'' +
                 ", description='" + description + '\'' +
-                ", author='" + author.getName() + '\'' +
+                ", author='" + authors.toString() + '\'' +
                 ", helpMessage='" + helpMessage + '\'' +
                 '}';
     }

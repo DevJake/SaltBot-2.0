@@ -20,7 +20,7 @@ import me.Salt.Exception.MissingDataException;
 import me.Salt.Permissions.Permission;
 import net.dv8tion.jda.core.entities.User;
 
-import java.util.HashMap;
+import java.util.ArrayList;
 import java.util.List;
 
 
@@ -29,33 +29,22 @@ import java.util.List;
  * Created by Salt on 09/04/2017.
  */
 public class CommandDescriptionBuilder {
-
-    private HashMap<String, Boolean> parameters;
-    private HashMap<String, Boolean> definers;
+    private List<Field> fields = new ArrayList<>(); //List of parameters and definers
     private String name;
     private String description;
-    private User author;
+    private String fullDescription; //A full description of the command, including how it's used, example usages, etc.
+    private List<User> authors = new ArrayList<>();
     private String helpMessage;
     private boolean isComplete;
-    private boolean supportsPermissions;
-    private List<Permission> requiredPermissions;
+    private List<Permission> requiredPermissions = new ArrayList<>();
     private boolean deprecated;
-    private List<String> commandCallers;
+    private List<String> aliases = new ArrayList<>();
 
-    public CommandDescriptionBuilder setCommandCallers(List<String> commandCallers) {
-        this.commandCallers = commandCallers; //TODO convert all elements to lowercase
+    public CommandDescriptionBuilder addAlias(String alias) {
+        this.aliases.add(alias.toLowerCase()); //TODO convert all elements to lowercase
         return this;
     }
 
-    public CommandDescriptionBuilder setParameters(HashMap<String, Boolean> parameters) {
-        this.parameters = parameters;
-        return this;
-    }
-
-    public CommandDescriptionBuilder setDefiners(HashMap<String, Boolean> definers) {
-        this.definers = definers;
-        return this;
-    }
 
     public CommandDescriptionBuilder setName(String name) {
         this.name = name;
@@ -67,8 +56,18 @@ public class CommandDescriptionBuilder {
         return this;
     }
 
-    public CommandDescriptionBuilder setAuthor(User author) {
-        this.author = author;
+    public CommandDescriptionBuilder setFullDescription(String fullDescription) {
+        this.fullDescription = fullDescription;
+        return this;
+    }
+
+    public CommandDescriptionBuilder addAuthor(User author) {
+        this.authors.add(author);
+        return this;
+    }
+
+    public CommandDescriptionBuilder addField(Field field) {
+        this.fields.add(field);
         return this;
     }
 
@@ -82,13 +81,8 @@ public class CommandDescriptionBuilder {
         return this;
     }
 
-    public CommandDescriptionBuilder setSupportsPermissions(boolean supportsPermissions) {
-        this.supportsPermissions = supportsPermissions;
-        return this;
-    }
-
-    public CommandDescriptionBuilder setRequiredPermissions(List<Permission> requiredPermissions) {
-        this.requiredPermissions = requiredPermissions;
+    public CommandDescriptionBuilder addRequiredPermissions(Permission permission) {
+        this.requiredPermissions.add(permission);
         return this;
     }
 
@@ -98,9 +92,9 @@ public class CommandDescriptionBuilder {
     }
 
     public CommandDescription build() throws MissingDataException {
-        Checker checker = () -> name != null && description != null && author != null; //TODO Rework for new variables
+        Checker checker = () -> true; //TODO Rework for new variables
         if (checker.check())
-            return new CommandDescription(parameters, definers, name, description, author, isComplete, supportsPermissions, requiredPermissions, helpMessage, deprecated, commandCallers);
+            return new CommandDescription(fields, name, description, fullDescription, authors, isComplete, requiredPermissions, helpMessage, deprecated, aliases);
         else throw new MissingDataException("Invalid data entered! Likely null values.");
         //TODO add Logger.write(...) call
 
