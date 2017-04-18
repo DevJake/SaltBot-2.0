@@ -16,8 +16,6 @@
 
 package me.Salt.Command;
 
-import me.Salt.Exception.MissingDataException;
-
 /**
  * Project title: SaltBot-2.0
  * Authored by Salt on 17/04/2017.
@@ -25,12 +23,11 @@ import me.Salt.Exception.MissingDataException;
 public class Command {
     private CommandContainer cmdContainer;
 
-    public Command(CommandContainer commandContainer){
+    public Command(CommandContainer commandContainer) {
         this.cmdContainer = commandContainer;
     }
 
-    public CommandContainer getCmdContainer() throws MissingDataException {
-        if (cmdContainer == null) throw new MissingDataException("ParsedCommandContainer not set!");
+    public CommandContainer getCmdContainer() {
         return cmdContainer;
     }
 

@@ -18,6 +18,7 @@ package me.Salt.Command;
 
 import me.Salt.Exception.MissingDataException;
 import me.Salt.Permissions.Permission;
+import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
@@ -39,9 +40,15 @@ public class CommandDescriptionBuilder {
     private List<Permission> requiredPermissions = new ArrayList<>();
     private boolean deprecated;
     private List<String> aliases = new ArrayList<>();
+    private Cooldown cooldown;
 
     public CommandDescriptionBuilder addAlias(String alias) {
         this.aliases.add(alias.toLowerCase()); //TODO convert all elements to lowercase
+        return this;
+    }
+
+    public CommandDescriptionBuilder setCooldown(Cooldown cooldown) {
+        this.cooldown = cooldown;
         return this;
     }
 
@@ -94,7 +101,7 @@ public class CommandDescriptionBuilder {
     public CommandDescription build() throws MissingDataException {
         Checker checker = () -> true; //TODO Rework for new variables
         if (checker.check())
-            return new CommandDescription(fields, name, description, fullDescription, authors, isComplete, requiredPermissions, helpMessage, deprecated, aliases);
+            return new CommandDescription(fields, name, description, fullDescription, authors, isComplete, requiredPermissions, helpMessage, deprecated, aliases, cooldown);
         else throw new MissingDataException("Invalid data entered! Likely null values.");
         //TODO add Logger.write(...) call
 
