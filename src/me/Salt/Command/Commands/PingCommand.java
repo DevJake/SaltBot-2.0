@@ -24,9 +24,9 @@ import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
-import java.awt.*;
+import java.time.format.DateTimeFormatter;
+import java.util.concurrent.TimeUnit;
 
 /**
  * Project title: SaltBot-2.0
@@ -44,14 +44,19 @@ public class PingCommand extends Command implements ICommand {
     }
 
     @Override
-    public void executeGuildMessageEvent(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
+    public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         long n = System.currentTimeMillis();
-        e.getChannel().sendMessage(new EmbedBuilder().appendDescription("Calculating...").setColor(Color.BLUE).build()).queue(m -> m.editMessage(new EmbedBuilder().setDescription("\uD83C\uDFD3 Pong! (" + (System.currentTimeMillis()-n) + "ms)").setColor(Color.BLUE).build()).queue());
-    }
-
-    @Override
-    public void executePrivateMessageEvent(CommandParser.ParsedCommandContainer cmd, PrivateMessageReceivedEvent e) {
-
+        e.getChannel().sendMessage(
+                new EmbedBuilder()
+                        .appendDescription("Calculating...")
+                        .setColor(Main.salt.getEmbedColour())
+                        .build()).queue(m -> m.editMessage(
+                new EmbedBuilder()
+                        .setTitle("Pong! \uD83C\uDFD3", null)
+                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), null)
+                        .setDescription("Response speed of " + (System.currentTimeMillis() - n) + "ms. \nThis message will be automatically deleted in 10 seconds.")
+                        .setColor(Main.salt.getEmbedColour()).build())
+                .queue());
     }
 
 
