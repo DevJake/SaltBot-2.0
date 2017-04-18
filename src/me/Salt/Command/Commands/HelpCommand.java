@@ -22,7 +22,6 @@ import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 /**
  * Project title: SaltBot-2.0
@@ -40,15 +39,8 @@ public class HelpCommand extends Command implements ICommand {
     }
 
     @Override
-    public void executeGuildMessageEvent(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        System.out.println("Response (guild)");
-        e.getChannel().sendMessage("Test3").queue();
-    }
-
-    @Override
-    public void executePrivateMessageEvent(CommandParser.ParsedCommandContainer cmd, PrivateMessageReceivedEvent e) {
-        System.out.println("Response (private)");
-        e.getChannel().sendMessage("Test4").queue();
+    public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
+        //TODO
     }
 
     @Override
