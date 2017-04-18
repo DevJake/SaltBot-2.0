@@ -19,6 +19,7 @@ package me.Salt;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.CommandDescriptionBuilder;
 import me.Salt.Command.Commands.HelpCommand;
+import me.Salt.Command.Commands.IssueCommand;
 import me.Salt.Command.Commands.PingCommand;
 import me.Salt.Command.Commands.RatesCommand;
 import me.Salt.Event.EventDistributor;
@@ -86,12 +87,26 @@ public class Main {
                                         .addAuthor(jda.getUserById("112633500447838208"))
                                         .setComplete(true)
                                         .setDeprecated(false)
-                                        .setDescription("Request a list of rate limits for Discord")
+                                        .setDescription("Request a list of rate limits applicable to Discord bots")
                                         .setName("Rate-limits")
                                         .setCooldown(new Cooldown(30, TimeUnit.SECONDS))
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE)
                         )))
+                .registerCommand("issue", new IssueCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("reportissue")
+                                        .addAlias("addissue")
+                                        .addAlias("issues")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Provides help on any aspect of any command")
+                                        .setName("Help")
+                                        .setCooldown(new Cooldown(1, TimeUnit.MINUTES))
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();
     }
 
