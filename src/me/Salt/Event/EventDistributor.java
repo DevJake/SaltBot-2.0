@@ -23,8 +23,8 @@ import me.Salt.Logging.JLogger;
 import me.Salt.Main;
 import me.Salt.Util.CommandExecutor;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+
 
 
 /**
@@ -32,27 +32,20 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter;
  * Authored by Salt on 05/04/2017.
  */
 public class EventDistributor extends ListenerAdapter {
-//TODO redesign the below methods and methods in CommandExecutor. Complete mess. Maybe have a Command class for each event type.
-
+    //TODO add support for PrivateMessageReceivedEvent (Perhaps have an interface for guild events and one for private events. Each command that implements them is then able to be called upon in their respective methods)
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+        Runnable r = () -> {
         if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
 
         try {
             CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
         } catch (MalformedParametersException e) {
-            JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage());
+            JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage()); //TODO provide feedback about the error, and perhaps how to correct it/obtain help
         }
-    }
+    };
 
-    @Override
-    public void onPrivateMessageReceived(PrivateMessageReceivedEvent event) {
-        if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
-
-        try {
-            CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
-        } catch (MalformedParametersException e) {
-            JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage());
-        }
+        Thread t1 = new Thread(r);
+        t1.start();
     }
 }
