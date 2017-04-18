@@ -20,18 +20,22 @@ import me.Salt.Command.CommandContainer;
 import me.Salt.Command.CommandDescriptionBuilder;
 import me.Salt.Command.Commands.HelpCommand;
 import me.Salt.Command.Commands.PingCommand;
+import me.Salt.Command.Commands.RatesCommand;
 import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.DuplicateDataException;
 import me.Salt.Exception.MissingDataException;
 import me.Salt.SaltAPI.ConfigurationBuilder;
 import me.Salt.SaltAPI.IConfiguration;
+import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
+import java.awt.*;
 import java.util.Arrays;
+import java.util.concurrent.TimeUnit;
 
 /**
  * SaltBot 2.0 -- The original, rebuilt!
@@ -48,6 +52,7 @@ public class Main {
                 .setDebugMode(false)
                 .setStartupTime(n)
                 .setName("SaltBot")
+                .setEmbedColour(Color.BLUE)
                 .addTeamMember(jda.getUserById("112633500447838208"),
                         Arrays.asList(IConfiguration.Authority.DEVELOPER, IConfiguration.Authority.OWNER, IConfiguration.Authority.TESTER))
                 .registerCommand("help", new HelpCommand(
@@ -70,9 +75,24 @@ public class Main {
                                         .setDeprecated(false)
                                         .setDescription("Request a ping from the bot")
                                         .setName("Ping")
+                                        .setCooldown(new Cooldown(15, TimeUnit.SECONDS))
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE)
-                        ))).build();
+                        )))
+                .registerCommand("rates", new RatesCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("r") //TODO get aliases working
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(true)
+                                        .setDeprecated(false)
+                                        .setDescription("Request a list of rate limits for Discord")
+                                        .setName("Rate-limits")
+                                        .setCooldown(new Cooldown(30, TimeUnit.SECONDS))
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE)
+                        )))
+                .build();
     }
 
     //TODO add unit tests
