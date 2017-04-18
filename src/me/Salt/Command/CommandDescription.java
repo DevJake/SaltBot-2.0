@@ -17,6 +17,7 @@
 package me.Salt.Command;
 
 import me.Salt.Permissions.Permission;
+import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.List;
@@ -37,8 +38,10 @@ public class CommandDescription {
     private String helpMessage;
     private boolean deprecated;
     private List<String> aliases; //What text is to be identified by the program as pointing to this command
+    private Cooldown cooldown;
+    private boolean hasCooldown = false;
 
-    public CommandDescription(List<Field> fields, String name, String description, String fullDescription, List<User> authors, boolean isComplete, List<Permission> requiredPermissions, String helpMessage, boolean deprecated, List<String> aliases) {
+    public CommandDescription(List<Field> fields, String name, String description, String fullDescription, List<User> authors, boolean isComplete, List<Permission> requiredPermissions, String helpMessage, boolean deprecated, List<String> aliases, Cooldown cooldown) {
 
         this.fields = fields;
         this.name = name;
@@ -50,10 +53,19 @@ public class CommandDescription {
         this.helpMessage = helpMessage;
         this.deprecated = deprecated;
         this.aliases = aliases;
+        this.cooldown = cooldown;
+    }
+
+    public boolean hasCooldown() {
+        return this.cooldown != null;
     }
 
     public List<Field> getFields() {
         return fields;
+    }
+
+    public Cooldown getCooldown() {
+        return cooldown;
     }
 
     public String getName() {
