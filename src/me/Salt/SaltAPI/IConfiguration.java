@@ -21,6 +21,7 @@ import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -56,6 +57,8 @@ public interface IConfiguration {
     public long getUptime();
 
     public boolean isDebugMode();
+
+    public Color getEmbedColour();
 
     public enum Authority {
         OWNER,

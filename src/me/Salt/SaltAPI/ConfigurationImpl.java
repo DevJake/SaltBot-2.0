@@ -21,6 +21,7 @@ import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
 
+import java.awt.*;
 import java.util.HashMap;
 import java.util.List;
 
@@ -38,8 +39,9 @@ public class ConfigurationImpl implements IConfiguration {
     private HashMap<User, List<IConfiguration.Authority>> staff;
     private HashMap<String, ICommand> commands;
     private boolean debugMode;
+    private Color embedColour;
 
-    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode) {
+    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour) {
         this.startupTime = startupTime;
         this.cmdPrefix = cmdPrefix;
         this.name = name;
@@ -47,6 +49,7 @@ public class ConfigurationImpl implements IConfiguration {
         this.staff = staff;
         this.commands = commands;
         this.debugMode = debugMode;
+        this.embedColour = embedColour;
     }
 
     @Override
@@ -70,6 +73,11 @@ public class ConfigurationImpl implements IConfiguration {
     }
 
     @Override
+    public Color getEmbedColour() {
+        return embedColour;
+    }
+
+    @Override
     public String getCmdPrefix() {
         return cmdPrefix;
     }
@@ -81,7 +89,7 @@ public class ConfigurationImpl implements IConfiguration {
 //
 //    @Override
 //    public JUser getJUserByID(String id) {
-//        return JUsers.get(id); //TODO Add safety check
+//        return JUsers.get(id); //TODO Add safety isNotInCooldown
 //    }
 //
 //    @Override
@@ -96,7 +104,7 @@ public class ConfigurationImpl implements IConfiguration {
 //
 //    @Override
 //    public JGuild getJGuildByID(String id) {
-//        return JGuilds.get(id); //TODO Add safety check
+//        return JGuilds.get(id); //TODO Add safety isNotInCooldown
 //    }
 //
 //    @Override

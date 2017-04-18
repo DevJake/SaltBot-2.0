@@ -22,6 +22,7 @@ import me.Salt.Exception.MissingDataException;
 import me.Salt.Logging.JLogger;
 import net.dv8tion.jda.core.entities.User;
 
+import java.awt.*;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -38,6 +39,7 @@ public class ConfigurationBuilder {
     private HashMap<User, List<IConfiguration.Authority>> staff = new HashMap<>();
     private HashMap<String, ICommand> commands = new HashMap<>();
     private boolean debugMode;
+    private Color embedColour;
 
     public ConfigurationBuilder(String cmdPrefix) {
         this.cmdPrefix = cmdPrefix;
@@ -93,10 +95,16 @@ public class ConfigurationBuilder {
         return this;
     }
 
+    public ConfigurationBuilder setEmbedColour(Color colour) {
+        this.embedColour = colour;
+        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Set the Embed colour to " + colour.toString());
+        return this;
+    }
+
     public IConfiguration build() throws MissingDataException {
         SafetyChecker c = (cmdPrefix) -> cmdPrefix != null && cmdPrefix.length() >= 1; //TODO Update
         if (c.isSafe(cmdPrefix))
-            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode);
+            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour);
         else throw new MissingDataException("Missing data for ConfigurationBuilder!");
         //TODO add Logger.write(...) call
     }
