@@ -21,12 +21,11 @@ import me.Salt.Command.ICommand;
 import me.Salt.Exception.MalformedParametersException;
 import me.Salt.Main;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
-import net.dv8tion.jda.core.events.message.priv.PrivateMessageReceivedEvent;
 
 import java.util.concurrent.TimeUnit;
 
 /**
- * Manages the execute cycle of a command. Only handles GuildMessage* events and PrivateMessage* events.
+ * Manages the execute cycle of a command. Currently only handles GuildMessageReceivedEvents
  */
 public class CommandExecutor {
 
@@ -39,27 +38,19 @@ public class CommandExecutor {
 
         ICommand c = Main.salt.getCommands().get(cmd.getCmd());
 
-        if (c.preExecution(cmd, event)) {
-            c.executeGuildMessageEvent(cmd, event);
-            c.postExecution(cmd);
-        } else throw new MalformedParametersException("Incorrect command parameters given!");
-
-        //TODO ensure all preExecution() methods throw a MalformedParametersException if incorrect parameters are inputted.
-
-    }
-
-    public static void execute(CommandParser.ParsedCommandContainer cmd, PrivateMessageReceivedEvent event) throws MalformedParametersException {
-        if (!(Main.salt.getCommands().containsKey(cmd.getCmd()))) {
-            event.getChannel().sendMessage("Command not found!").queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
-            return;//TODO merge this code with the same code from above, into a single method.
+        if (CooldownManager.isNotInCooldown(cmd.getCmd(), c, event.getAuthor(), System.currentTimeMillis())) { //Checking the individual is within the time cooldown
+            if (c.preExecution(cmd, event)) {
+                c.execute(cmd, event);
+                c.postExecution(cmd);
+            } else throw new MalformedParametersException("Incorrect command parameters given!");
+        } else {
+            String n = String.valueOf(CooldownManager.getRemainingTime(cmd.getCmd(), c, event.getAuthor()));
+            if (Long.valueOf(n)>=1000)
+            event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you can use this command in " + n.substring(0, n.length() - 3) + "." + n.substring(n.length() - 3, n.length()) + " seconds. ").queue(m -> m.delete().queueAfter(2, TimeUnit.SECONDS));
+            else
+                event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you can use this command in <1 seconds.").queue(m -> m.delete().queueAfter(2, TimeUnit.SECONDS));
         }
-
-        ICommand c = Main.salt.getCommands().get(cmd.getCmd());
-
-        if (c.preExecution(cmd, event)) {
-            c.executePrivateMessageEvent(cmd, event);
-            c.postExecution(cmd);
-        } else throw new MalformedParametersException("Incorrect command parameters given!");
-
+        //TODO ensure all preExecution() methods throw a MalformedParametersException if incorrect parameters are inputted.
     }
 }
+
