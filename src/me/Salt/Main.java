@@ -18,10 +18,7 @@ package me.Salt;
 
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.CommandDescriptionBuilder;
-import me.Salt.Command.Commands.HelpCommand;
-import me.Salt.Command.Commands.IssueCommand;
-import me.Salt.Command.Commands.PingCommand;
-import me.Salt.Command.Commands.RatesCommand;
+import me.Salt.Command.Commands.*;
 import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.DuplicateDataException;
 import me.Salt.Exception.MissingDataException;
@@ -35,6 +32,7 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
+import java.io.*;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -46,13 +44,13 @@ public class Main {
     public static JDA jda;
     public static IConfiguration salt;
 
-    public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException {
-
-        jda = new JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.C9aoxA.BAQNRUAKr2i3RPYhmE3KTq4z-W0").addListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+    public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
+        jda = new JDABuilder(AccountType.BOT).setToken(new BufferedReader(new FileReader(new File("C:\\Users\\jake\\Desktop\\GitHub\\SaltBot-2.0\\src\\me\\Salt\\Configuration\\config.txt"))).readLine()).addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+        //TODO improve above method. Currently a temporary fix to an exploit.
         salt = new ConfigurationBuilder(".")
                 .setDebugMode(false)
                 .setStartupTime(n)
-                .setName("SaltBot")
+                .setName("SaltBot-2.0")
                 .setEmbedColour(Color.BLUE)
                 .addTeamMember(jda.getUserById("112633500447838208"),
                         Arrays.asList(IConfiguration.Authority.DEVELOPER, IConfiguration.Authority.OWNER, IConfiguration.Authority.TESTER))
@@ -103,8 +101,31 @@ public class Main {
                                         .setComplete(false)
                                         .setDeprecated(false)
                                         .setDescription("Provides help on any aspect of any command")
-                                        .setName("Help")
+                                        .setName("Issue Tracker")
                                         .setCooldown(new Cooldown(1, TimeUnit.MINUTES))
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("stats", new StatisticsCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("statistics")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Provides details of current bot statistics")
+                                        .setName("Statistics Viewer")
+                                        .setCooldown(new Cooldown(20, TimeUnit.SECONDS))
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("say", new SayCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("echo")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Echoes any arguments given")
+                                        .setName("Say")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();
