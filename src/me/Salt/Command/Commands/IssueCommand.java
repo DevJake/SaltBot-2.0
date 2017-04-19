@@ -48,7 +48,7 @@ public class IssueCommand extends Command implements ICommand {
                 .setTitle("Reporting an issue", "https://github.com/DevJake/SaltBot-2.0/issues/new")
                 .addField("Why raise an issue?", "You can raise an issue if you: \n" +
                                 "> Have found a bug\n" +
-                                "> Want to suggest a new feature\n" +
+                                "> Want to suggest a new feature (or changes to an existing one)\n" +
                                 "> Have any general queries about the bot, a command, or anything else\n\n" +
                                 "Notice: reporting a bug will result in gaining a reward, such as a boost to your currency or a free upgrade to premium!"
                         , true)

@@ -50,7 +50,7 @@ public class ConfigurationBuilder {
         StringBuilder sb = new StringBuilder();
         int i = 0;
         authority.forEach(a -> {
-            if (authority.indexOf(a) < authority.size()-1) sb.append(a.name() + ", ");
+            if (authority.indexOf(a) < authority.size() - 1) sb.append(a.name() + ", ");
             else sb.append("and " + a.name());
         });
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Added a team member (\'" + user.getName() + "\', ID#" + user.getId() + ") with Authority levels of " + sb.toString());

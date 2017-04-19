@@ -26,7 +26,6 @@ import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
-import java.util.concurrent.TimeUnit;
 
 /**
  * Project title: SaltBot-2.0
@@ -54,7 +53,7 @@ public class PingCommand extends Command implements ICommand {
                 new EmbedBuilder()
                         .setTitle("Pong! \uD83C\uDFD3", null)
                         .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), null)
-                        .setDescription("Response speed of " + (System.currentTimeMillis() - n) + "ms. \nThis message will be automatically deleted in 10 seconds.")
+                        .setDescription("Response speed of " + (System.currentTimeMillis() - n) + "ms")
                         .setColor(Main.salt.getEmbedColour()).build())
                 .queue());
     }
