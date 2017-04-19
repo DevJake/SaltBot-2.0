@@ -52,6 +52,7 @@ public class CommandParser {
         private List<String> splitBeheaded;
         private String cmd;
         private String cmdUpper;
+//TODO add List<String> definers, then sort args from definers. Definer often starts with a '-', but add a variable to SaltAPI to get and set the definer.
 
         /**
          * @param rawText       String - The raw text of the command

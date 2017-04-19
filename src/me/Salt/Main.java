@@ -32,7 +32,10 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
-import java.io.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -128,9 +131,21 @@ public class Main {
                                         .setName("Say")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("remind", new RemindMeCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("remindme")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Reminds the individual about something at a specified date")
+                                        .setName("Scheduled Reminder")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();
     }
 
     //TODO add unit tests
     //TODO add JavaDoc comments where possible
+    //TODO allow each guild to establish its own TimeZone. Then ensure all times and dates in the guild are adjusted to suit their times. Also attach the timezone name (such as UTC) after all times.
 }

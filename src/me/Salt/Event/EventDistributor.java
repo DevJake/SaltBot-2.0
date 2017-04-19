@@ -25,6 +25,8 @@ import me.Salt.Util.CommandExecutor;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.util.concurrent.TimeUnit;
+
 
 /**
  * Project title: SaltBot-2.0
@@ -41,6 +43,7 @@ public class EventDistributor extends ListenerAdapter {
                 CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
             } catch (MalformedParametersException e) {
                 JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage()); //TODO provide feedback about the error, and perhaps how to correct it/obtain help
+                event.getChannel().sendMessage(e.getMessage()).queue(n -> n.delete().queueAfter(5, TimeUnit.SECONDS));
             }
         };
 
