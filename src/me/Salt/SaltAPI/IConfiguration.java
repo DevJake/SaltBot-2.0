@@ -60,6 +60,14 @@ public interface IConfiguration {
 
     public Color getEmbedColour();
 
+    public int getCommandCount();
+
+    public int getMessageCount();
+
+    public void incrementCommandCount();
+
+    public void incrementMessageCount();
+
     public enum Authority {
         OWNER,
         DEVELOPER,

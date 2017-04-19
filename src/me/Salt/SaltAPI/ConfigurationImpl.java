@@ -40,6 +40,8 @@ public class ConfigurationImpl implements IConfiguration {
     private HashMap<String, ICommand> commands;
     private boolean debugMode;
     private Color embedColour;
+    private int commandCount;
+    private int messageCount;
 
     public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour) {
         this.startupTime = startupTime;
@@ -64,7 +66,7 @@ public class ConfigurationImpl implements IConfiguration {
 
     @Override
     public long getUptime() {
-        return System.currentTimeMillis()-startupTime;
+        return System.currentTimeMillis() - startupTime;
     }
 
     @Override
@@ -75,6 +77,26 @@ public class ConfigurationImpl implements IConfiguration {
     @Override
     public Color getEmbedColour() {
         return embedColour;
+    }
+
+    @Override
+    public int getCommandCount() {
+        return commandCount;
+    }
+
+    @Override
+    public int getMessageCount() {
+        return messageCount;
+    }
+
+    @Override
+    public void incrementCommandCount() {
+        commandCount++;
+    }
+
+    @Override
+    public void incrementMessageCount() {
+        messageCount++;
     }
 
     @Override

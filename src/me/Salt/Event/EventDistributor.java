@@ -26,7 +26,6 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 
-
 /**
  * Project title: SaltBot-2.0
  * Authored by Salt on 05/04/2017.
@@ -36,16 +35,23 @@ public class EventDistributor extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
         Runnable r = () -> {
-        if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
+            if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
 
-        try {
-            CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
-        } catch (MalformedParametersException e) {
-            JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage()); //TODO provide feedback about the error, and perhaps how to correct it/obtain help
-        }
-    };
+            try {
+                CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
+            } catch (MalformedParametersException e) {
+                JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage()); //TODO provide feedback about the error, and perhaps how to correct it/obtain help
+            }
+        };
 
         Thread t1 = new Thread(r);
-        t1.start();
+        if (event.getMessage().getRawContent().startsWith(Main.salt.getCmdPrefix())) {
+            Main.salt.incrementCommandCount();
+            t1.start();
+        } else {
+            Main.salt.incrementMessageCount();
+        }
+
+
     }
 }
