@@ -48,8 +48,9 @@ public class Main {
     public static IConfiguration salt;
 
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
-        jda = new JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.C9ph9A.xo8q89YqJY0f4VzURh-7FXB0S-M").addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+        jda = new JDABuilder(AccountType.BOT).setToken(new BufferedReader(new FileReader(new File("C:\\Users\\jake\\Desktop\\GitHub\\SaltBot-2.0\\src\\me\\Salt\\Configuration\\config.txt"))).readLine()).addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
         //TODO improve above method. Currently a temporary fix to an exploit.
+        //TODO also, change token, as a failsafe. 
         salt = new ConfigurationBuilder(".")
                 .setDebugMode(false)
                 .setStartupTime(n)

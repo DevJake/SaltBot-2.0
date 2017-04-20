@@ -61,7 +61,7 @@ public class CooldownManager {
 //TODO convert remaining time to seconds.
         long called = cooldowns.get(command).get(user);
         long cooldown = Main.salt.getCommands().get(cmd).getCmdContainer().getCommandDescription().getCooldown().getValue();
-        return cooldown-(System.currentTimeMillis()-called);
+        return cooldown - (System.currentTimeMillis() - called);
         //TODO We can assume that cooldowns contains the value(s) already, as we know isNotInCooldown(...) will already have been called. In future, add the necessary checks. Throw an exception if data is missing.
     }
 }

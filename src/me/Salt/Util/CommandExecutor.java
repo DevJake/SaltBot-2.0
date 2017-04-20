@@ -42,11 +42,12 @@ public class CommandExecutor {
             if (c.preExecution(cmd, event)) {
                 c.execute(cmd, event);
                 c.postExecution(cmd);
-            } else throw new MalformedParametersException("Incorrect command parameters given! Please use `" + Main.salt.getCmdPrefix() + "help " + cmd.getCmd() + "`");
+            } else
+                throw new MalformedParametersException("Incorrect command parameters given! Please use `" + Main.salt.getCmdPrefix() + "help " + cmd.getCmd() + "`");
         } else {
             String n = String.valueOf(CooldownManager.getRemainingTime(cmd.getCmd(), c, event.getAuthor()));
-            if (Long.valueOf(n)>=1000)
-            event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you can use this command in " + n.substring(0, n.length() - 3) + "." + n.substring(n.length() - 3, n.length()) + " seconds. ").queue(m -> m.delete().queueAfter(2, TimeUnit.SECONDS));
+            if (Long.valueOf(n) >= 1000)
+                event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you can use this command in " + n.substring(0, n.length() - 3) + "." + n.substring(n.length() - 3, n.length()) + " seconds. ").queue(m -> m.delete().queueAfter(2, TimeUnit.SECONDS));
             else
                 event.getChannel().sendMessage(event.getAuthor().getAsMention() + ", you can use this command in <1 seconds.").queue(m -> m.delete().queueAfter(2, TimeUnit.SECONDS));
         }

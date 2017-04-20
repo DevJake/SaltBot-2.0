@@ -17,9 +17,9 @@
 package me.Salt.Permissions;
 
 /**
- * Created by Salt001 on 09/04/2017.
+ * Project title: SaltBot-2.0
+ * Authored by Salt on 09/04/2017.
  */
-
 public enum Permission {
-    //TODO
+    //Add perm to bypass Cooldowns. Add per command.
 }
