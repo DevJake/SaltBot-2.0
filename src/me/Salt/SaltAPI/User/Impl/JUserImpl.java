@@ -19,8 +19,12 @@ package me.Salt.SaltAPI.User.Impl;
 import me.Salt.SaltAPI.User.JUser;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
+import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -29,14 +33,118 @@ import java.util.List;
  */
 public class JUserImpl implements JUser {
     private User user;
-    private List<WarningBuilder.Warning> warnings;
+    private List<WarningBuilder.Warning> warnings = new ArrayList<>();
     private PrivilegeState privilegeState;
+    private String userId;
+    private LocalDateTime lastMessage;
+    private LocalDateTime lastOnline;
+    private Guild lastSpokenGuild;
+    private TextChannel lastTextChannel;
+    private String lastNickname;
 
-    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, PrivilegeState privilegeState) {
+    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, PrivilegeState privilegeState, String userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
         this.warnings = warnings;
         this.privilegeState = privilegeState;
+        this.userId = userId;
+        this.lastMessage = lastMessage;
+        this.lastOnline = lastOnline;
+        this.lastSpokenGuild = lastSpokenGuild;
+        this.lastTextChannel = lastTextChannel;
+        this.lastNickname = lastNickname;
+    }
 
+    @Override
+    public JUser addWarning(WarningBuilder.Warning warning) {
+        this.warnings.add(warning);
+        return this;
+    }
+
+    @Override
+    public JUser removeWarning(WarningBuilder.Warning warning) {
+        if (this.warnings.contains(warning)) this.warnings.remove(warning);
+        return this;
+    }
+
+    @Override
+    public JUser setPrivilegeState(PrivilegeState privilegeState) {
+        this.privilegeState = privilegeState;
+        return this;
+    }
+
+    @Override
+    public String toString() {
+        return "JUserImpl{" +
+                "user=" + user +
+                ", warnings=" + warnings.toString() +
+                ", privilegeState=" + privilegeState +
+                ", userId='" + userId + '\'' +
+                ", lastMessage=" + lastMessage +
+                ", lastOnline=" + lastOnline +
+                ", lastSpokenGuild=" + lastSpokenGuild +
+                ", lastTextChannel=" + lastTextChannel +
+                ", lastNickname='" + lastNickname + '\'' +
+                '}';
+    }
+
+    @Override
+    public JUser setLastMessage(LocalDateTime lastMessage) {
+        this.lastMessage = lastMessage;
+        return this;
+    }
+
+    @Override
+    public JUser setLastOnline(LocalDateTime lastOnline) {
+        this.lastOnline = lastOnline;
+        return this;
+    }
+
+    @Override
+    public JUser setLastSpokenGuild(Guild lastSpokenGuild) {
+        this.lastSpokenGuild = lastSpokenGuild;
+        return this;
+    }
+
+    @Override
+    public JUser setLastTextChannel(TextChannel lastTextChannel) {
+        this.lastTextChannel = lastTextChannel;
+        return this;
+    }
+
+    @Override
+    public JUser setLastNickname(String lastNickname) {
+        this.lastNickname = lastNickname;
+        return this;
+    }
+
+    @Override
+    public String getUserId() {
+        return userId;
+    }
+
+    @Override
+    public LocalDateTime getLastMessage() {
+        return lastMessage;
+    }
+
+    @Override
+    public LocalDateTime getLastOnline() {
+        return lastOnline;
+    }
+
+    @Override
+    public Guild getLastSpokenGuild() {
+        return lastSpokenGuild;
+    }
+
+    @Override
+    public TextChannel getLastTextChannel() {
+        return lastTextChannel;
+    }
+
+    @Override
+    public String getLastNickname() {
+        return lastNickname;
     }
 
     @Override

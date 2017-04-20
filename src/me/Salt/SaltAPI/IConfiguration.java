@@ -68,6 +68,14 @@ public interface IConfiguration {
 
     public void incrementMessageCount();
 
+    public void setJUser(JUser user);
+
+    public void setJGuild(JGuild guild);
+
+    public JUser getJUser(String id);
+
+    public JGuild getJGuild(String id);
+
     public enum Authority {
         OWNER,
         DEVELOPER,

@@ -34,10 +34,10 @@ public class ConfigurationImpl implements IConfiguration {
     private String cmdPrefix;
     private String name;
     private String website;
-    private HashMap<String, JUser> JUsers; //Store by ID, JUser
-    private HashMap<String, JGuild> JGuilds; //As above; Store by ID, Guild
-    private HashMap<User, List<IConfiguration.Authority>> staff;
-    private HashMap<String, ICommand> commands;
+    private HashMap<String, JUser> JUsers = new HashMap<>(); //Store by ID, JUser
+    private HashMap<String, JGuild> JGuilds = new HashMap<>(); //As above; Store by ID, Guild
+    private HashMap<User, List<IConfiguration.Authority>> staff = new HashMap<>();
+    private HashMap<String, ICommand> commands = new HashMap<>();
     private boolean debugMode;
     private Color embedColour;
     private int commandCount;
@@ -95,8 +95,32 @@ public class ConfigurationImpl implements IConfiguration {
     }
 
     @Override
+    public void setJUser(JUser user) {
+        if (!this.JUsers.containsKey(user.getUser().getId())) this.JUsers.put(user.getUser().getId(), user);
+        else this.JUsers.replace(user.getUser().getId(), user);
+        System.out.println(user.toString());
+    }
+
+    @Override
+    public void setJGuild(JGuild guild) {
+        if (!this.JGuilds.containsKey(guild.getGuild().getId())) this.JGuilds.put(guild.getGuild().getId(), guild);
+        else this.JGuilds.replace(guild.getGuild().getId(), guild);
+    }
+
+    @Override
+    public JUser getJUser(String id) {
+        return this.JUsers.get(id);
+    }
+
+    @Override
+    public JGuild getJGuild(String id) {
+        return this.JGuilds.get(id);
+    }
+
+    @Override
     public void incrementMessageCount() {
         messageCount++;
+
     }
 
     @Override

@@ -18,8 +18,11 @@ package me.Salt.SaltAPI.User;
 
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
+import net.dv8tion.jda.core.entities.Guild;
+import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 /**
@@ -32,4 +35,32 @@ public interface JUser {
     public List<WarningBuilder.Warning> getWarnings();
 
     public PrivilegeState getPrivilegeState();
+
+    public JUser setPrivilegeState(PrivilegeState privilegeState);
+
+    public String getUserId();
+
+    public LocalDateTime getLastMessage();
+
+    public JUser setLastMessage(LocalDateTime lastMessage);
+
+    public LocalDateTime getLastOnline();
+
+    public JUser setLastOnline(LocalDateTime lastOnline);
+
+    public Guild getLastSpokenGuild();
+
+    public JUser setLastSpokenGuild(Guild lastSpokenGuild);
+
+    public TextChannel getLastTextChannel();
+
+    public JUser setLastTextChannel(TextChannel lastTextChannel);
+
+    public String getLastNickname();
+
+    public JUser setLastNickname(String lastNickname);
+
+    public JUser addWarning(WarningBuilder.Warning warning);
+
+    public JUser removeWarning(WarningBuilder.Warning warning);
 }

@@ -21,10 +21,14 @@ import me.Salt.Command.Container.CommandParser;
 import me.Salt.Exception.MalformedParametersException;
 import me.Salt.Logging.JLogger;
 import me.Salt.Main;
+import me.Salt.SaltAPI.User.JUserBuilder;
 import me.Salt.Util.CommandExecutor;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+import java.time.LocalDateTime;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 
@@ -33,9 +37,23 @@ import java.util.concurrent.TimeUnit;
  * Authored by Salt on 05/04/2017.
  */
 public class EventDistributor extends ListenerAdapter {
+    private ExecutorService executor = Executors.newFixedThreadPool(20);
+
     //TODO add support for PrivateMessageReceivedEvent (Perhaps have an interface for guild events and one for private events. Each command that implements them is then able to be called upon in their respective methods)
     @Override
-    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {
+    public void onGuildMessageReceived(GuildMessageReceivedEvent event) {//TODO Update to MessageReceivedEvent
+        Main.salt.setJUser(
+                new JUserBuilder()
+                        .setUser(event.getAuthor())
+                        .setLastTextChannel(event.getChannel())
+                        .setLastMessage(LocalDateTime.now())
+                        .setLastNickname(event.getMember().getNickname())
+                        .setLastOnline(LocalDateTime.now())
+                        .setLastSpokenGuild(event.getGuild())
+                        .setLastMessage(LocalDateTime.now())
+                        .build()
+        );
+
         Runnable r = () -> {
             if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
 
@@ -47,14 +65,11 @@ public class EventDistributor extends ListenerAdapter {
             }
         };
 
-        Thread t1 = new Thread(r);
         if (event.getMessage().getRawContent().startsWith(Main.salt.getCmdPrefix())) {
             Main.salt.incrementCommandCount();
-            t1.start();
+            executor.execute(r);
         } else {
             Main.salt.incrementMessageCount();
         }
-
-
     }
 }
