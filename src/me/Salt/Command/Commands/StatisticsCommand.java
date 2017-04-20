@@ -22,7 +22,6 @@ import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
 import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
@@ -39,12 +38,14 @@ public class StatisticsCommand extends Command implements ICommand {
     }
 
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, Event event) {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
+        long n = System.currentTimeMillis();
+
         e.getChannel().sendMessage(new EmbedBuilder()
                 .setTitle(Main.salt.getName() + " Statistics", null)
                 .setColor(Main.salt.getEmbedColour())
@@ -55,6 +56,13 @@ public class StatisticsCommand extends Command implements ICommand {
                 .addField("Messages Received", String.valueOf(Main.salt.getMessageCount()), true)
                 .addField("Commands Received", String.valueOf(Main.salt.getCommandCount()), true)
                 .addField("Command Count", String.valueOf(Main.salt.getCommands().size()), true)
+                .addField("Threads", String.valueOf(Thread.activeCount()), true)
+                .addField("Source Code", "[GitHub](https://github.com/DevJake/SaltBot-2.0)", true)
+                .addField("Issue Reports", "[Issues](https://github.com/DevJake/SaltBot-2.0/issues)", true)
+                .addField("Invite", "[Invite](https://discordapp.com/oauth2/authorize?client_id=246309425902649345&scope=bot&permissions=2146958463)", true)
+                .addField("Author", "Salt#3659", true)
+
+                .appendDescription("Generated in " + String.valueOf(System.currentTimeMillis() - n) + "ms")
 
                 .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), null)
                 .build()).queue();
