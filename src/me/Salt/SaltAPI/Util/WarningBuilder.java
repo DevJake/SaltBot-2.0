@@ -80,6 +80,18 @@ public class WarningBuilder {
             this.expirationDate = expirationDate;
         }
 
+        @Override
+        public String toString() {
+            return "Warning{" +
+                    "setter=" + setter +
+                    ", affector=" + affector +
+                    ", reason='" + reason + '\'' +
+                    ", setDate=" + setDate +
+                    ", expirationDate=" + expirationDate +
+                    ", evidenceID='" + evidenceID + '\'' +
+                    '}';
+        }
+
         public User getSetter() {
             return setter;
         }
