@@ -22,7 +22,6 @@ import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
 import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
-import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
@@ -37,7 +36,7 @@ public class IssueCommand extends Command implements ICommand {
     }
 
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, Event event) {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
 

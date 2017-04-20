@@ -20,7 +20,6 @@ import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
-import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
@@ -34,7 +33,7 @@ public class RatesCommand extends Command implements ICommand {
     }
 
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, Event event) {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
 
