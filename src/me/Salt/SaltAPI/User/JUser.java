@@ -42,7 +42,7 @@ public interface JUser {
 
     public JUser setPrivilegeState(PrivilegeState privilegeState);
 
-    public String getUserId();
+    public long getUserId();
 
     public LocalDateTime getLastMessage();
 

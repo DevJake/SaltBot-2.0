@@ -36,16 +36,16 @@ import java.util.List;
 public class JUserImpl implements JUser {
     private User user;
     private List<WarningBuilder.Warning> warnings = new ArrayList<>();
-    private List<Perm> permissions = new ArrayList<>();
+    private List<Perm> permissions = new ArrayList<>(); //TODO move to using Permission.class, not Perm.class.
     private PrivilegeState privilegeState;
-    private String userId;
+    private long userId;
     private LocalDateTime lastMessage;
     private LocalDateTime lastOnline;
     private Guild lastSpokenGuild;
     private TextChannel lastTextChannel;
     private String lastNickname;
 
-    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Perm> permissions, PrivilegeState privilegeState, String userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
+    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Perm> permissions, PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
         this.warnings = warnings;
         this.permissions = permissions;
@@ -57,39 +57,6 @@ public class JUserImpl implements JUser {
         this.lastTextChannel = lastTextChannel;
         this.lastNickname = lastNickname;
     }
-
-    @Override
-    public JUser addWarning(WarningBuilder.Warning warning) {
-        this.warnings.add(warning);
-        return this;
-    }
-
-    @Override
-    public JUser addPermission(Perm permission) throws DuplicateDataException {
-        if (this.permissions.contains(permission))
-            throw new DuplicateDataException("This user already has this permission!");
-        else this.permissions.add(permission);
-        return this;
-    }
-
-    @Override
-    public JUser removePermission(Perm permission) {
-        if (this.permissions.contains(permission)) this.permissions.remove(permission);
-        return this;
-    }
-
-    @Override
-    public JUser removeWarning(WarningBuilder.Warning warning) {
-        if (this.warnings.contains(warning)) this.warnings.remove(warning);
-        return this;
-    }
-
-    @Override
-    public JUser setPrivilegeState(PrivilegeState privilegeState) {
-        this.privilegeState = privilegeState;
-        return this;
-    }
-
 
     @Override
     public String toString() {
@@ -108,9 +75,49 @@ public class JUserImpl implements JUser {
     }
 
     @Override
+    public User getUser() {
+        return user;
+    }
+
+    @Override
+    public List<WarningBuilder.Warning> getWarnings() {
+        return warnings;
+    }
+
+    public List<Perm> getPermissions() {
+        return permissions;
+    }
+
+    @Override
+    public PrivilegeState getPrivilegeState() {
+        return privilegeState;
+    }
+
+    @Override
+    public JUser setPrivilegeState(PrivilegeState privilegeState) {
+        this.privilegeState = privilegeState;
+        return this;
+    }
+
+    @Override
+    public long getUserId() {
+        return userId;
+    }
+
+    @Override
+    public LocalDateTime getLastMessage() {
+        return lastMessage;
+    }
+
+    @Override
     public JUser setLastMessage(LocalDateTime lastMessage) {
         this.lastMessage = lastMessage;
         return this;
+    }
+
+    @Override
+    public LocalDateTime getLastOnline() {
+        return lastOnline;
     }
 
     @Override
@@ -120,9 +127,19 @@ public class JUserImpl implements JUser {
     }
 
     @Override
+    public Guild getLastSpokenGuild() {
+        return lastSpokenGuild;
+    }
+
+    @Override
     public JUser setLastSpokenGuild(Guild lastSpokenGuild) {
         this.lastSpokenGuild = lastSpokenGuild;
         return this;
+    }
+
+    @Override
+    public TextChannel getLastTextChannel() {
+        return lastTextChannel;
     }
 
     @Override
@@ -132,57 +149,39 @@ public class JUserImpl implements JUser {
     }
 
     @Override
+    public String getLastNickname() {
+        return lastNickname;
+    }
+
+    @Override
     public JUser setLastNickname(String lastNickname) {
         this.lastNickname = lastNickname;
         return this;
     }
 
     @Override
-    public String getUserId() {
-        return userId;
-    }
-
-    public List<Perm> getPermissions() {
-        return permissions;
+    public JUser addWarning(WarningBuilder.Warning warning) {
+        this.warnings.add(warning);
+        return this;
     }
 
     @Override
-    public LocalDateTime getLastMessage() {
-        return lastMessage;
+    public JUser removeWarning(WarningBuilder.Warning warning) {
+        if (this.warnings.contains(warning)) this.warnings.remove(warning);
+        return this;
     }
 
     @Override
-    public LocalDateTime getLastOnline() {
-        return lastOnline;
+    public JUser addPermission(Perm permission) throws DuplicateDataException {
+        if (this.permissions.contains(permission))
+            throw new DuplicateDataException("This user already has this permission!");
+        else this.permissions.add(permission);
+        return this;
     }
 
     @Override
-    public Guild getLastSpokenGuild() {
-        return lastSpokenGuild;
-    }
-
-    @Override
-    public TextChannel getLastTextChannel() {
-        return lastTextChannel;
-    }
-
-    @Override
-    public String getLastNickname() {
-        return lastNickname;
-    }
-
-    @Override
-    public PrivilegeState getPrivilegeState() {
-        return privilegeState;
-    }
-
-    @Override
-    public User getUser() {
-        return user;
-    }
-
-    @Override
-    public List<WarningBuilder.Warning> getWarnings() {
-        return warnings;
+    public JUser removePermission(Perm permission) {
+        if (this.permissions.contains(permission)) this.permissions.remove(permission);
+        return this;
     }
 }

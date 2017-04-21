@@ -41,7 +41,7 @@ public class JUserBuilder {
     private List<WarningBuilder.Warning> warnings = new ArrayList<>();
     private List<Perm> permissions = new ArrayList<>();
     private PrivilegeState privilegeState;
-    private String userId;
+    private long userId;
     private LocalDateTime lastMessage;
     private LocalDateTime lastOnline;
     private Guild lastSpokenGuild;
@@ -86,7 +86,7 @@ public class JUserBuilder {
         }
 
         this.user = user;
-        this.userId = user.getId();
+        this.userId = user.getIdLong();
     }
 
     public JUserBuilder() {
@@ -94,6 +94,7 @@ public class JUserBuilder {
 
     public JUserBuilder setUser(User user) {
         this.user = user;
+        this.userId = user.getIdLong();
         return this;
     }
 
@@ -111,11 +112,6 @@ public class JUserBuilder {
 
     public JUserBuilder setPrivilegeState(PrivilegeState privilegeState) {
         this.privilegeState = privilegeState;
-        return this;
-    }
-
-    public JUserBuilder setUserId(String userId) {
-        this.userId = userId;
         return this;
     }
 
@@ -145,7 +141,6 @@ public class JUserBuilder {
     }
 
     public JUser build() {
-        if (userId == null) if (user != null) userId = user.getId();
         return new JUserImpl(user, warnings, permissions, privilegeState, userId, lastMessage, lastOnline, lastSpokenGuild, lastTextChannel, lastNickname);
         //TODO do checks
     }
