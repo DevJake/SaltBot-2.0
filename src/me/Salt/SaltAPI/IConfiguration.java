@@ -17,6 +17,8 @@
 package me.Salt.SaltAPI;
 
 import me.Salt.Command.ICommand;
+import me.Salt.Exception.MissingDataException;
+import me.Salt.Permissions.PermissionHandler;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
@@ -72,9 +74,19 @@ public interface IConfiguration {
 
     public void setJGuild(JGuild guild);
 
-    public JUser getJUser(String id);
+    public JUser getJUserById(String id) throws MissingDataException;
 
-    public JGuild getJGuild(String id);
+    public JGuild getJGuildById(String id) throws MissingDataException;
+
+    public List<JUser> getJUsers();
+
+    public List<JUser> getJUsersByName(String name);
+
+    public List<JGuild> getJGuilds();
+
+    public List<JGuild> getJGuildsByName(String name);
+
+    public PermissionHandler getPermissionHandler();
 
     public enum Authority {
         OWNER,

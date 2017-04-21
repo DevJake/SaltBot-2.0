@@ -20,6 +20,7 @@ import me.Salt.Command.ICommand;
 import me.Salt.Exception.DuplicateDataException;
 import me.Salt.Exception.MissingDataException;
 import me.Salt.Logging.JLogger;
+import me.Salt.Permissions.PermissionHandler;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
@@ -40,9 +41,11 @@ public class ConfigurationBuilder {
     private HashMap<String, ICommand> commands = new HashMap<>();
     private boolean debugMode;
     private Color embedColour;
+    private PermissionHandler permissionHandler;
 
     public ConfigurationBuilder(String cmdPrefix) {
         this.cmdPrefix = cmdPrefix;
+        this.permissionHandler = new PermissionHandler();
     }
 
     public ConfigurationBuilder addTeamMember(User user, List<IConfiguration.Authority> authority) {
@@ -104,7 +107,7 @@ public class ConfigurationBuilder {
     public IConfiguration build() throws MissingDataException {
         SafetyChecker c = (cmdPrefix) -> cmdPrefix != null && cmdPrefix.length() >= 1; //TODO Update
         if (c.isSafe(cmdPrefix))
-            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour);
+            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour, permissionHandler);
         else throw new MissingDataException("Missing data for ConfigurationBuilder!");
         //TODO add Logger.write(...) call
     }

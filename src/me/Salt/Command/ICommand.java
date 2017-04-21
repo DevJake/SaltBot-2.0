@@ -26,7 +26,8 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
  * This interface defines methods that every Command must implement.
  * Typical operation of a command follows as:
  * <p>
- * preExecution() -> execute() -> postExecution()
+ * Operation order:
+ * preExecution() -&gt; execute() -&gt; postExecution()
  * <p>
  * However, if the preExecution method returns false, no further methods shall be called,
  * and the individual will be notified that they have entered incorrect parameters.

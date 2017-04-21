@@ -16,6 +16,8 @@
 
 package me.Salt.SaltAPI.User.Impl;
 
+import me.Salt.Exception.DuplicateDataException;
+import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.User.JUser;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
@@ -34,6 +36,7 @@ import java.util.List;
 public class JUserImpl implements JUser {
     private User user;
     private List<WarningBuilder.Warning> warnings = new ArrayList<>();
+    private List<Perm> permissions = new ArrayList<>();
     private PrivilegeState privilegeState;
     private String userId;
     private LocalDateTime lastMessage;
@@ -42,9 +45,10 @@ public class JUserImpl implements JUser {
     private TextChannel lastTextChannel;
     private String lastNickname;
 
-    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, PrivilegeState privilegeState, String userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
+    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Perm> permissions, PrivilegeState privilegeState, String userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
         this.warnings = warnings;
+        this.permissions = permissions;
         this.privilegeState = privilegeState;
         this.userId = userId;
         this.lastMessage = lastMessage;
@@ -61,6 +65,20 @@ public class JUserImpl implements JUser {
     }
 
     @Override
+    public JUser addPermission(Perm permission) throws DuplicateDataException {
+        if (this.permissions.contains(permission))
+            throw new DuplicateDataException("This user already has this permission!");
+        else this.permissions.add(permission);
+        return this;
+    }
+
+    @Override
+    public JUser removePermission(Perm permission) {
+        if (this.permissions.contains(permission)) this.permissions.remove(permission);
+        return this;
+    }
+
+    @Override
     public JUser removeWarning(WarningBuilder.Warning warning) {
         if (this.warnings.contains(warning)) this.warnings.remove(warning);
         return this;
@@ -72,11 +90,13 @@ public class JUserImpl implements JUser {
         return this;
     }
 
+
     @Override
     public String toString() {
         return "JUserImpl{" +
                 "user=" + user +
                 ", warnings=" + warnings.toString() +
+                ", permissions=" + permissions.toString() +
                 ", privilegeState=" + privilegeState +
                 ", userId='" + userId + '\'' +
                 ", lastMessage=" + lastMessage +
@@ -120,6 +140,10 @@ public class JUserImpl implements JUser {
     @Override
     public String getUserId() {
         return userId;
+    }
+
+    public List<Perm> getPermissions() {
+        return permissions;
     }
 
     @Override

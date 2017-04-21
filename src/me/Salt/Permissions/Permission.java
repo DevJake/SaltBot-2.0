@@ -19,6 +19,7 @@ package me.Salt.Permissions;
 import me.Salt.SaltAPI.Util.Interface.Describable;
 import me.Salt.SaltAPI.Util.Interface.Identifiable;
 
+import java.util.ArrayList;
 import java.util.List;
 
 /**
@@ -30,7 +31,7 @@ public class Permission implements Identifiable, Describable {
     private String permission;
     private Perm permEnum;
     private Range range;
-    private List<Permission> subperms;
+    private List<Permission> subperms = new ArrayList<>();
     private String description;
     private long id;
 
@@ -82,9 +83,51 @@ public class Permission implements Identifiable, Describable {
         return id;
     }
 
+    /**
+     * GLOBAL_WIDE -&gt; GUILD_WIDE -&gt; TEXTCHANNEL_WIDE -&gt; USER_WIDE
+     * Range.ALL will instruct the PermissionHandler to add a new permission instance for each Range.
+     * <p>
+     * ALL - All below ranges
+     * <br>
+     * GLOBAL_WIDE - Permissions that affect a global scale
+     * <br>
+     * GUILD_WIDE - Permissions that affect a guild-wide scale
+     * <br>
+     * TEXTCHANNEL_WIDE - Permissions that affect a TextChannel-wide scale
+     * <br>
+     * USER_WIDE - Permissions that affect a User-wide scale.
+     * <p>
+     * For example:
+     * A guild with a permission with a range of GUILD_WIDE will have the permission applied to every user in that guild.
+     * If that permission was changed to TEXTCHANNEL_WIDE, the permission would apply to all users who use a specific TextChannel.
+     * If the permission was further changed to being USER_WIDE, the permission must be applied on a user-by-user basis.
+     * <p>
+     * Permission ranges can be applied to users, groups of users, or guilds.
+     */
     public enum Range {
-        USER_WIDE,
+        /**
+         * All ranges (not including this range)
+         */
+        ALL,
+
+        /**
+         * Permissions that affect a global scale
+         */
+        GLOBAL_WIDE,
+
+        /**
+         * Permissions that affect a guild-wide scale
+         */
         GUILD_WIDE,
-        GLOBAL_WIDE
+
+        /**
+         * Permissions that affect a TextChannel-wide scale
+         */
+        TEXTCHANNEL_WIDE,
+
+        /**
+         * Permissions that affect a User-wide scale.
+         */
+        USER_WIDE,
     }
 }

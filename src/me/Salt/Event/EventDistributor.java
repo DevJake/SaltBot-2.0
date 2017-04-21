@@ -43,16 +43,18 @@ public class EventDistributor extends ListenerAdapter {
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {//TODO Update to MessageReceivedEvent
         Main.salt.setJUser(
-                new JUserBuilder()
+                new JUserBuilder(event.getAuthor())
                         .setUser(event.getAuthor())
                         .setLastTextChannel(event.getChannel())
                         .setLastMessage(LocalDateTime.now())
-                        .setLastNickname(event.getMember().getNickname())
+                        .setLastNickname(event.getMember().getNickname() != null ? event.getMember().getNickname() : event.getAuthor().getName())
                         .setLastOnline(LocalDateTime.now())
                         .setLastSpokenGuild(event.getGuild())
                         .setLastMessage(LocalDateTime.now())
                         .build()
         );
+
+        Main.salt.getJUsers().forEach(System.out::println);
 
         Runnable r = () -> {
             if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;

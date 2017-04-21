@@ -16,6 +16,11 @@
 
 package me.Salt.SaltAPI.User;
 
+import com.sun.istack.internal.Nullable;
+import me.Salt.Exception.DuplicateDataException;
+import me.Salt.Exception.MissingDataException;
+import me.Salt.Main;
+import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.User.Impl.JUserImpl;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
@@ -34,6 +39,7 @@ import java.util.List;
 public class JUserBuilder {
     private User user;
     private List<WarningBuilder.Warning> warnings = new ArrayList<>();
+    private List<Perm> permissions = new ArrayList<>();
     private PrivilegeState privilegeState;
     private String userId;
     private LocalDateTime lastMessage;
@@ -42,9 +48,11 @@ public class JUserBuilder {
     private TextChannel lastTextChannel;
     private String lastNickname;
 
-    public JUserBuilder(JUser user) {
+    public JUserBuilder(@Nullable JUser user) {
+        if (user == null) return;
         this.user = user.getUser();
         this.warnings = user.getWarnings();
+        this.permissions = user.getPermissions();
         this.privilegeState = user.getPrivilegeState();
         this.userId = user.getUserId();
         this.lastMessage = user.getLastMessage();
@@ -52,6 +60,33 @@ public class JUserBuilder {
         this.lastSpokenGuild = user.getLastSpokenGuild();
         this.lastTextChannel = user.getLastTextChannel();
         this.lastNickname = user.getLastNickname();
+        //TODO improve system of adding users, so that a JUser doesn't need to be specified. JUsers need to be able to be updated, without specifying a JUser for a constructor. Perhaps add setter methods in JUserImpl.
+    }
+
+    public JUserBuilder(User user) {
+        if (user == null) return;
+
+        try {
+            if (Main.salt.getJUserById(user.getId()) != null) {
+                JUser jUser = Main.salt.getJUserById(user.getId());
+
+                this.user = jUser.getUser();
+                this.warnings = jUser.getWarnings();
+                this.permissions = jUser.getPermissions();
+                this.privilegeState = jUser.getPrivilegeState();
+                this.userId = jUser.getUserId();
+                this.lastMessage = jUser.getLastMessage();
+                this.lastOnline = jUser.getLastOnline();
+                this.lastSpokenGuild = jUser.getLastSpokenGuild();
+                this.lastTextChannel = jUser.getLastTextChannel();
+                this.lastNickname = jUser.getLastNickname();
+            }
+        } catch (MissingDataException e) {
+            e.printStackTrace();
+        }
+
+        this.user = user;
+        this.userId = user.getId();
     }
 
     public JUserBuilder() {
@@ -60,6 +95,13 @@ public class JUserBuilder {
     public JUserBuilder setUser(User user) {
         this.user = user;
         return this;
+    }
+
+    public JUserBuilder addPermission(Perm permission) throws DuplicateDataException {
+        if (!this.permissions.contains(permission)) {
+            this.permissions.add(permission);
+            return this;
+        } else throw new DuplicateDataException("This user already has this permission!");
     }
 
     public JUserBuilder addWarning(WarningBuilder.Warning warning) {
@@ -104,7 +146,7 @@ public class JUserBuilder {
 
     public JUser build() {
         if (userId == null) if (user != null) userId = user.getId();
-        return new JUserImpl(user, warnings, privilegeState, userId, lastMessage, lastOnline, lastSpokenGuild, lastTextChannel, lastNickname);
+        return new JUserImpl(user, warnings, permissions, privilegeState, userId, lastMessage, lastOnline, lastSpokenGuild, lastTextChannel, lastNickname);
         //TODO do checks
     }
 }

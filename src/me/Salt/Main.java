@@ -22,8 +22,12 @@ import me.Salt.Command.Commands.*;
 import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.DuplicateDataException;
 import me.Salt.Exception.MissingDataException;
+import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
+import me.Salt.Permissions.PermissionBuilder;
 import me.Salt.SaltAPI.ConfigurationBuilder;
 import me.Salt.SaltAPI.IConfiguration;
+import me.Salt.SaltAPI.User.JUserBuilder;
 import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -32,9 +36,6 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
@@ -48,7 +49,7 @@ public class Main {
     public static IConfiguration salt;
 
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
-        jda = new JDABuilder(AccountType.BOT).setToken(new BufferedReader(new FileReader(new File("C:\\Users\\jake\\Desktop\\GitHub\\SaltBot-2.0\\src\\me\\Salt\\Configuration\\config.txt"))).readLine()).addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+        jda = new JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.C9uEqA.lj7dGD3MnPJKJVwwrc6buxx-RRs").addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
         //TODO improve above method. Currently a temporary fix to an exploit.
         //TODO also, change token, as a failsafe. 
         salt = new ConfigurationBuilder(".")
@@ -132,7 +133,7 @@ public class Main {
                                         .setName("Say")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
-                .registerCommand("remind", new RemindMeCommand(
+                .registerCommand("remind", new ReminderCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
                                         .addAlias("remindme")
@@ -145,9 +146,54 @@ public class Main {
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();
-    }
 
-    //TODO add unit tests
-    //TODO add JavaDoc comments where possible
-    //TODO allow each guild to establish its own TimeZone. Then ensure all times and dates in the guild are adjusted to suit their times. Also attach the timezone name (such as UTC) after all times.
+        Main.salt.getPermissionHandler()
+                .registerPermission(
+                        Permission.Range.ALL,
+                        new PermissionBuilder()
+                                .setPermEnum(Perm.ALL_GLOBAL_PERMISSIONS)
+                                .setPermission("Salt")
+                                .setDescription("The parent permission of all possible permissions")
+                                .build())
+                .registerPermission(
+                        Permission.Range.ALL,
+                        new PermissionBuilder()
+                                .setPermEnum(Perm.ALL_COOLDOWN_PERMISSIONS)
+                                .setPermission("Salt.Cooldown")
+                                .setDescription("The parent permission of all Cooldown permissions")
+                                .build())
+                .registerPermission(
+                        Permission.Range.ALL,
+                        new PermissionBuilder()
+                                .setPermEnum(Perm.ALL_COOLDOWN_COMMAND_PERMISSIONS)
+                                .setPermission("Salt.Cooldown.Command")
+                                .setDescription("The parent permission of all Cooldown permissions for commands")
+                                .build())
+                .registerPermission(
+                        Permission.Range.ALL,
+                        new PermissionBuilder()
+                                .setPermEnum(Perm.BYPASS_ALL_COMMAND_COOLDOWN)
+                                .setPermission("Salt.Cooldown.Command.Bypass")
+                                .setDescription("Allows for a Command Cooldown to be bypassed")
+                                .build())
+                .registerPermission(
+                        Permission.Range.ALL,
+                        new PermissionBuilder()
+                                .setPermEnum(Perm.COMMAND_BYPASS_HELP_COOLDOWN)
+                                .setPermission("Salt.Cooldown.Command.Bypass.Help")
+                                .setDescription("Allows bypassing of the cooldown for the HelpCommand")
+                                .build());
+
+
+        Main.salt.setJUser(
+                new JUserBuilder()
+                        .setUser(Main.jda.getUserById("112633500447838208"))
+                        .addPermission(Perm.ALL_GLOBAL_PERMISSIONS)
+                        .build());
+
+        //TODO add unit tests
+        //TODO add JavaDoc comments where possible
+        //TODO allow each guild to establish its own TimeZone. Then ensure all times and dates in the guild are adjusted to suit their times. Also attach the timezone name (such as UTC) after all times.
+        //TODO use https://github.com/google/gson to parse Json
+    }
 }

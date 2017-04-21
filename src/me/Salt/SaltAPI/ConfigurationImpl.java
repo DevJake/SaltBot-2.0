@@ -17,13 +17,17 @@
 package me.Salt.SaltAPI;
 
 import me.Salt.Command.ICommand;
+import me.Salt.Exception.MissingDataException;
+import me.Salt.Permissions.PermissionHandler;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * Project title: SaltBot-2.0
@@ -42,8 +46,10 @@ public class ConfigurationImpl implements IConfiguration {
     private Color embedColour;
     private int commandCount;
     private int messageCount;
+    private PermissionHandler permissionHandler;
 
-    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour) {
+
+    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour, PermissionHandler permissionHandler) {
         this.startupTime = startupTime;
         this.cmdPrefix = cmdPrefix;
         this.name = name;
@@ -52,6 +58,12 @@ public class ConfigurationImpl implements IConfiguration {
         this.commands = commands;
         this.debugMode = debugMode;
         this.embedColour = embedColour;
+        this.permissionHandler = permissionHandler;
+
+    }
+
+    public PermissionHandler getPermissionHandler() {
+        return permissionHandler;
     }
 
     @Override
@@ -96,25 +108,36 @@ public class ConfigurationImpl implements IConfiguration {
 
     @Override
     public void setJUser(JUser user) {
-        if (!this.JUsers.containsKey(user.getUser().getId())) this.JUsers.put(user.getUser().getId(), user);
-        else this.JUsers.replace(user.getUser().getId(), user);
-        System.out.println(user.toString());
+        if (this.JUsers == null || user == null) return;
+        try {
+            if (!this.JUsers.containsKey(user.getUser().getId())) this.JUsers.put(user.getUser().getId(), user);
+            else this.JUsers.replace(user.getUser().getId(), user);
+        } catch (NullPointerException e) {
+            e.printStackTrace();
+        }
     }
 
     @Override
     public void setJGuild(JGuild guild) {
+        if (this.JGuilds == null || guild == null) return;
         if (!this.JGuilds.containsKey(guild.getGuild().getId())) this.JGuilds.put(guild.getGuild().getId(), guild);
         else this.JGuilds.replace(guild.getGuild().getId(), guild);
     }
 
     @Override
-    public JUser getJUser(String id) {
-        return this.JUsers.get(id);
+    public JUser getJUserById(String id) throws MissingDataException {
+        if (this.JUsers.containsKey(id)) return this.JUsers.get(id);
+        else {
+            throw new MissingDataException("User could not be found!");
+        }
     }
 
     @Override
-    public JGuild getJGuild(String id) {
-        return this.JGuilds.get(id);
+    public JGuild getJGuildById(String id) throws MissingDataException {
+        if (this.JGuilds.containsKey(id)) return this.JGuilds.get(id);
+        else {
+            throw new MissingDataException("Guild could not be found!");
+        }
     }
 
     @Override
@@ -128,35 +151,26 @@ public class ConfigurationImpl implements IConfiguration {
         return cmdPrefix;
     }
 
-//    @Override
-//    public List<JUser> getJUsers() {
-//        return new ArrayList<>(JUsers.values());
-//    }
-//
-//    @Override
-//    public JUser getJUserByID(String id) {
-//        return JUsers.get(id); //TODO Add safety isNotInCooldown
-//    }
-//
-//    @Override
-//    public List<JUser> getJUsersByName(String name) {
-//        return JUsers.size() > 0 ? JUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
-//    }
-//
-//    @Override
-//    public List<JGuild> getJGuilds() {
-//        return new ArrayList<>(JGuilds.values());
-//    }
-//
-//    @Override
-//    public JGuild getJGuildByID(String id) {
-//        return JGuilds.get(id); //TODO Add safety isNotInCooldown
-//    }
-//
-//    @Override
-//    public List<JGuild> getJGuildsByName(String name) {
-//        return JGuilds.size() > 0 ? JGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
-//    }
+    @Override
+    public List<JUser> getJUsers() {
+        return new ArrayList<>(JUsers.values());
+    }
+
+    @Override
+    public List<JUser> getJUsersByName(String name) {
+        return JUsers.size() > 0 ? JUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+    }
+
+    @Override
+    public List<JGuild> getJGuilds() {
+        return new ArrayList<>(JGuilds.values());
+    }
+
+
+    @Override
+    public List<JGuild> getJGuildsByName(String name) {
+        return JGuilds.size() > 0 ? JGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+    }
 
     @Override
     public HashMap<String, ICommand> getCommands() {
