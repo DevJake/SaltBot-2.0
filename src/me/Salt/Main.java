@@ -18,7 +18,12 @@ package me.Salt;
 
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.CommandDescriptionBuilder;
-import me.Salt.Command.Commands.*;
+import me.Salt.Command.Commands.Fun.CatCommand;
+import me.Salt.Command.Commands.Informative.*;
+import me.Salt.Command.Commands.IssueCommand;
+import me.Salt.Command.Commands.PermissionCommand;
+import me.Salt.Command.Commands.ReminderCommand;
+import me.Salt.Command.Commands.SayCommand;
 import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.DuplicateDataException;
 import me.Salt.Exception.MissingDataException;
@@ -51,7 +56,8 @@ public class Main {
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
         jda = new JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.C9uEqA.lj7dGD3MnPJKJVwwrc6buxx-RRs").addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
         //TODO improve above method. Currently a temporary fix to an exploit.
-        //TODO also, change token, as a failsafe. 
+        //TODO also, change token, as a failsafe.
+
         salt = new ConfigurationBuilder(".")
                 .setDebugMode(false)
                 .setStartupTime(n)
@@ -145,6 +151,80 @@ public class Main {
                                         .setName("Scheduled Reminder")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("perms", new PermissionCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("permissions")
+                                        .addAlias("permission")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Allows an individual to manage the permissions system for themselves, their textchannel, guild, or globally")
+                                        .setName("Permissions Manager")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("guildinfo", new GuildInfoCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("gi")
+                                        .addAlias("guild") //TODO make sure aliases do not intersect with other aliases
+                                        .addAlias("ginfo")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Allows an individual to view details about the current guild")
+                                        .setName("Guild Information")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("channelinfo", new TextChannelInfoCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAlias("ci")
+                                        .addAlias("channel")
+                                        .addAlias("cinfo")
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Allows an individual to view details about the current TextChannel")
+                                        .setName("Channel Information")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("uptime", new UptimeCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Calculates and displays the current uptime of the bot")
+                                        .setName("Uptime")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("profile", new ProfileInfoCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .addAlias("pinfo")
+                                        .addAlias("profileinfo")
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Displays info about a user's profile")
+                                        .setName("Profile Info")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("cat", new CatCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .addAlias("cats")
+                                        .addAlias("kitty")
+                                        .addAlias("cade")
+                                        .addAlias("kitten")
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Cats!! ;)")
+                                        .setName("Kitties <3")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();
 
         Main.salt.getPermissionHandler()
@@ -187,7 +267,7 @@ public class Main {
 
         Main.salt.setJUser(
                 new JUserBuilder()
-                        .setUser(Main.jda.getUserById("112633500447838208"))
+                        .setUser(Main.jda.getUserById("246309425902649345"))
                         .addPermission(Perm.ALL_GLOBAL_PERMISSIONS)
                         .build());
 
