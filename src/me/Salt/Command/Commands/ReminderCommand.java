@@ -35,8 +35,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 19/04/2017.
+ * Allows the user to establish a timescale, in which a timer shall be started. At the end of the timer, the user shall be notified that their timer has expired.
+ * This allows an individual to set up a reminder, to remind them in any range of time periods.
  */
 public class ReminderCommand extends Command implements ICommand {
     final Pattern TIMEMEASURE = Pattern.compile("\\d*[smhd]{1}"); //Filters out the remind time (such as 3s10m for 10 minutes and 3 seconds)

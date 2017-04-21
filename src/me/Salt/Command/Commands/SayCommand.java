@@ -23,8 +23,8 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 19/04/2017.
+ * Allows an individual to submit a command, in which the bot shall respond with a message containing their arguments,
+ * i.e., a duplicate of their message without the command header.
  */
 public class SayCommand extends Command implements ICommand {
 

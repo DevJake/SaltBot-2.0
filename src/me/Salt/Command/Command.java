@@ -17,8 +17,7 @@
 package me.Salt.Command;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 17/04/2017.
+ * This class contains a CommandContainer, as well as a constructor, and respective Getter/Setter methods. All commands should extend to this class.
  */
 public class Command {
     private CommandContainer cmdContainer;

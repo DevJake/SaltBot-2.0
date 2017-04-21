@@ -27,8 +27,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 18/04/2017.
+ * Provides information to the user about how to report an issue.
  */
 public class IssueCommand extends Command implements ICommand {
     public IssueCommand(CommandContainer commandContainer) {
@@ -55,7 +54,7 @@ public class IssueCommand extends Command implements ICommand {
                         "https://github.com/DevJake/SaltBot-2.0/issues/new\n" +
                         "Or by clicking the title of this message!", true)
                 .setThumbnail("https://cdn1.itcentralstation.com/vendors/logos/original/pBeeJQDQ_400x400.png")
-                .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), null)
+                .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
                 .build()).queue();
     }
 

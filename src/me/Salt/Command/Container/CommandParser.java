@@ -23,17 +23,19 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
- * <p>
  * This class parses raw text into a range of details about a command
  */
-
-
 public class CommandParser {
+    /**
+     * This method takes a String of raw text, and attempts to parse it into a command.
+     *
+     * @param raw String - The raw text to be put through the parsing algorithm.
+     *
+     * @return ParsedCommandContainer - A container class that stores details about the parsed command.
+     */
     public ParsedCommandContainer parse(String raw) {
         String beheaded = raw.replaceFirst(Main.salt.getCmdPrefix(), "");
-        List<String> splitBeheaded = Arrays.asList(beheaded.split(" "));
+        List<String> splitBeheaded = Arrays.asList(beheaded.split("\\s+"));
         List<String> argsUpper = splitBeheaded.subList(1, splitBeheaded.size());
         List<String> argsLower = new ArrayList<>();
         argsUpper.forEach(s -> argsLower.add(s.toLowerCase()));
@@ -43,7 +45,9 @@ public class CommandParser {
         return new ParsedCommandContainer(raw, argsLower, argsUpper, beheaded, splitBeheaded, cmd, cmdUpper);
     }
 
-
+    /**
+     * A container class for details about a parsed command.
+     */
     public class ParsedCommandContainer {
         private String rawText;
         private List<String> argsLower;
@@ -55,6 +59,8 @@ public class CommandParser {
 //TODO add List<String> definers, then sort args from definers. Definer often starts with a '-', but add a variable to SaltAPI to get and set the definer.
 
         /**
+         * A constructor for details about the parsed command.
+         *
          * @param rawText       String - The raw text of the command
          * @param argsLower     List - A list of the arguments, in lowercase
          * @param argsUpper     List - A list of the arguments, in the original case they were initially entered in
@@ -86,30 +92,51 @@ public class CommandParser {
                     '}';
         }
 
+        /**
+         * @return String - The raw text of the command.
+         */
         public String getRawText() {
             return rawText;
         }
 
+        /**
+         * @return List - A list of the command's arguments, in lowercase.
+         */
         public List<String> getArgsLower() {
             return argsLower;
         }
 
+        /**
+         * @return List - A list of the command's arguments, in the original casing they were entered in.
+         */
         public List<String> getArgsUpper() {
             return argsUpper;
         }
 
+        /**
+         * @return String - The raw command, without the command prefix at the beginning.
+         */
         public String getBeheaded() {
             return beheaded;
         }
 
+        /**
+         * @return List - The beheaded string, split by a blank space into a command and its following arguments.
+         */
         public List<String> getSplitBeheaded() {
             return splitBeheaded;
         }
 
+        /**
+         * @return String - The command that was entered, such as "help". This string is in lowercase.
+         */
         public String getCmd() {
             return cmd;
         }
 
+        /**
+         * @return String - The command that was entered, such as "help". This string is in its original casing.
+         */
         public String getCmdUpper() {
             return cmdUpper;
         }

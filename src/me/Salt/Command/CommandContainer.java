@@ -19,9 +19,6 @@ package me.Salt.Command;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 14/04/2017.
- * <p>
  * This class contains details about a Command, and is used to control the functionality of the CommandExecutor.
  * It determines which commands are listening to which events, and if the command is deprecated.
  */
@@ -29,23 +26,47 @@ public class CommandContainer {
     private CommandDescription commandDescription;
     private List<JEvent> events;
 
+    /**
+     * @param commandDescription CommandDescription - The CommandDescription instance with details about a command.
+     * @param events             List - A list of events that this command is set to listen to.
+     */
+    //TODO remove List<JEvent> parameter, as it's not used.
     public CommandContainer(CommandDescription commandDescription, List<JEvent> events) {
         this.commandDescription = commandDescription;
         this.events = events;
     }
 
-
+    /**
+     * @return CommandDescription - This class' CommandDescription instance
+     */
     public CommandDescription getCommandDescription() {
         return commandDescription;
     }
 
+    /**
+     * @return List - A list of events that this command is set to listen to.
+     */
     public List<JEvent> getEvents() {
         return events;
     }
 
+    /**
+     * An enum storing different types of events that a command may choose to listen to.
+     */
     public enum JEvent {
+        /**
+         * A generic message (both Private and Guild messages).
+         */
         GENERIC_MESSAGE,
+
+        /**
+         * A message sent via private message.
+         */
         PRIVATE_MESSAGE,
+
+        /**
+         * A message sent to a guild.
+         */
         GUILD_MESSAGE
     }
 }
