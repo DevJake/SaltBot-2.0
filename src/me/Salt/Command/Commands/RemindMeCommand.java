@@ -59,7 +59,6 @@ public class RemindMeCommand extends Command implements ICommand {
         rb.setCreator(e.getAuthor());
 
         Matcher m = TIMEMEASURE.matcher(cmd.getRawText().toLowerCase().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd() + " ", ""));
-
         while (m.find()) {
             String n = m.group();
             switch (n.substring(n.length() - 1, n.length())) {
