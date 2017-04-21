@@ -27,7 +27,6 @@ import java.util.List;
  * Authored by Salt on 09/04/2017.
  */
 public class Permission implements Identifiable, Describable {
-
     private String permission;
     private Perm permEnum;
     private Range range;

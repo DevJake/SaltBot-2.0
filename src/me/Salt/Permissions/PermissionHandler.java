@@ -1,3 +1,19 @@
+/*
+ * Copyright (c) 2017 DevJake
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ * http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package me.Salt.Permissions;
 
 import me.Salt.Exception.DuplicateDataException;
@@ -32,7 +48,9 @@ public class PermissionHandler {
      *
      * @param range      Permission.Range - The effective Range that this permission covers
      * @param permission Permission - The permission itself
+     *
      * @return PermissionHandler - The instance of this class, to allow for method chaining
+     *
      * @throws DuplicateDataException - If the list of permissions held within this class already contains the specified permission
      */
 
