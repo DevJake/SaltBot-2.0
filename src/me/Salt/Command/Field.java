@@ -27,6 +27,7 @@ public class Field {
     private String description;
     private boolean required;
     private Type type;
+    private int depth; //The 'depth' of the argument. Depth 2 would indicate it must be the second argument. A depth of 0 indicates it must merely be present in the text.
 
     public Field(String text, String description, boolean required, Type type) {
 

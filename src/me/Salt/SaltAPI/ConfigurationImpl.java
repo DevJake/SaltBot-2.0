@@ -62,13 +62,29 @@ public class ConfigurationImpl implements IConfiguration {
 
     }
 
-    public PermissionHandler getPermissionHandler() {
-        return permissionHandler;
+    @Override
+    public String getCmdPrefix() {
+        return cmdPrefix;
     }
 
     @Override
     public HashMap<User, List<Authority>> getStaff() {
         return staff;
+    }
+
+    @Override
+    public HashMap<String, ICommand> getCommands() {
+        return commands;
+    }
+
+    @Override
+    public String getName() {
+        return name;
+    }
+
+    @Override
+    public String getWebsite() {
+        return website;
     }
 
     @Override
@@ -107,6 +123,12 @@ public class ConfigurationImpl implements IConfiguration {
     }
 
     @Override
+    public void incrementMessageCount() {
+        messageCount++;
+
+    }
+
+    @Override
     public void setJUser(JUser user) {
         if (this.JUsers == null || user == null) return;
         try {
@@ -128,7 +150,7 @@ public class ConfigurationImpl implements IConfiguration {
     public JUser getJUserById(String id) throws MissingDataException {
         if (this.JUsers.containsKey(id)) return this.JUsers.get(id);
         else {
-            throw new MissingDataException("User could not be found!");
+            throw new MissingDataException("User could not be found!"); //TODO perhaps replace with a JLogger call...
         }
     }
 
@@ -136,19 +158,8 @@ public class ConfigurationImpl implements IConfiguration {
     public JGuild getJGuildById(String id) throws MissingDataException {
         if (this.JGuilds.containsKey(id)) return this.JGuilds.get(id);
         else {
-            throw new MissingDataException("Guild could not be found!");
+            throw new MissingDataException("Guild could not be found!"); //TODO as above
         }
-    }
-
-    @Override
-    public void incrementMessageCount() {
-        messageCount++;
-
-    }
-
-    @Override
-    public String getCmdPrefix() {
-        return cmdPrefix;
     }
 
     @Override
@@ -166,25 +177,13 @@ public class ConfigurationImpl implements IConfiguration {
         return new ArrayList<>(JGuilds.values());
     }
 
-
     @Override
     public List<JGuild> getJGuildsByName(String name) {
         return JGuilds.size() > 0 ? JGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
     }
 
-    @Override
-    public HashMap<String, ICommand> getCommands() {
-        return commands;
-    }
-
-    @Override
-    public String getName() {
-        return name;
-    }
-
-    @Override
-    public String getWebsite() {
-        return website;
+    public PermissionHandler getPermissionHandler() {
+        return permissionHandler;
     }
 
 

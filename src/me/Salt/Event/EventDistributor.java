@@ -54,8 +54,6 @@ public class EventDistributor extends ListenerAdapter {
                         .build()
         );
 
-        Main.salt.getJUsers().forEach(System.out::println);
-
         Runnable r = () -> {
             if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
 

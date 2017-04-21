@@ -38,6 +38,7 @@ public class CooldownManager {
      * @param user    User - The User who is being checked for a cooldown
      * @param time    Long - The time at which the command was last executed.
      *                This value is used to provide information about when the user can next use the command.
+     *
      * @return Boolean - A boolean value representing if the specified User is within the cooldown period or not. If they are, they cannot use the command. If they are outside of the cooldown period, they can use the command again.
      */
     public static boolean isNotInCooldown(String cmd, ICommand command, User user, long time) {

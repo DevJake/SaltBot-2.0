@@ -40,6 +40,7 @@ public interface ICommand {
      *
      * @param cmd   CommandParser.ParsedCommandContainer - The parsed command inputted by the user
      * @param event GuildMessageReceivedEvent - The GuildMessageReceivedEvent that triggered this method being called
+     *
      * @return Boolean - A boolean representing if the CommandExecutor should continue with calling any further methods.
      */
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event);
