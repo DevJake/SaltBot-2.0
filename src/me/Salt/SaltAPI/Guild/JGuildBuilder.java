@@ -16,7 +16,7 @@
 
 package me.Salt.SaltAPI.Guild;
 
-import me.Salt.Exception.DuplicateDataException;
+import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.Guild.Impl.JGuildImpl;
 import net.dv8tion.jda.core.entities.Guild;

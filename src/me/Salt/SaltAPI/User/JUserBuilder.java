@@ -17,8 +17,8 @@
 package me.Salt.SaltAPI.User;
 
 import com.sun.istack.internal.Nullable;
-import me.Salt.Exception.DuplicateDataException;
-import me.Salt.Exception.MissingDataException;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Main;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.User.Impl.JUserImpl;
@@ -82,7 +82,7 @@ public class JUserBuilder {
                 this.lastNickname = jUser.getLastNickname();
             }
         } catch (MissingDataException e) {
-            e.printStackTrace();
+            System.out.println(e.getMessage());
         }
 
         this.user = user;

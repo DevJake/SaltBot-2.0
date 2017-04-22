@@ -16,7 +16,10 @@
 
 package me.Salt.SaltAPI.User.Impl;
 
-import me.Salt.Exception.DuplicateDataException;
+import com.google.gson.annotations.Expose;
+import com.google.gson.annotations.SerializedName;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Main;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.User.JUser;
 import me.Salt.SaltAPI.Util.PrivilegeState;
@@ -35,15 +38,15 @@ import java.util.List;
  */
 public class JUserImpl implements JUser {
     private User user;
-    private List<WarningBuilder.Warning> warnings = new ArrayList<>();
-    private List<Perm> permissions = new ArrayList<>(); //TODO move to using Permission.class, not Perm.class.
-    private PrivilegeState privilegeState;
-    private long userId;
-    private LocalDateTime lastMessage;
-    private LocalDateTime lastOnline;
-    private Guild lastSpokenGuild;
-    private TextChannel lastTextChannel;
-    private String lastNickname;
+    @Expose private List<WarningBuilder.Warning> warnings = new ArrayList<>();
+    @Expose private List<Perm> permissions = new ArrayList<>(); //TODO move to using Permission.class, not Perm.class.
+    @Expose private PrivilegeState privilegeState;
+    @Expose private long userId;
+    @Expose private LocalDateTime lastMessage;
+    @Expose private LocalDateTime lastOnline;
+    @Expose @SerializedName("lastSpokenGuildId")private Guild lastSpokenGuild;
+    @Expose @SerializedName("lastTextChannelId") private TextChannel lastTextChannel;
+    @Expose private String lastNickname;
 
     public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Perm> permissions, PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
@@ -183,5 +186,10 @@ public class JUserImpl implements JUser {
     public JUser removePermission(Perm permission) {
         if (this.permissions.contains(permission)) this.permissions.remove(permission);
         return this;
+    }
+
+    @Override
+    public boolean hasPermission(Perm permission) {
+        return Main.salt.getPermissionHandler().hasPermission(this, permission);
     }
 }

@@ -16,7 +16,7 @@
 
 package me.Salt.SaltAPI.User;
 
-import me.Salt.Exception.DuplicateDataException;
+import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
@@ -71,5 +71,8 @@ public interface JUser {
     public JUser addPermission(Perm permission) throws DuplicateDataException;
 
     public JUser removePermission(Perm permission);
+
+    public boolean hasPermission(Perm permission);
+
 
 }

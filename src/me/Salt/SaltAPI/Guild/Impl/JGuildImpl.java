@@ -16,7 +16,8 @@
 
 package me.Salt.SaltAPI.Guild.Impl;
 
-import me.Salt.Exception.DuplicateDataException;
+import com.google.gson.annotations.Expose;
+import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.Guild.JGuild;
 import net.dv8tion.jda.core.entities.Guild;
@@ -31,10 +32,15 @@ import java.util.List;
  */
 public class JGuildImpl implements JGuild {
     private Guild guild;
+    @Expose
     private long guildId;
+    @Expose
     private List<Perm> permissions = new ArrayList<>();
+    @Expose
     private String lastMessage;
+    @Expose
     private LocalDateTime lastActivity;
+    @Expose
     private TextChannel lastTextChannelMessaged;
 
     public JGuildImpl(Guild guild, long guildId, List<Perm> permissions, String lastMessage, LocalDateTime lastActivity, TextChannel lastTextChannelMessaged) {
