@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package me.Salt.Exception;
+package me.Salt.Exception.Permission;
 
-/**
- * Created by Salt001 on 10/04/2017.
- */
-public class MalformedParametersException extends GenericBotException {
-    public MalformedParametersException() {
+public class PermissionException extends Exception {
+    public PermissionException() {
         super();
     }
 
-    public MalformedParametersException(String message) {
+    public PermissionException(String message) {
         super(message);
     }
 
-    public MalformedParametersException(String message, Throwable cause) {
+    public PermissionException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public MalformedParametersException(Throwable cause) {
+    public PermissionException(Throwable cause) {
         super(cause);
     }
 }

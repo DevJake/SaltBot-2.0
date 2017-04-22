@@ -14,25 +14,25 @@
  * limitations under the License.
  */
 
-package me.Salt.Exception;
+package me.Salt.Exception.Generic;
 
 /**
  * Created by Salt001 on 10/04/2017.
  */
-public class DuplicateDataException extends GenericBotException {
-    public DuplicateDataException() {
+public class MalformedParametersException extends GenericBotException {
+    public MalformedParametersException() {
         super();
     }
 
-    public DuplicateDataException(String message) {
+    public MalformedParametersException(String message) {
         super(message);
     }
 
-    public DuplicateDataException(String message, Throwable cause) {
+    public MalformedParametersException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public DuplicateDataException(Throwable cause) {
+    public MalformedParametersException(Throwable cause) {
         super(cause);
     }
 }

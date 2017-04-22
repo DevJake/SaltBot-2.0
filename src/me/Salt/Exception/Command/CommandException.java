@@ -14,25 +14,22 @@
  * limitations under the License.
  */
 
-package me.Salt.Exception;
+package me.Salt.Exception.Command;
 
-/**
- * Created by Salt001 on 09/04/2017.
- */
-public class MissingDataException extends GenericBotException {
-    public MissingDataException() {
+public class CommandException extends Exception {
+    public CommandException() {
         super();
     }
 
-    public MissingDataException(String message) {
+    public CommandException(String message) {
         super(message);
     }
 
-    public MissingDataException(String message, Throwable cause) {
+    public CommandException(String message, Throwable cause) {
         super(message, cause);
     }
 
-    public MissingDataException(Throwable cause) {
+    public CommandException(Throwable cause) {
         super(cause);
     }
 }

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.Salt.Exception;
+package me.Salt.Exception.Generic;
 
 /**
  * Project title: SaltBot-2.0
