@@ -1,11 +1,14 @@
 me.Salt
 me.Salt.Command
 me.Salt.Command.Commands
+me.Salt.Command.Commands.Administrator
 me.Salt.Command.Commands.Fun
 me.Salt.Command.Commands.Informative
 me.Salt.Command.Container
 me.Salt.Event
-me.Salt.Exception
+me.Salt.Exception.Command
+me.Salt.Exception.Generic
+me.Salt.Exception.Permission
 me.Salt.Logging
 me.Salt.Permissions
 me.Salt.SaltAPI
@@ -19,4 +22,5 @@ me.Salt.SaltAPI.Util
 me.Salt.SaltAPI.Util.Interface
 me.Salt.Util
 me.Salt.Util.Reminder
+me.Salt.Util.Serialiser
 me.Salt.Util.TubeMapper
