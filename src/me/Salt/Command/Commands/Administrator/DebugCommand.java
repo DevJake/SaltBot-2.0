@@ -14,26 +14,25 @@
  * limitations under the License.
  */
 
-package me.Salt.Command.Commands;
+package me.Salt.Command.Commands.Administrator;
 
 import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
-/**
- * Allows a user to obtain the source code of a specified class.
- */
-public class SourceCommand extends Command implements ICommand {
-    public SourceCommand(CommandContainer commandContainer) {
+public class DebugCommand extends Command implements ICommand {
+    public DebugCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
 
-    //TODO add a command to view a list of source classes, nested under their respective packages.
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
-        return true;
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+        throw new DisabledCommandException("This command is currently disabled. Sorry!"); //TODO move Exception out of here. Instead have each command have a boolean for if it is enabled or disabled. Handle in CommandExecutor instead.
     }
 
     @Override

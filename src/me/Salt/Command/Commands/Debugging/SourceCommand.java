@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.Salt.Command.Commands;
+package me.Salt.Command.Commands.Debugging;
 
 import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
@@ -23,15 +23,14 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Allows an individual to submit a command, in which the bot shall respond with a message containing their arguments,
- * i.e., a duplicate of their message without the command header.
+ * Allows a user to obtain the source code of a specified class.
  */
-public class SayCommand extends Command implements ICommand {
-
-    public SayCommand(CommandContainer commandContainer) {
+public class SourceCommand extends Command implements ICommand {
+    public SourceCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
 
+    //TODO add a command to view a list of source classes, nested under their respective packages.
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
@@ -39,10 +38,7 @@ public class SayCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        StringBuilder sb = new StringBuilder();
 
-        cmd.getArgsUpper().forEach(n -> sb.append(n + " "));
-        e.getChannel().sendMessage(sb.toString()).queue();
     }
 
     @Override
