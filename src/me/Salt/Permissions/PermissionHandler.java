@@ -16,7 +16,7 @@
 
 package me.Salt.Permissions;
 
-import me.Salt.Exception.DuplicateDataException;
+import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.SaltAPI.User.JUser;
 
 import java.util.ArrayList;
@@ -89,6 +89,10 @@ public class PermissionHandler {
     public boolean hasPermission(JUser user, Perm permission) {
         //TODO if range is a null value, just return if the individual has a permission covering them -at all-, not to a specific range.
         return user.getPermissions().contains(permission);
-
     }
+
+//    public Permission getPermission(Perm permission){
+//        //TODO
+//    }
+
 }

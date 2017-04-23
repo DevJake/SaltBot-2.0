@@ -48,9 +48,6 @@ public enum Perm {
     CONFIG_ADD_UTILITY_ALIAS,
     CONFIG_REMOVE_UTILITY_ALIAS,
 
-
-    //TODO consider which of the above perms to keep. If using a Range, may not need the independent perms per range, but instead just a single one and a specified range.
-
     //All permissions
     /**
      * Access to all available permissions
@@ -101,10 +98,11 @@ public enum Perm {
     COMMAND_BYPASS_STATISTICS_COOLDOWN,
     COMMAND_BYPASS_GUILDINFO_COOLDOWN,
     COMMAND_BYPASS_INFO_COOLDOWN,
-    COMMAND_BYPASS_PROFILEINFO_COOLDOWN,
+    COMMAND_BYPASS_PROFILE_COOLDOWN,
     COMMAND_BYPASS_TEXTCHANNELINFO_COOLDOWN,
     COMMAND_BYPASS_UPTIME_COOLDOWN,
     COMMAND_BYPASS_SOURCE_COOLDOWN,
+    COMMAND_BYPASS_CAT_COOLDOWN,
 
     //Independent Utility cooldown bypasses
     UTILITY_BYPASS_SPAMTRACKER_COOLDOWN,
@@ -118,4 +116,8 @@ public enum Perm {
     COMMAND_SAY_USE_MENTION_HERE, //Mention @here
     COMMAND_SAY_USE_PRIVATE_MESSAGE,
     //TODO add perms per command
+
+    //Profile Command
+    COMMAND_PROFILE_USE,
+    COMMAND_PROFILE_SET_USER,
 }
