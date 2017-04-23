@@ -16,8 +16,8 @@
 
 package me.Salt.Command;
 
-import me.Salt.Exception.MissingDataException;
-import me.Salt.Permissions.Permission;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Permissions.Perm;
 import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.entities.User;
 
@@ -37,7 +37,7 @@ public class CommandDescriptionBuilder {
     private List<User> authors = new ArrayList<>();
     private String helpMessage;
     private boolean isComplete;
-    private List<Permission> requiredPermissions = new ArrayList<>();
+    private List<Perm> requiredPermissions = new ArrayList<>(); //TODO convert to HashMap of Perm, followed by a boolean of if it's required to use the command at all.
     private boolean deprecated;
     private List<String> aliases = new ArrayList<>();
     private Cooldown cooldown;
@@ -88,7 +88,7 @@ public class CommandDescriptionBuilder {
         return this;
     }
 
-    public CommandDescriptionBuilder addRequiredPermissions(Permission permission) {
+    public CommandDescriptionBuilder addRequiredPermissions(Perm permission) {
         this.requiredPermissions.add(permission);
         return this;
     }

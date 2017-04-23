@@ -18,7 +18,10 @@ package me.Salt.Util;
 
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
-import me.Salt.Exception.MalformedParametersException;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Exception.Generic.MalformedParametersException;
+import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Main;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
@@ -29,7 +32,7 @@ import java.util.concurrent.TimeUnit;
  */
 public class CommandExecutor {
 
-    public static void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws MalformedParametersException {
+    public static void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws MalformedParametersException, MissingDataException, LackingPermissionException, DisabledCommandException {
         if (!(event.getMessage().getRawContent().startsWith(Main.salt.getCmdPrefix()))) return;
         if (!(Main.salt.getCommands().containsKey(cmd.getCmd()))) {
             event.getChannel().sendMessage("Command not found!").queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));

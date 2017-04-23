@@ -17,13 +17,15 @@
 package me.Salt.SaltAPI;
 
 import me.Salt.Command.ICommand;
-import me.Salt.Exception.DuplicateDataException;
-import me.Salt.Exception.MissingDataException;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Logging.JLogger;
 import me.Salt.Permissions.PermissionHandler;
+import me.Salt.SaltAPI.Entities.RoadItem;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
+import java.util.ArrayList;
 import java.util.Collections;
 import java.util.HashMap;
 import java.util.List;
@@ -42,6 +44,7 @@ public class ConfigurationBuilder {
     private boolean debugMode;
     private Color embedColour;
     private PermissionHandler permissionHandler;
+    private List<RoadItem> roadmap = new ArrayList<>();
 
     public ConfigurationBuilder(String cmdPrefix) {
         this.cmdPrefix = cmdPrefix;
@@ -63,6 +66,11 @@ public class ConfigurationBuilder {
     public ConfigurationBuilder addTeamMember(User user, IConfiguration.Authority authority) {
         staff.put(user, Collections.singletonList(authority));
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Added a team member (" + user.getName() + ") with Authority levels of " + authority.name());
+        return this;
+    }
+
+    public ConfigurationBuilder addRoadmap(RoadItem r) {
+        roadmap.add(r);
         return this;
     }
 
@@ -107,7 +115,7 @@ public class ConfigurationBuilder {
     public IConfiguration build() throws MissingDataException {
         SafetyChecker c = (cmdPrefix) -> cmdPrefix != null && cmdPrefix.length() >= 1; //TODO Update
         if (c.isSafe(cmdPrefix))
-            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour, permissionHandler);
+            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour, permissionHandler, roadmap);
         else throw new MissingDataException("Missing data for ConfigurationBuilder!");
         //TODO add Logger.write(...) call
     }

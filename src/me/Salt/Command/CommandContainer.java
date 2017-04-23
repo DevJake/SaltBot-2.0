@@ -16,6 +16,8 @@
 
 package me.Salt.Command;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.List;
 
 /**

@@ -17,6 +17,9 @@
 package me.Salt.Command;
 
 import me.Salt.Command.Container.CommandParser;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
@@ -41,9 +44,13 @@ public interface ICommand {
      * @param cmd   CommandParser.ParsedCommandContainer - The parsed command inputted by the user
      * @param event GuildMessageReceivedEvent - The GuildMessageReceivedEvent that triggered this method being called
      *
-     * @return Boolean - A boolean representing if the CommandExecutor should continue with calling any further methods.
+     * @return Boolean - A boolean representing if the CommandExecutor should continue with calling any further methods
+     *
+     * @throws LackingPermissionException Thrown if the individual lacks the permissions to use this command
+     * @throws MissingDataException       Thrown if the arguments entered by the individual are either missing, lacking in data, or lacking in data that is of the correct type/formatting
+     * @throws DisabledCommandException   Thrown if the command is marked as disabled
      */
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event);
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException;
 
     /**
      * The execute() method is where a command should place the functional part of the code; the code that actually performs the command's task.

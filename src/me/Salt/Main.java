@@ -21,18 +21,17 @@ import me.Salt.Command.CommandDescriptionBuilder;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Informative.*;
 import me.Salt.Command.Commands.IssueCommand;
-import me.Salt.Command.Commands.PermissionCommand;
-import me.Salt.Command.Commands.ReminderCommand;
-import me.Salt.Command.Commands.SayCommand;
+import me.Salt.Command.Commands.Administrator.PermissionCommand;
+import me.Salt.Command.Commands.Utility.ReminderCommand;
+import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Event.EventDistributor;
-import me.Salt.Exception.DuplicateDataException;
-import me.Salt.Exception.MissingDataException;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Permissions.Perm;
 import me.Salt.Permissions.Permission;
 import me.Salt.Permissions.PermissionBuilder;
 import me.Salt.SaltAPI.ConfigurationBuilder;
 import me.Salt.SaltAPI.IConfiguration;
-import me.Salt.SaltAPI.User.JUserBuilder;
 import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
@@ -209,6 +208,8 @@ public class Main {
                                         .setDeprecated(false)
                                         .setDescription("Displays info about a user's profile")
                                         .setName("Profile Info")
+                                        .addRequiredPermissions(Perm.COMMAND_PROFILE_USE)
+                                        .addRequiredPermissions(Perm.COMMAND_PROFILE_SET_USER)
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .registerCommand("cat", new CatCommand(
@@ -264,12 +265,7 @@ public class Main {
                                 .setDescription("Allows bypassing of the cooldown for the HelpCommand")
                                 .build());
 
-
-        Main.salt.setJUser(
-                new JUserBuilder()
-                        .setUser(Main.jda.getUserById("246309425902649345"))
-                        .addPermission(Perm.ALL_GLOBAL_PERMISSIONS)
-                        .build());
+        Main.salt.init();
 
         //TODO add unit tests
         //TODO add JavaDoc comments where possible

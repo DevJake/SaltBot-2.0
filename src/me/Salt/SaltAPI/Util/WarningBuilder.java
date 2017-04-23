@@ -16,7 +16,7 @@
 
 package me.Salt.SaltAPI.Util;
 
-import me.Salt.Exception.MissingDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import net.dv8tion.jda.core.entities.User;
 
 import java.time.ZonedDateTime;

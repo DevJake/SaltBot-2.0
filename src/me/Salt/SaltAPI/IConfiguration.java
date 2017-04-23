@@ -17,8 +17,9 @@
 package me.Salt.SaltAPI;
 
 import me.Salt.Command.ICommand;
-import me.Salt.Exception.MissingDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Permissions.PermissionHandler;
+import me.Salt.SaltAPI.Entities.RoadItem;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
 import net.dv8tion.jda.core.entities.User;
@@ -34,13 +35,13 @@ import java.util.List;
 public interface IConfiguration {
     public String getCmdPrefix();
 
-//    public List<JUser> getJUsers();
+//    public List<JUser> getjUsers();
 //
 //    public JUser getJUserByID(String id); //TODO Develop unique method of converting users to an ID. Could use inbuilt IDs, but would be difficult to discriminate between default ID and API-wide ID.
 //
 //    public List<JUser> getJUsersByName(String name);
 //
-//    public List<JGuild> getJGuilds();
+//    public List<JGuild> getjGuilds();
 //
 //    public JGuild getJGuildByID(String id);
 //
@@ -78,15 +79,25 @@ public interface IConfiguration {
 
     public JGuild getJGuildById(String id) throws MissingDataException;
 
-    public List<JUser> getJUsers();
+    public List<JUser> getjUsers();
 
     public List<JUser> getJUsersByName(String name);
 
-    public List<JGuild> getJGuilds();
+    public List<JGuild> getjGuilds();
 
     public List<JGuild> getJGuildsByName(String name);
 
     public PermissionHandler getPermissionHandler();
+
+    public List<RoadItem> getRoadmap();
+
+    public boolean addRoadmapItem(RoadItem r);
+
+    public void removeRoadmapItem(RoadItem r);
+
+    public void shutdown(boolean saveData);
+
+    public void init();
 
     public enum Authority {
         OWNER,

@@ -16,6 +16,8 @@
 
 package me.Salt.Util;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.concurrent.TimeUnit;
 
 /**

@@ -16,14 +16,23 @@
 
 package me.Salt.SaltAPI;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
+import com.google.gson.annotations.Expose;
+import me.Salt.Command.CommandContainer;
 import me.Salt.Command.ICommand;
-import me.Salt.Exception.MissingDataException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Main;
 import me.Salt.Permissions.PermissionHandler;
+import me.Salt.SaltAPI.Entities.RoadItem;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
+import me.Salt.Util.Serialiser.*;
+import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
@@ -38,18 +47,21 @@ public class ConfigurationImpl implements IConfiguration {
     private String cmdPrefix;
     private String name;
     private String website;
-    private HashMap<String, JUser> JUsers = new HashMap<>(); //Store by ID, JUser
-    private HashMap<String, JGuild> JGuilds = new HashMap<>(); //As above; Store by ID, Guild
-    private HashMap<User, List<IConfiguration.Authority>> staff = new HashMap<>();
+    private HashMap<String, JUser> jUsers = new HashMap<>(); //Store by ID, JUser
+    private HashMap<String, JGuild> jGuilds = new HashMap<>(); //As above; Store by ID, Guild
+    private HashMap<User, List<IConfiguration.Authority>> staff = new HashMap<>(); //TODO add to Json output
     private HashMap<String, ICommand> commands = new HashMap<>();
+    @Expose private List<JUser> jUserList = new ArrayList<>();
+    @Expose private List<JGuild> jGuildList = new ArrayList<>();
     private boolean debugMode;
     private Color embedColour;
-    private int commandCount;
-    private int messageCount;
+    @Expose private int commandCount;
+    @Expose private int messageCount;
     private PermissionHandler permissionHandler;
+    private List<RoadItem> roadmap = new ArrayList<>();
 
 
-    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour, PermissionHandler permissionHandler) {
+    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour, PermissionHandler permissionHandler, List<RoadItem> roadmap) {
         this.startupTime = startupTime;
         this.cmdPrefix = cmdPrefix;
         this.name = name;
@@ -59,7 +71,9 @@ public class ConfigurationImpl implements IConfiguration {
         this.debugMode = debugMode;
         this.embedColour = embedColour;
         this.permissionHandler = permissionHandler;
+        this.roadmap = roadmap;
 
+        jUsers.values().addAll(jUserList);
     }
 
     @Override
@@ -130,25 +144,28 @@ public class ConfigurationImpl implements IConfiguration {
 
     @Override
     public void setJUser(JUser user) {
-        if (this.JUsers == null || user == null) return;
+        if (this.jUsers == null || user == null) return;
         try {
-            if (!this.JUsers.containsKey(user.getUser().getId())) this.JUsers.put(user.getUser().getId(), user);
-            else this.JUsers.replace(user.getUser().getId(), user);
+            if (!this.jUsers.containsKey(user.getUser().getId())) this.jUsers.put(user.getUser().getId(), user);
+            else this.jUsers.replace(user.getUser().getId(), user);
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
+
+        jUserList.removeAll(this.jUserList.stream().filter(jUser -> jUser.getUserId() == user.getUserId()).collect(Collectors.toList()));
+        jUserList.add(user);
     }
 
     @Override
     public void setJGuild(JGuild guild) {
-        if (this.JGuilds == null || guild == null) return;
-        if (!this.JGuilds.containsKey(guild.getGuild().getId())) this.JGuilds.put(guild.getGuild().getId(), guild);
-        else this.JGuilds.replace(guild.getGuild().getId(), guild);
+        if (this.jGuilds == null || guild == null) return;
+        if (!this.jGuilds.containsKey(guild.getGuild().getId())) this.jGuilds.put(guild.getGuild().getId(), guild);
+        else this.jGuilds.replace(guild.getGuild().getId(), guild);
     }
 
     @Override
     public JUser getJUserById(String id) throws MissingDataException {
-        if (this.JUsers.containsKey(id)) return this.JUsers.get(id);
+        if (this.jUsers.containsKey(id)) return this.jUsers.get(id);
         else {
             throw new MissingDataException("User could not be found!"); //TODO perhaps replace with a JLogger call...
         }
@@ -156,34 +173,98 @@ public class ConfigurationImpl implements IConfiguration {
 
     @Override
     public JGuild getJGuildById(String id) throws MissingDataException {
-        if (this.JGuilds.containsKey(id)) return this.JGuilds.get(id);
+        if (this.jGuilds.containsKey(id)) return this.jGuilds.get(id);
         else {
             throw new MissingDataException("Guild could not be found!"); //TODO as above
         }
     }
 
     @Override
-    public List<JUser> getJUsers() {
-        return new ArrayList<>(JUsers.values());
+    public List<JUser> getjUsers() {
+        return new ArrayList<>(jUsers.values());
     }
 
     @Override
     public List<JUser> getJUsersByName(String name) {
-        return JUsers.size() > 0 ? JUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+        return jUsers.size() > 0 ? jUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
     }
 
     @Override
-    public List<JGuild> getJGuilds() {
-        return new ArrayList<>(JGuilds.values());
+    public List<JGuild> getjGuilds() {
+        return new ArrayList<>(jGuilds.values());
     }
 
     @Override
     public List<JGuild> getJGuildsByName(String name) {
-        return JGuilds.size() > 0 ? JGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+        return jGuilds.size() > 0 ? jGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
     }
 
     public PermissionHandler getPermissionHandler() {
         return permissionHandler;
+    }
+
+    @Override
+    public List<RoadItem> getRoadmap() {
+        return roadmap;
+    }
+
+    @Override
+    public boolean addRoadmapItem(RoadItem r) {
+        if (!this.roadmap.contains(r)) this.roadmap.add(r);
+        else return false;
+        return true;
+    }
+
+    @Override
+    public void removeRoadmapItem(RoadItem r) {
+        if (this.roadmap.contains(r)) this.roadmap.remove(r);
+    }
+
+    public void shutdown(boolean saveCurrentState) {
+        //TODO add system of saving data to text files.
+        if (saveCurrentState) saveCurrentState();
+
+        /*
+        Do shutdown stuff, if needed.
+         */
+
+        Main.jda.shutdown();
+    }
+
+    public void init() {
+        //TODO add system of re-reading data files into the application.
+
+//                    Gson gson = new GsonBuilder()
+//                    .serializeNulls()
+//                    .excludeFieldsWithoutExposeAnnotation()
+//                    .registerTypeAdapter(TextChannel.class, new TextChannelSerialiser())
+//                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
+//                    .create();
+//
+//            try {
+//                event.getChannel().sendMessage("```" + gson.toJsonTree(Main.salt.getJUserById("112633500447838208")).toString() + "```").queue();
+//            } catch (MissingDataException e) {
+//                System.out.println(e.getMessage());
+//            }
+
+        Gson g = new GsonBuilder()
+                .serializeNulls()
+                .excludeFieldsWithoutExposeAnnotation()
+                .enableComplexMapKeySerialization()
+                .setPrettyPrinting()
+                .registerTypeAdapter(ICommand.class, new ICommandSerialiser())
+                .registerTypeAdapter(User.class, new UserSerialiser())
+                .registerTypeAdapter(Guild.class, new GuildSerialiser())
+                .registerTypeAdapter(CommandContainer.class, new CommandContainerSerialiser())
+                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
+                //.registerTypeAdapter(JUser.class, new JUserSerialiser())
+                .create();
+
+        System.out.println(g.toJsonTree(this).toString());
+    }
+
+    private void saveCurrentState() {
+
     }
 
 

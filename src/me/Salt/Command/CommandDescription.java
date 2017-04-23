@@ -16,7 +16,8 @@
 
 package me.Salt.Command;
 
-import me.Salt.Permissions.Permission;
+import com.google.gson.annotations.Expose;
+import me.Salt.Permissions.Perm;
 import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.entities.User;
 
@@ -34,15 +35,15 @@ public class CommandDescription {
     private String fullDescription; //A full description of the command, including how it's used, example usages, etc.
     private List<User> authors;
     private boolean isComplete;
-    private List<Permission> requiredPermissions;
+
+    private List<Perm> requiredPermissions;
     private String helpMessage;
     private boolean deprecated;
     private List<String> aliases; //What text is to be identified by the program as pointing to this command
     private Cooldown cooldown;
     private boolean hasCooldown = false;
 
-    public CommandDescription(List<Field> fields, String name, String description, String fullDescription, List<User> authors, boolean isComplete, List<Permission> requiredPermissions, String helpMessage, boolean deprecated, List<String> aliases, Cooldown cooldown) {
-
+    public CommandDescription(List<Field> fields, String name, String description, String fullDescription, List<User> authors, boolean isComplete, List<Perm> requiredPermissions, String helpMessage, boolean deprecated, List<String> aliases, Cooldown cooldown) {
         this.fields = fields;
         this.name = name;
         this.description = description;
@@ -88,7 +89,7 @@ public class CommandDescription {
         return isComplete;
     }
 
-    public List<Permission> getRequiredPermissions() {
+    public List<Perm> getRequiredPermissions() {
         return requiredPermissions;
     }
 

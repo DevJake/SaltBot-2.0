@@ -18,7 +18,10 @@ package me.Salt.Event;
 
 
 import me.Salt.Command.Container.CommandParser;
-import me.Salt.Exception.MalformedParametersException;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MalformedParametersException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Logging.JLogger;
 import me.Salt.Main;
 import me.Salt.SaltAPI.User.JUserBuilder;
@@ -54,15 +57,33 @@ public class EventDistributor extends ListenerAdapter {
                         .build()
         );
 
+        Main.salt.init();
+
         Runnable r = () -> {
             if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
 
             try {
                 CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
-            } catch (MalformedParametersException e) {
+            } catch (MalformedParametersException | MissingDataException | DisabledCommandException | LackingPermissionException e) {
                 JLogger.writeToConsole(JLogger.Level.WARNING, e.getMessage()); //TODO provide feedback about the error, and perhaps how to correct it/obtain help
                 event.getChannel().sendMessage(e.getMessage()).queue(n -> n.delete().queueAfter(5, TimeUnit.SECONDS));
             }
+
+//            Gson gson = new GsonBuilder()
+//                    .serializeNulls()
+//                    .excludeFieldsWithoutExposeAnnotation()
+//                    .registerTypeAdapter(Guild.class, new GuildSerialiser())
+//                    .registerTypeAdapter(TextChannel.class, new TextChannelSerialiser())
+//                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
+//                    .create();
+//
+//            try {
+//                event.getChannel().sendMessage("```" + gson.toJsonTree(Main.salt.getJUserById("112633500447838208")).toString() + "```").queue();
+//            } catch (MissingDataException e) {
+//                System.out.println(e.getMessage());
+//            }
+
+            //TODO reference to above code if necessary. Remove when no longer needed.
         };
 
         if (event.getMessage().getRawContent().startsWith(Main.salt.getCmdPrefix())) {
