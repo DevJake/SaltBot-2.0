@@ -1,4 +1,11 @@
 .idea/
 out/
 *.iml
+.gradle/
+gradle/
+build/
 src/me/Salt/Configuration/config.txt
+*.ipr
+gradlew
+*.bat
+*.iws
