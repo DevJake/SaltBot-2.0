@@ -16,6 +16,8 @@
 
 package me.Salt.Command.Commands.Fun;
 
+import com.google.gson.Gson;
+import com.google.gson.GsonBuilder;
 import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
@@ -52,14 +54,18 @@ public class CatCommand extends Command implements ICommand {
             e1.printStackTrace();
         }
 
+        Gson gson = new Gson();
         if (s != null) {
-            String x = s.findInLine(Pattern.compile("(http.+)\"")).replaceAll("\"", "").replaceAll("\\/", "/").replaceAll(" ", "");
-            e.getChannel().sendMessage(x.replace("http://random.cat/i/", "http://random.cat/i/")).queue();
+            e.getChannel().sendMessage(gson.fromJson(s.next(), Cat.class).file).queue();
         }
     }
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
 
+    }
+
+    private class Cat {
+        private String file = "";
     }
 }
