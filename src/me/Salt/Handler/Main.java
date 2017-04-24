@@ -27,20 +27,29 @@ import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Logging.LogEntry;
+import me.Salt.Logging.LogUtils;
 import me.Salt.Permissions.Perm;
 import me.Salt.Permissions.Permission;
 import me.Salt.Permissions.PermissionBuilder;
 import me.Salt.SaltAPI.ConfigurationBuilder;
 import me.Salt.SaltAPI.IConfiguration;
 import me.Salt.Util.Cooldown;
+import me.Salt.Util.Language.*;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
+import net.dv8tion.jda.core.utils.SimpleLog;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 import java.io.IOException;
+import java.time.Instant;
+import java.time.LocalDateTime;
+import java.time.ZoneId;
+import java.time.ZonedDateTime;
+import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
 
@@ -56,6 +65,27 @@ public class Main {
         jda = new JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.C9uEqA.lj7dGD3MnPJKJVwwrc6buxx-RRs").addEventListener(new EventDistributor()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
         //TODO improve above method. Currently a temporary fix to an exploit.
         //TODO also, change token, as a failsafe.
+        LanguageHandler lh = new LanguageHandler();
+        //System.out.println(lh.getLanguage(LangCode.en_GB).toString());
+
+        lh.addLanguage(
+                new LanguageBuilder()
+                        .setCode(LangCode.custom_lang)
+                        .addString(LangString.LACKING_PERMISSION, "uh-oh no permyoes")
+                        .addString(LangString.LOGGING_INFO, "info my bro!")
+                        .build());
+
+        lh.addLanguage(
+                new LanguageBuilder()
+                        .setCode(LangCode.en_GB)
+                        .addString(LangString.LACKING_PERMISSION, "no perms")
+                        .addString(LangString.LOGGING_INFO, "information")
+                        .build());
+
+        System.out.println(lh.getLanguage(LangCode.en_GB).toString());
+
+        LogUtils l = new LogUtils();
+        //TODO test LogUtil's cache-sorting algorithm.
 
         salt = new ConfigurationBuilder(".")
                 .setDebugMode(false)
