@@ -18,7 +18,14 @@ package me.Salt.Logging;
 
 import net.dv8tion.jda.core.entities.Guild;
 
+import java.util.ArrayList;
+import java.util.Comparator;
+import java.util.List;
+import java.util.stream.Collectors;
+
 public class LogUtils {
+
+    private List<LogEntry> logEntries = new ArrayList<>();
 
     public static void info(String message) {
 
@@ -66,5 +73,13 @@ public class LogUtils {
 
     public static void debug(String message, Guild guild) {
 
+    }
+
+    public void addLogEntry(LogEntry entry) {
+        logEntries = logEntries.stream().sorted(Comparator.comparing(LogEntry::getTime)).collect(Collectors.toList());
+    }
+
+    public List<LogEntry> getLogEntries() {
+        return logEntries;
     }
 }
