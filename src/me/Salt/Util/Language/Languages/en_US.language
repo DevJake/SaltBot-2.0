@@ -1,0 +1,23 @@
+{
+  "LACKING_PERMISSION": {
+    "text": "lacking permission"
+  },
+  "LOGGING_INFO": {
+    "text": "information"
+  },
+  "LOGGING_CONFIG": {
+    "text": "configuration"
+  },
+  "LOGGING_WARNING": {
+    "text": "warning"
+  },
+  "LOGGING_SEVERE": {
+    "text": "severe"
+  },
+  "LOGGING_FATAL": {
+    "text": "fatal"
+  },
+  "LOGGING_DEBUG": {
+    "text": "debugging"
+  }
+}
