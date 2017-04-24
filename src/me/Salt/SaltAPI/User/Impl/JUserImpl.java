@@ -19,7 +19,7 @@ package me.Salt.SaltAPI.User.Impl;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import me.Salt.Exception.Generic.DuplicateDataException;
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.User.JUser;
 import me.Salt.SaltAPI.Util.PrivilegeState;

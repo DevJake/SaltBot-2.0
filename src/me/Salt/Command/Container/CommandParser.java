@@ -16,7 +16,7 @@
 
 package me.Salt.Command.Container;
 
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 
 import java.util.ArrayList;
 import java.util.Arrays;

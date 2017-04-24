@@ -19,7 +19,7 @@ package me.Salt.SaltAPI.User;
 import com.sun.istack.internal.Nullable;
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Exception.Generic.MissingDataException;
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 import me.Salt.Permissions.Perm;
 import me.Salt.SaltAPI.User.Impl.JUserImpl;
 import me.Salt.SaltAPI.Util.PrivilegeState;

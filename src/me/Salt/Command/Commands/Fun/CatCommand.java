@@ -22,15 +22,11 @@ import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
-import me.Salt.Main;
-import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.io.IOException;
 import java.net.URL;
-import java.time.format.DateTimeFormatter;
 import java.util.Scanner;
-import java.util.regex.Pattern;
 
 public class CatCommand extends Command implements ICommand {
     public CatCommand(CommandContainer commandContainer) {

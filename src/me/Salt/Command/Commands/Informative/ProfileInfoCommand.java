@@ -22,7 +22,7 @@ import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Exception.Generic.MissingDataException;
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 import me.Salt.Permissions.Perm;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;

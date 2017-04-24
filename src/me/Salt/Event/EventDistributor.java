@@ -23,7 +23,7 @@ import me.Salt.Exception.Generic.MalformedParametersException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Logging.JLogger;
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 import me.Salt.SaltAPI.User.JUserBuilder;
 import me.Salt.Util.CommandExecutor;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;

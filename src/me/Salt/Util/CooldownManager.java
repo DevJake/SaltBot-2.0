@@ -17,7 +17,7 @@
 package me.Salt.Util;
 
 import me.Salt.Command.ICommand;
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.HashMap;

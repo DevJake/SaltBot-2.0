@@ -20,7 +20,7 @@ import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
-import me.Salt.Main;
+import me.Salt.Handler.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;

@@ -20,10 +20,10 @@ import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
-import me.Salt.Main;
-import me.Salt.Util.Reminder.Reminder;
-import me.Salt.Util.Reminder.ReminderBuilder;
-import me.Salt.Util.Reminder.ReminderHandler;
+import me.Salt.Handler.Main;
+import me.Salt.Util.Utility.Reminder.Reminder;
+import me.Salt.Util.Utility.Reminder.ReminderBuilder;
+import me.Salt.Util.Utility.Reminder.ReminderHandler;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.Instant;
