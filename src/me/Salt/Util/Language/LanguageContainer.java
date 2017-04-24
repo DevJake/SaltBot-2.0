@@ -1,21 +1,39 @@
 package me.Salt.Util.Language;
 
+import com.google.gson.annotations.Expose;
+
 import java.util.HashMap;
+import java.util.Map;
 
 public class LanguageContainer {
-    private String code; //such as en_GB
-    private HashMap<LangString, String> strings = new HashMap<>();
+    @Expose
+    private LangCode code; //such as en_GB
+    @Expose
+    private Map<LangString, String> strings = new HashMap<>();
 
-    public LanguageContainer(String code, HashMap<LangString, String> strings) {
+    @Override
+    public String toString() {
+        return "LanguageContainer{" +
+                "code='" + code + '\'' +
+                ", strings=" + strings +
+                '}';
+    }
+
+    public LanguageContainer(LanguageContainer l) {
+        this.code = l.getCode();
+        this.strings = l.getStrings();
+    }
+
+    public LanguageContainer(LangCode code, Map<LangString, String> strings) {
         this.code = code;
         this.strings = strings;
     }
 
-    public String getCode() {
+    public LangCode getCode() {
         return code;
     }
 
-    public HashMap<LangString, String> getStrings() {
+    public Map<LangString, String> getStrings() {
         return strings;
     }
 
