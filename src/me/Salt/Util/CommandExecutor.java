@@ -22,7 +22,7 @@ import me.Salt.Exception.Command.DisabledCommandException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Exception.Generic.MalformedParametersException;
 import me.Salt.Exception.Generic.MissingDataException;
-import me.Salt.Handler.Main;
+import me.Salt.Main;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.concurrent.TimeUnit;

@@ -23,7 +23,7 @@ import me.Salt.Command.ICommand;
 import me.Salt.Exception.Command.DisabledCommandException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
-import me.Salt.Handler.Main;
+import me.Salt.Main;
 import me.Salt.Permissions.Perm;
 import me.Salt.Permissions.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;

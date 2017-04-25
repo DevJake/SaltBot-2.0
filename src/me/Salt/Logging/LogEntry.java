@@ -16,20 +16,14 @@
 
 package me.Salt.Logging;
 
-import java.time.LocalDateTime;
 import java.time.ZonedDateTime;
 
 public class LogEntry {
     private ZonedDateTime time;
     private JLogger.Level level;
     private String message;
-
-    public LogEntry(ZonedDateTime time, JLogger.Level level, String message) {
-
-        this.time = time;
-        this.level = level;
-        this.message = message;
-    }
+    private String className; //Class that created this log entry
+    private Exception cause;
 
     @Override
     public String toString() {
@@ -37,6 +31,8 @@ public class LogEntry {
                 "time=" + time +
                 ", level=" + level +
                 ", message='" + message + '\'' +
+                ", className='" + className + '\'' +
+                ", cause=" + cause +
                 '}';
     }
 
@@ -50,5 +46,22 @@ public class LogEntry {
 
     public String getMessage() {
         return message;
+    }
+
+    public String getClassName() {
+        return className;
+    }
+
+    public Exception getCause() {
+        return cause;
+    }
+
+    public LogEntry(ZonedDateTime time, JLogger.Level level, String message, String className, Exception cause) {
+
+        this.time = time;
+        this.level = level;
+        this.message = message;
+        this.className = className;
+        this.cause = cause;
     }
 }

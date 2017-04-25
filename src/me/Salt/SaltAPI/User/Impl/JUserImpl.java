@@ -220,7 +220,7 @@ public class JUserImpl implements JUser {
         if (!this.perms.containsKey(perm)) try {
             throw new UnregisteredPermissionException("This permission has not been registered!");
         } catch (UnregisteredPermissionException e) {
-            LogUtils.severe(e.getMessage());
+            LogUtils.log(e.getMessage(), LogUtils.Severity.WARNING);
         }
         return this.perms.get(perm).getPermEnum().equals(perm) && this.perms.get(perm).getRange().equals(range);
     }

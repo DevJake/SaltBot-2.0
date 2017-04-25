@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.Salt.Handler;
+package me.Salt;
 
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.CommandDescriptionBuilder;
@@ -49,8 +49,6 @@ import java.awt.*;
 import java.io.IOException;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
-
-;
 
 /**
  * SaltBot 2.0 -- The original, rebuilt!

@@ -20,7 +20,7 @@ import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
-import me.Salt.Handler.Main;
+import me.Salt.Main;
 import me.Salt.Util.Utility.Reminder.Reminder;
 import me.Salt.Util.Utility.Reminder.ReminderBuilder;
 import me.Salt.Util.Utility.Reminder.ReminderHandler;

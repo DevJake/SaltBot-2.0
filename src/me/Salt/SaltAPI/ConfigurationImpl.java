@@ -22,7 +22,7 @@ import com.google.gson.annotations.Expose;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.ICommand;
 import me.Salt.Exception.Generic.MissingDataException;
-import me.Salt.Handler.Main;
+import me.Salt.Main;
 import me.Salt.Permissions.PermissionHandler;
 import me.Salt.SaltAPI.Entities.RoadItem;
 import me.Salt.SaltAPI.Guild.JGuild;
