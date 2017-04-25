@@ -18,6 +18,7 @@ package me.Salt.SaltAPI.User;
 
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
 import net.dv8tion.jda.core.entities.Guild;
@@ -36,7 +37,7 @@ public interface JUser {
 
     public List<WarningBuilder.Warning> getWarnings();
 
-    public List<Perm> getPermissions();
+    public List<Permission> getPermissions();
 
     public PrivilegeState getPrivilegeState();
 
@@ -68,11 +69,13 @@ public interface JUser {
 
     public JUser removeWarning(WarningBuilder.Warning warning);
 
-    public JUser addPermission(Perm permission) throws DuplicateDataException;
+    public JUser addPermission(Permission permission) throws DuplicateDataException;
 
     public JUser removePermission(Perm permission);
 
     public boolean hasPermission(Perm permission);
+
+    public boolean hasPermission(Perm permission, Permission.Range range);
 
 
 }

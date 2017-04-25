@@ -18,16 +18,16 @@ package me.Salt.Handler;
 
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.CommandDescriptionBuilder;
+import me.Salt.Command.Commands.Administrator.PermissionCommand;
+import me.Salt.Command.Commands.Administrator.ShutdownCommand;
+import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Informative.*;
 import me.Salt.Command.Commands.IssueCommand;
-import me.Salt.Command.Commands.Administrator.PermissionCommand;
 import me.Salt.Command.Commands.Utility.ReminderCommand;
-import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Event.EventDistributor;
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Exception.Generic.MissingDataException;
-import me.Salt.Logging.LogEntry;
 import me.Salt.Logging.LogUtils;
 import me.Salt.Permissions.Perm;
 import me.Salt.Permissions.Permission;
@@ -35,23 +35,22 @@ import me.Salt.Permissions.PermissionBuilder;
 import me.Salt.SaltAPI.ConfigurationBuilder;
 import me.Salt.SaltAPI.IConfiguration;
 import me.Salt.Util.Cooldown;
-import me.Salt.Util.Language.*;
+import me.Salt.Util.Language.LangCode;
+import me.Salt.Util.Language.LangString;
+import me.Salt.Util.Language.LanguageBuilder;
+import me.Salt.Util.Language.LanguageHandler;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
 import net.dv8tion.jda.core.exceptions.RateLimitedException;
-import net.dv8tion.jda.core.utils.SimpleLog;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
 import java.io.IOException;
-import java.time.Instant;
-import java.time.LocalDateTime;
-import java.time.ZoneId;
-import java.time.ZonedDateTime;
-import java.time.temporal.TemporalUnit;
 import java.util.Arrays;
 import java.util.concurrent.TimeUnit;
+
+;
 
 /**
  * SaltBot 2.0 -- The original, rebuilt!
@@ -92,6 +91,7 @@ public class Main {
                 .setStartupTime(n)
                 .setName("SaltBot-2.0")
                 .setEmbedColour(Color.BLUE)
+                .setDefaultLangCode(LangCode.en_GB)
                 .addTeamMember(jda.getUserById("112633500447838208"),
                         Arrays.asList(IConfiguration.Authority.DEVELOPER, IConfiguration.Authority.OWNER, IConfiguration.Authority.TESTER))
                 .registerCommand("help", new HelpCommand(
@@ -254,6 +254,16 @@ public class Main {
                                         .setDeprecated(false)
                                         .setDescription("Cats!! ;)")
                                         .setName("Kitties <3")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("test", new ShutdownCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("testing!")
+                                        .setName("Testing Command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();

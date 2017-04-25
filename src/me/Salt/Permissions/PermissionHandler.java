@@ -91,6 +91,11 @@ public class PermissionHandler {
         return user.getPermissions().contains(permission);
     }
 
+    public boolean hasPermission(JUser user, Perm permission, Permission.Range range) {
+        //TODO if range is a null value, just return if the individual has a permission covering them -at all-, not to a specific range.
+        return user.getPermissions().contains(permission);
+    }
+
 //    public Permission getPermission(Perm permission){
 //        //TODO
 //    }

@@ -19,8 +19,10 @@ package me.Salt.SaltAPI.User.Impl;
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
 import me.Salt.Exception.Generic.DuplicateDataException;
-import me.Salt.Handler.Main;
+import me.Salt.Exception.Permission.UnregisteredPermissionException;
+import me.Salt.Logging.LogUtils;
 import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
 import me.Salt.SaltAPI.User.JUser;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
@@ -30,6 +32,7 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
 
 /**
@@ -38,17 +41,29 @@ import java.util.List;
  */
 public class JUserImpl implements JUser {
     private User user;
-    @Expose private List<WarningBuilder.Warning> warnings = new ArrayList<>();
-    @Expose private List<Perm> permissions = new ArrayList<>(); //TODO move to using Permission.class, not Perm.class.
-    @Expose private PrivilegeState privilegeState;
-    @Expose private long userId;
-    @Expose private LocalDateTime lastMessage;
-    @Expose private LocalDateTime lastOnline;
-    @Expose @SerializedName("lastSpokenGuildId")private Guild lastSpokenGuild;
-    @Expose @SerializedName("lastTextChannelId") private TextChannel lastTextChannel;
-    @Expose private String lastNickname;
+    @Expose
+    private List<WarningBuilder.Warning> warnings = new ArrayList<>();
+    @Expose
+    private List<Permission> permissions = new ArrayList<>(); //TODO move to using Permission.class, not Perm.class.
+    private HashMap<Perm, Permission> perms = new HashMap<>();
+    @Expose
+    private PrivilegeState privilegeState;
+    @Expose
+    private long userId;
+    @Expose
+    private LocalDateTime lastMessage;
+    @Expose
+    private LocalDateTime lastOnline;
+    @Expose
+    @SerializedName("lastSpokenGuildId")
+    private Guild lastSpokenGuild;
+    @Expose
+    @SerializedName("lastTextChannelId")
+    private TextChannel lastTextChannel;
+    @Expose
+    private String lastNickname;
 
-    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Perm> permissions, PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
+    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Permission> permissions, PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
         this.warnings = warnings;
         this.permissions = permissions;
@@ -87,7 +102,8 @@ public class JUserImpl implements JUser {
         return warnings;
     }
 
-    public List<Perm> getPermissions() {
+    @Override
+    public List<Permission> getPermissions() {
         return permissions;
     }
 
@@ -175,21 +191,37 @@ public class JUserImpl implements JUser {
     }
 
     @Override
-    public JUser addPermission(Perm permission) throws DuplicateDataException {
+    public JUser addPermission(Permission permission) throws DuplicateDataException {
         if (this.permissions.contains(permission))
             throw new DuplicateDataException("This user already has this permission!");
         else this.permissions.add(permission);
+        this.perms.put(permission.getPermEnum(), permission);
         return this;
     }
 
     @Override
-    public JUser removePermission(Perm permission) {
-        if (this.permissions.contains(permission)) this.permissions.remove(permission);
+    public JUser removePermission(Perm perm) {
+        if (this.perms.containsKey(perm)) {
+            if (this.permissions.contains(perms.get(perm))) {
+                this.permissions.remove(perms.get(perm));
+                this.perms.remove(perm);
+            }
+        }
         return this;
     }
 
     @Override
-    public boolean hasPermission(Perm permission) {
-        return Main.salt.getPermissionHandler().hasPermission(this, permission);
+    public boolean hasPermission(Perm perm) {
+        return this.perms.get(perm).getPermEnum().equals(perm);
+    }
+
+    @Override
+    public boolean hasPermission(Perm perm, Permission.Range range) {
+        if (!this.perms.containsKey(perm)) try {
+            throw new UnregisteredPermissionException("This permission has not been registered!");
+        } catch (UnregisteredPermissionException e) {
+            LogUtils.severe(e.getMessage());
+        }
+        return this.perms.get(perm).getPermEnum().equals(perm) && this.perms.get(perm).getRange().equals(range);
     }
 }

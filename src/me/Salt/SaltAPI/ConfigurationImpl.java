@@ -27,6 +27,8 @@ import me.Salt.Permissions.PermissionHandler;
 import me.Salt.SaltAPI.Entities.RoadItem;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
+import me.Salt.Util.Language.LangCode;
+import me.Salt.Util.Language.LanguageHandler;
 import me.Salt.Util.Serialiser.*;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.User;
@@ -59,9 +61,19 @@ public class ConfigurationImpl implements IConfiguration {
     @Expose private int messageCount;
     private PermissionHandler permissionHandler;
     private List<RoadItem> roadmap = new ArrayList<>();
+    private LanguageHandler languageHandler;
 
+    public LangCode getDefaultLangCode() {
+        return defaultLangCode;
+    }
 
-    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour, PermissionHandler permissionHandler, List<RoadItem> roadmap) {
+    private LangCode defaultLangCode;
+
+    public LanguageHandler getLanguageHandler() {
+        return languageHandler;
+    }
+
+    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour, PermissionHandler permissionHandler, List<RoadItem> roadmap, LangCode defaultLangCode) {
         this.startupTime = startupTime;
         this.cmdPrefix = cmdPrefix;
         this.name = name;
@@ -72,6 +84,8 @@ public class ConfigurationImpl implements IConfiguration {
         this.embedColour = embedColour;
         this.permissionHandler = permissionHandler;
         this.roadmap = roadmap;
+        this.languageHandler = new LanguageHandler();
+        this.defaultLangCode = defaultLangCode;
 
         jUsers.values().addAll(jUserList);
     }

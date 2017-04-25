@@ -120,4 +120,8 @@ public enum Perm {
     //Profile Command
     COMMAND_PROFILE_USE,
     COMMAND_PROFILE_SET_USER,
+
+    //Shutdown Command
+    COMMAND_SHUTDOWN_USE,
+    COMMAND_SHUTDOWN_SET_DELAY,
 }

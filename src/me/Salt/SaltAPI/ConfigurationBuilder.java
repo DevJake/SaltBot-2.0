@@ -22,6 +22,7 @@ import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Logging.JLogger;
 import me.Salt.Permissions.PermissionHandler;
 import me.Salt.SaltAPI.Entities.RoadItem;
+import me.Salt.Util.Language.LangCode;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
@@ -45,6 +46,12 @@ public class ConfigurationBuilder {
     private Color embedColour;
     private PermissionHandler permissionHandler;
     private List<RoadItem> roadmap = new ArrayList<>();
+    private LangCode defaultLangCode;
+
+    public ConfigurationBuilder setDefaultLangCode(LangCode defaultLangCode) {
+        this.defaultLangCode = defaultLangCode;
+        return this;
+    }
 
     public ConfigurationBuilder(String cmdPrefix) {
         this.cmdPrefix = cmdPrefix;
@@ -115,7 +122,7 @@ public class ConfigurationBuilder {
     public IConfiguration build() throws MissingDataException {
         SafetyChecker c = (cmdPrefix) -> cmdPrefix != null && cmdPrefix.length() >= 1; //TODO Update
         if (c.isSafe(cmdPrefix))
-            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour, permissionHandler, roadmap);
+            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour, permissionHandler, roadmap, defaultLangCode);
         else throw new MissingDataException("Missing data for ConfigurationBuilder!");
         //TODO add Logger.write(...) call
     }

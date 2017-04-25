@@ -16,8 +16,12 @@
 
 package me.Salt.Logging;
 
-import net.dv8tion.jda.core.entities.Guild;
 
+import me.Salt.Handler.Main;
+import me.Salt.Util.Language.LangString;
+import me.Salt.Util.Language.LanguageHandler;
+
+import java.time.Instant;
 import java.util.ArrayList;
 import java.util.Comparator;
 import java.util.List;
@@ -40,7 +44,7 @@ public class LogUtils {
     }
 
     public static void severe(String message) {
-
+        System.out.println("[" + Instant.now().toString() + " ] [" + Main.salt.getLanguageHandler().getLanguage(Main.salt.getDefaultLangCode()).getString(LangString.LOGGING_SEVERE).toUpperCase() + "] " + message);
     }
 
     public static void fatal(String message) {
@@ -48,30 +52,6 @@ public class LogUtils {
     }
 
     public static void debug(String message) {
-
-    }
-
-    public static void info(String message, Guild guild) {
-
-    }
-
-    public static void config(String message, Guild guild) {
-
-    }
-
-    public static void warning(String message, Guild guild) {
-
-    }
-
-    public static void severe(String message, Guild guild) {
-
-    }
-
-    public static void fatal(String message, Guild guild) {
-
-    }
-
-    public static void debug(String message, Guild guild) {
 
     }
 

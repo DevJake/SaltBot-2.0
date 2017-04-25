@@ -22,6 +22,8 @@ import me.Salt.Permissions.PermissionHandler;
 import me.Salt.SaltAPI.Entities.RoadItem;
 import me.Salt.SaltAPI.Guild.JGuild;
 import me.Salt.SaltAPI.User.JUser;
+import me.Salt.Util.Language.LangCode;
+import me.Salt.Util.Language.LanguageHandler;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;
@@ -98,6 +100,10 @@ public interface IConfiguration {
     public void shutdown(boolean saveData);
 
     public void init();
+
+    public LanguageHandler getLanguageHandler();
+
+    public LangCode getDefaultLangCode();
 
     public enum Authority {
         OWNER,

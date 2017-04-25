@@ -2,6 +2,8 @@ package me.Salt.Util.Language;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
+import me.Salt.Exception.Generic.MalformedJsonException;
+import me.Salt.Exception.Language.LanguageNotFoundException;
 
 import java.io.*;
 import java.net.URLDecoder;
@@ -33,7 +35,8 @@ public class LanguageHandler {
         try {
             File f = new File(URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8") + "/Data/Languages/System/");
 
-            if (f.listFiles() == null) return;
+            if (f.listFiles() == null)
+                throw new LanguageNotFoundException("No system language files could be located!");
             StringBuilder sb;
 
             for (File file : f.listFiles()) {
@@ -47,15 +50,13 @@ public class LanguageHandler {
 
                 LanguageContainer lc = g.fromJson(sb.toString(), LanguageContainer.class);
 
+                if (lc == null)
+                    throw new MalformedJsonException("Language file (" + file.getName() + ") has malformed Json!");
+
                 addLanguageNoWrite(lc);
             }
-        } catch (UnsupportedEncodingException e) {
-            System.out.println("Couldn't read System language files!");
-            e.printStackTrace();
-        } catch (FileNotFoundException e) {
-            System.out.println("Couldn't read System language file! (Not found)");
-            e.printStackTrace();
-        } catch (IOException e) {
+        } catch (IOException | LanguageNotFoundException | MalformedJsonException e) {
+            System.out.println(e.getMessage());
             e.printStackTrace();
         }
     }

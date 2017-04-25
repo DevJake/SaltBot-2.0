@@ -1,5 +1,7 @@
 package me.Salt.Command.Commands.Administrator;
 
+import bsh.EvalError;
+import bsh.Interpreter;
 import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
@@ -17,7 +19,13 @@ public class EvalCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
+        Interpreter bsh = new Interpreter();
 
+        try {
+            bsh.eval("System.out.println((\"Hello\"))");
+        } catch (EvalError evalError) {
+            e.getChannel().sendMessage(evalError.getMessage() + "\n" + evalError.getErrorText());
+        }
     }
 
     @Override

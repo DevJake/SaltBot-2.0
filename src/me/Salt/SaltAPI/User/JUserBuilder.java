@@ -20,7 +20,7 @@ import com.sun.istack.internal.Nullable;
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Handler.Main;
-import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
 import me.Salt.SaltAPI.User.Impl.JUserImpl;
 import me.Salt.SaltAPI.Util.PrivilegeState;
 import me.Salt.SaltAPI.Util.WarningBuilder;
@@ -39,7 +39,7 @@ import java.util.List;
 public class JUserBuilder {
     private User user;
     private List<WarningBuilder.Warning> warnings = new ArrayList<>();
-    private List<Perm> permissions = new ArrayList<>();
+    private List<Permission> permissions = new ArrayList<>();
     private PrivilegeState privilegeState;
     private long userId;
     private LocalDateTime lastMessage;
@@ -98,11 +98,11 @@ public class JUserBuilder {
         return this;
     }
 
-    public JUserBuilder addPermission(Perm permission) throws DuplicateDataException {
-        if (!this.permissions.contains(permission)) {
-            this.permissions.add(permission);
-            return this;
-        } else throw new DuplicateDataException("This user already has this permission!");
+    public JUserBuilder addPermission(Permission permission) throws DuplicateDataException {
+        if (this.permissions.contains(permission))
+            throw new DuplicateDataException("This user already has this permission!");
+        else this.permissions.add(permission);
+        return this;
     }
 
     public JUserBuilder addWarning(WarningBuilder.Warning warning) {
