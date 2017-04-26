@@ -23,9 +23,12 @@ import me.Salt.Exception.Generic.MalformedParametersException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Logging.JLogger;
+import me.Salt.Logging.LogUtils;
 import me.Salt.Main;
 import me.Salt.SaltAPI.User.JUserBuilder;
 import me.Salt.Util.CommandExecutor;
+import net.dv8tion.jda.core.events.Event;
+import net.dv8tion.jda.core.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -39,7 +42,7 @@ import java.util.concurrent.TimeUnit;
  * Project title: SaltBot-2.0
  * Authored by Salt on 05/04/2017.
  */
-public class EventDistributor extends ListenerAdapter {
+public class EventListener extends ListenerAdapter {
     private ExecutorService executor = Executors.newFixedThreadPool(20);
 
     //TODO add support for PrivateMessageReceivedEvent (Perhaps have an interface for guild events and one for private events. Each command that implements them is then able to be called upon in their respective methods)
@@ -92,5 +95,11 @@ public class EventDistributor extends ListenerAdapter {
         } else {
             Main.salt.incrementMessageCount();
         }
+    }
+
+    @Override
+    public void onGenericEvent(Event event) {
+        if (event instanceof GuildMessageReceivedEvent) LogUtils.log(event.getClass().getSimpleName() + " received.");
+        else if (event instanceof GuildMessageDeleteEvent) LogUtils.log(event.getClass().getSimpleName() + " received.");
     }
 }

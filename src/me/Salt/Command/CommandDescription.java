@@ -16,7 +16,6 @@
 
 package me.Salt.Command;
 
-import com.google.gson.annotations.Expose;
 import me.Salt.Permissions.Perm;
 import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.entities.User;
