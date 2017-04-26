@@ -16,8 +16,6 @@
 
 package me.Salt.Exception.Generic;
 
-import me.Salt.Exception.Generic.GenericBotException;
-
 public class MalformedJsonException extends GenericBotException {
     public MalformedJsonException() {
         super();
