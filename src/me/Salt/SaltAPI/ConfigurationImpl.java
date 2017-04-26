@@ -61,7 +61,7 @@ public class ConfigurationImpl implements IConfiguration {
     @Expose private int messageCount;
     private PermissionHandler permissionHandler;
     private List<RoadItem> roadmap = new ArrayList<>();
-    private LanguageHandler languageHandler;
+    private LanguageHandler languageHandler = new LanguageHandler();
 
     public LangCode getDefaultLangCode() {
         return defaultLangCode;
@@ -84,9 +84,7 @@ public class ConfigurationImpl implements IConfiguration {
         this.embedColour = embedColour;
         this.permissionHandler = permissionHandler;
         this.roadmap = roadmap;
-        this.languageHandler = new LanguageHandler();
         this.defaultLangCode = defaultLangCode;
-
         jUsers.values().addAll(jUserList);
     }
 
@@ -274,7 +272,7 @@ public class ConfigurationImpl implements IConfiguration {
                 //.registerTypeAdapter(JUser.class, new JUserSerialiser())
                 .create();
 
-        System.out.println(g.toJsonTree(this).toString());
+        //System.out.println(g.toJsonTree(this).toString());
     }
 
     private void saveCurrentState() {

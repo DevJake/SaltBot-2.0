@@ -91,6 +91,8 @@ public class ConfigurationBuilder {
         if (commands.containsKey(commandCaller.toLowerCase()))
             throw new DuplicateDataException("Command already added!");
         commands.put(commandCaller.toLowerCase(), command);
+        if (command.getCmdContainer().getCommandDescription().getAliases().size() > 0)
+            command.getCmdContainer().getCommandDescription().getAliases().forEach(s -> commands.put(s, command));
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Registered a new command (\'" + command.getCmdContainer().getCommandDescription().getName() + "\') and assigned a command-caller of \"" + commandCaller.toLowerCase() + "\"");
         return this;
     }
