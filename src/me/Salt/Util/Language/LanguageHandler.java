@@ -3,13 +3,14 @@ package me.Salt.Util.Language;
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import me.Salt.Exception.Generic.MalformedJsonException;
+import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Language.LanguageNotFoundException;
+import me.Salt.Logging.LogUtils;
+import me.Salt.Main;
 
 import java.io.*;
 import java.net.URLDecoder;
-import java.util.ArrayList;
-import java.util.HashMap;
-import java.util.List;
+import java.util.*;
 
 /**
  * This class handles all information about the system's language files,
@@ -23,6 +24,7 @@ public class LanguageHandler {
             .serializeNulls()
             .setPrettyPrinting()
             .create();
+    private boolean checked = false;
 
     /**
      * This parameter-less constructor automatically reads in system language files,
@@ -59,6 +61,44 @@ public class LanguageHandler {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
+
+    }
+
+    public void check(LanguageContainer languageContainer) {
+        if (checked) return;
+        // TODO Although every language is checked, the default language should be checked differently to other languages.
+        // If a language is missing a value, it isn't majorly important; Simply log the missing value, but if the default
+        // language is missing a value, the method should completely halt the program from finishing the start-up process.
+        // This is because, if the system is looking for a value and it doesn't exist, it will refer to the superior language:
+        // Say that the default language is English, but a guild has their language set to Russian.
+        // If a user (or a guild) creates a language, they should be able to specify specific values, and not required to fill in every value.
+        // If a user speaks, the bot should first attempt to retrieve the value for their custom, modified language.
+        // If this doesn't exist, the system should then re-check for the same string, but with the guild's specified language.
+        // If this also fails, then the value from the default language should be used. As a result, it is critically important that the default language is 100% complete.
+
+        List<LangString> e = Arrays.asList(LangString.values());
+        e.sort(Comparator.comparing(Enum::name));
+
+            List<LangString> r = new ArrayList<>(languageContainer.getStrings().keySet());
+            r.sort(Comparator.comparing(Enum::name));
+            System.out.println(e + "\n" + r);
+            if (e != r) try {
+                throw new MissingDataException("Language " + languageContainer.getCode() + " is missing data!");
+            } catch (MissingDataException e1) {
+                // LogUtils.log(e1.getMessage(), LogUtils.Severity.SEVERE);
+                // Cannot use as the language handler isn't currently existant to ConfigurationImpl.class. This creates a recursive call, which results in a NullPointerException
+
+                //e1.printStackTrace();
+
+                System.out.println(e1.getMessage());
+
+                if (languageContainer.getCode().equals(Main.salt.getDefaultLangCode()))
+                    System.exit(-1); //Exits application if a language file exists, but is missing information
+
+            }
+
+
+        checked = true;
     }
 
     /**
@@ -97,6 +137,7 @@ public class LanguageHandler {
             languages.add(languageContainer);
             writeLang(languageContainer);
         }
+
     }
 
     /**
@@ -142,12 +183,12 @@ public class LanguageHandler {
         try {
             File f = new File(URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8") + "/Data/Languages/System/", lc.getCode().name() + ".language");
             if (f.getParentFile().mkdirs())
-                System.out.println("Created new file structure"); //TODO add LogUtils implementation
-            else System.out.println("No new file structure created");
+                LogUtils.log("Created new file structure"); //TODO add LogUtils implementation
+            else LogUtils.log("No new file structure created");
 
             if (f.createNewFile())
-                System.out.println("Created new file: " + f.getName());
-            else System.out.println("No new file made: " + f.getName());
+                LogUtils.log("Created new file: " + f.getName());
+            else LogUtils.log("No new file made: " + f.getName());
 
             f.setWritable(true);
             FileWriter fw = new FileWriter(f);
@@ -159,5 +200,9 @@ public class LanguageHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
+
+        check(lc);
     }
 }
+
+//TODO consider a re-write of the language system. Idea of using Json is good(-ish), but might work better with a system of <name>xyz<value>xyz, to allow for non-enumerated strings to be added
