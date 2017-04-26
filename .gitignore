@@ -5,6 +5,7 @@ out/
 gradle/
 build/
 src/me/Salt/Configuration/config.txt
+libs/
 *.ipr
 gradlew
 *.bat
