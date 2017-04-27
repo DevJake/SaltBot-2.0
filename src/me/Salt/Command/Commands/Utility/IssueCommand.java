@@ -16,7 +16,7 @@
  *
  */
 
-package me.Salt.Command.Commands;
+package me.Salt.Command.Commands.Utility;
 
 import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;

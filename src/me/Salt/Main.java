@@ -25,7 +25,7 @@ import me.Salt.Command.Commands.Administrator.PermissionCommand;
 import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Informative.*;
-import me.Salt.Command.Commands.IssueCommand;
+import me.Salt.Command.Commands.Utility.IssueCommand;
 import me.Salt.Command.Commands.Utility.ReminderCommand;
 import me.Salt.Event.EventListener;
 import me.Salt.Exception.Generic.DuplicateDataException;

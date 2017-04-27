@@ -16,35 +16,34 @@
  *
  */
 
-package me.Salt.Command.Commands;
+package me.Salt.Command.Commands.Utility;
 
 import me.Salt.Command.Command;
 import me.Salt.Command.CommandContainer;
 import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
-/**
- * This class provides details to the command caller about the project's current roadmap.
- * This allows them to keep up to date with planned changes.
- */
-public class RoadmapCommand extends Command implements ICommand {
-    public RoadmapCommand(CommandContainer commandContainer) {
-        super(commandContainer);
-    }
-
+public class GameStatsCommand extends Command implements ICommand {
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
-        return true;
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+        throw new DisabledCommandException("Sorry! This command is currently under construction...");
     }
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        //TODO allow user to set a time/date range
+
     }
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
 
+    }
+
+    public GameStatsCommand(CommandContainer commandContainer) {
+        super(commandContainer);
     }
 }

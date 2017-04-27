@@ -19,4 +19,13 @@
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities;
 
 public interface OperatorInfo {
+    public String getName();
+
+    public String getCtu();
+
+    public String getFigureUrl();
+
+    public String getBadgeUrl();
+
+    public String getBustUrl();
 }

@@ -18,14 +18,14 @@
 
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities;
 
-public class OperatorSpecial {
+public class OperatorSpecialImpl implements OperationSpecial {
     private String raw; //Typical incoming data might be "operatorpvp_glaz_sniperkill": "92"
     private String operatorName; //TODO perhaps add builder class
     private String specialName;
     private int value;
     private String description;
 
-    public OperatorSpecial(String raw, String operatorName, String specialName, int value, String description) {
+    public OperatorSpecialImpl(String raw, String operatorName, String specialName, int value, String description) {
         this.raw = raw;
         this.operatorName = operatorName;
         this.specialName = specialName;
@@ -33,22 +33,27 @@ public class OperatorSpecial {
         this.description = description;
     }
 
+    @Override
     public String getRaw() {
         return raw;
     }
 
+    @Override
     public String getOperatorName() {
         return operatorName;
     }
 
+    @Override
     public String getSpecialName() {
         return specialName;
     }
 
+    @Override
     public int getValue() {
         return value;
     }
 
+    @Override
     public String getDescription() {
         return description;
     }
