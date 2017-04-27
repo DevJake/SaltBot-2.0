@@ -16,7 +16,18 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
-public interface PlayerStats {
+public interface PlayerSeasonalRankingStat {
+    public int getRating();
+
+    public int getNextRating();
+
+    public int getPreviousRating();
+
+    public int getMean();
+
+    public int getStdev();
+
+    public int getRank();
 }

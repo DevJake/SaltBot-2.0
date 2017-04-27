@@ -16,9 +16,9 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerOverallStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerOverallStats;
 
 public class PlayerOverallStatsImpl implements PlayerOverallStats {
     private int revives;

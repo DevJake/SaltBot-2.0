@@ -16,7 +16,7 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
-public interface OperatorStat {
+public interface PlayerOverallStats {
 }

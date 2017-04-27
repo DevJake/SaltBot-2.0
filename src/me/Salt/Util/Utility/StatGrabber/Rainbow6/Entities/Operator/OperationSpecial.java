@@ -16,18 +16,19 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
 
 /**
- * An enum for the different types of Gamemodes in Rainbow 6 Siege
+ * Created by 15122390 on 27/04/2017.
  */
-public enum Gamemode {
-    /**
-     * A Ranked game
-     */
-    RANKED,
-    /**
-     * A Casual game
-     */
-    CASUAL,
+public interface OperationSpecial {
+    public String getRaw();
+
+    public String getOperatorName();
+
+    public String getSpecialName();
+
+    public int getValue();
+
+    public String getDescription();
 }

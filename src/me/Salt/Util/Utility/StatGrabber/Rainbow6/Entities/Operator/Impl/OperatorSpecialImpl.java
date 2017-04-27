@@ -16,7 +16,9 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
+
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperationSpecial;
 
 public class OperatorSpecialImpl implements OperationSpecial {
     private String raw; //Typical incoming data might be "operatorpvp_glaz_sniperkill": "92"

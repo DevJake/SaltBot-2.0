@@ -16,18 +16,16 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-/**
- * An enum for the different types of Gamemodes in Rainbow 6 Siege
- */
-public enum Gamemode {
-    /**
-     * A Ranked game
-     */
-    RANKED,
-    /**
-     * A Casual game
-     */
-    CASUAL,
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorStat;
+
+public class OperatorStatImpl implements OperatorStat {
+    private int gamesPlayed;
+    private int wins;
+    private int losses;
+    private int kills;
+    private int deaths;
+    private int playtime; //in minutes
+
 }

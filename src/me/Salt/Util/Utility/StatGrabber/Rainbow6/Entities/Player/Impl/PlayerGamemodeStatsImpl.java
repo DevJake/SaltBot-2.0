@@ -16,9 +16,9 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerGamemodeStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
 
 public class PlayerGamemodeStatsImpl implements PlayerGamemodeStats {

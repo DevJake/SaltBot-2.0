@@ -16,16 +16,9 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.OperatorStat;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Operator;
 
-public class OperatorStatImpl implements OperatorStat {
-    private int gamesPlayed;
-    private int wins;
-    private int losses;
-    private int kills;
-    private int deaths;
-    private int playtime; //in minutes
-
+public class OperatorImpl implements Operator {
 }

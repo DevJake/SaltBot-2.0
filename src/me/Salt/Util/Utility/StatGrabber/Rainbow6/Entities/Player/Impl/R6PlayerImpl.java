@@ -16,10 +16,10 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerStats;
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.R6Player;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 import net.dv8tion.jda.core.entities.User;
 

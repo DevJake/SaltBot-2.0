@@ -39,6 +39,7 @@ import me.Salt.Util.Cooldown;
 import me.Salt.Util.Language.LangCode;
 import me.Salt.Util.Language.LangString;
 import me.Salt.Util.Language.LanguageBuilder;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.R6Handler;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -306,6 +307,8 @@ public class Main {
                         .build());
         Main.salt.init();
 
+
+        R6Handler r = new R6Handler("");
         //TODO add unit tests
         //TODO add JavaDoc comments where possible
         //TODO allow each guild to establish its own TimeZone. Then ensure all times and dates in the guild are adjusted to suit their times. Also attach the timezone name (such as UTC) after all times.

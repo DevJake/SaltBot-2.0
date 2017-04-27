@@ -16,12 +16,12 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerGamemodeStats;
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerOverallStats;
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerProgressionStats;
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.PlayerStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerOverallStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerProgressionStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
 
 public class PlayerStatsImpl implements PlayerStats {
     private PlayerGamemodeStats ranked;

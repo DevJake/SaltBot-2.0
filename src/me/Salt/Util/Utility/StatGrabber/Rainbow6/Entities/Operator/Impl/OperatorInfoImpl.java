@@ -16,9 +16,9 @@
  *
  */
 
-package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.OperatorInfo;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorInfo;
 
 public class OperatorInfoImpl implements OperatorInfo {
     private String name;
