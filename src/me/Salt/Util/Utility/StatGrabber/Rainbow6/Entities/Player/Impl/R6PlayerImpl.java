@@ -26,9 +26,62 @@ import java.time.LocalDateTime;
 public class R6PlayerImpl implements R6Player {
     private String username;
     private Platform platform;
-    private String ubisoft_id;
-    private LocalDateTime indexed_at;
-    private LocalDateTime update_at;
+    private String ubisoftId;
+    private long indexedAt;
+    private long updateAt;
     private PlayerStats stats;
     private User tiedUser; //TODO look into tying an account to a user
+
+    @Override
+    public String toString() {
+        return "R6PlayerImpl{" +
+                "username='" + username + '\'' +
+                ", platform=" + platform +
+                ", ubisoftId='" + ubisoftId + '\'' +
+                ", indexedAt=" + indexedAt +
+                ", updateAt=" + updateAt +
+                ", stats=" + stats.toString() +
+                ", tiedUser=" + tiedUser +
+                '}';
+    }
+
+    public R6PlayerImpl(String username, Platform platform, String ubisoftId, long indexedAt, long updateAt, PlayerStats stats) {
+
+        this.username = username;
+        this.platform = platform;
+        this.ubisoftId = ubisoftId;
+        this.indexedAt = indexedAt;
+        this.updateAt = updateAt;
+        this.stats = stats;
+    }
+
+    @Override
+    public String getUsername() {
+        return username;
+    }
+
+    @Override
+    public Platform getPlatform() {
+        return platform;
+    }
+
+    @Override
+    public PlayerStats getStats() {
+        return stats;
+    }
+
+    @Override
+    public String getUbisoftId() {
+        return ubisoftId;
+    }
+
+    @Override
+    public long getIndexedAt() {
+        return indexedAt;
+    }
+
+    @Override
+    public long getUpdateAt() {
+        return updateAt;
+    }
 }

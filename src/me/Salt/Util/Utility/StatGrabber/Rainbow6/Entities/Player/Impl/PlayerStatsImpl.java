@@ -34,19 +34,33 @@ public class PlayerStatsImpl implements PlayerStats {
         this.progression = progression;
     }
 
+    @Override
     public PlayerGamemodeStats getRanked() {
         return ranked;
     }
 
+    @Override
     public PlayerGamemodeStats getCasual() {
         return casual;
     }
 
+    @Override
     public PlayerOverallStats getOverall() {
         return overall;
     }
 
+    @Override
     public PlayerProgressionStats getProgression() {
         return progression;
+    }
+
+    @Override
+    public String toString() {
+        return "PlayerStatsImpl{" +
+                "ranked=" + ranked.toString() +
+                ", casual=" + casual.toString() +
+                ", overall=" + overall.toString() +
+                ", progression=" + progression.toString() +
+                '}';
     }
 }

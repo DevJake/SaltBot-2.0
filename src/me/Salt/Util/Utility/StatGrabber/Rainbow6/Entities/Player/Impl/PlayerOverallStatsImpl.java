@@ -46,6 +46,23 @@ public class PlayerOverallStatsImpl implements PlayerOverallStats {
         this.assists = assists;
     }
 
+    @Override
+    public String toString() {
+        return "PlayerOverallStatsImpl{" +
+                "revives=" + revives +
+                ", suicides=" + suicides +
+                ", reinforcementsDeployed=" + reinforcementsDeployed +
+                ", barricadedBuilt=" + barricadedBuilt +
+                ", stepsMoved=" + stepsMoved +
+                ", bulletsFired=" + bulletsFired +
+                ", bulletsHit=" + bulletsHit +
+                ", headshots=" + headshots +
+                ", meleeKills=" + meleeKills +
+                ", penetrationKills=" + penetrationKills +
+                ", assists=" + assists +
+                '}';
+    }
+
     public int getRevives() {
         return revives;
     }
@@ -54,38 +71,47 @@ public class PlayerOverallStatsImpl implements PlayerOverallStats {
         return suicides;
     }
 
+    @Override
     public int getReinforcementsDeployed() {
         return reinforcementsDeployed;
     }
 
+    @Override
     public int getBarricadedBuilt() {
         return barricadedBuilt;
     }
 
+    @Override
     public int getStepsMoved() {
         return stepsMoved;
     }
 
+    @Override
     public int getBulletsFired() {
         return bulletsFired;
     }
 
+    @Override
     public int getBulletsHit() {
         return bulletsHit;
     }
 
+    @Override
     public int getHeadshots() {
         return headshots;
     }
 
+    @Override
     public int getMeleeKills() {
         return meleeKills;
     }
 
+    @Override
     public int getPenetrationKills() {
         return penetrationKills;
     }
 
+    @Override
     public int getAssists() {
         return assists;
     }

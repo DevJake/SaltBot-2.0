@@ -35,4 +35,12 @@ public class PlayerProgressionStatsImpl implements PlayerProgressionStats {
     public int getLevelUpXp() {
         return levelUpXp;
     }
+
+    @Override
+    public String toString() {
+        return "PlayerProgressionStatsImpl{" +
+                "level=" + level +
+                ", levelUpXp=" + levelUpXp +
+                '}';
+    }
 }

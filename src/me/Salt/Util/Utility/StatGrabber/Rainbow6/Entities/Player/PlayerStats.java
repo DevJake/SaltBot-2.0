@@ -17,4 +17,11 @@
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
 public interface PlayerStats {
+    public PlayerGamemodeStats getRanked();
+
+    public PlayerGamemodeStats getCasual();
+
+    public PlayerOverallStats getOverall();
+
+    public PlayerProgressionStats getProgression();
 }

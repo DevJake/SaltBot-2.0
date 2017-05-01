@@ -17,4 +17,25 @@
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
 public interface PlayerOverallStats {
+    public int getRevives();
+
+    public int getSuicides();
+
+    public int getReinforcementsDeployed();
+
+    public int getBarricadedBuilt();
+
+    public int getStepsMoved();
+
+    public int getBulletsFired();
+
+    public int getBulletsHit();
+
+    public int getHeadshots();
+
+    public int getMeleeKills();
+
+    public int getPenetrationKills();
+
+    public int getAssists();
 }

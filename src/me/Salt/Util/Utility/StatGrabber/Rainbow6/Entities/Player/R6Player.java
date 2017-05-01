@@ -16,5 +16,21 @@
 
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
+import net.dv8tion.jda.core.entities.User;
+
+import java.time.LocalDateTime;
+
 public interface R6Player {
+    public String getUsername();
+
+    public Platform getPlatform();
+
+    public PlayerStats getStats();
+
+    public String getUbisoftId();
+
+    public long getIndexedAt();
+
+    public long getUpdateAt();
 }
