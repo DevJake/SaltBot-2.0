@@ -21,6 +21,6 @@ package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
  */
 public enum Platform {
     PS4,
-    XBOX_ONE,
+    XONE,
     UPLAY,
 }
