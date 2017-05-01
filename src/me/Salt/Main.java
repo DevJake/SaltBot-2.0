@@ -24,6 +24,7 @@ import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Informative.*;
 import me.Salt.Command.Commands.Utility.IssueCommand;
+import me.Salt.Command.Commands.Utility.R6GameStatsCommand;
 import me.Salt.Command.Commands.Utility.ReminderCommand;
 import me.Salt.Event.EventListener;
 import me.Salt.Exception.Generic.DuplicateDataException;
@@ -38,6 +39,7 @@ import me.Salt.Util.Language.LangCode;
 import me.Salt.Util.Language.LangString;
 import me.Salt.Util.Language.LanguageBuilder;
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.R6Handler;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -242,8 +244,18 @@ public class Main {
                                         .addAuthor(jda.getUserById("112633500447838208"))
                                         .setComplete(false)
                                         .setDeprecated(false)
-                                        .setDescription("testing!")
+                                        .setDescription("Testing!")
                                         .setName("Testing Command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("r6", new R6GameStatsCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Rainbow 6 stat grabbing")
+                                        .setName("Rainbow6 Stats Command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();
@@ -305,8 +317,6 @@ public class Main {
                         .build());
         Main.salt.init();
 
-
-        R6Handler r = new R6Handler("");
         //TODO add unit tests
         //TODO add JavaDoc comments where possible
         //TODO allow each guild to establish its own TimeZone. Then ensure all times and dates in the guild are adjusted to suit their times. Also attach the timezone name (such as UTC) after all times.

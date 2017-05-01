@@ -63,6 +63,7 @@ public class JUserImpl implements JUser {
     @Expose
     private String lastNickname;
 
+    //TODO add a currency variable
     public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Permission> permissions, PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
         this.warnings = warnings;
