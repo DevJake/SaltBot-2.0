@@ -22,6 +22,7 @@ import me.Salt.Command.Commands.Administrator.EvalCommand;
 import me.Salt.Command.Commands.Administrator.PermissionCommand;
 import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Command.Commands.Fun.CatCommand;
+import me.Salt.Command.Commands.Fun.EmojiTextCommand;
 import me.Salt.Command.Commands.Informative.*;
 import me.Salt.Command.Commands.Utility.IssueCommand;
 import me.Salt.Command.Commands.Utility.R6GameStatsCommand;
@@ -256,6 +257,16 @@ public class Main {
                                         .setDeprecated(false)
                                         .setDescription("Rainbow 6 stat grabbing")
                                         .setName("Rainbow6 Stats Command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                .registerCommand("etext", new EmojiTextCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Emoji Text... because why not!?")
+                                        .setName("Emoji Text Command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
                 .build();

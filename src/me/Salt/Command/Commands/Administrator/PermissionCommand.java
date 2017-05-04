@@ -35,6 +35,7 @@ public class PermissionCommand extends Command implements ICommand {
         return true;
     }
 
+    //TODO modify command system to not have execute() and postExecution() not require parameters (use preExecution() as a constructor
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
 
