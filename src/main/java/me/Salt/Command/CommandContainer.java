@@ -24,14 +24,14 @@ import java.util.List;
  */
 public class CommandContainer {
     private CommandDescription commandDescription;
-    private List<JEvent> events;
+    private List<JEventType> events;
 
     /**
      * @param commandDescription CommandDescription - The CommandDescription instance with details about a command.
      * @param events             List - A list of events that this command is set to listen to.
      */
-    //TODO remove List<JEvent> parameter, as it's not used.
-    public CommandContainer(CommandDescription commandDescription, List<JEvent> events) {
+    //TODO remove List<JEventType> parameter, as it's not used.
+    public CommandContainer(CommandDescription commandDescription, List<JEventType> events) {
         this.commandDescription = commandDescription;
         this.events = events;
     }
@@ -46,14 +46,14 @@ public class CommandContainer {
     /**
      * @return List - A list of events that this command is set to listen to.
      */
-    public List<JEvent> getEvents() {
+    public List<JEventType> getEvents() {
         return events;
     }
 
     /**
      * An enum storing different types of events that a command may choose to listen to.
      */
-    public enum JEvent {
+    public enum JEventType {
         /**
          * A generic message (both Private and Guild messages).
          */
