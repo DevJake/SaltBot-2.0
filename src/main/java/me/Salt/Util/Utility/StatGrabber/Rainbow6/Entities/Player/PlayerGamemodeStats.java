@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
 public interface PlayerGamemodeStats {
 }

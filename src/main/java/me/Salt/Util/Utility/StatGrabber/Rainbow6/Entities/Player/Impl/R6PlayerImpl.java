@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 import net.dv8tion.jda.core.entities.User;
 
 public class R6PlayerImpl implements R6Player {

@@ -16,29 +16,30 @@
 
 package me.Salt;
 
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.CommandDescriptionBuilder;
-import main.java.me.Salt.Command.Commands.Administrator.EvalCommand;
-import main.java.me.Salt.Command.Commands.Administrator.PermissionCommand;
-import main.java.me.Salt.Command.Commands.Debugging.SayCommand;
-import main.java.me.Salt.Command.Commands.Fun.CatCommand;
-import main.java.me.Salt.Command.Commands.Fun.EmojiTextCommand;
-import main.java.me.Salt.Command.Commands.Informative.*;
-import main.java.me.Salt.Command.Commands.Utility.IssueCommand;
-import main.java.me.Salt.Command.Commands.Utility.R6GameStatsCommand;
-import main.java.me.Salt.Command.Commands.Utility.ReminderCommand;
-import main.java.me.Salt.Event.EventListener;
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.Permissions.Permission;
-import main.java.me.Salt.Permissions.PermissionBuilder;
-import main.java.me.Salt.SaltAPI.ConfigurationBuilder;
-import main.java.me.Salt.SaltAPI.IConfiguration;
-import main.java.me.Salt.Util.Cooldown;
-import main.java.me.Salt.Util.Language.LangCode;
-import main.java.me.Salt.Util.Language.LangString;
-import main.java.me.Salt.Util.Language.LanguageBuilder;
+
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.CommandDescriptionBuilder;
+import me.Salt.Command.Commands.Administrator.EvalCommand;
+import me.Salt.Command.Commands.Administrator.PermissionCommand;
+import me.Salt.Command.Commands.Debugging.SayCommand;
+import me.Salt.Command.Commands.Fun.CatCommand;
+import me.Salt.Command.Commands.Fun.EmojiTextCommand;
+import me.Salt.Command.Commands.Informative.*;
+import me.Salt.Command.Commands.Utility.IssueCommand;
+import me.Salt.Command.Commands.Utility.R6GameStatsCommand;
+import me.Salt.Command.Commands.Utility.ReminderCommand;
+import me.Salt.Event.EventListener;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
+import me.Salt.Permissions.PermissionBuilder;
+import me.Salt.SaltAPI.ConfigurationBuilder;
+import me.Salt.SaltAPI.IConfiguration;
+import me.Salt.Util.Cooldown;
+import me.Salt.Util.Language.LangCode;
+import me.Salt.Util.Language.LangString;
+import me.Salt.Util.Language.LanguageBuilder;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -59,7 +60,7 @@ public class Main {
     public static IConfiguration salt;
 
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
-        jda = new JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.C9uEqA.lj7dGD3MnPJKJVwwrc6buxx-RRs").addEventListener(new EventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+        jda = new JDABuilder(AccountType.BOT).setToken("MzExNTcwOTI3NTk2OTk0NTYw.C_epcg.g0cbyRXz6y8Q2u99RREGeuhR_j4").addEventListener(new EventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
         //TODO improve above method. Currently a temporary fix to an exploit.
         //TODO also, change token, as a failsafe.
 

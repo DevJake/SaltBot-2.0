@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI;
+package me.Salt.SaltAPI;
 
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Logging.JLogger;
-import main.java.me.Salt.Permissions.PermissionHandler;
-import main.java.me.Salt.SaltAPI.Entities.RoadItem;
-import main.java.me.Salt.Util.Language.LangCode;
+import me.Salt.Command.ICommand;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Logging.JLogger;
+import me.Salt.Permissions.PermissionHandler;
+import me.Salt.SaltAPI.Entities.RoadItem;
+import me.Salt.Util.Language.LangCode;
 import net.dv8tion.jda.core.entities.User;
 
 import java.awt.*;

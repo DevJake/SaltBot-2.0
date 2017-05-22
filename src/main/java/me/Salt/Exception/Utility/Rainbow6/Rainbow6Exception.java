@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Utility.Rainbow6;
+package me.Salt.Exception.Utility.Rainbow6;
 
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.R6Error;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.R6Error;
 
 public class Rainbow6Exception extends Exception {
     private String message;

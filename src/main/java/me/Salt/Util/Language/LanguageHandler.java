@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Language;
+package me.Salt.Util.Language;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
-import main.java.me.Salt.Exception.Generic.MalformedJsonException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Exception.Language.LanguageNotFoundException;
-import main.java.me.Salt.Logging.LogUtils;
-import main.java.me.Salt.Main;
+import me.Salt.Exception.Generic.MalformedJsonException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Language.LanguageNotFoundException;
+import me.Salt.Logging.LogUtils;
+import me.Salt.Main;
 
 import java.io.*;
 import java.net.URLDecoder;

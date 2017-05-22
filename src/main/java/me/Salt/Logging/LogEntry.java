@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Logging;
+package me.Salt.Logging;
 
 import java.time.ZonedDateTime;
 

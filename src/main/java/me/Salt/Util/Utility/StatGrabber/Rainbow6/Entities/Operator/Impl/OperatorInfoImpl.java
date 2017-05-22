@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorInfo;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorInfo;
 
 public class OperatorInfoImpl implements OperatorInfo {
     private String name;

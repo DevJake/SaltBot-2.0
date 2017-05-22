@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
 
 /**
  * The platform that the user has played the game on

@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.Guild.Impl;
+package me.Salt.SaltAPI.Guild.Impl;
 
 import com.google.gson.annotations.Expose;
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.SaltAPI.Guild.JGuild;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Permissions.Perm;
+import me.Salt.SaltAPI.Guild.JGuild;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 

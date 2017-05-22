@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
 
 public class PlayerGamemodeStatsImpl implements PlayerGamemodeStats {
     private Gamemode gamemode;

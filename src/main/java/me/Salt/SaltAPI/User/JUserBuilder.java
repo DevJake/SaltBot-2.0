@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.User;
+package me.Salt.SaltAPI.User;
 
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Main;
-import main.java.me.Salt.Permissions.Permission;
-import main.java.me.Salt.SaltAPI.User.Impl.JUserImpl;
-import main.java.me.Salt.SaltAPI.Util.PrivilegeState;
-import main.java.me.Salt.SaltAPI.Util.WarningBuilder;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Main;
+import me.Salt.Permissions.Permission;
+import me.Salt.SaltAPI.User.Impl.JUserImpl;
+import me.Salt.SaltAPI.Util.PrivilegeState;
+import me.Salt.SaltAPI.Util.WarningBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;

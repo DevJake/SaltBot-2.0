@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Logging;
+package me.Salt.Logging;
 
-import main.java.me.Salt.Main;
-import main.java.me.Salt.Util.Language.LangString;
+import me.Salt.Main;
+import me.Salt.Util.Language.LangString;
 
 import java.time.Instant;
 import java.util.ArrayList;

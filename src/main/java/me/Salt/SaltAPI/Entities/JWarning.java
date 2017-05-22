@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.Entities;
+package me.Salt.SaltAPI.Entities;
 
-import main.java.me.Salt.SaltAPI.Util.WarningBuilder;
+import me.Salt.SaltAPI.Util.WarningBuilder;
 
 import java.util.List;
 

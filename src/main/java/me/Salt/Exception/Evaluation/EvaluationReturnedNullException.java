@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Evaluation;
+package me.Salt.Exception.Evaluation;
 
 public class EvaluationReturnedNullException extends EvaluationException {
     public EvaluationReturnedNullException() {

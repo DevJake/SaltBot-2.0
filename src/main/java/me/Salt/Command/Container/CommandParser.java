@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command.Container;
+package me.Salt.Command.Container;
 
-import main.java.me.Salt.Main;
+import me.Salt.Main;
 
 import java.util.ArrayList;
 import java.util.Arrays;

@@ -14,23 +14,23 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command.Commands.Administrator;
+package me.Salt.Command.Commands.Administrator;
 
 
-import bsh.EvalError;
-import bsh.Interpreter;
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Exception.Command.DisabledCommandException;
-import main.java.me.Salt.Exception.Evaluation.EvaluationReturnedNullException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Exception.Permission.LackingPermissionException;
-import main.java.me.Salt.Main;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+import javax.script.ScriptEngine;
+import javax.script.ScriptEngineManager;
+import javax.script.ScriptException;
 import java.time.format.DateTimeFormatter;
 
 public class EvalCommand extends Command implements ICommand {
@@ -48,29 +48,31 @@ public class EvalCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        Interpreter bsh = new Interpreter();
         StringBuilder sb = new StringBuilder();
 
         cmd.getArgsUpper().forEach(n -> sb.append(n).append(" "));
 
+        ScriptEngine engine = new ScriptEngineManager().getEngineByExtension("js");
         try {
-            bsh.set("e", e);
-            Object n = bsh.eval("import java.util.*; import java.io.*; import me.Salt.*; import net.dv8tion.*; " + sb.toString());
-            if (n == null) throw new EvaluationReturnedNullException("No data was returned by the evaluation!");
+
+            engine.put("e", e);
+            engine.put("jda", Main.jda);
+            engine.put("cmd", cmd);
+            engine.put("salt", Main.salt);
+            Object n = engine.eval(sb.toString());
+
+            if (n.toString() == null) throw new ScriptException("No data was returned!");
+
             e.getChannel().sendMessage(
-                    new EmbedBuilder()
-                            .addField("Evaluation was successful! ✅", n.toString(), false)
-                            .setColor(Main.salt.getEmbedColour())
-                            .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                            .build()).queue();
-        } catch (EvalError evalError) {
-            e.getChannel().sendMessage(
-                    new EmbedBuilder()
-                            .addField("Evaluation was unsuccessful! ❌", evalError.toString(), false)
-                            .setColor(Main.salt.getEmbedColour())
-                            .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                            .build()).queue();
-        } catch (EvaluationReturnedNullException e1) {
+                new EmbedBuilder()
+                        .addField("Evaluation was successful! ✅", n.toString(), false)
+                        .setColor(Main.salt.getEmbedColour())
+                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
+                        .build()).queue();
+
+
+        } catch (ScriptException e1) {
+            //TODO log
             e.getChannel().sendMessage(
                     new EmbedBuilder()
                             .addField("Evaluation was unsuccessful! ❌", e1.getMessage(), false)

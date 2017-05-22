@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Language;
+package me.Salt.Util.Language;
 
-import main.java.me.Salt.SaltAPI.Util.Interface.Buildable;
+import me.Salt.SaltAPI.Util.Interface.Buildable;
 
 import java.util.HashMap;
 import java.util.Map;

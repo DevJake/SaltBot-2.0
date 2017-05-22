@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperationSpecial;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperationSpecial;
 
 public class OperatorSpecialImpl implements OperationSpecial {
     private String raw; //Typical incoming data might be "operatorpvp_glaz_sniperkill": "92"

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.SpamTracker;
+package me.Salt.Util.Utility.SpamTracker;
 
 /**
  * Project title: SaltBot-2.0

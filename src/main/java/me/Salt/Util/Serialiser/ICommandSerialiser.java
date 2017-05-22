@@ -14,13 +14,13 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Serialiser;
+package me.Salt.Util.Serialiser;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import main.java.me.Salt.Command.ICommand;
+import me.Salt.Command.ICommand;
 
 import java.lang.reflect.Type;
 

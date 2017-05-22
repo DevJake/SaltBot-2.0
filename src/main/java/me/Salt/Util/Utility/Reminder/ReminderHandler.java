@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.Reminder;
+package me.Salt.Util.Utility.Reminder;
 
 import java.util.concurrent.Executors;
 import java.util.concurrent.ScheduledExecutorService;

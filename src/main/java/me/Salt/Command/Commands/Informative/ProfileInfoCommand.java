@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command.Commands.Informative;
+package me.Salt.Command.Commands.Informative;
 
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Exception.Permission.LackingPermissionException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Main;
-import main.java.me.Salt.Permissions.Perm;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Main;
+import me.Salt.Permissions.Perm;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.entities.Member;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;

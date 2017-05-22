@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Command;
+package me.Salt.Exception.Command;
 
 public class CommandException extends Exception {
     public CommandException() {

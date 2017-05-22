@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.TubeMapper;
+package me.Salt.Util.Utility.TubeMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;

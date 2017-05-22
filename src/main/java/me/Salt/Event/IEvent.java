@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Event;
+package me.Salt.Event;
 
 /**
  * Created by Salt001 on 09/04/2017.

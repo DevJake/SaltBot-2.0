@@ -14,11 +14,10 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Permissions;
+package me.Salt.Permissions;
 
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.SaltAPI.User.JUser;
-import main.java.me.Salt.Permissions.Perm;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.SaltAPI.User.JUser;
 
 import java.util.ArrayList;
 import java.util.Arrays;

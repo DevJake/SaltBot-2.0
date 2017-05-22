@@ -14,18 +14,18 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.User.Impl;
+package me.Salt.SaltAPI.User.Impl;
 
 import com.google.gson.annotations.Expose;
 import com.google.gson.annotations.SerializedName;
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Exception.Permission.UnregisteredPermissionException;
-import main.java.me.Salt.Logging.LogUtils;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.Permissions.Permission;
-import main.java.me.Salt.SaltAPI.User.JUser;
-import main.java.me.Salt.SaltAPI.Util.PrivilegeState;
-import main.java.me.Salt.SaltAPI.Util.WarningBuilder;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Exception.Permission.UnregisteredPermissionException;
+import me.Salt.Logging.LogUtils;
+import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
+import me.Salt.SaltAPI.User.JUser;
+import me.Salt.SaltAPI.Util.PrivilegeState;
+import me.Salt.SaltAPI.Util.WarningBuilder;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;

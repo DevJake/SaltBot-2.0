@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Permission;
+package me.Salt.Exception.Permission;
 
 public class UnregisteredPermissionException extends PermissionException {
     public UnregisteredPermissionException() {

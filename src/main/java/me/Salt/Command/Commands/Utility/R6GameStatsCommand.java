@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command.Commands.Utility;
+package me.Salt.Command.Commands.Utility;
 
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Exception.Command.DisabledCommandException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Exception.Permission.LackingPermissionException;
-import main.java.me.Salt.Main;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.R6Handler;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Main;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.R6Handler;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 

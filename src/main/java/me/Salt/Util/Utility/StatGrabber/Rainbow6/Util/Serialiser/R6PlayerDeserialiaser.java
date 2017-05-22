@@ -14,12 +14,12 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Serialiser;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Serialiser;
 
 import com.google.gson.*;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl.*;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl.*;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 
 import java.lang.reflect.Type;
 

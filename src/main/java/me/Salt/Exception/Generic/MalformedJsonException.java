@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Generic;
+package me.Salt.Exception.Generic;
 
 public class MalformedJsonException extends GenericBotException {
     public MalformedJsonException() {

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
 
 public interface OperatorInfo {
     public String getName();

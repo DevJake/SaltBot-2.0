@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Permissions;
+package me.Salt.Permissions;
 
 /**
  * This class contains a list of all different permissions.

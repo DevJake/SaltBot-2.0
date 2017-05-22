@@ -14,17 +14,17 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl.R6PlayerImpl;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Serialiser.R6PlayerDeserialiaser;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl.R6PlayerImpl;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Serialiser.R6PlayerDeserialiaser;
 
 import java.io.IOException;
 import java.io.InputStreamReader;

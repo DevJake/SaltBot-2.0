@@ -14,9 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.Util;
+package me.Salt.SaltAPI.Util;
 
-import main.java.me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import net.dv8tion.jda.core.entities.User;
 
 import java.time.ZonedDateTime;

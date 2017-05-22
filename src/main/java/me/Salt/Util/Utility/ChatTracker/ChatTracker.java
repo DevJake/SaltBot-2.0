@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.ChatTracker;
+package me.Salt.Util.Utility.ChatTracker;
 
 /**
  * Project title: SaltBot-2.0

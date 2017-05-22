@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util;
+package me.Salt.Util;
 
 import com.google.gson.annotations.Expose;
 

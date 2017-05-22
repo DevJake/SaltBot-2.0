@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util;
+package me.Salt.Util;
 
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Main;
+import me.Salt.Command.ICommand;
+import me.Salt.Main;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.HashMap;

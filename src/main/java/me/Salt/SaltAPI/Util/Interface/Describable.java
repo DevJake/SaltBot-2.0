@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.Util.Interface;
+package me.Salt.SaltAPI.Util.Interface;
 
 /**
  * Created by 15122390 on 21/04/2017.

@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command;
+package me.Salt.Command;
 
 /**
  * This class contains a CommandContainer, as well as a constructor, and respective Getter/Setter methods. All commands should extend to this class.

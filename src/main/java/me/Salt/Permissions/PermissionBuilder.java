@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Permissions;
+package me.Salt.Permissions;
 
-import main.java.me.Salt.SaltAPI.Util.Interface.Buildable;
-import main.java.me.Salt.Permissions.Perm;
+import me.Salt.SaltAPI.Util.Interface.Buildable;
 
 import java.util.ArrayList;
 import java.util.List;

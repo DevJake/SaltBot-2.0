@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Language;
+package me.Salt.Exception.Language;
 
 
 public class LanguageException extends Exception {

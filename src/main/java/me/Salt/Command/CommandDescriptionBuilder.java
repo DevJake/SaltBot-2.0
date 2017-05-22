@@ -14,11 +14,11 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command;
+package me.Salt.Command;
 
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.Util.Cooldown;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Permissions.Perm;
+import me.Salt.Util.Cooldown;
 import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;

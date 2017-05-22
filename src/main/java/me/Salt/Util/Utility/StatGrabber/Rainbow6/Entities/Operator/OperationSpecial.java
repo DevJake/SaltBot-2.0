@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
 
 /**
  * Created by 15122390 on 27/04/2017.

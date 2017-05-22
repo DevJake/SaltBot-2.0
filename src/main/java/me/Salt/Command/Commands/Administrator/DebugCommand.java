@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command.Commands.Administrator;
+package me.Salt.Command.Commands.Administrator;
 
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Exception.Command.DisabledCommandException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 public class DebugCommand extends Command implements ICommand {

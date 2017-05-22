@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Language;
+package me.Salt.Util.Language;
 
 public enum LangString {
     LACKING_PERMISSION, //TODO add to

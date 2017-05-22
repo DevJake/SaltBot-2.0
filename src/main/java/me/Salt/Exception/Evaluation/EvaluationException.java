@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Exception.Evaluation;
+package me.Salt.Exception.Evaluation;
 
 public class EvaluationException extends Exception {
     public EvaluationException() {

@@ -14,10 +14,9 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
-import net.dv8tion.jda.core.entities.User;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 
 public interface R6Player {
     public String getUsername();

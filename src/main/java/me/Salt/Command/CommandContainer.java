@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Command;
+package me.Salt.Command;
 
 import java.util.List;
 

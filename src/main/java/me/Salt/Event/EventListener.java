@@ -14,19 +14,19 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Event;
+package me.Salt.Event;
 
 
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Exception.Command.DisabledCommandException;
-import main.java.me.Salt.Exception.Generic.MalformedParametersException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Exception.Permission.LackingPermissionException;
-import main.java.me.Salt.Logging.JLogger;
-import main.java.me.Salt.Logging.LogUtils;
-import main.java.me.Salt.Main;
-import main.java.me.Salt.SaltAPI.User.JUserBuilder;
-import main.java.me.Salt.Util.CommandExecutor;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MalformedParametersException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Logging.JLogger;
+import me.Salt.Logging.LogUtils;
+import me.Salt.Main;
+import me.Salt.SaltAPI.User.JUserBuilder;
+import me.Salt.Util.CommandExecutor;
 import net.dv8tion.jda.core.events.Event;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageDeleteEvent;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;

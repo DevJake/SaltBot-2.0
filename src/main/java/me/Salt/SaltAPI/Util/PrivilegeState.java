@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.SaltAPI.Util;
+package me.Salt.SaltAPI.Util;
 
 import net.dv8tion.jda.core.entities.User;
 

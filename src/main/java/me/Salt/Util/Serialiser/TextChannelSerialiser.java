@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package main.java.me.Salt.Util.Serialiser;
+package me.Salt.Util.Serialiser;
 
 import com.google.gson.*;
 import net.dv8tion.jda.core.entities.TextChannel;
