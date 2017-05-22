@@ -36,6 +36,7 @@ public class CommandExecutor {
         if (!(event.getMessage().getRawContent().startsWith(Main.salt.getCmdPrefix()))) return;
         if (!(Main.salt.getCommands().containsKey(cmd.getCmd()))) {
             event.getChannel().sendMessage("Command not found!").queue(m -> m.delete().queueAfter(5, TimeUnit.SECONDS));
+            //TODO update message to use language system
             return;
         }
 

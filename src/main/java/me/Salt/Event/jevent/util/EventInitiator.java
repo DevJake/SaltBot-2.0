@@ -20,17 +20,17 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class EventInitiator {
-    private List<JEventListener> listeners = new ArrayList<>();
+    private static List<JEventListener> listeners = new ArrayList<>();
 
-    public void fire(JEvent event) {
+    public static void fire(JEvent event) {
         listeners.forEach(l -> l.onEvent(event));
     }
 
-    public void register(JEventListener listener){
+    public static void register(JEventListener listener){
         listeners.add(listener);
     }
 
-    public void unregister(JEventListener listener){
+    public static void unregister(JEventListener listener){
         listeners.remove(listener);
     }
 }

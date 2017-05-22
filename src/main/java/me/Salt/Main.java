@@ -29,6 +29,8 @@ import me.Salt.Command.Commands.Utility.IssueCommand;
 import me.Salt.Command.Commands.Utility.R6GameStatsCommand;
 import me.Salt.Command.Commands.Utility.ReminderCommand;
 import me.Salt.Event.EventListener;
+import me.Salt.Event.jevent.SaltStartupEvent;
+import me.Salt.Event.jevent.util.EventInitiator;
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Permissions.Perm;
@@ -55,11 +57,12 @@ import java.util.concurrent.TimeUnit;
  * SaltBot 2.0 -- The original, rebuilt!
  */
 public class Main {
-    private static final long n = System.currentTimeMillis(); //Final, to ensure it cannot be changed
+    private static final long startupTime = System.currentTimeMillis(); //Final, to ensure it cannot be changed
     public static JDA jda;
     public static IConfiguration salt;
 
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
+        EventInitiator.fire(new SaltStartupEvent(startupTime));
         jda = new JDABuilder(AccountType.BOT).setToken("MzExNTcwOTI3NTk2OTk0NTYw.C_epcg.g0cbyRXz6y8Q2u99RREGeuhR_j4").addEventListener(new EventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
         //TODO improve above method. Currently a temporary fix to an exploit.
         //TODO also, change token, as a failsafe.
@@ -68,7 +71,7 @@ public class Main {
 
         salt = new ConfigurationBuilder(".")
                 .setDebugMode(false)
-                .setStartupTime(n)
+                .setStartupTime(startupTime)
                 .setName("SaltBot-2.0")
                 .setEmbedColour(Color.BLUE)
                 .setDefaultLangCode(LangCode.en_GB)
@@ -84,7 +87,7 @@ public class Main {
                                         .setDescription("Provides help on any aspect of any command")
                                         .setName("Help")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("ping", new PingCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -96,7 +99,7 @@ public class Main {
                                         .setName("Ping")
                                         .setCooldown(new Cooldown(15, TimeUnit.SECONDS))
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE)
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE)
                         )))
                 .registerCommand("rates", new RatesCommand(
                         new CommandContainer(
@@ -109,7 +112,7 @@ public class Main {
                                         .setName("Rate-limits")
                                         .setCooldown(new Cooldown(30, TimeUnit.SECONDS))
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE)
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE)
                         )))
                 .registerCommand("issue", new IssueCommand(
                         new CommandContainer(
@@ -124,7 +127,7 @@ public class Main {
                                         .setName("Issue Tracker")
                                         .setCooldown(new Cooldown(1, TimeUnit.MINUTES))
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("stats", new StatisticsCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -136,7 +139,7 @@ public class Main {
                                         .setName("Statistics Viewer")
                                         .setCooldown(new Cooldown(20, TimeUnit.SECONDS))
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("say", new SayCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -147,7 +150,7 @@ public class Main {
                                         .setDescription("Echoes any arguments given")
                                         .setName("Say")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("remind", new ReminderCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -159,7 +162,7 @@ public class Main {
                                         .setDescription("Reminds the individual about something at a specified date")
                                         .setName("Scheduled Reminder")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("perms", new PermissionCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -171,7 +174,7 @@ public class Main {
                                         .setDescription("Allows an individual to manage the permissions system for themselves, their textchannel, guild, or globally")
                                         .setName("Permissions Manager")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("guildinfo", new GuildInfoCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -184,7 +187,7 @@ public class Main {
                                         .setDescription("Allows an individual to view details about the current guild")
                                         .setName("Guild Information")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("channelinfo", new TextChannelInfoCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -197,7 +200,7 @@ public class Main {
                                         .setDescription("Allows an individual to view details about the current TextChannel")
                                         .setName("Channel Information")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("uptime", new UptimeCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -207,7 +210,7 @@ public class Main {
                                         .setDescription("Calculates and displays the current uptime of the bot")
                                         .setName("Uptime")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("profile", new ProfileInfoCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -221,7 +224,7 @@ public class Main {
                                         .addRequiredPermissions(Perm.COMMAND_PROFILE_USE)
                                         .addRequiredPermissions(Perm.COMMAND_PROFILE_SET_USER)
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("cat", new CatCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -235,7 +238,7 @@ public class Main {
                                         .setDescription("Cats!! ;)")
                                         .setName("Kitties <3")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("eval", new EvalCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -247,7 +250,7 @@ public class Main {
                                         .setDescription("Testing!")
                                         .setName("Testing Command")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("r6", new R6GameStatsCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -257,7 +260,7 @@ public class Main {
                                         .setDescription("Rainbow 6 stat grabbing")
                                         .setName("Rainbow6 Stats Command")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .registerCommand("etext", new EmojiTextCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
@@ -267,7 +270,7 @@ public class Main {
                                         .setDescription("Emoji Text... because why not!?")
                                         .setName("Emoji Text Command")
                                         .build(),
-                                Arrays.asList(CommandContainer.JEvent.GENERIC_MESSAGE))))
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .build();
 
         Main.salt.getPermissionHandler()
