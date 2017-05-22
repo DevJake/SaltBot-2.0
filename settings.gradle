@@ -16,3 +16,6 @@ include 'services:webservice'
 */
 
 rootProject.name = 'SaltBot-2.0'
+//include 'Salt'
+//findProject(':Salt')?.name = 'Salt'
+
