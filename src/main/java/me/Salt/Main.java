@@ -49,8 +49,10 @@ import net.dv8tion.jda.core.exceptions.RateLimitedException;
 
 import javax.security.auth.login.LoginException;
 import java.awt.*;
+import java.io.File;
 import java.io.IOException;
 import java.util.Arrays;
+import java.util.Scanner;
 import java.util.concurrent.TimeUnit;
 
 /**
@@ -63,7 +65,20 @@ public class Main {
 
     public static void main(String[] args) throws LoginException, InterruptedException, RateLimitedException, MissingDataException, DuplicateDataException, IOException {
         EventInitiator.fire(new SaltStartupEvent(startupTime));
-        jda = new JDABuilder(AccountType.BOT).setToken("MzExNTcwOTI3NTk2OTk0NTYw.C_epcg.g0cbyRXz6y8Q2u99RREGeuhR_j4").addEventListener(new EventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+        // TODO: 26/05/2017 Redo file reading system. Move to own class
+        System.out.println(ClassLoader.getSystemClassLoader().getResource("SaltBot.settings").getFile());
+        Scanner scanner = new Scanner(new File(Main.class.getClassLoader().getResource("SaltBot.settings").getFile()));
+        while (scanner.hasNextLine()) {
+            String n  = scanner.nextLine();
+            System.out.println(n + "\n");
+            if (n.startsWith("Bot-Token:")) {
+                System.out.println(n.substring(n.indexOf("Bot-Token:") + String.valueOf("Bot-Token:").length() + 1));
+                jda = new JDABuilder(AccountType.BOT).setToken(n.substring(n.indexOf("Bot-Token:") + String.valueOf("Bot-Token:").length() + 1)).addEventListener(new EventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+                break;
+            }
+        }
+        scanner.close();
+
         //TODO improve above method. Currently a temporary fix to an exploit.
         //TODO also, change token, as a failsafe.
 
