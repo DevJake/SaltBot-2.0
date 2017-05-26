@@ -22,6 +22,8 @@ import me.Salt.Command.CommandDescriptionBuilder;
 import me.Salt.Command.Commands.Administrator.EvalCommand;
 import me.Salt.Command.Commands.Administrator.PermissionCommand;
 import me.Salt.Command.Commands.Debugging.SayCommand;
+import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDAddPlayerCommand;
+import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDCreateGameCommand;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Fun.EmojiTextCommand;
 import me.Salt.Command.Commands.Informative.*;
@@ -284,6 +286,26 @@ public class Main {
                                         .setDeprecated(false)
                                         .setDescription("Emoji Text... because why not!?")
                                         .setName("Emoji Text Command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                .registerCommand("cadStart", new CaDCreateGameCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Create a new Cards Against Discord game")
+                                        .setName("CardsAgainstDiscord create command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                .registerCommand("cadAdd", new CaDAddPlayerCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Add a player to an existing CardsAgainstDiscord game")
+                                        .setName("CardsAgainstDiscord add player command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .build();
