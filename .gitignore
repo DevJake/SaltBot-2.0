@@ -10,3 +10,5 @@ libs/
 gradlew
 *.bat
 *.iws
+
+*.settings
