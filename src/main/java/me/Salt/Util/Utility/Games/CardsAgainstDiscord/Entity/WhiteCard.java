@@ -16,10 +16,8 @@
 
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
-public class Card {
-    private String text;
-
-    public Card(String text) {
-        this.text = text;
+public class WhiteCard extends Card {
+    public WhiteCard(String text) {
+        super(text);
     }
 }

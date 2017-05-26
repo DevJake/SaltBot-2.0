@@ -16,10 +16,20 @@
 
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
-public class Card {
-    private String text;
+public class Round {
+    private BlackCard question;
+    private Player cardCzar;
 
-    public Card(String text) {
-        this.text = text;
+    public Round(BlackCard question, Player cardCzar) {
+        this.question = question;
+        this.cardCzar = cardCzar;
+    }
+
+    public BlackCard getQuestion() {
+        return question;
+    }
+
+    public Player getCardCzar() {
+        return cardCzar;
     }
 }
