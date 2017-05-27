@@ -24,6 +24,8 @@ import me.Salt.Command.Commands.Administrator.PermissionCommand;
 import me.Salt.Command.Commands.Debugging.SayCommand;
 import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDAddPlayerCommand;
 import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDCreateGameCommand;
+import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDStartGameCommand;
+import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDViewGamesCommand;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Fun.EmojiTextCommand;
 import me.Salt.Command.Commands.Informative.*;
@@ -288,7 +290,7 @@ public class Main {
                                         .setName("Emoji Text Command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
-                .registerCommand("cadStart", new CaDCreateGameCommand(
+                .registerCommand("cadCreate", new CaDCreateGameCommand(
                         new CommandContainer(
                                 new CommandDescriptionBuilder()
                                         .addAuthor(jda.getUserById("112633500447838208"))
@@ -306,6 +308,26 @@ public class Main {
                                         .setDeprecated(false)
                                         .setDescription("Add a player to an existing CardsAgainstDiscord game")
                                         .setName("CardsAgainstDiscord add player command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                .registerCommand("cadStart", new CaDStartGameCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Start an existing CardsAgainstDiscord game")
+                                        .setName("CardsAgainstDiscord start game command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                .registerCommand("cadView", new CaDViewGamesCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("View a list of all existing CardsAgainstDiscord sessions")
+                                        .setName("CardsAgainstDiscord view sessions command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .build();
