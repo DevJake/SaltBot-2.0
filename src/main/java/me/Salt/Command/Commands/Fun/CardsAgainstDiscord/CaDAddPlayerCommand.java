@@ -23,31 +23,72 @@ import me.Salt.Command.ICommand;
 import me.Salt.Exception.Command.DisabledCommandException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Main;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import me.Salt.Util.Utility.Games.GameManager;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+import java.util.ArrayList;
+import java.util.List;
+
 public class CaDAddPlayerCommand extends Command implements ICommand {
+    private boolean isInfo = false;
+    private List<User> toInvite = new ArrayList<>();
+
     public CaDAddPlayerCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
 
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+        for (String arg : cmd.getArgsUpper()) {
+            if (arg.startsWith("u:")) {
+                String user = arg.replaceFirst("u:", "");
+
+                if (user.length() <= 0) {
+                    event.getChannel().sendMessage("You must specify a username!").queue();
+                    return false;
+                }
+                if (Main.jda.getUsersByName(user, true).size() > 0) {
+                    toInvite.addAll(Main.jda.getUsersByName(user, true));
+                } else {
+                    event.getChannel().sendMessage("We couldn't find any users under the username " + user + "! \nPlease ensure you enter the *full* username").queue();
+                    return false;
+                }
+            } else if (arg.startsWith("id:")) {
+                String id = arg.replaceFirst("id:", "");
+                if (Main.jda.getUserById(id) != null) {
+                    toInvite.add(Main.jda.getUserById(id));
+                }
+            } else {
+                event.getChannel().sendMessage("You must specify either a username or a user-id!").queue();
+            }
+        }
+// TODO: 27/05/2017 move user lookup algorithm to utility class
+        isInfo = toInvite.size() <= 0;
+
         return true;
     }
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
+        if (isInfo) {
+            e.getChannel().sendMessage("There is currently no help information available for this command!");
+        }
+
+
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
             if (GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class) != null) {
                 CaDGameHandler cadGame = (CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class);
-                Boolean playerAddResponse = cadGame.addPlayer(new Player(e.getAuthor()));
 
-                if (!playerAddResponse)
-                    e.getChannel().sendMessage("Added you to the player list!" + cadGame.getPlayers()).queue();
-                else e.getChannel().sendMessage("You're already on the player list!").queue();
+                toInvite.forEach(user -> cadGame.addPlayer(new Player(user)));
+                EmbedBuilder eb = new EmbedBuilder();
+                toInvite.forEach(user -> eb.appendDescription(user.getName() + "\n"));
+                e.getChannel().sendMessage(eb.build()).queue();
+
             }
         } else {
             e.getChannel().sendMessage("You need to first create a game!").queue();

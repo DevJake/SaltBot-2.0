@@ -24,6 +24,7 @@ import me.Salt.Exception.Command.DisabledCommandException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
@@ -42,7 +43,7 @@ public class CaDCreateGameCommand extends Command implements ICommand {
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class))
             e.getChannel().sendMessage("You already have a game in progress!").queue();
         else {
-            GameManager.registerGame(e.getAuthor(), new CaDGameHandler(5, 5));
+            GameManager.registerGame(e.getAuthor(), new CaDGameHandler(5, 5, new Player(e.getAuthor())));
             e.getChannel().sendMessage("Registered a new game under your name").queue();
         }
     }

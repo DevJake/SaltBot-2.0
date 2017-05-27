@@ -27,8 +27,8 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
-public class CaDCreateGameCommand extends Command implements ICommand {
-    public CaDCreateGameCommand(CommandContainer commandContainer) {
+public class CaDStartGameCommand extends Command implements ICommand {
+    public CaDStartGameCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
 
@@ -39,11 +39,15 @@ public class CaDCreateGameCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class))
-            e.getChannel().sendMessage("You already have a game in progress!").queue();
-        else {
-            GameManager.registerGame(e.getAuthor(), new CaDGameHandler(5, 5));
-            e.getChannel().sendMessage("Registered a new game under your name").queue();
+        if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
+            if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getPlayers().size() < 3) {
+                e.getChannel().sendMessage("You need at least three players in your game! Invite some to begin").queue();
+            } else
+                e.getChannel().sendMessage("Starting your game!").queue();
+            ((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).setActive(true);
+            // TODO: 27/05/2017 Register new handler to interact with game commands
+        } else {
+            e.getChannel().sendMessage("You don't have a game! You need to create one first").queue();
         }
     }
 

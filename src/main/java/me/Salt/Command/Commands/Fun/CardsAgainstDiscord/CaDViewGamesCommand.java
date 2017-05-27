@@ -24,11 +24,17 @@ import me.Salt.Exception.Command.DisabledCommandException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
+import me.Salt.Util.Utility.Games.Game;
 import me.Salt.Util.Utility.Games.GameManager;
+import net.dv8tion.jda.core.EmbedBuilder;
+import net.dv8tion.jda.core.entities.User;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
-public class CaDStartGameCommand extends Command implements ICommand {
-    public CaDStartGameCommand(CommandContainer commandContainer) {
+import java.util.List;
+import java.util.Map;
+
+public class CaDViewGamesCommand extends Command implements ICommand {
+    public CaDViewGamesCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
 
@@ -39,15 +45,24 @@ public class CaDStartGameCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
-            if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getPlayers().size() < 3) {
-                e.getChannel().sendMessage("You need at least three players in your game! Invite some to begin").queue();
-            } else
-                e.getChannel().sendMessage("Starting your game!").queue();
-            // TODO: 27/05/2017 Register new handler to interact with game commands
-        } else {
-            e.getChannel().sendMessage("You don't have a game! You need to create one first").queue();
+        EmbedBuilder eb = new EmbedBuilder()
+                .setTitle("Users running Cards Against Discord games", null);
+        int total = 0;
+        for (Map.Entry<User, List<Game>> userListEntry : GameManager.getUserGames().entrySet()) {
+            CaDGameHandler game = null;
+            for (Game g : userListEntry.getValue()){
+                if (g instanceof CaDGameHandler) game = (CaDGameHandler) g;
+            }
+
+            if (game == null) continue;
+
+            eb.addField(game.getOwner().getUser().getName() + "'s Game", "Players: " + game.getPlayers().size() + 1 /*For the game owner*/ + "\nWinning score: " + game.getWinningScore() + "\nCard Count: " + game.getCardCount() + "\nActive: " + (game.isActive() ? "✅" : "❌"), false);
+        total++;
         }
+// TODO: 27/05/2017 add pages to display
+        if (total > 0)
+        e.getChannel().sendMessage(eb.build()).queue();
+        else e.getChannel().sendMessage("There are currently no players running Cards Against Discord sessions!").queue();
     }
 
     @Override
