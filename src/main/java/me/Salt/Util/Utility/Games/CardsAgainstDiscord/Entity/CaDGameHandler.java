@@ -20,17 +20,24 @@ import me.Salt.Util.Utility.Games.Game;
 
 import java.util.ArrayList;
 import java.util.List;
-import java.util.stream.Collectors;
 
 public class CaDGameHandler implements Game {
     private List<Player> players = new ArrayList<>();
     private int winningScore; //Score required by anyone to win the game
     private int cardCount; //How many cards should each person get?
     private List<BlackCard> previousBlackCards = new ArrayList<>();
+    private Player owner;
+    private boolean active = false; //is the game running?
 
-    public CaDGameHandler(int winningScore, int cardCount) {
+    public CaDGameHandler(int winningScore, int cardCount, Player owner) {
+
         this.winningScore = winningScore;
         this.cardCount = cardCount;
+        this.owner = owner;
+    }
+
+    public Player getOwner() {
+        return owner;
     }
 
     public List<Player> getPlayers() {
@@ -46,7 +53,8 @@ public class CaDGameHandler implements Game {
     }
 
     public boolean addPlayer(Player player) { //Boolean represents if the player already exists
-        if (this.getPlayers().stream().filter(player1 -> player1.getUser() == player.getUser()).count() >= 1) return true;
+        if (this.getPlayers().stream().filter(player1 -> player1.getUser() == player.getUser()).count() >= 1)
+            return true;
         else {
             this.players.add(player);
             return false;
@@ -59,6 +67,18 @@ public class CaDGameHandler implements Game {
 
     public void addPreviousBlackCard(BlackCard blackCard) {
         if (!this.previousBlackCards.contains(blackCard)) this.previousBlackCards.add(blackCard);
+    }
+
+    public List<BlackCard> getPreviousBlackCards() {
+        return previousBlackCards;
+    }
+
+    public boolean isActive() {
+        return active;
+    }
+
+    public void setActive(boolean active) {
+        this.active = active;
     }
     // TODO: 26/05/2017 ensure cardCount is between 0 and 10 (1-9)
 }
