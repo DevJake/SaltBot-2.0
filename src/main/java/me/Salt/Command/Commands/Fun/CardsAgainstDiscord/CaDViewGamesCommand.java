@@ -56,7 +56,7 @@ public class CaDViewGamesCommand extends Command implements ICommand {
 
             if (game == null) continue;
 
-            eb.addField(game.getOwner().getUser().getName() + "'s Game", "Players: " + game.getPlayers().size() + 1 /*For the game owner*/ + "\nWinning score: " + game.getWinningScore() + "\nCard Count: " + game.getCardCount() + "\nActive: " + (game.isActive() ? "✅" : "❌"), false);
+            eb.addField(game.getOwner().getUser().getName() + "'s Game", "Players: " + game.getAllPlayers().size() + "\nWinning score: " + game.getWinningScore() + "\nCard Count: " + game.getCardCount() + "\nActive: " + (game.isActive() ? "✅" : "❌"), false);
         total++;
         }
 // TODO: 27/05/2017 add pages to display
