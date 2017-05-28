@@ -13,13 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
 public class Card {
     private String text;
-
+    
     public Card(String text) {
         this.text = text;
+    }
+    
+    public String getText() {
+        return text;
     }
 }
