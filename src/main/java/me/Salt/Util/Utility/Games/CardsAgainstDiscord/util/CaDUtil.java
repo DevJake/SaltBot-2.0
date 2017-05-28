@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.BlackCard;
@@ -22,28 +21,48 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.WhiteCard;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.List;
+import java.util.concurrent.ThreadLocalRandom;
 
 public class CaDUtil {
     private static List<WhiteCard> whiteCards = new ArrayList<>();
     private static List<BlackCard> blackCards = new ArrayList<>();
-
-    {
-        whiteCards.addAll(Arrays.asList(
-                new WhiteCard("Jason Statham"),
-                new WhiteCard("Barely edible cheese slices")
-        ));
-
-        blackCards.addAll(Arrays.asList(
-                new BlackCard("Question 1", 1),
-                new BlackCard("Question 2?", 2)
-        ));
+    
+    static {
+        whiteCards.addAll(Arrays.asList(new WhiteCard("Jason Statham"), new WhiteCard("Barely edible cheese slices")));
+        blackCards.addAll(Arrays.asList(new BlackCard("Question 1", 1), new BlackCard("Question 2?", 2)));
     }
-
+    
     public static List<WhiteCard> getWhiteCards() {
         return whiteCards;
     }
-
+    
     public static List<BlackCard> getBlackCards() {
         return blackCards;
+    }
+    
+    public static WhiteCard getRandomWhiteCard() {
+        return whiteCards.get(ThreadLocalRandom.current().nextInt(0, whiteCards.size())); //Random
+    }
+    
+    public static BlackCard getRandomBlackCard() {
+        return blackCards.get(ThreadLocalRandom.current().nextInt(0, blackCards.size()));
+    }
+    
+    public static List<WhiteCard> getRandomWhiteCards(int amount) {
+        if (amount > whiteCards.size()) return null;
+        List<WhiteCard> cards = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            cards.add(getRandomWhiteCard());
+        }
+        return cards;
+    }
+    
+    public static List<BlackCard> getRandomBlackCards(int amount) {
+        if (amount > blackCards.size()) return null;
+        List<BlackCard> cards = new ArrayList<>();
+        for (int i = 0; i < amount; i++) {
+            cards.add(getRandomBlackCard());
+        }
+        return cards;
     }
 }
