@@ -15,6 +15,8 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
+import com.vdurmont.emoji.EmojiParser;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.BlackCard;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.WhiteCard;
@@ -23,22 +25,16 @@ import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
 import java.util.*;
+import java.util.concurrent.ScheduledExecutorService;
+import java.util.concurrent.ScheduledThreadPoolExecutor;
+import java.util.concurrent.TimeUnit;
 
 public class CaDGameManager extends ListenerAdapter {
     private static Set<Map.Entry<PlayState, HandlerContainer>> handlers = new HashSet<>();
     private static HashMap<String, ResponseContainer> embeds = new HashMap<>();
-    private static HashMap<String, CaDGameHandler> idLookup = new HashMap<>(); //User ids and their respective game instance
-    /*
-    'embeds' HashMap is a list of IDs for embeds that are expecting/awaiting responses. Any listed here are 'active'.
-     The corresponding ResponseExpector is used to determine what sort of response we're looking for, as certain embeds should only allow for control by one user (such as a Card Czar) whilst others may demand control from multiple users.
-
-    When receiving an incoming reaction, we compare the message's ID to this list and see if we
-    are meant to respond to it; i.e., is the message that of a CaD game?
-    */
+    private static HashMap<String, CaDGameHandler> idLookup = new HashMap<>(); /*User ids and their respective game instance */
     
-    public static HashMap<String, ResponseContainer> getEmbeds() {
-        return embeds;
-    }
+    public static HashMap<String, ResponseContainer> getEmbeds() { return embeds; }
     
     public static void addToEmbeds(String messageId, ResponseContainer.ResponseExpector responseExpected,
                                    CaDGameHandler caDGameHandler) {
@@ -114,9 +110,84 @@ public class CaDGameManager extends ListenerAdapter {
             }
             eb.addField("Your White cards (" + toHandle.getCardCount() + ")", sb.toString(), false);
             eb.appendDescription("Be sure not to show anyone else these cards!");
+            eb.setFooter("The game will start in 10 seconds", null);
             player.getUser().getPrivateChannel().sendMessage(eb.build()).queue();
             // TODO: 27/05/2017 set card czar}
         }
+        ScheduledExecutorService executorService = new ScheduledThreadPoolExecutor(1);
+        executorService.schedule(() -> {
+            if (toHandle.getCardCzar() == null) {
+                toHandle.setCardCzar(toHandle.getAllPlayers().get(0)); //Set to first user
+            } else {
+                if (toHandle.getAllPlayers().indexOf(toHandle.getCardCzar()) >= toHandle.getAllPlayers().size())
+                    toHandle.setCardCzar(toHandle.getAllPlayers().get(0)); //Reset to first list member
+                else toHandle.setCardCzar(toHandle.getAllPlayers()
+                                                  .get(toHandle.getAllPlayers()
+                                                               .indexOf(
+                                                                       toHandle.getCardCzar()))); //Set to next member of list
+            }
+            toHandle.getCardCzar()
+                    .getUser()
+                    .openPrivateChannel()
+                    .queue(privateChannel -> privateChannel.sendMessage(
+                            "You have been marked as this round's Card Czar! In 25 seconds, you will be provided with a " + "list of cards to select from. ")
+                                                           .queue());
+        }, 10, TimeUnit.SECONDS);
+        executorService.schedule(() -> {
+            BlackCard card = CaDUtil.getRandomBlackCard();
+            toHandle.addPreviousBlackCard(card);
+            toHandle.getAllPlayersNonCzar()
+                    .forEach(player -> player.getUser().openPrivateChannel().queue(privateChannel -> {
+                        StringBuilder sb0 = new StringBuilder();
+                        EmbedBuilder eb0 = new EmbedBuilder().addField("Black Card", card.getText(), false)
+                                                             .addField("Required cards",
+                                                                     String.valueOf(card.getBlankFields()), false);
+                        List<WhiteCard> cards = player.getCards();
+                        for (int i = 0; i < cards.size(); i++) {
+                            WhiteCard card0 = cards.get(i);
+                            sb0.append("(").append((i+1)).append(") `").append(card0.getText()).append("`\n");
+                        }
+                        eb0.addField("Your cards", sb0.toString(), false);
+                        privateChannel.sendMessage(eb0.build()).queue(message -> {
+                            for (int i = 0; i < player.getCards().size(); i++) {
+                                switch (i) {
+                                    case 0:
+                                        message.addReaction(EmojiParser.parseToUnicode("one")).queue();
+                                        break;
+                                    case 1:
+                                        message.addReaction(EmojiParser.parseToUnicode("two")).queue();
+                                        break;
+                                    case 2:
+                                        message.addReaction(EmojiParser.parseToUnicode("three")).queue();
+                                        break;
+                                    case 3:
+                                        message.addReaction(EmojiParser.parseToUnicode("four")).queue();
+                                        break;
+                                    case 4:
+                                        message.addReaction(EmojiParser.parseToUnicode("five")).queue();
+                                        break;
+                                    case 5:
+                                        message.addReaction(EmojiParser.parseToUnicode("six")).queue();
+                                        break;
+                                    case 6:
+                                        message.addReaction(EmojiParser.parseToUnicode("seven")).queue();
+                                        break;
+                                    case 7:
+                                        message.addReaction(EmojiParser.parseToUnicode("eight")).queue();
+                                        break;
+                                    case 8:
+                                        message.addReaction(EmojiParser.parseToUnicode("nine")).queue();
+                                        break;
+                                    case 9:
+                                        message.addReaction(EmojiParser.parseToUnicode("keycap_ten")).queue();
+                                        break;
+                                }
+                            }
+                            addToEmbeds(message.getId(), ResponseContainer.ResponseExpector.USER_CARD_SELECT, toHandle);
+                        });
+                    }));
+            modifyHandler(toHandle.getOwner().getUser().getId(), PlayState.CARD_SELECTION);
+        }, 35, TimeUnit.SECONDS);
     }
     
     private static void invokeIdle(CaDGameHandler toHandle) {
