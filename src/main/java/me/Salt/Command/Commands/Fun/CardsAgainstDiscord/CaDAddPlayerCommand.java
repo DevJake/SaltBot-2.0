@@ -80,8 +80,8 @@ public class CaDAddPlayerCommand extends Command implements ICommand {
             if (GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class) != null) {
                 CaDGameHandler cadGame = (CaDGameHandler) GameManager.getGameOfType(e.getAuthor(),
                         CaDGameHandler.class);
-                toInvite.forEach(user -> cadGame.addPlayer(new Player(user)));
                 EmbedBuilder eb = new EmbedBuilder();
+                eb.setTitle("Invited the following", null);
                 toInvite.forEach(user -> eb.appendDescription(user.getName() + "\n"));
                 e.getChannel().sendMessage(eb.build()).queue();
                 toInvite.forEach(user -> {
