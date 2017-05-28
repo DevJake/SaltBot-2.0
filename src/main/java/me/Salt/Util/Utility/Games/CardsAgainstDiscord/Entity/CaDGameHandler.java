@@ -60,6 +60,21 @@ public class CaDGameHandler implements Game {
         return p;
     }
     
+    public List<Player> getPlayersNonCzar() {
+        List<Player> p = new ArrayList<>();
+        p.addAll(players);
+        p.remove(cardCzar);
+        return p;
+    }
+    
+    public List<Player> getAllPlayersNonCzar() {
+        List<Player> p = new ArrayList<>();
+        p.addAll(players);
+        p.add(owner);
+        p.remove(cardCzar);
+        return p;
+    }
+    
     public int getWinningScore() {
         return winningScore;
     }
