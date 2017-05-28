@@ -13,13 +13,14 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
 import me.Salt.Util.Utility.Games.Game;
+import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
+import java.util.Objects;
 
 public class CaDGameHandler implements Game {
     private List<Player> players = new ArrayList<>();
@@ -28,55 +29,77 @@ public class CaDGameHandler implements Game {
     private List<BlackCard> previousBlackCards = new ArrayList<>();
     private Player owner;
     private boolean active = false; //is the game running?
-
+    private Player cardCzar; //The current Card Czar of the game
+    
     public CaDGameHandler(int winningScore, int cardCount, Player owner) {
-
         this.winningScore = winningScore;
         this.cardCount = cardCount;
         this.owner = owner;
     }
-
+    
+    public Player getCardCzar() {
+        return cardCzar;
+    }
+    
+    public void setCardCzar(Player cardCzar) {
+        this.cardCzar = cardCzar;
+    }
+    
     public Player getOwner() {
         return owner;
     }
-
+    
     public List<Player> getPlayers() {
         return players;
     }
-
+    
+    public List<Player> getAllPlayers() {
+        List<Player> p = new ArrayList<>();
+        p.addAll(players);
+        p.add(owner);
+        return p;
+    }
+    
     public int getWinningScore() {
         return winningScore;
     }
-
+    
     public int getCardCount() {
         return cardCount;
     }
-
+    
     public boolean addPlayer(Player player) { //Boolean represents if the player already exists
-        if (this.getPlayers().stream().filter(player1 -> player1.getUser() == player.getUser()).count() >= 1)
-            return true;
+        if (containsPlayer(player.getUser())) return true;
         else {
             this.players.add(player);
             return false;
         }
     }
-
+    
+    public boolean containsPlayer(User player) { //Boolean represents if the player already exists
+        if (this.getAllPlayers()
+                .stream()
+                .filter(player1 -> Objects.equals(player1.getUser().getId(), player.getId()))
+                .count() >= 1) return true;
+        else return false;
+    }
+    
     public void removePlayer(Player player) {
         if (this.players.contains(player)) this.players.remove(player);
     }
-
+    
     public void addPreviousBlackCard(BlackCard blackCard) {
         if (!this.previousBlackCards.contains(blackCard)) this.previousBlackCards.add(blackCard);
     }
-
+    
     public List<BlackCard> getPreviousBlackCards() {
         return previousBlackCards;
     }
-
+    
     public boolean isActive() {
         return active;
     }
-
+    
     public void setActive(boolean active) {
         this.active = active;
     }
