@@ -22,10 +22,7 @@ import me.Salt.Command.CommandDescriptionBuilder;
 import me.Salt.Command.Commands.Administrator.EvalCommand;
 import me.Salt.Command.Commands.Administrator.PermissionCommand;
 import me.Salt.Command.Commands.Debugging.SayCommand;
-import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDAddPlayerCommand;
-import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDCreateGameCommand;
-import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDStartGameCommand;
-import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.CaDViewGamesCommand;
+import me.Salt.Command.Commands.Fun.CardsAgainstDiscord.*;
 import me.Salt.Command.Commands.Fun.CatCommand;
 import me.Salt.Command.Commands.Fun.EmojiTextCommand;
 import me.Salt.Command.Commands.Informative.*;
@@ -46,6 +43,7 @@ import me.Salt.Util.Cooldown;
 import me.Salt.Util.Language.LangCode;
 import me.Salt.Util.Language.LangString;
 import me.Salt.Util.Language.LanguageBuilder;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDEventListener;
 import net.dv8tion.jda.core.AccountType;
 import net.dv8tion.jda.core.JDA;
 import net.dv8tion.jda.core.JDABuilder;
@@ -73,11 +71,13 @@ public class Main {
         System.out.println(ClassLoader.getSystemClassLoader().getResource("SaltBot.settings").getFile());
         Scanner scanner = new Scanner(new File(Main.class.getClassLoader().getResource("SaltBot.settings").getFile()));
         while (scanner.hasNextLine()) {
-            String n  = scanner.nextLine();
+            String n = scanner.nextLine();
             System.out.println(n + "\n");
             if (n.startsWith("Bot-Token:")) {
                 System.out.println(n.substring(n.indexOf("Bot-Token:") + String.valueOf("Bot-Token:").length() + 1));
-                jda = new JDABuilder(AccountType.BOT).setToken(n.substring(n.indexOf("Bot-Token:") + String.valueOf("Bot-Token:").length() + 1)).addEventListener(new EventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to prevent others from using the bot with this token.
+                jda = new JDABuilder(AccountType.BOT).setToken(n.substring(n.indexOf("Bot-Token:") + String.valueOf("Bot-Token:").length() + 1)).addEventListener(new EventListener()).addEventListener(new CaDEventListener()).buildBlocking(); //TODO Read bot token from config, and generate new token to
+                // prevent others from using the bot
+                // with this token.
                 break;
             }
         }
@@ -330,7 +330,29 @@ public class Main {
                                         .setName("CardsAgainstDiscord view sessions command")
                                         .build(),
                                 Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                .registerCommand("cadRemove", new CaDRemovePlayerCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Remove a player from your current CardsAgainstDiscord session")
+                                        .setName("CardsAgainstDiscord remove player command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                .registerCommand("cadInfo", new CaDInfoCommand(
+                        new CommandContainer(
+                                new CommandDescriptionBuilder()
+                                        .addAuthor(jda.getUserById("112633500447838208"))
+                                        .setComplete(false)
+                                        .setDeprecated(false)
+                                        .setDescription("Get information about your personal CardsAgainstDiscord session")
+                                        .setName("CardsAgainstDiscord view info command")
+                                        .build(),
+                                Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
                 .build();
+
+        // TODO: 27/05/2017 system for giving commands optional categories, and subcategories, such as .setCategory(xyz).addSubCategory(xyz). Allow multiple subcategories (???)
 
         Main.salt.getPermissionHandler()
                 .registerPermission(
