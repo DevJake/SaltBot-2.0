@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Fun.CardsAgainstDiscord;
 
 import me.Salt.Command.Command;
@@ -25,6 +24,7 @@ import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
@@ -32,24 +32,26 @@ public class CaDCreateGameCommand extends Command implements ICommand {
     public CaDCreateGameCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class))
             e.getChannel().sendMessage("You already have a game in progress!").queue();
         else {
-            GameManager.registerGame(e.getAuthor(), new CaDGameHandler(5, 5, new Player(e.getAuthor())));
+            CaDGameHandler c = new CaDGameHandler(5, 5, new Player(e.getAuthor()));
+            GameManager.registerGame(e.getAuthor(), c);
             e.getChannel().sendMessage("Registered a new game under your name").queue();
+            CaDGameManager.registerHandler(c);
         }
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }
