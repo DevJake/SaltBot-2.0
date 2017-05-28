@@ -24,6 +24,7 @@ import me.Salt.Exception.Command.DisabledCommandException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
@@ -40,12 +41,16 @@ public class CaDStartGameCommand extends Command implements ICommand {
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
-            if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getPlayers().size() < 3) {
+            if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getAllPlayers().size()
+                    < 1 /*Temp, change back to three*/) {
                 e.getChannel().sendMessage("You need at least three players in your game! Invite some to begin").queue();
-            } else
+            } else {
                 e.getChannel().sendMessage("Starting your game!").queue();
-            ((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).setActive(true);
-            // TODO: 27/05/2017 Register new handler to interact with game commands
+                ((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).setActive(true);
+                System.out.println("Attempting to modify");
+                CaDGameManager.modifyHandler(e.getAuthor().getId(), CaDGameManager.PlayState.STARTING);
+                // TODO: 27/05/2017 Register new handler to interact with game commands
+            }
         } else {
             e.getChannel().sendMessage("You don't have a game! You need to create one first").queue();
         }
