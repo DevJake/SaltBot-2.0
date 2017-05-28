@@ -45,6 +45,7 @@ public class ResponseContainer {
     
     public enum ResponseExpector {
         CZAR_CARD_SELECT,
+        USER_CARD_SELECT,
         INVITE_RESPOND,
     }
 }
