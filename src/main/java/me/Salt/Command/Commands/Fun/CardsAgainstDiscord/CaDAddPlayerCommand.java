@@ -45,6 +45,8 @@ public class CaDAddPlayerCommand extends Command implements ICommand {
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
         for (String arg : cmd.getArgsUpper()) {
+        isInfo = false;
+        toInvite.clear();
             if (arg.startsWith("u:")) {
                 String user = arg.replaceFirst("u:", "");
 
