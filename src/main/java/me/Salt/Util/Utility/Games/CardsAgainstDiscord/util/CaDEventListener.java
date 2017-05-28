@@ -29,7 +29,11 @@ public class CaDEventListener extends ListenerAdapter {
                 switch (CaDGameManager.getEmbeds().get(event.getMessageId()).getResponseExpected()) {
                     case INVITE_RESPOND:
                         handleInviteRespond(event.getReactionEmote().getName(), event);
+                        break;
                     case CZAR_CARD_SELECT:
+                        break;
+                    case USER_CARD_SELECT:
+                        break;
                 }
             }
         }
