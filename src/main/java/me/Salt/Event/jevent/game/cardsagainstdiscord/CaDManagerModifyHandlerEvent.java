@@ -18,18 +18,33 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.HandlerContainer;
 
+/**
+ * This event is fired when the CaDManager modifies an existing CaDHandler instance.
+ */
 public class CaDManagerModifyHandlerEvent extends GenericCaDManagerEvent {
+    /**
+     * The ID that was specified as being the owner of the CaDGameHandler
+     */
     private String specifiedOwnerId;
+    /**
+     * The {@link HandlerContainer} that encases the CaDHandler instance.
+     */
     private HandlerContainer handlerContainer;
+    /**
+     * The old playstate of the handler.
+     */
     private CaDGameManager.PlayState oldPlayState;
-    private CaDGameManager.PlayState newPlayeState;
+    /**
+     * The new playstate being assigned to this handler.
+     */
+    private CaDGameManager.PlayState newPlayState;
     
     public CaDManagerModifyHandlerEvent(String specifiedOwnerId, HandlerContainer handlerContainer,
-                                        CaDGameManager.PlayState oldPlayState, CaDGameManager.PlayState newPlayeState) {
+                                        CaDGameManager.PlayState oldPlayState, CaDGameManager.PlayState newPlayState) {
         this.specifiedOwnerId = specifiedOwnerId;
         this.handlerContainer = handlerContainer;
         this.oldPlayState = oldPlayState;
-        this.newPlayeState = newPlayeState;
+        this.newPlayState = newPlayState;
     }
     
     public String getSpecifiedOwnerId() {
@@ -44,7 +59,7 @@ public class CaDManagerModifyHandlerEvent extends GenericCaDManagerEvent {
         return oldPlayState;
     }
     
-    public CaDGameManager.PlayState getNewPlayeState() {
-        return newPlayeState;
+    public CaDGameManager.PlayState getNewPlayState() {
+        return newPlayState;
     }
 }

@@ -26,9 +26,11 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Calculates a ping value (in milliseconds) and returns the value to the user.
+ * This command calculates a ping value (in milliseconds) and returns the value to the command executor.
  */
 public class PingCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Add arguments to request the average of repeat pings
+    // TODO: 29/05/2017 Update JavaDoc to reflect chosen arguments
     public PingCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

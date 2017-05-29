@@ -26,7 +26,11 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This command provides information to the command's executor about the current TextChannel.
+ */
 public class TextChannelInfoCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Allow specifying TextChannel. Perhaps even allow Guild#TextChannel. Also update JavaDoc accordingly
     public TextChannelInfoCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

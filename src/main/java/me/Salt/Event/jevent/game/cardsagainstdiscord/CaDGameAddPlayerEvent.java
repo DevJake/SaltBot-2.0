@@ -18,8 +18,17 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 
+/**
+ * Fired when a player is added to a Cards Against Discord game.
+ */
 public class CaDGameAddPlayerEvent extends GenericCaDGameEvent {
+    /**
+     * The {@link CaDGameHandler} instance that the player was added to.
+     */
     private CaDGameHandler gameHandler;
+    /**
+     * The {@link Player} that was added to the CaDGameHandler instance.
+     */
     private Player player;
     
     public CaDGameAddPlayerEvent(CaDGameHandler gameHandler, Player player) {

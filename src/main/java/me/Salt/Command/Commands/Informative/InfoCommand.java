@@ -21,7 +21,12 @@ import me.Salt.Command.Container.CommandParser;
 import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command returns information about a specified User, TextChannel, VoiceChannel, Guild, or the bot itself.
+ */
 public class InfoCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Do Command
+    // TODO: 29/05/2017 Update JavaDoc to reflect chosen parameters
     public InfoCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

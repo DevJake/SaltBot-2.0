@@ -18,8 +18,18 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 
+/**
+ * This event is fired when the CaDManager invokes a specified state.
+ */
 public class CaDManagerInvokeStateEvent extends GenericCaDManagerEvent {
+    /**
+     * The {@link CaDGameHandler} instance that was passed to the invoke handler.
+     */
     private CaDGameHandler gameHandler;
+    /**
+     * The {@link me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager.PlayState} of the CaDGameHandler
+     * instance that was invoked upon.
+     */
     private CaDGameManager.PlayState playState;
     
     public CaDManagerInvokeStateEvent(CaDGameHandler gameHandler, CaDGameManager.PlayState playState) {

@@ -51,7 +51,14 @@ import java.util.List;
  * them to join. Each invite is given a 'white tick' reaction, which can be clicked to accept the invite.
  */
 public class CaDAddPlayerCommand extends Command implements ICommand {
+    /**
+     * A boolean representing if the command requires informational/usage feedback, based upon the parameters entered
+     * - if any.
+     */
     private boolean isInfo = false;
+    /**
+     * A List of users to be invited to the game instance.
+     */
     private List<User> toInvite = new ArrayList<>();
     
     public CaDAddPlayerCommand(CommandContainer commandContainer) { super(commandContainer); }

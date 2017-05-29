@@ -17,7 +17,13 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 
+/**
+ * This event fires when a CaDGameHandler is being registered to the CaDManager.
+ */
 public class CaDManagerRegisterHandlerEvent extends GenericCaDManagerEvent {
+    /**
+     * The {@link CaDGameHandler} instance that is being registered.
+     */
     private CaDGameHandler gameHandler;
     
     public CaDManagerRegisterHandlerEvent(CaDGameHandler gameHandler) {

@@ -17,9 +17,22 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 
+/**
+ * This event is fired when a Cards Against Discord game changes its activity state. Activity states can either be
+ * true (in progress), or false (not in progress).
+ */
 public class CaDGameUpdateActiveEvent extends GenericCaDGameEvent {
+    /**
+     * The {@link CaDGameHandler} instance that was updated.
+     */
     private CaDGameHandler gameHandler;
+    /**
+     * The old activity state of the CaDGameHandler instance.
+     */
     private boolean oldState;
+    /**
+     * The new activity state of the CaDGameHandler instance.
+     */
     private boolean newState;
     
     public CaDGameUpdateActiveEvent(CaDGameHandler gameHandler, boolean oldState, boolean newState) {

@@ -22,7 +22,7 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Provides details to the user about Discord's rate limits for bots.
+ * This command provides details to the user about Discord's rate limits applicable to bots.
  */
 public class RatesCommand extends Command implements ICommand {
     public RatesCommand(CommandContainer commandContainer) {

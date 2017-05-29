@@ -17,4 +17,7 @@ package me.Salt.Event.jevent;
 
 import me.Salt.Event.util.JEvent;
 
+/**
+ * This event is fired when a Command-related event is fired.
+ */
 public class GenericCommandEvent extends JEvent {}

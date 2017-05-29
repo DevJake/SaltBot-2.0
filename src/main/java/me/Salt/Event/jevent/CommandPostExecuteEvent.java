@@ -18,8 +18,17 @@ package me.Salt.Event.jevent;
 import me.Salt.Command.Container.CommandParser;
 import net.dv8tion.jda.core.events.Event;
 
+/**
+ * This event is fired upon the post-execution phase of a command.
+ */
 public class CommandPostExecuteEvent extends GenericCommandEvent {
+    /**
+     * The {@link me.Salt.Command.Container.CommandParser.ParsedCommandContainer} that triggered this command.
+     */
     private CommandParser.ParsedCommandContainer cmd;
+    /**
+     * The {@link Event} which fired this command.
+     */
     private Event event;
     
     public CommandPostExecuteEvent(CommandParser.ParsedCommandContainer cmd, Event event) {

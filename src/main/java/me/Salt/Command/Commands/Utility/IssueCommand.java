@@ -26,18 +26,19 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import java.time.format.DateTimeFormatter;
 
 /**
- * Provides information to the user about how to report an issue.
+ * This command provides information to the user about how to report an issue.
  */
 public class IssueCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Perhaps move to own issue-management system/Integrate to automatically push issues to GitHub
     public IssueCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         e.getChannel()
@@ -60,7 +61,7 @@ public class IssueCommand extends Command implements ICommand {
                                         .build())
          .queue();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
     }

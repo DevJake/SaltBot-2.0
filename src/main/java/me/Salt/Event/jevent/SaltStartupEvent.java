@@ -17,13 +17,23 @@ package me.Salt.Event.jevent;
 
 import me.Salt.Event.util.JEvent;
 
+/**
+ * This event is fired upon starting up of the bot.
+ */
 public class SaltStartupEvent extends JEvent {
+    /**
+     * The Epoch time, representing the time at which the bot was started. This value will likely differ from the
+     * value returned from {@link JEvent#getEventTime()}, as the creation of the startup time is the first code
+     * within {@link me.Salt.Main#main(String[])}.
+     * <p>
+     * This value is assigned using {@link System#currentTimeMillis()}.
+     */
     private long startupTimeMillis;
-
+    
     public SaltStartupEvent(long startupTimeMillis) {
         this.startupTimeMillis = startupTimeMillis;
     }
-
+    
     public long getStartupTimeMillis() {
         return startupTimeMillis;
     }

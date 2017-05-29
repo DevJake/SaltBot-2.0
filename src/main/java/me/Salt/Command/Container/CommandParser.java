@@ -22,7 +22,7 @@ import java.util.Arrays;
 import java.util.List;
 
 /**
- * This class parses raw text into a range of details about a command
+ * This class parses raw text received from events into a range of details about a command
  */
 public class CommandParser {
     /**

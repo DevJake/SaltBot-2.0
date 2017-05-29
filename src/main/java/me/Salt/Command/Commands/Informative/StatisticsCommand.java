@@ -27,7 +27,8 @@ import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Calculates, formats and provides detailed statistics on the bot, such as current Uptime and the total thread count.
+ * This command calculates, formats and provides detailed statistics on the bot, such as current Uptime and the total
+ * thread count.
  */
 public class StatisticsCommand extends Command implements ICommand {
     public StatisticsCommand(CommandContainer commandContainer) {

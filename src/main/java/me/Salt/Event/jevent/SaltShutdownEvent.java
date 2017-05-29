@@ -17,14 +17,7 @@ package me.Salt.Event.jevent;
 
 import me.Salt.Event.util.JEvent;
 
-public class SaltShutdownEvent extends JEvent {
-    private long startupTimeMillis;
-
-    public SaltShutdownEvent(long startupTimeMillis) {
-        this.startupTimeMillis = startupTimeMillis;
-    }
-
-    public long getStartupTimeMillis() {
-        return startupTimeMillis;
-    }
-}
+/**
+ * This event is fired upon shutting down of the bot.
+ */
+public class SaltShutdownEvent extends JEvent {}

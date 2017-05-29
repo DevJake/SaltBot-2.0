@@ -32,6 +32,11 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import java.util.List;
 import java.util.Map;
 
+/**
+ * This command prints a list of embeds to the textchannel of the command's execution.
+ * The embeds contain information about all Cards Against Discord game sessions, including the game's owner, the
+ * players within the game (owner-inclusive), the Winning Score, Card Count, and active state.
+ */
 public class CaDViewGamesCommand extends Command implements ICommand {
     public CaDViewGamesCommand(CommandContainer commandContainer) {
         super(commandContainer);

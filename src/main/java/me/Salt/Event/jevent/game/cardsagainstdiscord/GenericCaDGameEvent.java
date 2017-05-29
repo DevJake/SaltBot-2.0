@@ -15,4 +15,7 @@
  */
 package me.Salt.Event.jevent.game.cardsagainstdiscord;
 
+/**
+ * This event is fired when a Cards Against Discord Game-related event is fired.
+ */
 public class GenericCaDGameEvent extends GenericCaDEvent {}

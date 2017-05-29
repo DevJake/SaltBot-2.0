@@ -18,13 +18,19 @@ package me.Salt.Event.jevent;
 import me.Salt.Event.util.JEvent;
 import me.Salt.Util.Language.LanguageContainer;
 
+/**
+ * This event is fired when a new language is registered.
+ */
 public class LanguageRegisterEvent extends JEvent {
+    /**
+     * The {@link LanguageContainer} that was registered.
+     */
     LanguageContainer languageContainer;
-
+    
     public LanguageRegisterEvent(LanguageContainer languageContainer) {
         this.languageContainer = languageContainer;
     }
-
+    
     public LanguageContainer getLanguageContainer() {
         return languageContainer;
     }

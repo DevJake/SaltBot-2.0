@@ -18,6 +18,10 @@ package me.Salt.Event.util;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class is responsible for the registering and unregistering of {@link JEventListener}s, as well the
+ * distribution of fired events across the registered listeners.
+ */
 public class EventInitiator {
     private static List<JEventListener> listeners = new ArrayList<>();
     

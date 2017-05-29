@@ -19,7 +19,13 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 
 public class CaDGameRemovePlayerEvent extends GenericCaDGameEvent {
+    /**
+     * The {@link CaDGameHandler} instance that the player was removed from.
+     */
     private CaDGameHandler gameHandler;
+    /**
+     * The {@link Player} that was removed from the CaDGameHandler instance.
+     */
     private Player player;
     
     public CaDGameRemovePlayerEvent(CaDGameHandler gameHandler, Player player) {

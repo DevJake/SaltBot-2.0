@@ -22,7 +22,7 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * This class provides details to the command caller about the project's current roadmap.
+ * This command provides details to the command caller about the project's current roadmap.
  * This allows them to keep up to date with planned changes.
  */
 public class RoadmapCommand extends Command implements ICommand {

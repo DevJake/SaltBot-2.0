@@ -24,7 +24,17 @@ import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command checks if the executing user has an instance of a Cards Against Discord game and - if they do - ends
+ * the game. Games can end in various manners;
+ * <p>
+ * Gracefully - Each player is notified of shutdown, given information about their stats, playtime, necessary
+ * logging is performed, etc.
+ * Succinctly - Each player is notified of the shutdown, followed by a game shutdown and logging.
+ * Abruptly - The game ends immediately. Nobody is informed. <b>This method is <i>not</i> recommended.</b>
+ */
 public class CaDEndGameCommand extends Command implements ICommand {
+    // TODO: 29/05/2017
     public CaDEndGameCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

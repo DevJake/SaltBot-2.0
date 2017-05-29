@@ -31,9 +31,10 @@ import java.time.format.DateTimeFormatter;
 import java.util.stream.Collectors;
 
 /**
- * Provides information to the user about a user's profile.
+ * This command provides information to the command executor about a specified user's profile.
  */
 public class ProfileInfoCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Consider integration into InfoCommand
     public ProfileInfoCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

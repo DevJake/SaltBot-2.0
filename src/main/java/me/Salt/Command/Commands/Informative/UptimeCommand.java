@@ -26,7 +26,11 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This command provides simplistic information about the bot's current uptime.
+ */
 public class UptimeCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Perhaps integrate into Stats command
     public UptimeCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

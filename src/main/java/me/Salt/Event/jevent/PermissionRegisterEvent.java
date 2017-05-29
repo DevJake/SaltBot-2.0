@@ -18,13 +18,19 @@ package me.Salt.Event.jevent;
 import me.Salt.Event.util.JEvent;
 import me.Salt.Permissions.Permission;
 
+/**
+ * This event is fired when a new permission is registered.
+ */
 public class PermissionRegisterEvent extends JEvent {
+    /**
+     * The {@link Permission} that was registered.
+     */
     private Permission permission;
-
+    
     public PermissionRegisterEvent(Permission permission) {
         this.permission = permission;
     }
-
+    
     public Permission getPermission() {
         return permission;
     }

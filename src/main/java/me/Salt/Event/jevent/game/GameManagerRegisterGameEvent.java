@@ -19,8 +19,18 @@ import me.Salt.Event.util.JEvent;
 import me.Salt.Util.Utility.Games.Game;
 import net.dv8tion.jda.core.entities.User;
 
+/**
+ * This event is fired when {@link me.Salt.Util.Utility.Games.GameManager} has a new implementation of {@link Game}
+ * registered.
+ */
 public class GameManagerRegisterGameEvent extends JEvent {
+    /**
+     * The user that the {@link Game} instance is to be registered under.
+     */
     private User user;
+    /**
+     * The {@link Game} to be registered to the specified {@link User}
+     */
     private Game newGame;
     
     public GameManagerRegisterGameEvent(User user, Game newGame) {

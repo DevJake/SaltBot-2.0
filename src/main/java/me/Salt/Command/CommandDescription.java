@@ -22,20 +22,49 @@ import net.dv8tion.jda.core.entities.User;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 09/04/2017.
+ * This class acts as a container for information about a command.
  */
 public class CommandDescription {
+    /**
+     * The fields (arguments) that this command accepts.
+     */
     private List<Field> fields; //List of parameters and definers
     //TODO Make wiki entry on what parameters and definers are
+    /**
+     * The name of this command.
+     */
     private String name;
+    /**
+     * This command's <b>shortened</b> description. This is not intended to contain help information.
+     */
     private String description; //Summary of fullDescription
+    /**
+     * This command's full-length description.
+     */
     private String fullDescription; //A full description of the command, including how it's used, example usages, etc.
+    /**
+     * The authors of this command.
+     */
     private List<User> authors;
+    /**
+     * A boolean representing if this command is completed.
+     */
     private boolean isComplete;
-    private List<Perm> requiredPermissions;
-    private String helpMessage;
-    private boolean deprecated;
+    /**
+     * A List of permissions required to execute this command.
+     */
+    private List<Perm> requiredPermissions; // TODO: 29/05/2017 (Perhaps) move permissions into Fields
+    /**
+     * The informative helpmessage for this command.
+     */
+    private String helpMessage; // TODO: 29/05/2017 Add URL variable for a link to more information/in-depth usage/examples
+    /**
+     * A boolean representing the deprecation-state of this command.
+     */
+    private boolean deprecated; // TODO: 29/05/2017 Perhaps remove, as commands aren't deprecated, but merely updated
+    /**
+     * The aliases of this command.
+     */
     private List<String> aliases; //What text is to be identified by the program as pointing to this command
     private Cooldown cooldown;
     private boolean hasCooldown = false;
@@ -104,6 +133,7 @@ public class CommandDescription {
         return aliases;
     }
     
+    // TODO: 29/05/2017 Add setter methods
     @Override
     public String toString() {
         return "CommandDescription{" + "name='" + name + '\'' + ", description='" + description + '\'' + ", author='" + authors

@@ -29,6 +29,9 @@ import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command is used to interact with the Rainbow 6 Statistics Tracking utility.
+ */
 public class R6GameStatsCommand extends Command implements ICommand {
     public R6GameStatsCommand(CommandContainer commandContainer) {
         super(commandContainer);

@@ -27,6 +27,9 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command is used to start a Cards Against Discord session, owned by the command executor.
+ */
 public class CaDStartGameCommand extends Command implements ICommand {
     public CaDStartGameCommand(CommandContainer commandContainer) {
         super(commandContainer);

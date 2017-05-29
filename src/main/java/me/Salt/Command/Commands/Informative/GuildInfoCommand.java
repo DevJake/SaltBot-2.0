@@ -26,6 +26,10 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This command returns information to the command executor with information about the current guild that the command
+ * was executed in.
+ */
 public class GuildInfoCommand extends Command implements ICommand {
     public GuildInfoCommand(CommandContainer commandContainer) {
         super(commandContainer);

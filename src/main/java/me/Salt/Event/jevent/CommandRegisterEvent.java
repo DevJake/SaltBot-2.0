@@ -17,7 +17,16 @@ package me.Salt.Event.jevent;
 
 import me.Salt.Command.ICommand;
 
+/**
+ * This event is fired when a command is registered.
+ *
+ * @see ICommand
+ * @see me.Salt.Command.Command
+ */
 public class CommandRegisterEvent extends GenericCommandEvent {
+    /**
+     * The command class that was registered.
+     */
     ICommand command;
     
     public CommandRegisterEvent(ICommand command) {

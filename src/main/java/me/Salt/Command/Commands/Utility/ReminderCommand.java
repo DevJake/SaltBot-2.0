@@ -34,8 +34,9 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Allows the user to establish a timescale, in which a timer shall be started. At the end of the timer, the user shall be notified that their timer has expired.
- * This allows an individual to set up a reminder, to remind them in any range of time periods.
+ * This command allows the user to establish a timescale, in which a timer shall be started. At the end of the timer
+ * the user shall be notified that their timer has expired. This allows an individual to set up a reminder, to remind
+ * them in any range of time periods, about anything.
  */
 public class ReminderCommand extends Command implements ICommand {
     final Pattern TIMEMEASURE = Pattern.compile(
@@ -60,6 +61,7 @@ public class ReminderCommand extends Command implements ICommand {
         Matcher m = TIMEMEASURE.matcher(
                 cmd.getRawText().toLowerCase().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd() + " ", ""));
         while (m.find()) {
+            // TODO: 29/05/2017 Move time-checking logic to utilities class
             String n = m.group();
             switch (n.substring(n.length() - 1, n.length())) {
                 case "s":

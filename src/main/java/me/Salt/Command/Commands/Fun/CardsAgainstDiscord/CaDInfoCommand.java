@@ -27,6 +27,13 @@ import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command is used to retrieve information about the executing user's Cards Against Discord game -- if they have
+ * one.
+ * <p>
+ * Information includes the Cards-per-Player, the Winning Score, and an emoji tick/cross representing if the game is
+ * currently in progress.
+ */
 public class CaDInfoCommand extends Command implements ICommand {
     public CaDInfoCommand(CommandContainer commandContainer) {
         super(commandContainer);
@@ -45,7 +52,7 @@ public class CaDInfoCommand extends Command implements ICommand {
             EmbedBuilder eb = new EmbedBuilder().setTitle(e.getAuthor().getName() + "'s Game", null)
                                                 .addField("Cards-per-Player", String.valueOf(game.getCardCount()), true)
                                                 .addField("Winning Score", String.valueOf(game.getWinningScore()), true)
-                                                .addField("Active?", (game.isActive() ? "✅" : "❌"), true);
+                                                .addField("In Progress?", (game.isActive() ? "✅" : "❌"), true);
             StringBuilder sb = new StringBuilder();
             game.getAllPlayers().forEach(player -> sb.append(player.getUser().getName()).append("\n"));
             eb.addField("Players", sb.toString(), true);

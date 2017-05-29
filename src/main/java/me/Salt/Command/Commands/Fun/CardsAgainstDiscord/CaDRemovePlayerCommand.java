@@ -34,9 +34,35 @@ import java.util.ArrayList;
 import java.util.HashMap;
 import java.util.List;
 
+/**
+ * This command is used to remove a player from a Cards Against Discord game. As would be expected, the command
+ * executor must not only have a Cards Against Discord game session, but the session must also contain the specified
+ * player.
+ * <p>
+ * This command requires one parameter minimum. The parameter must be either <code>u:</code> or <code>id:</code>,
+ * where either a full username or a user's ID must be immediately appended, respectively. For example, the following
+ * command would remove a user with the username <code>user1</code> and a user with the ID of
+ * <code>203182861401063425</code> from the game - if they are <i>in</i> the game:
+ * <code>.cadremove u:user1 id:203182861401063425</code>
+ * <p>
+ * A list of those removed is returned to the command executor.
+ */
 public class CaDRemovePlayerCommand extends Command implements ICommand {
+    /**
+     * A HashMap of Users and Players, where each {@link User} is tied to their respective instance
+     * of {@link Player}.
+     * <p>
+     * This HashMap far simplifies the process of searching for a user's Player instance.
+     */
     private HashMap<User, Player> players = new HashMap<>();
+    /**
+     * A List of {@link User} instances specified for removal from the game.
+     */
     private List<User> toRemove = new ArrayList<>();
+    /**
+     * A List of {@link User} instances who have already been removed from the game. This List is necessary to
+     * determine which users have and haven't been removed, through comparison of the old and new list of players.
+     */
     private List<User> removed = new ArrayList<>();
     
     public CaDRemovePlayerCommand(CommandContainer commandContainer) {

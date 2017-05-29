@@ -22,9 +22,10 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Provides useful help information about the bot, as well as individual commands.
+ * This command provides useful help information about the bot, commands, utilities and useful links.
  */
 public class HelpCommand extends Command implements ICommand {
+    // TODO: 29/05/2017
     public HelpCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }

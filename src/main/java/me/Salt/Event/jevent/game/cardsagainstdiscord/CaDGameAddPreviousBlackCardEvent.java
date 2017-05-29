@@ -18,8 +18,17 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.BlackCard;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 
+/**
+ * This event is fired when a black card is added to the list of previous black cards in a Cards Against Discord game.
+ */
 public class CaDGameAddPreviousBlackCardEvent extends GenericCaDGameEvent {
+    /**
+     * The {@link CaDGameHandler} instance that the black card was added to.
+     */
     private CaDGameHandler gameHandler;
+    /**
+     * The {@link BlackCard} that was added to the CaDGameHandler instance.
+     */
     private BlackCard blackCard;
     
     public CaDGameAddPreviousBlackCardEvent(CaDGameHandler gameHandler, BlackCard blackCard) {

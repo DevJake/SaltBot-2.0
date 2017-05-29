@@ -17,4 +17,7 @@ package me.Salt.Event.jevent.game.cardsagainstdiscord;
 
 import me.Salt.Event.util.JEvent;
 
+/**
+ * This event is fired when a Cards Against Discord-related event is fired.
+ */
 public class GenericCaDEvent extends JEvent {}
