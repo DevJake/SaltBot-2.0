@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Fun.CardsAgainstDiscord;
 
 import me.Salt.Command.Command;
@@ -37,36 +36,37 @@ public class CaDViewGamesCommand extends Command implements ICommand {
     public CaDViewGamesCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        EmbedBuilder eb = new EmbedBuilder()
-                .setTitle("Users running Cards Against Discord games", null);
+        EmbedBuilder eb = new EmbedBuilder().setTitle("Users running Cards Against Discord games", null);
         int total = 0;
         for (Map.Entry<User, List<Game>> userListEntry : GameManager.getUserGames().entrySet()) {
             CaDGameHandler game = null;
-            for (Game g : userListEntry.getValue()){
+            for (Game g : userListEntry.getValue()) {
                 if (g instanceof CaDGameHandler) game = (CaDGameHandler) g;
             }
-
             if (game == null) continue;
-
-            eb.addField(game.getOwner().getUser().getName() + "'s Game", "Players: " + game.getAllPlayers().size() + "\nWinning score: " + game.getWinningScore() + "\nCard Count: " + game.getCardCount() + "\nActive: " + (game.isActive() ? "✅" : "❌"), false);
-        total++;
+            eb.addField(game.getOwner().getUser().getName() + "'s Game", "Players: " + game.getAllPlayers()
+                                                                                           .size() + "\nWinning score: " + game
+                            .getWinningScore() + "\nCard Count: " + game.getCardCount() + "\nActive: " + (game.isActive() ? "✅" : "❌"),
+                    false);
+            total++;
         }
-// TODO: 27/05/2017 add pages to display
-        if (total > 0)
-        e.getChannel().sendMessage(eb.build()).queue();
-        else e.getChannel().sendMessage("There are currently no players running Cards Against Discord sessions!").queue();
+        // TODO: 27/05/2017 add pages to display
+        if (total > 0) e.getChannel().sendMessage(eb.build()).queue();
+        else e.getChannel()
+              .sendMessage("There are currently no players running Cards Against Discord sessions!")
+              .queue();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

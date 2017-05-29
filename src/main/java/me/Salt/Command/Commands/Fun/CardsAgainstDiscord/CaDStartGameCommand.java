@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Fun.CardsAgainstDiscord;
 
 import me.Salt.Command.Command;
@@ -32,18 +31,21 @@ public class CaDStartGameCommand extends Command implements ICommand {
     public CaDStartGameCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
-            if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getAllPlayers().size()
-                    < 1 /*Temp, change back to three*/) {
-                e.getChannel().sendMessage("You need at least three players in your game! Invite some to begin").queue();
+            if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getAllPlayers()
+                                                                                                 .size() < 1 /*Temp, change back to three*/) {
+                e.getChannel()
+                 .sendMessage("You need at least three players in your game! Invite some to begin")
+                 .queue();
             } else {
                 e.getChannel().sendMessage("Starting your game!").queue();
                 ((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).setActive(true);
@@ -55,9 +57,8 @@ public class CaDStartGameCommand extends Command implements ICommand {
             e.getChannel().sendMessage("You don't have a game! You need to create one first").queue();
         }
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

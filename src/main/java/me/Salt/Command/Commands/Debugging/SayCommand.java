@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Debugging;
 
 import me.Salt.Command.Command;
@@ -26,7 +25,6 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
  * This command allows for the user to have the bot echo their inputted arguments.
  */
 public class SayCommand extends Command implements ICommand {
-
     public SayCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
@@ -39,13 +37,11 @@ public class SayCommand extends Command implements ICommand {
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         StringBuilder sb = new StringBuilder();
-
         cmd.getArgsUpper().forEach(n -> sb.append(n + " "));
         e.getChannel().sendMessage(sb.toString()).queue();
     }
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.TubeMapper;
 
 /**
@@ -25,17 +24,13 @@ public class Station {
     private boolean railConnection;
 
     public Station(String name, boolean railConnection) {
-
         this.name = name;
         this.railConnection = railConnection;
     }
 
     @Override
     public String toString() {
-        return "Station{" +
-                "name='" + name + '\'' +
-                ", railConnection=" + railConnection +
-                '}';
+        return "Station{" + "name='" + name + '\'' + ", railConnection=" + railConnection + '}';
     }
 
     public String getName() {

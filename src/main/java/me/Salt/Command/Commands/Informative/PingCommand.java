@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Informative;
 
 import me.Salt.Command.Command;
@@ -30,35 +29,35 @@ import java.time.format.DateTimeFormatter;
  * Calculates a ping value (in milliseconds) and returns the value to the user.
  */
 public class PingCommand extends Command implements ICommand {
-
     public PingCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         long n = System.currentTimeMillis();
-        e.getChannel().sendMessage(
-                new EmbedBuilder()
-                        .appendDescription("Calculating...")
-                        .setColor(Main.salt.getEmbedColour())
-                        .build()).queue(m -> m.editMessage(
-                new EmbedBuilder()
-                        .setTitle("Pong! \uD83C\uDFD3", null)
-                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), null)
-                        .setDescription("Response speed of " + (System.currentTimeMillis() - n) + "ms")
-                        .setColor(Main.salt.getEmbedColour()).build())
-                .queue());
+        e.getChannel()
+         .sendMessage(
+                 new EmbedBuilder().appendDescription("Calculating...").setColor(Main.salt.getEmbedColour()).build())
+         .queue(m -> m.editMessage(new EmbedBuilder().setTitle("Pong! \uD83C\uDFD3", null)
+                                                     .setFooter("Requested by " + e.getAuthor()
+                                                                                   .getName() + " at " + e.getMessage()
+                                                                                                          .getCreationTime()
+                                                                                                          .plusHours(1)
+                                                                                                          .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                             null)
+                                                     .setDescription(
+                                                             "Response speed of " + (System.currentTimeMillis() - n) + "ms")
+                                                     .setColor(Main.salt.getEmbedColour())
+                                                     .build()).queue());
     }
-
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

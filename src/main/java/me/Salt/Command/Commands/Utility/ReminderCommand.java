@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Utility;
 
 import me.Salt.Command.Command;
@@ -39,26 +38,27 @@ import java.util.regex.Pattern;
  * This allows an individual to set up a reminder, to remind them in any range of time periods.
  */
 public class ReminderCommand extends Command implements ICommand {
-    final Pattern TIMEMEASURE = Pattern.compile("\\d*[smhd]{1}"); //Filters out the remind time (such as 3s10m for 10 minutes and 3 seconds)
+    final Pattern TIMEMEASURE = Pattern.compile(
+            "\\d*[smhd]{1}"); //Filters out the remind time (such as 3s10m for 10 minutes and 3 seconds)
     final Pattern MESSAGE = Pattern.compile("\"{1}.+\"{1}"); //Filters out the message to be displayed
-
+    
     public ReminderCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         ReminderBuilder rb = new ReminderBuilder();
         rb.addChannel(e.getChannel());
         rb.addMentionable(e.getAuthor());
         rb.setCreator(e.getAuthor());
-
-        Matcher m = TIMEMEASURE.matcher(cmd.getRawText().toLowerCase().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd() + " ", ""));
+        Matcher m = TIMEMEASURE.matcher(
+                cmd.getRawText().toLowerCase().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd() + " ", ""));
         while (m.find()) {
             String n = m.group();
             switch (n.substring(n.length() - 1, n.length())) {
@@ -76,21 +76,22 @@ public class ReminderCommand extends Command implements ICommand {
                     continue;
             }
         }
-
         if (MESSAGE.matcher(cmd.getRawText()).find())
             rb.setMessage(MESSAGE.matcher(cmd.getRawText()).group()); //Don't convert to lower
         else rb.setMessage("Here is your reminder " + e.getAuthor().getAsMention() + "!");
-
         rb.setStartTime(System.currentTimeMillis()); //Do last to get the closest possible timing
         Reminder r = rb.build();
         ReminderHandler.setNewReminder(r);
-
-        ZonedDateTime z = Instant.ofEpochMilli(System.currentTimeMillis() + r.getEndTime()).atZone(ZoneId.of("Europe/London"));
-        e.getChannel().sendMessage("Scheduled a new reminder for " + z.format(DateTimeFormatter.ofPattern("EEE, dd MMM")) + " at " + z.format(DateTimeFormatter.ofPattern("K:m:s a"))).queue(j -> j.delete().queueAfter(10, TimeUnit.SECONDS)); //TODO format to be like 1st, 2nd and 3rd, etc.
+        ZonedDateTime z = Instant.ofEpochMilli(System.currentTimeMillis() + r.getEndTime())
+                                 .atZone(ZoneId.of("Europe/London"));
+        e.getChannel()
+         .sendMessage("Scheduled a new reminder for " + z.format(
+                 DateTimeFormatter.ofPattern("EEE, dd MMM")) + " at " + z.format(
+                 DateTimeFormatter.ofPattern("K:m:s a")))
+         .queue(j -> j.delete().queueAfter(10, TimeUnit.SECONDS)); //TODO format to be like 1st, 2nd and 3rd, etc.
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

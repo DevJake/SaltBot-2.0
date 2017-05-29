@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Event.jevent;
 
 import me.Salt.Event.util.JEvent;
@@ -22,11 +21,11 @@ import me.Salt.Util.Language.LanguageContainer;
 public class LanguageRegisterEvent extends JEvent {
     LanguageContainer languageContainer;
 
-    public LanguageContainer getLanguageContainer() {
-        return languageContainer;
-    }
-
     public LanguageRegisterEvent(LanguageContainer languageContainer) {
         this.languageContainer = languageContainer;
+    }
+
+    public LanguageContainer getLanguageContainer() {
+        return languageContainer;
     }
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
@@ -30,27 +29,20 @@ public class R6PlayerImpl implements R6Player {
     private PlayerStats stats;
     private User tiedUser; //TODO look into tying an account to a user
 
-    @Override
-    public String toString() {
-        return "R6PlayerImpl{" +
-                "username='" + username + '\'' +
-                ", platform=" + platform +
-                ", ubisoftId='" + ubisoftId + '\'' +
-                ", indexedAt=" + indexedAt +
-                ", updateAt=" + updateAt +
-                ", stats=" + stats.toString() +
-                ", tiedUser=" + tiedUser +
-                '}';
-    }
-
-    public R6PlayerImpl(String username, Platform platform, String ubisoftId, long indexedAt, long updateAt, PlayerStats stats) {
-
+    public R6PlayerImpl(String username, Platform platform, String ubisoftId, long indexedAt, long updateAt,
+                        PlayerStats stats) {
         this.username = username;
         this.platform = platform;
         this.ubisoftId = ubisoftId;
         this.indexedAt = indexedAt;
         this.updateAt = updateAt;
         this.stats = stats;
+    }
+
+    @Override
+    public String toString() {
+        return "R6PlayerImpl{" + "username='" + username + '\'' + ", platform=" + platform + ", ubisoftId='" + ubisoftId + '\'' + ", indexedAt=" + indexedAt + ", updateAt=" + updateAt + ", stats=" + stats
+                .toString() + ", tiedUser=" + tiedUser + '}';
     }
 
     @Override

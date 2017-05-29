@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerSeasonalRankingStat;
@@ -26,7 +25,8 @@ public class PlayerSeasonalRankingStatImpl implements PlayerSeasonalRankingStat 
     private int stdev;
     private int rank;
 
-    public PlayerSeasonalRankingStatImpl(int rating, int nextRating, int previousRating, int mean, int stdev, int rank) {
+    public PlayerSeasonalRankingStatImpl(int rating, int nextRating, int previousRating, int mean, int stdev,
+                                         int rank) {
         this.rating = rating;
         this.nextRating = nextRating;
         this.previousRating = previousRating;

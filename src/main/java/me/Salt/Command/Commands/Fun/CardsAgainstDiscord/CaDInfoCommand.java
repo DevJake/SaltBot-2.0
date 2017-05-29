@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Fun.CardsAgainstDiscord;
 
 import me.Salt.Command.Command;
@@ -32,33 +31,33 @@ public class CaDInfoCommand extends Command implements ICommand {
     public CaDInfoCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
             CaDGameHandler game = (CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class);
-            EmbedBuilder eb = new EmbedBuilder()
-                    .setTitle(e.getAuthor().getName() + "'s Game", null)
-                    .addField("Cards-per-Player", String.valueOf(game.getCardCount()), true)
-                    .addField("Winning Score", String.valueOf(game.getWinningScore()), true)
-                    .addField("Active?", (game.isActive() ? "✅" : "❌"), true);
-            
-                StringBuilder sb = new StringBuilder();
-                game.getAllPlayers().forEach(player -> sb.append(player.getUser().getName()).append("\n"));
-                eb.addField("Players", sb.toString(), true);
+            EmbedBuilder eb = new EmbedBuilder().setTitle(e.getAuthor().getName() + "'s Game", null)
+                                                .addField("Cards-per-Player", String.valueOf(game.getCardCount()), true)
+                                                .addField("Winning Score", String.valueOf(game.getWinningScore()), true)
+                                                .addField("Active?", (game.isActive() ? "✅" : "❌"), true);
+            StringBuilder sb = new StringBuilder();
+            game.getAllPlayers().forEach(player -> sb.append(player.getUser().getName()).append("\n"));
+            eb.addField("Players", sb.toString(), true);
             e.getChannel().sendMessage(eb.build()).queue();
         } else {
-            e.getChannel().sendMessage("You don't have a registered Cards Against Discord session. You must create one first").queue();
+            e.getChannel()
+             .sendMessage("You don't have a registered Cards Against Discord session. You must create one first")
+             .queue();
         }
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

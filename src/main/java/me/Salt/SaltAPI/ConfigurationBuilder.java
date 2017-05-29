@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI;
 
 import me.Salt.Command.ICommand;
@@ -47,17 +46,17 @@ public class ConfigurationBuilder {
     private PermissionHandler permissionHandler;
     private List<RoadItem> roadmap = new ArrayList<>();
     private LangCode defaultLangCode;
-
-    public ConfigurationBuilder setDefaultLangCode(LangCode defaultLangCode) {
-        this.defaultLangCode = defaultLangCode;
-        return this;
-    }
-
+    
     public ConfigurationBuilder(String cmdPrefix) {
         this.cmdPrefix = cmdPrefix;
         this.permissionHandler = new PermissionHandler();
     }
-
+    
+    public ConfigurationBuilder setDefaultLangCode(LangCode defaultLangCode) {
+        this.defaultLangCode = defaultLangCode;
+        return this;
+    }
+    
     public ConfigurationBuilder addTeamMember(User user, List<IConfiguration.Authority> authority) {
         staff.put(user, authority);
         StringBuilder sb = new StringBuilder();
@@ -66,71 +65,79 @@ public class ConfigurationBuilder {
             if (authority.indexOf(a) < authority.size() - 1) sb.append(a.name() + ", ");
             else sb.append("and " + a.name());
         });
-        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Added a team member (\'" + user.getName() + "\', ID#" + user.getId() + ") with Authority levels of " + sb.toString());
+        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG,
+                "Added a team member (\'" + user.getName() + "\', ID#" + user.getId() + ") with Authority levels of " + sb
+                        .toString());
         return this;
     }
-
+    
     public ConfigurationBuilder addTeamMember(User user, IConfiguration.Authority authority) {
         staff.put(user, Collections.singletonList(authority));
-        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Added a team member (" + user.getName() + ") with Authority levels of " + authority.name());
+        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG,
+                "Added a team member (" + user.getName() + ") with Authority levels of " + authority.name());
         return this;
     }
-
+    
     public ConfigurationBuilder addRoadmap(RoadItem r) {
         roadmap.add(r);
         return this;
     }
-
+    
     public ConfigurationBuilder setStartupTime(long startupTime) {
         this.startupTime = startupTime;
-        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Set the startup time"); //TODO Insert the startup time, in regular times, into the string
+        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG,
+                "Set the startup time"); //TODO Insert the startup time, in regular times, into the string
         return this;
     }
-
-    public ConfigurationBuilder registerCommand(String commandCaller, ICommand command) throws DuplicateDataException, MissingDataException {
+    
+    public ConfigurationBuilder registerCommand(String commandCaller, ICommand command)
+            throws DuplicateDataException, MissingDataException {
         if (commands.containsKey(commandCaller.toLowerCase()))
             throw new DuplicateDataException("Command already added!");
         commands.put(commandCaller.toLowerCase(), command);
         if (command.getCmdContainer().getCommandDescription().getAliases().size() > 0)
             command.getCmdContainer().getCommandDescription().getAliases().forEach(s -> commands.put(s, command));
-        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Registered a new command (\'" + command.getCmdContainer().getCommandDescription().getName() + "\') and assigned a command-caller of \"" + commandCaller.toLowerCase() + "\"");
+        JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Registered a new command (\'" + command.getCmdContainer()
+                                                                                                      .getCommandDescription()
+                                                                                                      .getName() + "\') and assigned a command-caller of \"" + commandCaller
+                .toLowerCase() + "\"");
         return this;
     }
-
+    
     public ConfigurationBuilder setName(String name) {
         this.name = name;
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Set the name of the bot to \"" + name + "\"");
         return this;
     }
-
+    
     public ConfigurationBuilder setDebugMode(boolean debugMode) {
         this.debugMode = debugMode;
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Set the debugging state to \'" + debugMode + "\'");
         return this;
     }
-
+    
     public ConfigurationBuilder setWebsite(String url) {
         this.website = url;
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Set the website of the bot (\"" + url + "\")");
         return this;
     }
-
+    
     public ConfigurationBuilder setEmbedColour(Color colour) {
         this.embedColour = colour;
         JLogger.writeToConsole("SETUP", JLogger.Level.CONFIG, "Set the Embed colour to " + colour.toString());
         return this;
     }
-
+    
     public IConfiguration build() throws MissingDataException {
         SafetyChecker c = (cmdPrefix) -> cmdPrefix != null && cmdPrefix.length() >= 1; //TODO Update
         if (c.isSafe(cmdPrefix))
-            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour, permissionHandler, roadmap, defaultLangCode);
+            return new ConfigurationImpl(startupTime, cmdPrefix, name, website, staff, commands, debugMode, embedColour,
+                    permissionHandler, roadmap, defaultLangCode);
         else throw new MissingDataException("Missing data for ConfigurationBuilder!");
         //TODO add Logger.write(...) call
     }
-
     //TODO add checkers to the builder
-
+    
     private interface SafetyChecker {
         boolean isSafe(String cmdPrefix);
     }

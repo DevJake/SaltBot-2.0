@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.Entities;
 
 import net.dv8tion.jda.core.entities.User;
@@ -26,6 +25,7 @@ public class RoadItem {
     private ZonedDateTime endDate;
     private String title;
     private String description;
+
     public RoadItem(User author, ZonedDateTime setDate, ZonedDateTime endDate, String title, String description) {
         this.author = author;
         this.setDate = setDate;
@@ -36,17 +36,10 @@ public class RoadItem {
 
     @Override
     public String toString() {
-        return "RoadItem{" +
-                "author=" + author.toString() +
-                ", setDate=" + setDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "RoadItem{" + "author=" + author.toString() + ", setDate=" + setDate + ", endDate=" + endDate + ", title='" + title + '\'' + ", description='" + description + '\'' + '}';
     }
 
     public User getAuthor() {
-
         return author;
     }
 

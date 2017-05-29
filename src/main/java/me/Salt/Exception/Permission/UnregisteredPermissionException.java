@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Permission;
 
 public class UnregisteredPermissionException extends PermissionException {
     public UnregisteredPermissionException() {
         super();
     }
-
+    
     public UnregisteredPermissionException(String message) {
         super(message);
     }
-
+    
     public UnregisteredPermissionException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public UnregisteredPermissionException(Throwable cause) {
         super(cause);
     }

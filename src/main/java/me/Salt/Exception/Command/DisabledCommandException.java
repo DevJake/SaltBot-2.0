@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Command;
 
 public class DisabledCommandException extends CommandException {
     public DisabledCommandException() {
         super();
     }
-
+    
     public DisabledCommandException(String message) {
         super(message);
     }
-
+    
     public DisabledCommandException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public DisabledCommandException(Throwable cause) {
         super(cause);
     }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Generic;
 
 /**
@@ -23,15 +22,15 @@ public class MalformedParametersException extends GenericBotException {
     public MalformedParametersException() {
         super();
     }
-
+    
     public MalformedParametersException(String message) {
         super(message);
     }
-
+    
     public MalformedParametersException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public MalformedParametersException(Throwable cause) {
         super(cause);
     }

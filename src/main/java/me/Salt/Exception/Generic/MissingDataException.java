@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Generic;
 
 /**
@@ -23,15 +22,15 @@ public class MissingDataException extends GenericBotException {
     public MissingDataException() {
         super();
     }
-
+    
     public MissingDataException(String message) {
         super(message);
     }
-
+    
     public MissingDataException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public MissingDataException(Throwable cause) {
         super(cause);
     }

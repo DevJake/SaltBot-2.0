@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerProgressionStats;
@@ -23,7 +22,6 @@ public class PlayerProgressionStatsImpl implements PlayerProgressionStats {
     private int levelUpXp;
 
     public PlayerProgressionStatsImpl(int level, int levelUpXp) {
-
         this.level = level;
         this.levelUpXp = levelUpXp;
     }
@@ -38,9 +36,6 @@ public class PlayerProgressionStatsImpl implements PlayerProgressionStats {
 
     @Override
     public String toString() {
-        return "PlayerProgressionStatsImpl{" +
-                "level=" + level +
-                ", levelUpXp=" + levelUpXp +
-                '}';
+        return "PlayerProgressionStatsImpl{" + "level=" + level + ", levelUpXp=" + levelUpXp + '}';
     }
 }

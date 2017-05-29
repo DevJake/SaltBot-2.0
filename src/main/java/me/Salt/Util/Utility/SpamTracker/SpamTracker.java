@@ -13,12 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.SpamTracker;
 
 /**
  * Project title: SaltBot-2.0
  * Authored by Salt on 18/04/2017.
  */
-public class SpamTracker { //TODO CRITICAL: Add a rate limiter on message sending, as it causes major delays in responses, due to bot rate limits.
-}
+public class SpamTracker { //TODO CRITICAL: Add a rate limiter on message sending, as it causes major delays in responses, due to bot rate limits.}

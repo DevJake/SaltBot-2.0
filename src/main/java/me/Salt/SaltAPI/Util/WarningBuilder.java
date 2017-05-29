@@ -13,14 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.Util;
 
 import me.Salt.Exception.Generic.MissingDataException;
 import net.dv8tion.jda.core.entities.User;
 
 import java.time.ZonedDateTime;
-
 
 /**
  * Project title: SaltBot-2.0
@@ -82,14 +80,7 @@ public class WarningBuilder {
 
         @Override
         public String toString() {
-            return "Warning{" +
-                    "setter=" + setter +
-                    ", affector=" + affector +
-                    ", reason='" + reason + '\'' +
-                    ", setDate=" + setDate +
-                    ", expirationDate=" + expirationDate +
-                    ", evidenceID='" + evidenceID + '\'' +
-                    '}';
+            return "Warning{" + "setter=" + setter + ", affector=" + affector + ", reason='" + reason + '\'' + ", setDate=" + setDate + ", expirationDate=" + expirationDate + ", evidenceID='" + evidenceID + '\'' + '}';
         }
 
         public User getSetter() {

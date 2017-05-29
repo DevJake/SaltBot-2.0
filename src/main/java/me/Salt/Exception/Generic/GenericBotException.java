@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Generic;
 
 /**
@@ -24,15 +23,15 @@ public class GenericBotException extends Exception {
     public GenericBotException() {
         super();
     }
-
+    
     public GenericBotException(String message) {
         super(message);
     }
-
+    
     public GenericBotException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public GenericBotException(Throwable cause) {
         super(cause);
     }

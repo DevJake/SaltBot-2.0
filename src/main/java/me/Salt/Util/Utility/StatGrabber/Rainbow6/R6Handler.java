@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.StatGrabber.Rainbow6;
 
 import com.google.gson.Gson;
@@ -37,10 +36,8 @@ import java.util.List;
  */
 public class R6Handler {
     private final String apiURL;
-    private final Gson g =
-            new GsonBuilder()
-                    .registerTypeAdapter(R6PlayerImpl.class, new R6PlayerDeserialiaser())
-                    .create();
+    private final Gson g = new GsonBuilder().registerTypeAdapter(R6PlayerImpl.class, new R6PlayerDeserialiaser())
+                                            .create();
     private List<R6Player> players = new ArrayList<>();
     private HashMap<String, R6Player> namePlayerLookup = new HashMap<>(); //Lookup by name
 
@@ -65,24 +62,21 @@ public class R6Handler {
         R6Player r = null;
         try {
             StringBuilder n = new StringBuilder();
-
-            InputStreamReader i = new InputStreamReader(
-                    Unirest.get(apiURL + "/players/{username}")
-                            .routeParam("username", username)
-                            .header("accept", "application/json")
-                            .queryString("platform", platform.name().toLowerCase())
-                            .asJson().getRawBody());
+            InputStreamReader i = new InputStreamReader(Unirest.get(apiURL + "/players/{username}")
+                                                               .routeParam("username", username)
+                                                               .header("accept", "application/json")
+                                                               .queryString("platform", platform.name().toLowerCase())
+                                                               .asJson()
+                                                               .getRawBody());
             int x = i.read();
             while (x != -1) {
                 n.append(String.valueOf((char) x));
                 x = i.read();
             }
-            
             if (n.toString().contains("status")) throw new MissingDataException("Wrong data!");
             r = g.fromJson(n.toString(), R6PlayerImpl.class);
             System.out.println(r.toString());
             System.out.println(n.toString());
-
         } catch (UnirestException | IOException | MissingDataException e) {
             e.printStackTrace();
         }

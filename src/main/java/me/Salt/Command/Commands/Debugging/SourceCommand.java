@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Debugging;
 
 import me.Salt.Command.Command;
@@ -38,11 +37,9 @@ public class SourceCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-
     }
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.User.Impl;
 
 import com.google.gson.annotations.Expose;
@@ -62,9 +61,11 @@ public class JUserImpl implements JUser {
     private TextChannel lastTextChannel;
     @Expose
     private String lastNickname;
-
+    
     //TODO add a currency variable
-    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Permission> permissions, PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline, Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
+    public JUserImpl(User user, List<WarningBuilder.Warning> warnings, List<Permission> permissions,
+                     PrivilegeState privilegeState, long userId, LocalDateTime lastMessage, LocalDateTime lastOnline,
+                     Guild lastSpokenGuild, TextChannel lastTextChannel, String lastNickname) {
         this.user = user;
         this.warnings = warnings;
         this.permissions = permissions;
@@ -76,121 +77,110 @@ public class JUserImpl implements JUser {
         this.lastTextChannel = lastTextChannel;
         this.lastNickname = lastNickname;
     }
-
+    
     @Override
     public String toString() {
-        return "JUserImpl{" +
-                "user=" + user +
-                ", warnings=" + warnings.toString() +
-                ", permissions=" + permissions.toString() +
-                ", privilegeState=" + privilegeState +
-                ", userId='" + userId + '\'' +
-                ", lastMessage=" + lastMessage +
-                ", lastOnline=" + lastOnline +
-                ", lastSpokenGuild=" + lastSpokenGuild +
-                ", lastTextChannel=" + lastTextChannel +
-                ", lastNickname='" + lastNickname + '\'' +
-                '}';
+        return "JUserImpl{" + "user=" + user + ", warnings=" + warnings.toString() + ", permissions=" + permissions.toString() + ", privilegeState=" + privilegeState + ", userId='" + userId + '\'' + ", lastMessage=" + lastMessage + ", lastOnline=" + lastOnline + ", lastSpokenGuild=" + lastSpokenGuild + ", lastTextChannel=" + lastTextChannel + ", lastNickname='" + lastNickname + '\'' + '}';
     }
-
+    
     @Override
     public User getUser() {
         return user;
     }
-
+    
     @Override
     public List<WarningBuilder.Warning> getWarnings() {
         return warnings;
     }
-
+    
     @Override
     public List<Permission> getPermissions() {
         return permissions;
     }
-
+    
     @Override
     public PrivilegeState getPrivilegeState() {
         return privilegeState;
     }
-
+    
     @Override
     public JUser setPrivilegeState(PrivilegeState privilegeState) {
         this.privilegeState = privilegeState;
         return this;
     }
-
+    
     @Override
     public long getUserId() {
         return userId;
     }
-
+    
     @Override
     public LocalDateTime getLastMessage() {
         return lastMessage;
     }
-
+    
     @Override
     public JUser setLastMessage(LocalDateTime lastMessage) {
         this.lastMessage = lastMessage;
         return this;
     }
-
+    
     @Override
     public LocalDateTime getLastOnline() {
         return lastOnline;
     }
-
+    
     @Override
     public JUser setLastOnline(LocalDateTime lastOnline) {
         this.lastOnline = lastOnline;
         return this;
     }
-
+    
     @Override
     public Guild getLastSpokenGuild() {
         return lastSpokenGuild;
     }
-
+    
     @Override
     public JUser setLastSpokenGuild(Guild lastSpokenGuild) {
         this.lastSpokenGuild = lastSpokenGuild;
         return this;
     }
-
+    
     @Override
     public TextChannel getLastTextChannel() {
         return lastTextChannel;
     }
-
+    
     @Override
     public JUser setLastTextChannel(TextChannel lastTextChannel) {
         this.lastTextChannel = lastTextChannel;
         return this;
     }
-
+    
     @Override
     public String getLastNickname() {
         return lastNickname;
     }
-
+    
     @Override
     public JUser setLastNickname(String lastNickname) {
         this.lastNickname = lastNickname;
         return this;
     }
-
+    
     @Override
     public JUser addWarning(WarningBuilder.Warning warning) {
         this.warnings.add(warning);
         return this;
     }
-
+    
     @Override
     public JUser removeWarning(WarningBuilder.Warning warning) {
         if (this.warnings.contains(warning)) this.warnings.remove(warning);
         return this;
     }
-
+    
     @Override
     public JUser addPermission(Permission permission) throws DuplicateDataException {
         if (this.permissions.contains(permission))
@@ -199,7 +189,7 @@ public class JUserImpl implements JUser {
         this.perms.put(permission.getPermEnum(), permission);
         return this;
     }
-
+    
     @Override
     public JUser removePermission(Perm perm) {
         if (this.perms.containsKey(perm)) {
@@ -210,12 +200,12 @@ public class JUserImpl implements JUser {
         }
         return this;
     }
-
+    
     @Override
     public boolean hasPermission(Perm perm) {
         return this.perms.get(perm).getPermEnum().equals(perm);
     }
-
+    
     @Override
     public boolean hasPermission(Perm perm, Permission.Range range) {
         if (!this.perms.containsKey(perm)) try {

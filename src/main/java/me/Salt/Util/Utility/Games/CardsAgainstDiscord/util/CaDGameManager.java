@@ -15,10 +15,7 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
-import com.vdurmont.emoji.EmojiLoader;
 import com.vdurmont.emoji.EmojiManager;
-import com.vdurmont.emoji.EmojiParser;
-import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerAddEmbedEvent;
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerInvokeStateEvent;
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerModifyHandlerEvent;
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerRegisterHandlerEvent;
@@ -49,7 +46,7 @@ public class CaDGameManager extends ListenerAdapter {
                                    CaDGameHandler caDGameHandler) {
         if (!embeds.containsKey(messageId))
             //EventInitiator.fire(new CaDManagerAddEmbedEvent(caDGameHandler, embeds.get(messageId).getResponseExpected(), responseExpected, messageId));
-        embeds.put(messageId, new ResponseContainer(responseExpected, caDGameHandler));
+            embeds.put(messageId, new ResponseContainer(responseExpected, caDGameHandler));
     }
     
     public static void registerHandler(CaDGameHandler handler) {

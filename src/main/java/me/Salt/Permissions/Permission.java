@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Permissions;
 
 import me.Salt.SaltAPI.Util.Interface.Describable;
@@ -33,9 +32,9 @@ public class Permission implements Identifiable, Describable {
     private List<Permission> subperms = new ArrayList<>();
     private String description;
     private long id;
-
-    public Permission(String permission, Perm permEnum, Range range, List<Permission> subperms, String description, long id) {
-
+    
+    public Permission(String permission, Perm permEnum, Range range, List<Permission> subperms, String description,
+                      long id) {
         this.permission = permission;
         this.permEnum = permEnum;
         this.range = range;
@@ -43,45 +42,39 @@ public class Permission implements Identifiable, Describable {
         this.description = description;
         this.id = id;
     }
-
+    
     @Override
     public String toString() {
-        return "Permission{" +
-                "permission='" + permission + '\'' +
-                ", permEnum=" + permEnum +
-                ", range=" + range +
-                ", subperms=" + subperms.toString() +
-                ", description='" + description + '\'' +
-                ", id=" + id +
-                '}';
+        return "Permission{" + "permission='" + permission + '\'' + ", permEnum=" + permEnum + ", range=" + range + ", subperms=" + subperms
+                .toString() + ", description='" + description + '\'' + ", id=" + id + '}';
     }
-
+    
     public String getPermission() {
         return permission;
     }
-
+    
     public Perm getPermEnum() {
         return permEnum;
     }
-
+    
     public Range getRange() {
         return range;
     }
-
+    
     public List<Permission> getSubperms() {
         return subperms;
     }
-
+    
     @Override
     public String getDescription() {
         return description;
     }
-
+    
     @Override
     public long getId() {
         return id;
     }
-
+    
     /**
      * GLOBAL_WIDE -&gt; GUILD_WIDE -&gt; TEXTCHANNEL_WIDE -&gt; USER_WIDE
      * Range.ALL will instruct the PermissionHandler to add a new permission instance for each Range.
@@ -108,22 +101,18 @@ public class Permission implements Identifiable, Describable {
          * All ranges (not including this range)
          */
         ALL,
-
         /**
          * Permissions that affect a global scale
          */
         GLOBAL_WIDE,
-
         /**
          * Permissions that affect a guild-wide scale
          */
         GUILD_WIDE,
-
         /**
          * Permissions that affect a TextChannel-wide scale
          */
         TEXTCHANNEL_WIDE,
-
         /**
          * Permissions that affect a User-wide scale.
          */

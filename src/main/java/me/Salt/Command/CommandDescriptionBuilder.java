@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command;
 
 import me.Salt.Exception.Generic.MissingDataException;
@@ -23,7 +22,6 @@ import net.dv8tion.jda.core.entities.User;
 
 import java.util.ArrayList;
 import java.util.List;
-
 
 /**
  * Project title: SaltBot-2.0
@@ -41,75 +39,73 @@ public class CommandDescriptionBuilder {
     private boolean deprecated;
     private List<String> aliases = new ArrayList<>();
     private Cooldown cooldown;
-
+    
     public CommandDescriptionBuilder addAlias(String alias) {
         this.aliases.add(alias.toLowerCase()); //TODO convert all elements to lowercase
         return this;
     }
-
+    
     public CommandDescriptionBuilder setCooldown(Cooldown cooldown) {
         this.cooldown = cooldown;
         return this;
     }
-
-
+    
     public CommandDescriptionBuilder setName(String name) {
         this.name = name;
         return this;
     }
-
+    
     public CommandDescriptionBuilder setDescription(String description) {
         this.description = description;
         return this;
     }
-
+    
     public CommandDescriptionBuilder setFullDescription(String fullDescription) {
         this.fullDescription = fullDescription;
         return this;
     }
-
+    
     public CommandDescriptionBuilder addAuthor(User author) {
         this.authors.add(author);
         return this;
     }
-
+    
     public CommandDescriptionBuilder addField(Field field) {
         this.fields.add(field);
         return this;
     }
-
+    
     public CommandDescriptionBuilder setHelpMessage(String helpMessage) {
         this.helpMessage = helpMessage;
         return this;
     }
-
+    
     public CommandDescriptionBuilder setComplete(boolean complete) {
         isComplete = complete;
         return this;
     }
-
+    
     public CommandDescriptionBuilder addRequiredPermissions(Perm permission) {
         this.requiredPermissions.add(permission);
         return this;
     }
-
+    
     public CommandDescriptionBuilder setDeprecated(boolean deprecated) {
         this.deprecated = deprecated;
         return this;
     }
-
+    
     public CommandDescription build() throws MissingDataException {
         Checker checker = () -> true; //TODO Rework for new variables
         if (checker.check())
-            return new CommandDescription(fields, name, description, fullDescription, authors, isComplete, requiredPermissions, helpMessage, deprecated, aliases, cooldown);
+            return new CommandDescription(fields, name, description, fullDescription, authors, isComplete,
+                    requiredPermissions, helpMessage, deprecated, aliases, cooldown);
         else throw new MissingDataException("Invalid data entered! Likely null values.");
         //TODO add Logger.write(...) call
-
     }
-
+    
     private interface Checker {
         boolean check();
     }
-
     //TODO put checking code in each setter
 }

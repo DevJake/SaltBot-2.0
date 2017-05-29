@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.Util;
 
 import net.dv8tion.jda.core.entities.User;
@@ -36,7 +35,6 @@ public class PrivilegeState {
     }
 
     public State getState() {
-
         return state;
     }
 

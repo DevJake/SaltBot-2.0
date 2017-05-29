@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command;
 
 import java.util.List;
@@ -25,7 +24,7 @@ import java.util.List;
 public class CommandContainer {
     private CommandDescription commandDescription;
     private List<JEventType> events;
-
+    
     /**
      * @param commandDescription CommandDescription - The CommandDescription instance with details about a command.
      * @param events             List - A list of events that this command is set to listen to.
@@ -35,21 +34,21 @@ public class CommandContainer {
         this.commandDescription = commandDescription;
         this.events = events;
     }
-
+    
     /**
      * @return CommandDescription - This class' CommandDescription instance
      */
     public CommandDescription getCommandDescription() {
         return commandDescription;
     }
-
+    
     /**
      * @return List - A list of events that this command is set to listen to.
      */
     public List<JEventType> getEvents() {
         return events;
     }
-
+    
     /**
      * An enum storing different types of events that a command may choose to listen to.
      */
@@ -58,12 +57,10 @@ public class CommandContainer {
          * A generic message (both Private and Guild messages).
          */
         GENERIC_MESSAGE,
-
         /**
          * A message sent via private message.
          */
         PRIVATE_MESSAGE,
-
         /**
          * A message sent to a guild.
          */

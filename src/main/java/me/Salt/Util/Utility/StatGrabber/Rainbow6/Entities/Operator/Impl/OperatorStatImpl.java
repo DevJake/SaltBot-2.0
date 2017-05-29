@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorStat;
@@ -25,5 +24,4 @@ public class OperatorStatImpl implements OperatorStat {
     private int kills;
     private int deaths;
     private int playtime; //in minutes
-
 }

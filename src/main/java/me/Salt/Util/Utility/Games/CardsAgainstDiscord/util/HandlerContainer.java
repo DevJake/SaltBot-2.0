@@ -20,20 +20,20 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 public class HandlerContainer {
     private CaDGameHandler handler;
     private boolean shouldInvoke;
-
+    
     public HandlerContainer(CaDGameHandler handler, boolean shouldInvoke) {
         this.handler = handler;
         this.shouldInvoke = shouldInvoke;
     }
-
+    
     public CaDGameHandler getHandler() {
         return handler;
     }
-
+    
     public boolean shouldInvoke() {
         return shouldInvoke;
     }
-
+    
     public void setShouldInvoke(boolean shouldInvoke) {
         this.shouldInvoke = shouldInvoke;
     }

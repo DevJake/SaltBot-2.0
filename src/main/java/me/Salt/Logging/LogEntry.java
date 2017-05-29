@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Logging;
 
 import java.time.ZonedDateTime;
@@ -25,15 +24,17 @@ public class LogEntry {
     private String className; //Class that created this log entry
     private Exception cause;
 
+    public LogEntry(ZonedDateTime time, JLogger.Level level, String message, String className, Exception cause) {
+        this.time = time;
+        this.level = level;
+        this.message = message;
+        this.className = className;
+        this.cause = cause;
+    }
+
     @Override
     public String toString() {
-        return "LogEntry{" +
-                "time=" + time +
-                ", level=" + level +
-                ", message='" + message + '\'' +
-                ", className='" + className + '\'' +
-                ", cause=" + cause +
-                '}';
+        return "LogEntry{" + "time=" + time + ", level=" + level + ", message='" + message + '\'' + ", className='" + className + '\'' + ", cause=" + cause + '}';
     }
 
     public ZonedDateTime getTime() {
@@ -54,14 +55,5 @@ public class LogEntry {
 
     public Exception getCause() {
         return cause;
-    }
-
-    public LogEntry(ZonedDateTime time, JLogger.Level level, String message, String className, Exception cause) {
-
-        this.time = time;
-        this.level = level;
-        this.message = message;
-        this.className = className;
-        this.cause = cause;
     }
 }

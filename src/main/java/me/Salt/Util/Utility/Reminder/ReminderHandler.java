@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.Reminder;
 
 import java.util.concurrent.Executors;
@@ -26,16 +25,16 @@ import java.util.concurrent.TimeUnit;
  * Authored by Salt on 19/04/2017.
  */
 public class ReminderHandler {
-
     //TODO make sure a bot restart doesn't stop a reminder, or reset the timer.
     public static void setNewReminder(Reminder reminder) {
         Runnable r = () -> {
-            reminder.getChannels().forEach(textChannel -> textChannel.sendMessage(reminder.getMessage()).queue()); //TODO Convert to Embed
+            reminder.getChannels()
+                    .forEach(textChannel -> textChannel.sendMessage(reminder.getMessage())
+                                                       .queue()); //TODO Convert to Embed
         };
-
-        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(1); //TODO use algorithm to determine an appropriate value. Perhaps the amount of users, minus inactive users, divided by a value.
+        ScheduledExecutorService scheduler = Executors.newScheduledThreadPool(
+                1); //TODO use algorithm to determine an appropriate value. Perhaps the amount of users, minus inactive users, divided by a value.
         ScheduledFuture s = scheduler.schedule(r, reminder.getEndTime(), TimeUnit.MILLISECONDS);
         //ScheduledFuture s = scheduler.schedule(r, reminder.getEndTime(), TimeUnit.SECONDS);
-
     }
 }

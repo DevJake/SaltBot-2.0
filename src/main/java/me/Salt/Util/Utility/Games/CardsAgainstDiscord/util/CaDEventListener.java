@@ -57,7 +57,6 @@ public class CaDEventListener extends ListenerAdapter {
         }
     }
     
-    private void handleCardSelect(String emoteName, GenericPrivateMessageReactionEvent event){
-    
+    private void handleCardSelect(String emoteName, GenericPrivateMessageReactionEvent event) {
     }
 }

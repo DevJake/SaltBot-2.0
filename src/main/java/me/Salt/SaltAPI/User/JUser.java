@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.User;
 
 import me.Salt.Exception.Generic.DuplicateDataException;
@@ -34,48 +33,46 @@ import java.util.List;
  */
 public interface JUser {
     public User getUser();
-
+    
     public List<WarningBuilder.Warning> getWarnings();
-
+    
     public List<Permission> getPermissions();
-
+    
     public PrivilegeState getPrivilegeState();
-
+    
     public JUser setPrivilegeState(PrivilegeState privilegeState);
-
+    
     public long getUserId();
-
+    
     public LocalDateTime getLastMessage();
-
+    
     public JUser setLastMessage(LocalDateTime lastMessage);
-
+    
     public LocalDateTime getLastOnline();
-
+    
     public JUser setLastOnline(LocalDateTime lastOnline);
-
+    
     public Guild getLastSpokenGuild();
-
+    
     public JUser setLastSpokenGuild(Guild lastSpokenGuild);
-
+    
     public TextChannel getLastTextChannel();
-
+    
     public JUser setLastTextChannel(TextChannel lastTextChannel);
-
+    
     public String getLastNickname();
-
+    
     public JUser setLastNickname(String lastNickname);
-
+    
     public JUser addWarning(WarningBuilder.Warning warning);
-
+    
     public JUser removeWarning(WarningBuilder.Warning warning);
-
+    
     public JUser addPermission(Permission permission) throws DuplicateDataException;
-
+    
     public JUser removePermission(Perm permission);
-
+    
     public boolean hasPermission(Perm permission);
-
+    
     public boolean hasPermission(Perm permission, Permission.Range range);
-
-
 }

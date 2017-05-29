@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI;
 
 import com.google.gson.Gson;
@@ -53,27 +52,25 @@ public class ConfigurationImpl implements IConfiguration {
     private HashMap<String, JGuild> jGuilds = new HashMap<>(); //As above; Store by ID, Guild
     private HashMap<User, List<IConfiguration.Authority>> staff = new HashMap<>(); //TODO add to Json output
     private HashMap<String, ICommand> commands = new HashMap<>();
-    @Expose private List<JUser> jUserList = new ArrayList<>();
-    @Expose private List<JGuild> jGuildList = new ArrayList<>();
+    @Expose
+    private List<JUser> jUserList = new ArrayList<>();
+    @Expose
+    private List<JGuild> jGuildList = new ArrayList<>();
     private boolean debugMode;
     private Color embedColour;
-    @Expose private int commandCount;
-    @Expose private int messageCount;
+    @Expose
+    private int commandCount;
+    @Expose
+    private int messageCount;
     private PermissionHandler permissionHandler;
     private List<RoadItem> roadmap = new ArrayList<>();
     private LanguageHandler languageHandler = new LanguageHandler();
-
-    public LangCode getDefaultLangCode() {
-        return defaultLangCode;
-    }
-
     private LangCode defaultLangCode;
 
-    public LanguageHandler getLanguageHandler() {
-        return languageHandler;
-    }
-
-    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website, HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands, boolean debugMode, Color embedColour, PermissionHandler permissionHandler, List<RoadItem> roadmap, LangCode defaultLangCode) {
+    public ConfigurationImpl(long startupTime, String cmdPrefix, String name, String website,
+                             HashMap<User, List<Authority>> staff, HashMap<String, ICommand> commands,
+                             boolean debugMode, Color embedColour, PermissionHandler permissionHandler,
+                             List<RoadItem> roadmap, LangCode defaultLangCode) {
         this.startupTime = startupTime;
         this.cmdPrefix = cmdPrefix;
         this.name = name;
@@ -151,7 +148,6 @@ public class ConfigurationImpl implements IConfiguration {
     @Override
     public void incrementMessageCount() {
         messageCount++;
-
     }
 
     @Override
@@ -163,8 +159,9 @@ public class ConfigurationImpl implements IConfiguration {
         } catch (NullPointerException e) {
             e.printStackTrace();
         }
-
-        jUserList.removeAll(this.jUserList.stream().filter(jUser -> jUser.getUserId() == user.getUserId()).collect(Collectors.toList()));
+        jUserList.removeAll(this.jUserList.stream()
+                                          .filter(jUser -> jUser.getUserId() == user.getUserId())
+                                          .collect(Collectors.toList()));
         jUserList.add(user);
     }
 
@@ -198,7 +195,13 @@ public class ConfigurationImpl implements IConfiguration {
 
     @Override
     public List<JUser> getJUsersByName(String name) {
-        return jUsers.size() > 0 ? jUsers.values().stream().filter(jUser -> jUser.getUser().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+        return jUsers.size() > 0 ? jUsers.values()
+                                         .stream()
+                                         .filter(jUser -> jUser.getUser()
+                                                               .getName()
+                                                               .toLowerCase()
+                                                               .contains(name.toLowerCase()))
+                                         .collect(Collectors.toList()) : null;
     }
 
     @Override
@@ -208,7 +211,13 @@ public class ConfigurationImpl implements IConfiguration {
 
     @Override
     public List<JGuild> getJGuildsByName(String name) {
-        return jGuilds.size() > 0 ? jGuilds.values().stream().filter(jUser -> jUser.getGuild().getName().toLowerCase().contains(name.toLowerCase())).collect(Collectors.toList()) : null;
+        return jGuilds.size() > 0 ? jGuilds.values()
+                                           .stream()
+                                           .filter(jUser -> jUser.getGuild()
+                                                                 .getName()
+                                                                 .toLowerCase()
+                                                                 .contains(name.toLowerCase()))
+                                           .collect(Collectors.toList()) : null;
     }
 
     public PermissionHandler getPermissionHandler() {
@@ -239,45 +248,45 @@ public class ConfigurationImpl implements IConfiguration {
         /*
         Do shutdown stuff, if needed.
          */
-
         Main.jda.shutdown();
     }
 
     public void init() {
         //TODO add system of re-reading data files into the application.
-
-//                    Gson gson = new GsonBuilder()
-//                    .serializeNulls()
-//                    .excludeFieldsWithoutExposeAnnotation()
-//                    .registerTypeAdapter(TextChannel.class, new TextChannelSerialiser())
-//                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
-//                    .create();
-//
-//            try {
-//                event.getChannel().sendMessage("```" + gson.toJsonTree(Main.salt.getJUserById("112633500447838208")).toString() + "```").queue();
-//            } catch (MissingDataException e) {
-//                System.out.println(e.getMessage());
-//            }
-
-        Gson g = new GsonBuilder()
-                .serializeNulls()
-                .excludeFieldsWithoutExposeAnnotation()
-                .enableComplexMapKeySerialization()
-                .setPrettyPrinting()
-                .registerTypeAdapter(ICommand.class, new ICommandSerialiser())
-                .registerTypeAdapter(User.class, new UserSerialiser())
-                .registerTypeAdapter(Guild.class, new GuildSerialiser())
-                .registerTypeAdapter(CommandContainer.class, new CommandContainerSerialiser())
-                .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
-                //.registerTypeAdapter(JUser.class, new JUserSerialiser())
-                .create();
-
+        //                    Gson gson = new GsonBuilder()
+        //                    .serializeNulls()
+        //                    .excludeFieldsWithoutExposeAnnotation()
+        //                    .registerTypeAdapter(TextChannel.class, new TextChannelSerialiser())
+        //                    .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
+        //                    .create();
+        //
+        //            try {
+        //                event.getChannel().sendMessage("```" + gson.toJsonTree(Main.salt.getJUserById("112633500447838208")).toString() + "```").queue();
+        //            } catch (MissingDataException e) {
+        //                System.out.println(e.getMessage());
+        //            }
+        Gson g = new GsonBuilder().serializeNulls()
+                                  .excludeFieldsWithoutExposeAnnotation()
+                                  .enableComplexMapKeySerialization()
+                                  .setPrettyPrinting()
+                                  .registerTypeAdapter(ICommand.class, new ICommandSerialiser())
+                                  .registerTypeAdapter(User.class, new UserSerialiser())
+                                  .registerTypeAdapter(Guild.class, new GuildSerialiser())
+                                  .registerTypeAdapter(CommandContainer.class, new CommandContainerSerialiser())
+                                  .registerTypeAdapter(LocalDateTime.class, new LocalDateTimeSerialiser())
+                                  //.registerTypeAdapter(JUser.class, new JUserSerialiser())
+                                  .create();
         //System.out.println(g.toJsonTree(this).toString());
     }
 
-    private void saveCurrentState() {
-
+    public LanguageHandler getLanguageHandler() {
+        return languageHandler;
     }
 
+    public LangCode getDefaultLangCode() {
+        return defaultLangCode;
+    }
 
+    private void saveCurrentState() {
+    }
 }

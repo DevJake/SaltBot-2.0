@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.Guild.Impl;
 
 import com.google.gson.annotations.Expose;
@@ -42,8 +41,9 @@ public class JGuildImpl implements JGuild {
     private LocalDateTime lastActivity;
     @Expose
     private TextChannel lastTextChannelMessaged;
-
-    public JGuildImpl(Guild guild, long guildId, List<Perm> permissions, String lastMessage, LocalDateTime lastActivity, TextChannel lastTextChannelMessaged) {
+    
+    public JGuildImpl(Guild guild, long guildId, List<Perm> permissions, String lastMessage, LocalDateTime lastActivity,
+                      TextChannel lastTextChannelMessaged) {
         this.guild = guild;
         this.guildId = guildId;
         this.permissions = permissions;
@@ -51,17 +51,17 @@ public class JGuildImpl implements JGuild {
         this.lastActivity = lastActivity;
         this.lastTextChannelMessaged = lastTextChannelMessaged;
     }
-
+    
     @Override
     public Guild getGuild() {
         return guild;
     }
-
+    
     @Override
     public long getGuildId() {
         return guildId;
     }
-
+    
     @Override
     public JGuild addPermission(Perm permission) throws DuplicateDataException {
         if (this.permissions.contains(permission))
@@ -69,28 +69,28 @@ public class JGuildImpl implements JGuild {
         else this.permissions.add(permission);
         return this;
     }
-
+    
     @Override
     public JGuild removePermission(Perm permission) {
         if (this.permissions.contains(permission)) this.permissions.remove(permission);
         return this;
     }
-
+    
     @Override
     public List<Perm> getPermissions() {
         return permissions;
     }
-
+    
     @Override
     public String getLastMessage() {
         return lastMessage;
     }
-
+    
     @Override
     public LocalDateTime getLastActivity() {
         return lastActivity;
     }
-
+    
     @Override
     public TextChannel getLastTextChannelMessaged() {
         return lastTextChannelMessaged;

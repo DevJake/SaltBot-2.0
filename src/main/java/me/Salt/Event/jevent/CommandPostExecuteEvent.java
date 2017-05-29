@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Event.jevent;
 
 import me.Salt.Command.Container.CommandParser;
@@ -22,16 +21,16 @@ import net.dv8tion.jda.core.events.Event;
 public class CommandPostExecuteEvent extends GenericCommandEvent {
     private CommandParser.ParsedCommandContainer cmd;
     private Event event;
-
+    
     public CommandPostExecuteEvent(CommandParser.ParsedCommandContainer cmd, Event event) {
         this.cmd = cmd;
         this.event = event;
     }
-
+    
     public CommandParser.ParsedCommandContainer getCmd() {
         return cmd;
     }
-
+    
     public Event getEvent() {
         return event;
     }

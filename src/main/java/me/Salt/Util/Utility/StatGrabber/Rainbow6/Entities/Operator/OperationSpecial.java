@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
 
 /**
@@ -21,12 +20,12 @@ package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
  */
 public interface OperationSpecial {
     public String getRaw();
-
+    
     public String getOperatorName();
-
+    
     public String getSpecialName();
-
+    
     public int getValue();
-
+    
     public String getDescription();
 }

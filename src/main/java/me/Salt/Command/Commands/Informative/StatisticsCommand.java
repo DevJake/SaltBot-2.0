@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Informative;
 
 import me.Salt.Command.Command;
@@ -31,44 +30,54 @@ import java.util.concurrent.TimeUnit;
  * Calculates, formats and provides detailed statistics on the bot, such as current Uptime and the total thread count.
  */
 public class StatisticsCommand extends Command implements ICommand {
-
     public StatisticsCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         long n = System.currentTimeMillis();
-
-        e.getChannel().sendMessage(new EmbedBuilder()
-                .setTitle(Main.salt.getName() + " Statistics", null)
-                .setColor(Main.salt.getEmbedColour())
-
-                .addField("Uptime", String.valueOf(TimeUnit.MILLISECONDS.toSeconds(Main.salt.getUptime()) + " seconds \n(" + TimeUnit.MILLISECONDS.toMinutes(Main.salt.getUptime()) + " minutes)"), true)
-                .addField("Guild Count", String.valueOf(Main.jda.getGuilds().size()), true)
-                .addField("User Count", String.valueOf(Main.jda.getUsers().size()), true)
-                .addField("Messages Received", String.valueOf(Main.salt.getMessageCount()), true)
-                .addField("Commands Received", String.valueOf(Main.salt.getCommandCount()), true)
-                .addField("Command Count", String.valueOf(Main.salt.getCommands().size()), true)
-                .addField("Threads", String.valueOf(Thread.activeCount()), true)
-                .addField("Source Code", "[GitHub](https://github.com/DevJake/SaltBot-2.0)", true)
-                .addField("Issue Reports", "[Issues](https://github.com/DevJake/SaltBot-2.0/issues)", true)
-                .addField("Invite", "[Invite](https://discordapp.com/oauth2/authorize?client_id=246309425902649345&scope=bot&permissions=2146958463)", true)
-                .addField("Author", Main.jda.getUserById("112633500447838208").getAsMention(), true)
-
-                .appendDescription("Generated in " + String.valueOf(System.currentTimeMillis() - n) + "ms")
-.setThumbnail(Main.jda.getSelfUser().getAvatarUrl())
-                .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                .build()).queue();
+        e.getChannel()
+         .sendMessage(new EmbedBuilder().setTitle(Main.salt.getName() + " Statistics", null)
+                                        .setColor(Main.salt.getEmbedColour())
+                                        .addField("Uptime", String.valueOf(TimeUnit.MILLISECONDS.toSeconds(
+                                                Main.salt.getUptime()) + " seconds \n(" + TimeUnit.MILLISECONDS.toMinutes(
+                                                Main.salt.getUptime()) + " minutes)"), true)
+                                        .addField("Guild Count", String.valueOf(Main.jda.getGuilds().size()), true)
+                                        .addField("User Count", String.valueOf(Main.jda.getUsers().size()), true)
+                                        .addField("Messages Received", String.valueOf(Main.salt.getMessageCount()),
+                                                true)
+                                        .addField("Commands Received", String.valueOf(Main.salt.getCommandCount()),
+                                                true)
+                                        .addField("Command Count", String.valueOf(Main.salt.getCommands().size()), true)
+                                        .addField("Threads", String.valueOf(Thread.activeCount()), true)
+                                        .addField("Source Code", "[GitHub](https://github.com/DevJake/SaltBot-2.0)",
+                                                true)
+                                        .addField("Issue Reports",
+                                                "[Issues](https://github.com/DevJake/SaltBot-2.0/issues)", true)
+                                        .addField("Invite",
+                                                "[Invite](https://discordapp.com/oauth2/authorize?client_id=246309425902649345&scope=bot&permissions=2146958463)",
+                                                true)
+                                        .addField("Author", Main.jda.getUserById("112633500447838208").getAsMention(),
+                                                true)
+                                        .appendDescription(
+                                                "Generated in " + String.valueOf(System.currentTimeMillis() - n) + "ms")
+                                        .setThumbnail(Main.jda.getSelfUser().getAvatarUrl())
+                                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage()
+                                                                                                         .getCreationTime()
+                                                                                                         .plusHours(1)
+                                                                                                         .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                e.getAuthor().getAvatarUrl())
+                                        .build())
+         .queue();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

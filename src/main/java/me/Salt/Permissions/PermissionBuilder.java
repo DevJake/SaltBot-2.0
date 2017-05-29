@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Permissions;
 
 import me.Salt.SaltAPI.Util.Interface.Buildable;
@@ -42,7 +41,6 @@ public class PermissionBuilder implements Buildable {
     }
 
     public PermissionBuilder() {
-
     }
 
     public PermissionBuilder setPermission(String permission) {

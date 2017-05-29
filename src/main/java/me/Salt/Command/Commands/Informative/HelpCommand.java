@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Informative;
 
 import me.Salt.Command.Command;
@@ -26,23 +25,21 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
  * Provides useful help information about the bot, as well as individual commands.
  */
 public class HelpCommand extends Command implements ICommand {
-
     public HelpCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         //TODO
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

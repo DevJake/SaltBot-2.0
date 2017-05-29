@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.Guild;
 
 import me.Salt.Exception.Generic.DuplicateDataException;
@@ -29,18 +28,18 @@ import java.util.List;
  */
 public interface JGuild {
     public Guild getGuild();
-
+    
     public long getGuildId();
-
+    
     public JGuild addPermission(Perm permission) throws DuplicateDataException;
-
+    
     public JGuild removePermission(Perm permission);
-
+    
     public List<Perm> getPermissions();
-
+    
     public String getLastMessage();
-
+    
     public LocalDateTime getLastActivity();
-
+    
     public TextChannel getLastTextChannelMessaged();
 }

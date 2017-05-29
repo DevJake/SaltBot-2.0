@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI;
 
 import me.Salt.Command.ICommand;
@@ -36,75 +35,74 @@ import java.util.List;
  */
 public interface IConfiguration {
     public String getCmdPrefix();
-
-//    public List<JUser> getjUsers();
-//
-//    public JUser getJUserByID(String id); //TODO Develop unique method of converting users to an ID. Could use inbuilt IDs, but would be difficult to discriminate between default ID and API-wide ID.
-//
-//    public List<JUser> getJUsersByName(String name);
-//
-//    public List<JGuild> getjGuilds();
-//
-//    public JGuild getJGuildByID(String id);
-//
-//    public List<JGuild> getJGuildsByName(String name);
-
+    //    public List<JUser> getjUsers();
+    //
+    //    public JUser getJUserByID(String id); //TODO Develop unique method of converting users to an ID. Could use inbuilt IDs, but would be difficult to discriminate between default ID and API-wide ID.
+    //
+    //    public List<JUser> getJUsersByName(String name);
+    //
+    //    public List<JGuild> getjGuilds();
+    //
+    //    public JGuild getJGuildByID(String id);
+    //
+    //    public List<JGuild> getJGuildsByName(String name);
+    
     public HashMap<User, List<IConfiguration.Authority>> getStaff(); //TODO
-
+    
     public HashMap<String, ICommand> getCommands();
-
+    
     public String getName();
-
+    
     public String getWebsite();
-
+    
     public long getStartupTime();
-
+    
     public long getUptime();
-
+    
     public boolean isDebugMode();
-
+    
     public Color getEmbedColour();
-
+    
     public int getCommandCount();
-
+    
     public int getMessageCount();
-
+    
     public void incrementCommandCount();
-
+    
     public void incrementMessageCount();
-
+    
     public void setJUser(JUser user);
-
+    
     public void setJGuild(JGuild guild);
-
+    
     public JUser getJUserById(String id) throws MissingDataException;
-
+    
     public JGuild getJGuildById(String id) throws MissingDataException;
-
+    
     public List<JUser> getjUsers();
-
+    
     public List<JUser> getJUsersByName(String name);
-
+    
     public List<JGuild> getjGuilds();
-
+    
     public List<JGuild> getJGuildsByName(String name);
-
+    
     public PermissionHandler getPermissionHandler();
-
+    
     public List<RoadItem> getRoadmap();
-
+    
     public boolean addRoadmapItem(RoadItem r);
-
+    
     public void removeRoadmapItem(RoadItem r);
-
+    
     public void shutdown(boolean saveData);
-
+    
     public void init();
-
+    
     public LanguageHandler getLanguageHandler();
-
+    
     public LangCode getDefaultLangCode();
-
+    
     public enum Authority {
         OWNER,
         DEVELOPER,

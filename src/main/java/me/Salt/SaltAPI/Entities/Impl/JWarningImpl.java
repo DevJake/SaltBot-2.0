@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.SaltAPI.Entities.Impl;
 
 import me.Salt.SaltAPI.Entities.JWarning;
@@ -27,7 +26,7 @@ import java.util.List;
  */
 public class JWarningImpl implements JWarning {
     private List<WarningBuilder.Warning> warnings;
-
+    
     @Override
     public List<WarningBuilder.Warning> getWarnings() {
         return warnings;

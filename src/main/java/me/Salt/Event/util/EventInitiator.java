@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Event.util;
 
 import java.util.ArrayList;
@@ -21,16 +20,16 @@ import java.util.List;
 
 public class EventInitiator {
     private static List<JEventListener> listeners = new ArrayList<>();
-
+    
     public static void fire(JEvent event) {
         listeners.forEach(l -> l.onEvent(event));
     }
-
-    public static void register(JEventListener listener){
+    
+    public static void register(JEventListener listener) {
         listeners.add(listener);
     }
-
-    public static void unregister(JEventListener listener){
+    
+    public static void unregister(JEventListener listener) {
         listeners.remove(listener);
     }
 }

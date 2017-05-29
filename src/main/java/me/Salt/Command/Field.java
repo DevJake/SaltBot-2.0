@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command;
 
 /**
@@ -28,31 +27,30 @@ public class Field {
     private boolean required;
     private Type type;
     private int depth; //The 'depth' of the argument. Depth 2 would indicate it must be the second argument. A depth of 0 indicates it must merely be present in the text.
-
+    
     public Field(String text, String description, boolean required, Type type) {
-
         this.text = text;
         this.description = description;
         this.required = required;
         this.type = type;
     }
-
+    
     public String getText() {
         return text;
     }
-
+    
     public String getDescription() {
         return description;
     }
-
+    
     public boolean isRequired() {
         return required;
     }
-
+    
     public Type getType() {
         return type;
     }
-
+    
     public enum Type {
         PARAMETER,
         DEFINER

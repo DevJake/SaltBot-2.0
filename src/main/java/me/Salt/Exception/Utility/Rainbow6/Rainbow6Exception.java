@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Utility.Rainbow6;
 
 import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.R6Error;
@@ -21,18 +20,17 @@ import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.R6Error;
 public class Rainbow6Exception extends Exception {
     private String message;
     private R6Error error;
-
+    
     public Rainbow6Exception(R6Error error) {
         this.error = error;
     }
-
+    
     public Rainbow6Exception(String message, R6Error error) {
         super(message);
         this.error = error;
     }
-
+    
     public R6Error getError() {
         return error;
-
     }
 }

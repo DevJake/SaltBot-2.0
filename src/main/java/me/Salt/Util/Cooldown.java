@@ -13,10 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util;
-
-import com.google.gson.annotations.Expose;
 
 import java.util.concurrent.TimeUnit;
 
@@ -27,17 +24,16 @@ import java.util.concurrent.TimeUnit;
 public class Cooldown {
     private long value;
     private TimeUnit timeUnit;
-
+    
     public Cooldown(long value, TimeUnit timeUnit) {
-
         this.value = timeUnit.toMillis(value); //Convert specified value to a long value, in milliseconds.
         this.timeUnit = timeUnit;
     }
-
+    
     public long getValue() {
         return value;
     }
-
+    
     public TimeUnit getTimeUnit() {
         return timeUnit;
     }

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Informative;
 
 import me.Salt.Command.Command;
@@ -31,26 +30,29 @@ public class UptimeCommand extends Command implements ICommand {
     public UptimeCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
-
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-
-        e.getChannel().sendMessage(
-                new EmbedBuilder()
-                        .addField("Current Uptime", String.valueOf(TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - Main.salt.getStartupTime())) + " Minutes", true) //TODO only show current time, such as 3 Days, 2 Hours, 12 Minutes and 44 Seconds.
-                        .setColor(Main.salt.getEmbedColour())
-                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                        .build()).queue();
+        e.getChannel()
+         .sendMessage(new EmbedBuilder().addField("Current Uptime", String.valueOf(
+                 TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - Main.salt.getStartupTime())) + " Minutes",
+                 true) //TODO only show current time, such as 3 Days, 2 Hours, 12 Minutes and 44 Seconds.
+                                        .setColor(Main.salt.getEmbedColour())
+                                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage()
+                                                                                                         .getCreationTime()
+                                                                                                         .plusHours(1)
+                                                                                                         .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                e.getAuthor().getAvatarUrl())
+                                        .build())
+         .queue();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

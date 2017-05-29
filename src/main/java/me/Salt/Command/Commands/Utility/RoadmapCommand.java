@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Utility;
 
 import me.Salt.Command.Command;
@@ -43,6 +42,5 @@ public class RoadmapCommand extends Command implements ICommand {
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

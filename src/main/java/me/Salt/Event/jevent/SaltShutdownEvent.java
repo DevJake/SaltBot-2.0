@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Event.jevent;
 
 import me.Salt.Event.util.JEvent;
@@ -22,7 +21,6 @@ public class SaltShutdownEvent extends JEvent {
     private long startupTimeMillis;
 
     public SaltShutdownEvent(long startupTimeMillis) {
-
         this.startupTimeMillis = startupTimeMillis;
     }
 

@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Administrator;
 
 import me.Salt.Command.Command;
@@ -32,23 +31,25 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
  * This command is restricted to the bot owner, and is used solely for the controlled shutting down of the bot.
  */
 public class ShutdownCommand extends Command implements ICommand {
-    @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
-        System.out.println(Main.salt.getJUserById(event.getAuthor().getId()).hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE));
-        return Main.salt.getJUserById(event.getAuthor().getId()).hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE);
+    public ShutdownCommand(CommandContainer commandContainer) {
+        super(commandContainer);
     }
-
+    
+    @Override
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
+        System.out.println(Main.salt.getJUserById(event.getAuthor().getId())
+                                    .hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE));
+        return Main.salt.getJUserById(event.getAuthor().getId())
+                        .hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE);
+    }
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         //Main.jda.shutdown();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
-    }
-
-    public ShutdownCommand(CommandContainer commandContainer) {
-        super(commandContainer);
     }
 }

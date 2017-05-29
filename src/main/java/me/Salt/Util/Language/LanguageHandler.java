@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Language;
 
 import com.google.gson.Gson;
@@ -35,11 +34,10 @@ import java.util.*;
 public class LanguageHandler {
     private List<LanguageContainer> languages = new ArrayList<>();
     private HashMap<LangCode, LanguageContainer> lang = new HashMap<>();
-    private Gson g = new GsonBuilder()
-            .excludeFieldsWithoutExposeAnnotation()
-            .serializeNulls()
-            .setPrettyPrinting()
-            .create();
+    private Gson g = new GsonBuilder().excludeFieldsWithoutExposeAnnotation()
+                                      .serializeNulls()
+                                      .setPrettyPrinting()
+                                      .create();
     private boolean checked = false;
 
     /**
@@ -51,33 +49,28 @@ public class LanguageHandler {
     public LanguageHandler() {
         //TODO move method contents to own method, then add a parameter for specifying the language-file type (guild/user/textchannel/system (by default))
         try {
-            File f = new File(URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8") + "/Data/Languages/System/");
-
+            File f = new File(
+                    URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(),
+                            "UTF-8") + "/Data/Languages/System/");
             if (f.listFiles() == null)
                 throw new LanguageNotFoundException("No system language files could be located!");
             StringBuilder sb;
-
             for (File file : f.listFiles()) {
                 sb = new StringBuilder();
                 BufferedReader br = new BufferedReader(new FileReader(file));
-
                 String n;
                 while ((n = br.readLine()) != null) {
                     sb.append(n).append("\n");
                 }
-
                 LanguageContainer lc = g.fromJson(sb.toString(), LanguageContainer.class);
-
                 if (lc == null)
                     throw new MalformedJsonException("Language file (" + file.getName() + ") has malformed Json!");
-
                 addLanguageNoWrite(lc);
             }
         } catch (IOException | LanguageNotFoundException | MalformedJsonException e) {
             System.out.println(e.getMessage());
             e.printStackTrace();
         }
-
     }
 
     public void check(LanguageContainer languageContainer) {
@@ -91,29 +84,21 @@ public class LanguageHandler {
         // If a user speaks, the bot should first attempt to retrieve the value for their custom, modified language.
         // If this doesn't exist, the system should then re-check for the same string, but with the guild's specified language.
         // If this also fails, then the value from the default language should be used. As a result, it is critically important that the default language is 100% complete.
-
         List<LangString> e = Arrays.asList(LangString.values());
         e.sort(Comparator.comparing(Enum::name));
-
-            List<LangString> r = new ArrayList<>(languageContainer.getStrings().keySet());
-            r.sort(Comparator.comparing(Enum::name));
-            System.out.println(e + "\n" + r);
-            if (e != r) try {
-                throw new MissingDataException("Language " + languageContainer.getCode() + " is missing data!");
-            } catch (MissingDataException e1) {
-                // LogUtils.log(e1.getMessage(), LogUtils.Severity.SEVERE);
-                // Cannot use as the language handler isn't currently existant to ConfigurationImpl.class. This creates a recursive call, which results in a NullPointerException
-
-                //e1.printStackTrace();
-
-                System.out.println(e1.getMessage());
-
-                if (languageContainer.getCode().equals(Main.salt.getDefaultLangCode()))
-                    System.exit(-1); //Exits application if a language file exists, but is missing information
-
-            }
-
-
+        List<LangString> r = new ArrayList<>(languageContainer.getStrings().keySet());
+        r.sort(Comparator.comparing(Enum::name));
+        System.out.println(e + "\n" + r);
+        if (e != r) try {
+            throw new MissingDataException("Language " + languageContainer.getCode() + " is missing data!");
+        } catch (MissingDataException e1) {
+            // LogUtils.log(e1.getMessage(), LogUtils.Severity.SEVERE);
+            // Cannot use as the language handler isn't currently existant to ConfigurationImpl.class. This creates a recursive call, which results in a NullPointerException
+            //e1.printStackTrace();
+            System.out.println(e1.getMessage());
+            if (languageContainer.getCode().equals(Main.salt.getDefaultLangCode()))
+                System.exit(-1); //Exits application if a language file exists, but is missing information
+        }
         checked = true;
     }
 
@@ -121,14 +106,12 @@ public class LanguageHandler {
      * This class queries the cached language files for the specified language.
      *
      * @param langCode LangCode - The LangCode to be queried
-     *
      * @return LanguageContainer - A LanguageContainer instance for the specified LangCode, or null if none was found
      */
     public LanguageContainer getLanguage(LangCode langCode) {
         return lang.getOrDefault(langCode, null);
         //TODO throw exception instead of returning null
     }
-
     //TODO add system that throws a warning if a LangCode value doesn't exist/doesn't have a value assigned
 
     /**
@@ -153,7 +136,6 @@ public class LanguageHandler {
             languages.add(languageContainer);
             writeLang(languageContainer);
         }
-
     }
 
     /**
@@ -195,17 +177,15 @@ public class LanguageHandler {
      */
     private void writeLang(LanguageContainer lc) {
         //TODO add a type system, to allow for the generation of guild/textchannel/user language files.
-
         try {
-            File f = new File(URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(), "UTF-8") + "/Data/Languages/System/", lc.getCode().name() + ".language");
+            File f = new File(
+                    URLDecoder.decode(this.getClass().getProtectionDomain().getCodeSource().getLocation().getPath(),
+                            "UTF-8") + "/Data/Languages/System/", lc.getCode().name() + ".language");
             if (f.getParentFile().mkdirs())
                 LogUtils.log("Created new file structure"); //TODO add LogUtils implementation
             else LogUtils.log("No new file structure created");
-
-            if (f.createNewFile())
-                LogUtils.log("Created new file: " + f.getName());
+            if (f.createNewFile()) LogUtils.log("Created new file: " + f.getName());
             else LogUtils.log("No new file made: " + f.getName());
-
             f.setWritable(true);
             FileWriter fw = new FileWriter(f);
             fw.write(g.toJson(lc));
@@ -216,9 +196,7 @@ public class LanguageHandler {
         } catch (IOException e) {
             e.printStackTrace();
         }
-
         check(lc);
     }
 }
-
 //TODO consider a re-write of the language system. Idea of using Json is good(-ish), but might work better with a system of <name>xyz<value>xyz, to allow for non-enumerated strings to be added

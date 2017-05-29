@@ -13,22 +13,21 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Exception.Permission;
 
 public class LackingPermissionException extends PermissionException {
     public LackingPermissionException() {
         super();
     }
-
+    
     public LackingPermissionException(String message) {
         super(message);
     }
-
+    
     public LackingPermissionException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public LackingPermissionException(Throwable cause) {
         super(cause);
     }

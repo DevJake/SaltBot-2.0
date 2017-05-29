@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
 public class BlackCard extends Card {
     private int blankFields;
-
+    
     public BlackCard(String text, int blankFields) {
         super(text);
         this.blankFields = blankFields;
         // TODO: 26/05/2017 calculate amount of blank fields. Throw exception if missing fields.
     }
-
+    
     public int getBlankFields() {
         return blankFields;
     }

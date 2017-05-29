@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Utility;
 
 import me.Salt.Command.Command;
@@ -41,25 +40,28 @@ public class IssueCommand extends Command implements ICommand {
 
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-        e.getChannel().sendMessage(new EmbedBuilder()
-                .setColor(Main.salt.getEmbedColour())
-                .setTitle("Reporting an issue", "https://github.com/DevJake/SaltBot-2.0/issues/new")
-                .addField("Why raise an issue?", "You can raise an issue if you: \n" +
-                                "> Have found a bug\n" +
-                                "> Want to suggest a new feature (or changes to an existing one)\n" +
-                                "> Have any general queries about the bot, a command, or anything else\n\n" +
-                                "Notice: reporting a bug will result in gaining a reward, such as a boost to your currency or a free upgrade to premium!"
-                        , true)
-                .addField("Where can I raise an issue?", "Issues can be raised by following this link: \n" +
-                        "https://github.com/DevJake/SaltBot-2.0/issues/new\n" +
-                        "Or by clicking the title of this message!", true)
-                .setThumbnail("https://cdn1.itcentralstation.com/vendors/logos/original/pBeeJQDQ_400x400.png")
-                .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                .build()).queue();
+        e.getChannel()
+         .sendMessage(new EmbedBuilder().setColor(Main.salt.getEmbedColour())
+                                        .setTitle("Reporting an issue",
+                                                "https://github.com/DevJake/SaltBot-2.0/issues/new")
+                                        .addField("Why raise an issue?",
+                                                "You can raise an issue if you: \n" + "> Have found a bug\n" + "> Want to suggest a new feature (or changes to an existing one)\n" + "> Have any general queries about the bot, a command, or anything else\n\n" + "Notice: reporting a bug will result in gaining a reward, such as a boost to your currency or a free upgrade to premium!",
+                                                true)
+                                        .addField("Where can I raise an issue?",
+                                                "Issues can be raised by following this link: \n" + "https://github.com/DevJake/SaltBot-2.0/issues/new\n" + "Or by clicking the title of this message!",
+                                                true)
+                                        .setThumbnail(
+                                                "https://cdn1.itcentralstation.com/vendors/logos/original/pBeeJQDQ_400x400.png")
+                                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage()
+                                                                                                         .getCreationTime()
+                                                                                                         .plusHours(1)
+                                                                                                         .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                e.getAuthor().getAvatarUrl())
+                                        .build())
+         .queue();
     }
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

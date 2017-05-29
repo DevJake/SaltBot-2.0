@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
 import net.dv8tion.jda.core.entities.User;
@@ -26,36 +25,35 @@ public class Player {
     private int roundsLost = 0;
     private int roundsWon = 0;
     private User user;
-
+    
     public Player(User user) {
         this.user = user;
     }
-
+    
     public List<WhiteCard> getCards() {
         return cards;
     }
-
+    
     public void addCard(WhiteCard card) {
         this.cards.add(card);
     }
-
+    
     public void incrementRoundsWon() {
         this.roundsWon += 1;
     }
-
+    
     public void decrementRoundsWon() {
         this.roundsWon -= 1;
     }
-
+    
     public User getUser() {
         return user;
     }
-
+    
     public int getRoundsLost() {
         return roundsLost;
-
     }
-
+    
     public int getRoundsWon() {
         return roundsWon;
     }

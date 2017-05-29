@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command;
 
 import me.Salt.Command.Container.CommandParser;
@@ -43,15 +42,14 @@ public interface ICommand {
      *
      * @param cmd   CommandParser.ParsedCommandContainer - The parsed command inputted by the user
      * @param event GuildMessageReceivedEvent - The GuildMessageReceivedEvent that triggered this method being called
-     *
      * @return Boolean - A boolean representing if the CommandExecutor should continue with calling any further methods
-     *
      * @throws LackingPermissionException Thrown if the individual lacks the permissions to use this command
      * @throws MissingDataException       Thrown if the arguments entered by the individual are either missing, lacking in data, or lacking in data that is of the correct type/formatting
      * @throws DisabledCommandException   Thrown if the command is marked as disabled
      */
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException;
-
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException;
+    
     /**
      * The execute() method is where a command should place the functional part of the code; the code that actually performs the command's task.
      *
@@ -59,7 +57,7 @@ public interface ICommand {
      * @param e   GuildMessageReceivedEvent - The GuildMessageReceivedEvent that triggered this method being called
      */
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e);
-
+    
     /**
      * The postExecution() method is the last method called of a command.
      * It allows for clear-up processes to be run, and any potential memory leaks to be avoided.
@@ -67,7 +65,7 @@ public interface ICommand {
      * @param cmd CommandParser.ParsedCommandContainer - The parsed command inputted by the user
      */
     public void postExecution(CommandParser.ParsedCommandContainer cmd);
-
+    
     /**
      * This class' purpose acts to ensure that each command extends the Command class.
      *
