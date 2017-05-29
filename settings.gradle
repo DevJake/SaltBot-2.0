@@ -16,6 +16,5 @@ include 'services:webservice'
 */
 
 rootProject.name = 'SaltBot-2.0'
-//findProject(':Salt')?.name = 'Salt'
-include 'annotation-processors'
+include ':annotation-processors'
 
