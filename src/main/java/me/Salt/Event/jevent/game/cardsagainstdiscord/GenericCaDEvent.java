@@ -14,19 +14,8 @@
  * limitations under the License.
  */
 
-package me.Salt.Event.jevent;
+package me.Salt.Event.jevent.game.cardsagainstdiscord;
 
 import me.Salt.Event.util.JEvent;
 
-public class SaltStartupEvent extends JEvent {
-    private long startupTimeMillis;
-
-    public SaltStartupEvent(long startupTimeMillis) {
-
-        this.startupTimeMillis = startupTimeMillis;
-    }
-
-    public long getStartupTimeMillis() {
-        return startupTimeMillis;
-    }
-}
+public class GenericCaDEvent extends JEvent {}

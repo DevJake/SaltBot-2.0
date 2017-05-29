@@ -17,10 +17,9 @@
 package me.Salt.Event.jevent;
 
 import me.Salt.Command.Container.CommandParser;
-import me.Salt.Event.jevent.util.JEvent;
 import net.dv8tion.jda.core.events.Event;
 
-public class CommandPreExecuteEvent extends JEvent {
+public class CommandPreExecuteEvent extends GenericCommandEvent {
     private CommandParser.ParsedCommandContainer cmd;
     private Event event;
     private boolean executionSuccess;

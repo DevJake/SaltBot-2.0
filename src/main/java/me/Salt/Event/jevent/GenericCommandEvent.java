@@ -13,20 +13,8 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Event.jevent;
 
 import me.Salt.Event.util.JEvent;
 
-public class SaltStartupEvent extends JEvent {
-    private long startupTimeMillis;
-
-    public SaltStartupEvent(long startupTimeMillis) {
-
-        this.startupTimeMillis = startupTimeMillis;
-    }
-
-    public long getStartupTimeMillis() {
-        return startupTimeMillis;
-    }
-}
+public class GenericCommandEvent extends JEvent {}

@@ -16,7 +16,7 @@
 
 package me.Salt.Event.jevent;
 
-import me.Salt.Event.jevent.util.JEvent;
+import me.Salt.Event.util.JEvent;
 
 public class SaltShutdownEvent extends JEvent {
     private long startupTimeMillis;

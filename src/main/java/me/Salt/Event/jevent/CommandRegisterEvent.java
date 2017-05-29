@@ -13,19 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Event.jevent;
 
 import me.Salt.Command.ICommand;
-import me.Salt.Event.jevent.util.JEvent;
 
-public class CommandRegisterEvent extends JEvent {
+public class CommandRegisterEvent extends GenericCommandEvent {
     ICommand command;
-
+    
     public CommandRegisterEvent(ICommand command) {
         this.command = command;
     }
-
+    
     public ICommand getCommand() {
         return command;
     }

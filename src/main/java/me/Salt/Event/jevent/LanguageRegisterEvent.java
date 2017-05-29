@@ -16,7 +16,7 @@
 
 package me.Salt.Event.jevent;
 
-import me.Salt.Event.jevent.util.JEvent;
+import me.Salt.Event.util.JEvent;
 import me.Salt.Util.Language.LanguageContainer;
 
 public class LanguageRegisterEvent extends JEvent {
