@@ -53,7 +53,7 @@ public class CaDInfoCommand extends Command implements ICommand {
                 eb.addField("Players", sb.toString(), true);
             e.getChannel().sendMessage(eb.build()).queue();
         } else {
-            e.getChannel().sendMessage("You don't have a registered Cards Against Humanity session. You must create one first").queue();
+            e.getChannel().sendMessage("You don't have a registered Cards Against Discord session. You must create one first").queue();
         }
     }
 

@@ -24,7 +24,6 @@ import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import me.Salt.Main;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
-import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.ResponseContainer;
 import me.Salt.Util.Utility.Games.GameManager;
@@ -35,6 +34,22 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This command is used to add a player to a Cards Against Discord game.
+ * <p>
+ * Cards Against Discord is setup to be
+ * invite-only, therefore meaning that the one inviting players must also <i>own</i> the game session they invite
+ * people to.
+ * <p>
+ * This command requires one parameter minimum. The parameter must be either <code>u:</code> or <code>id:</code>,
+ * where either a full username or a user's ID must be immediately appended, respectively. For example, the following
+ * command would invite a user with the username <code>user1</code> and a user with the ID of
+ * <code>203182861401063425</code> to the game:
+ * <code>.cadadd u:user1 id:203182861401063425</code>
+ * <p>
+ * A list of those invited is returned to the command executor, whilst each user is sent a private message inviting
+ * them to join. Each invite is given a 'white tick' reaction, which can be clicked to accept the invite.
+ */
 public class CaDAddPlayerCommand extends Command implements ICommand {
     private boolean isInfo = false;
     private List<User> toInvite = new ArrayList<>();
@@ -88,7 +103,7 @@ public class CaDAddPlayerCommand extends Command implements ICommand {
                     user.openPrivateChannel().queue(privateChannel -> {
                         if (cadGame.containsPlayer(user)) return; //Don't allow for duplicate users in game. Failsafe
                         privateChannel.sendMessage(
-                                new EmbedBuilder().setTitle("You have been invited to a Cards Against Humanity game!",
+                                new EmbedBuilder().setTitle("You have been invited to a Cards Against Discord game!",
                                         null)
                                                   .addField("Owner", cadGame.getOwner().getUser().getName(), false)
                                                   .addField("Players", toInvite.toString(), false)

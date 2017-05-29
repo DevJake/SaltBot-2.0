@@ -118,7 +118,7 @@ public class CaDGameManager extends ListenerAdapter {
             for (int i = 0; i < toHandle.getCardCount(); i++) {
                 player.addCard(CaDUtil.getRandomWhiteCard());
             }
-            eb = new EmbedBuilder().setTitle("Cards Against Humanity", null);
+            eb = new EmbedBuilder().setTitle("Cards Against Discord", null);
             sb = new StringBuilder();
             for (WhiteCard card : player.getCards()) {
                 sb.append(">`").append(card.getText()).append("`").append("\n");

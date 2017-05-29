@@ -13,23 +13,23 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command;
 
 /**
- * This class contains a CommandContainer, as well as a constructor, and respective Getter/Setter methods. All commands should extend to this class.
+ * This class contains a CommandContainer, as well as a constructor, and respective Getter/Setter methods.
+ * All commands should extend to this class.
  */
 public class Command {
     private CommandContainer cmdContainer;
-
+    
     public Command(CommandContainer commandContainer) {
         this.cmdContainer = commandContainer;
     }
-
+    
     public CommandContainer getCmdContainer() {
         return cmdContainer;
     }
-
+    
     public void setCmdContainer(CommandContainer cmdContainer) {
         this.cmdContainer = cmdContainer;
     }

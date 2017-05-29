@@ -23,8 +23,7 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Allows an individual to submit a command, in which the bot shall respond with a message containing their arguments,
- * i.e., a duplicate of their message without the command header.
+ * This command allows for the user to have the bot echo their inputted arguments.
  */
 public class SayCommand extends Command implements ICommand {
 

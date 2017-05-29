@@ -23,7 +23,7 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Allows a user to obtain the source code of a specified class.
+ * This command uses reflection to obtain the source code of a specified class.
  */
 public class SourceCommand extends Command implements ICommand {
     public SourceCommand(CommandContainer commandContainer) {

@@ -28,6 +28,14 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.CaDGameManager;
 import me.Salt.Util.Utility.Games.GameManager;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command is used to create a new Cards Against Discord game, which is tied to the user's ID. The system checks
+ * if the user already <i>has</i> a Cards Against Discord game session in existence, and prevents the adding of a new
+ * session if one is found to already exist.
+ * <p>
+ * This system prevents abusive repetition of the command, as well as making the game-playing system far simpler for
+ * each player.
+ */
 public class CaDCreateGameCommand extends Command implements ICommand {
     public CaDCreateGameCommand(CommandContainer commandContainer) {
         super(commandContainer);

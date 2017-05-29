@@ -33,6 +33,10 @@ import javax.script.ScriptEngineManager;
 import javax.script.ScriptException;
 import java.time.format.DateTimeFormatter;
 
+/**
+ * An administrator-only command that allows for the user to have their inputted arguments evaluated. Evaluation is
+ * performed using Java's ScriptEngine, therefore evaluating input as JavaScript.
+ */
 public class EvalCommand extends Command implements ICommand {
     public EvalCommand(CommandContainer commandContainer) {
         super(commandContainer);

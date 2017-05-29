@@ -91,7 +91,7 @@ public class CaDRemovePlayerCommand extends Command implements ICommand {
             r.queue();
         } else {
             e.getChannel()
-             .sendMessage("You don't currently have a Cards Against Humanity game session in progress!")
+             .sendMessage("You don't currently have a Cards Against Discord game session in progress!")
              .queue();
         }
     }

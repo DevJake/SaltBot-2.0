@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Administrator;
 
 import me.Salt.Command.Command;
@@ -23,26 +22,26 @@ import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Allows a user to manage the permission system
+ * A heavily permission-regulated command that allows for an individual to modify and control permissions. The
+ * command can be used by bot owners to modify <i>global</i> permissions for users and guilds, whilst also being
+ * accessible by users to modify their own accessible permissions.
  */
 public class PermissionCommand extends Command implements ICommand {
     public PermissionCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     //TODO modify command system to not have execute() and postExecution() not require parameters (use preExecution() as a constructor
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

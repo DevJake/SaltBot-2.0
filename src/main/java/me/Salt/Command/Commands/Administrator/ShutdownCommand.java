@@ -28,6 +28,9 @@ import me.Salt.Permissions.Perm;
 import me.Salt.Permissions.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command is restricted to the bot owner, and is used solely for the controlled shutting down of the bot.
+ */
 public class ShutdownCommand extends Command implements ICommand {
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {

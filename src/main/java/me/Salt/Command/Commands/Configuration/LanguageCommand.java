@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Configuration;
 
 import me.Salt.Command.Command;
@@ -25,23 +24,34 @@ import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Exception.Permission.LackingPermissionException;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command allows for the user to view, edit, add and remove languages to the bot's language system.
+ * <p>
+ * <ul>
+ * This command allows the user to:
+ * <li><b>View</b> a list of languages installed</li>
+ * <li><b>Filter</b> the contents of each installed language</li>
+ * <li><b>Edit</b> installed languages</li>
+ * <li><b>Install</b> new languages</li>
+ * <li><b>Uninstall</b> currently-installed languages</li>
+ * </ul>
+ */
 public class LanguageCommand extends Command implements ICommand {
-    @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
-        return true;
-    }
-
-    @Override
-    public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-
-    }
-
-    @Override
-    public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
-    }
-
     public LanguageCommand(CommandContainer commandContainer) {
         super(commandContainer);
+    }
+    
+    @Override
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
+        return true;
+    }
+    
+    @Override
+    public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
+    }
+    
+    @Override
+    public void postExecution(CommandParser.ParsedCommandContainer cmd) {
     }
 }

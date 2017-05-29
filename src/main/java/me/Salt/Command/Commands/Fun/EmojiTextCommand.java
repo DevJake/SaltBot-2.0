@@ -13,7 +13,6 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
 package me.Salt.Command.Commands.Fun;
 
 import me.Salt.Command.Command;
@@ -28,15 +27,21 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.util.HashMap;
 
+/**
+ * This command takes the inputted arguments, and sends a message to the authoring textchannel with the same input,
+ * but converted to their Emoji equivalent.
+ */
 public class EmojiTextCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Change to work with spaces
     private HashMap<String, String> emojis = new HashMap<>();
-
+    
     public EmojiTextCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
         emojis.put("a", "\uD83C\uDDE6");
         emojis.put("b", "\uD83C\uDDE7");
         emojis.put("c", "\uD83C\uDDE8");
@@ -64,28 +69,26 @@ public class EmojiTextCommand extends Command implements ICommand {
         emojis.put("y", "\uD83C\uDDFE");
         emojis.put("z", "\uD83C\uDDFF");
         return true;
+        // TODO: 29/05/2017 Convert to using Emoji-Java library
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         if (cmd.getArgsLower().size() > 0) {
             StringBuilder sb = new StringBuilder(); //TODO add size limit to second argument, also allow multiple arguments
-
             for (char c : cmd.getRawText().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd(), "").toCharArray())
-                if (emojis.containsKey(String.valueOf(c)))
-                sb.append(emojis.get(String.valueOf(c))); //TODO check if list actually /contains/ value before trying to add
-            else if (String.valueOf(c) == " ") sb.append("⬛");
-            else {
-                e.getChannel().sendMessage("You can only use alphabetical values!").queue();
-                return;
+                if (emojis.containsKey(String.valueOf(c))) sb.append(emojis.get(
+                        String.valueOf(c))); //TODO check if list actually /contains/ value before trying to add
+                else if (String.valueOf(c) == " ") sb.append("⬛");
+                else {
+                    e.getChannel().sendMessage("You can only use alphabetical values!").queue();
+                    return;
                 }
-
             e.getChannel().sendMessage(sb.toString()).queue();
         } else e.getChannel().sendMessage("You need to enter an argument!").queue(); //TODO change to be more fitting
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }
