@@ -16,6 +16,11 @@
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
 import com.vdurmont.emoji.EmojiParser;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerAddEmbedEvent;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerInvokeStateEvent;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerModifyHandlerEvent;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerRegisterHandlerEvent;
+import me.Salt.Event.util.EventInitiator;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.BlackCard;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
@@ -40,8 +45,10 @@ public class CaDGameManager extends ListenerAdapter {
     
     public static void addToEmbeds(String messageId, ResponseContainer.ResponseExpector responseExpected,
                                    CaDGameHandler caDGameHandler) {
-        if (!embeds.containsKey(messageId))
-            embeds.put(messageId, new ResponseContainer(responseExpected, caDGameHandler));
+        if (!embeds.containsKey(messageId)) EventInitiator.fire(
+                new CaDManagerAddEmbedEvent(caDGameHandler, embeds.get(messageId).getResponseExpected(),
+                        responseExpected, messageId));
+        embeds.put(messageId, new ResponseContainer(responseExpected, caDGameHandler));
     }
     
     public static void registerHandler(CaDGameHandler handler) {
@@ -49,6 +56,7 @@ public class CaDGameManager extends ListenerAdapter {
             handlers.add(new AbstractMap.SimpleEntry<>(PlayState.IDLE, new HandlerContainer(handler, true)));
         idLookup.put(handler.getOwner().getUser().getId(), handler);
         System.out.println("Registered new handler!");
+        EventInitiator.fire(new CaDManagerRegisterHandlerEvent(handler));
         invoke();
     }
     
@@ -59,8 +67,10 @@ public class CaDGameManager extends ListenerAdapter {
                 if (Objects.equals(containerEntry.getValue().getHandler().getOwner().getUser().getId(), ownerId)) {
                     System.out.println("Found equal IDs");
                     HandlerContainer h = containerEntry.getValue();
+                    PlayState oldPlayState = containerEntry.getKey();
                     handlers.remove(containerEntry);
                     handlers.add(new AbstractMap.SimpleEntry<>(playState, h));
+                    EventInitiator.fire(new CaDManagerModifyHandlerEvent(ownerId, h, oldPlayState, playState));
                     break;
                 }
             }
@@ -71,6 +81,8 @@ public class CaDGameManager extends ListenerAdapter {
     private static void invoke() {
         handlers.forEach(containerEntry -> {
             if (containerEntry.getValue().shouldInvoke()) {
+                EventInitiator.fire(new CaDManagerInvokeStateEvent(containerEntry.getValue().getHandler(),
+                        containerEntry.getKey()));
                 switch (containerEntry.getKey()) {
                     case IDLE:
                         invokeIdle(containerEntry.getValue().getHandler());
@@ -95,7 +107,7 @@ public class CaDGameManager extends ListenerAdapter {
         });
     }
     
-    public static void unregisterHandler(CaDGameHandler handler) { }
+    public static void unregisterHandler(CaDGameHandler handler) { /* TODO: 29/05/2017 */ }
     
     private static void invokeStart(CaDGameHandler toHandle) {
         System.out.println(toHandle.getAllPlayers());
@@ -225,11 +237,4 @@ public class CaDGameManager extends ListenerAdapter {
         //Displaying scoring information to individuals
         FINISHING, //Finishing the game, removing users
     }
-    
-    
-
-    /*
-    Receive incoming events. When event is a reaction, check if the message ID is registered as linked to a current
-    game. Call upon corresponding methods.
-     */
 }

@@ -15,6 +15,11 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameAddPlayerEvent;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameAddPreviousBlackCardEvent;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameRemovePlayerEvent;
+import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameUpdateActiveEvent;
+import me.Salt.Event.util.EventInitiator;
 import me.Salt.Util.Utility.Games.Game;
 import net.dv8tion.jda.core.entities.User;
 
@@ -87,6 +92,7 @@ public class CaDGameHandler implements Game {
         if (containsPlayer(player.getUser())) return true;
         else {
             this.players.add(player);
+            EventInitiator.fire(new CaDGameAddPlayerEvent(this, player));
             return false;
         }
     }
@@ -100,11 +106,17 @@ public class CaDGameHandler implements Game {
     }
     
     public void removePlayer(Player player) {
-        if (this.players.contains(player)) this.players.remove(player);
+        if (this.players.contains(player)) {
+            this.players.remove(player);
+            EventInitiator.fire(new CaDGameRemovePlayerEvent(this, player));
+        }
     }
     
     public void addPreviousBlackCard(BlackCard blackCard) {
-        if (!this.previousBlackCards.contains(blackCard)) this.previousBlackCards.add(blackCard);
+        if (!this.previousBlackCards.contains(blackCard)) {
+            this.previousBlackCards.add(blackCard);
+            EventInitiator.fire(new CaDGameAddPreviousBlackCardEvent(this, blackCard));
+        }
     }
     
     public List<BlackCard> getPreviousBlackCards() {
@@ -116,6 +128,7 @@ public class CaDGameHandler implements Game {
     }
     
     public void setActive(boolean active) {
+        EventInitiator.fire(new CaDGameUpdateActiveEvent(this, this.active, active));
         this.active = active;
     }
     // TODO: 26/05/2017 ensure cardCount is between 0 and 10 (1-9)
