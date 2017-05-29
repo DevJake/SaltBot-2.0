@@ -31,6 +31,7 @@ public class CaDEventListener extends ListenerAdapter {
                         handleInviteRespond(event.getReactionEmote().getName(), event);
                         break;
                     case CZAR_CARD_SELECT:
+                        handleCardSelect(event.getReactionEmote().getName(), event);
                         break;
                     case USER_CARD_SELECT:
                         break;
@@ -54,5 +55,9 @@ public class CaDEventListener extends ListenerAdapter {
                 System.out.println("User already added!");
             }
         }
+    }
+    
+    private void handleCardSelect(String emoteName, GenericPrivateMessageReactionEvent event){
+    
     }
 }
