@@ -15,6 +15,8 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
+import com.vdurmont.emoji.EmojiLoader;
+import com.vdurmont.emoji.EmojiManager;
 import com.vdurmont.emoji.EmojiParser;
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerAddEmbedEvent;
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDManagerInvokeStateEvent;
@@ -45,9 +47,8 @@ public class CaDGameManager extends ListenerAdapter {
     
     public static void addToEmbeds(String messageId, ResponseContainer.ResponseExpector responseExpected,
                                    CaDGameHandler caDGameHandler) {
-        if (!embeds.containsKey(messageId)) EventInitiator.fire(
-                new CaDManagerAddEmbedEvent(caDGameHandler, embeds.get(messageId).getResponseExpected(),
-                        responseExpected, messageId));
+        if (!embeds.containsKey(messageId))
+            //EventInitiator.fire(new CaDManagerAddEmbedEvent(caDGameHandler, embeds.get(messageId).getResponseExpected(), responseExpected, messageId));
         embeds.put(messageId, new ResponseContainer(responseExpected, caDGameHandler));
     }
     
@@ -125,6 +126,7 @@ public class CaDGameManager extends ListenerAdapter {
             eb.addField("Your White cards (" + toHandle.getCardCount() + ")", sb.toString(), false);
             eb.appendDescription("Be sure not to show anyone else these cards!");
             eb.setFooter("The game will start in 10 seconds", null);
+            player.getUser().openPrivateChannel();
             player.getUser().getPrivateChannel().sendMessage(eb.build()).queue();
             // TODO: 27/05/2017 set card czar}
         }
@@ -166,34 +168,35 @@ public class CaDGameManager extends ListenerAdapter {
                             for (int i = 0; i < player.getCards().size(); i++) {
                                 switch (i) {
                                     case 0:
-                                        message.addReaction(EmojiParser.parseToUnicode("one")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("one").getUnicode()).queue();
                                         break;
                                     case 1:
-                                        message.addReaction(EmojiParser.parseToUnicode("two")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("two").getUnicode()).queue();
                                         break;
                                     case 2:
-                                        message.addReaction(EmojiParser.parseToUnicode("three")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("three").getUnicode()).queue();
                                         break;
                                     case 3:
-                                        message.addReaction(EmojiParser.parseToUnicode("four")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("four").getUnicode()).queue();
                                         break;
                                     case 4:
-                                        message.addReaction(EmojiParser.parseToUnicode("five")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("five").getUnicode()).queue();
                                         break;
                                     case 5:
-                                        message.addReaction(EmojiParser.parseToUnicode("six")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("six").getUnicode()).queue();
                                         break;
                                     case 6:
-                                        message.addReaction(EmojiParser.parseToUnicode("seven")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("seven").getUnicode()).queue();
                                         break;
                                     case 7:
-                                        message.addReaction(EmojiParser.parseToUnicode("eight")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("eight").getUnicode()).queue();
                                         break;
                                     case 8:
-                                        message.addReaction(EmojiParser.parseToUnicode("nine")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("nine").getUnicode()).queue();
                                         break;
                                     case 9:
-                                        message.addReaction(EmojiParser.parseToUnicode("keycap_ten")).queue();
+                                        message.addReaction(EmojiManager.getForAlias("keycap_ten").getUnicode())
+                                               .queue();
                                         break;
                                 }
                             }
