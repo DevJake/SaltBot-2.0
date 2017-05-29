@@ -14,18 +14,23 @@
  * limitations under the License.
  */
 
-package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
+package me.Salt.Event.util;
 
-public class BlackCard extends Card {
-    private int blankFields;
+import java.util.ArrayList;
+import java.util.List;
 
-    public BlackCard(String text, int blankFields) {
-        super(text);
-        this.blankFields = blankFields;
-        // TODO: 26/05/2017 calculate amount of blank fields. Throw exception if missing fields.
+public class EventInitiator {
+    private static List<JEventListener> listeners = new ArrayList<>();
+
+    public static void fire(JEvent event) {
+        listeners.forEach(l -> l.onEvent(event));
     }
 
-    public int getBlankFields() {
-        return blankFields;
+    public static void register(JEventListener listener){
+        listeners.add(listener);
+    }
+
+    public static void unregister(JEventListener listener){
+        listeners.remove(listener);
     }
 }

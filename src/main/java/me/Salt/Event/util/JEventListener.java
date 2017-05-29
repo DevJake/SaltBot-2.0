@@ -14,7 +14,8 @@
  * limitations under the License.
  */
 
-package me.Salt.Event.jevent.util;
+package me.Salt.Event.util;
 
-public class JEvent {
+public interface JEventListener {
+    public void onEvent(JEvent event);
 }

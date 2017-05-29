@@ -31,7 +31,7 @@ import me.Salt.Command.Commands.Utility.R6GameStatsCommand;
 import me.Salt.Command.Commands.Utility.ReminderCommand;
 import me.Salt.Event.EventListener;
 import me.Salt.Event.jevent.SaltStartupEvent;
-import me.Salt.Event.jevent.util.EventInitiator;
+import me.Salt.Event.util.EventInitiator;
 import me.Salt.Exception.Generic.DuplicateDataException;
 import me.Salt.Exception.Generic.MissingDataException;
 import me.Salt.Permissions.Perm;
