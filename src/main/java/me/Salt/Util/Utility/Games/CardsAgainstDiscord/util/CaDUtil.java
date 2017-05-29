@@ -234,7 +234,7 @@ public class CaDUtil {
                 new WhiteCard("Hurricane Katrina."), new WhiteCard("The gays."), new WhiteCard("The folly of man."),
                 new WhiteCard("Men."), new WhiteCard("The Amish."), new WhiteCard("Pterodactyl eggs."),
                 new WhiteCard("Team-building exercises."), new WhiteCard("A brain tumor."),
-                new WhiteCard("Cards Against Humanity."), new WhiteCard("Fear itself."), new WhiteCard("Lady Gaga."),
+                new WhiteCard("Cards Against Discord."), new WhiteCard("Fear itself."), new WhiteCard("Lady Gaga."),
                 new WhiteCard("The milk man."), new WhiteCard("A foul mouth."), new WhiteCard("A big black dick."),
                 new WhiteCard("A beached whale."), new WhiteCard("A bloody pacifier."),
                 new WhiteCard("A crappy little hand."), new WhiteCard("A low standard of living."),
