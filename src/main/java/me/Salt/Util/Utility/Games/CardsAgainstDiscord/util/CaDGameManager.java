@@ -21,6 +21,7 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.WhiteCard;
 import me.Salt.Util.Utility.Games.GameManager;
+import me.salt.annotations.Metrics;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
@@ -29,6 +30,7 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+@Metrics(id = "An ID")
 public class CaDGameManager extends ListenerAdapter {
     private static Set<Map.Entry<PlayState, HandlerContainer>> handlers = new HashSet<>();
     private static HashMap<String, ResponseContainer> embeds = new HashMap<>();
@@ -145,7 +147,7 @@ public class CaDGameManager extends ListenerAdapter {
                         List<WhiteCard> cards = player.getCards();
                         for (int i = 0; i < cards.size(); i++) {
                             WhiteCard card0 = cards.get(i);
-                            sb0.append("(").append((i+1)).append(") `").append(card0.getText()).append("`\n");
+                            sb0.append("(").append((i + 1)).append(") `").append(card0.getText()).append("`\n");
                         }
                         eb0.addField("Your cards", sb0.toString(), false);
                         privateChannel.sendMessage(eb0.build()).queue(message -> {
