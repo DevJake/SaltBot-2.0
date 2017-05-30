@@ -27,8 +27,8 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 /**
  * This command allows for the user to view, edit, add and remove languages to the bot's language system.
  * <p>
- * <ul>
  * This command allows the user to:
+ * <ul>
  * <li><b>View</b> a list of languages installed</li>
  * <li><b>Filter</b> the contents of each installed language</li>
  * <li><b>Edit</b> installed languages</li>

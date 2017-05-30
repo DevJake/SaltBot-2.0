@@ -29,7 +29,6 @@ package me.Salt.Event.util;
  * <code>
  * public class MyCustomListener implements JEventListener {
  *
- *     @Override
  *     public void onEvent(JEvent event) {
  *         if (event instanceof GenericCommandEvent){
  *         //Do stuff
