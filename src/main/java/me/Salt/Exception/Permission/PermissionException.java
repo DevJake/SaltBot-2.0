@@ -15,6 +15,9 @@
  */
 package me.Salt.Exception.Permission;
 
+/**
+ * A container exception for permissions-related exceptions.
+ */
 public class PermissionException extends Exception {
     public PermissionException() {
         super();

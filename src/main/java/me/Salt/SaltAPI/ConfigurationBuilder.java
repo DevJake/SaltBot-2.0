@@ -31,8 +31,7 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
+ * This class acts as a builder for instances of {@link ConfigurationImpl}
  */
 public class ConfigurationBuilder {
     private long startupTime;

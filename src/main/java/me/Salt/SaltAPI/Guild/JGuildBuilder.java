@@ -25,6 +25,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class acts as a builder for instances of {@link JGuild}.
+ */
 public class JGuildBuilder {
     private Guild guild;
     private long guildId;

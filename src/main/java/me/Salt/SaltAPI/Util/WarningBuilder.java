@@ -21,8 +21,7 @@ import net.dv8tion.jda.core.entities.User;
 import java.time.ZonedDateTime;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
+ * This class acts as a builder for making new instances of {@link WarningBuilder.Warning}
  */
 public class WarningBuilder {
     private User setter; //Who created the warning

@@ -22,15 +22,32 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 09/04/2017.
+ * A container class for bot permissions.
  */
 public class Permission implements Identifiable, Describable {
+    /**
+     * The permission's title, such as <code>salt.admin.debug</code>
+     */
     private String permission;
+    /**
+     * The {@link Perm} that this permission relates to.
+     */
     private Perm permEnum;
+    /**
+     * The {@link Range} of this permission's effect.
+     */
     private Range range;
+    /**
+     * A list of sub-permissions.
+     */
     private List<Permission> subperms = new ArrayList<>();
+    /**
+     * The description of this permission.
+     */
     private String description;
+    /**
+     * This permission's unique ID.
+     */
     private long id;
     
     public Permission(String permission, Perm permEnum, Range range, List<Permission> subperms, String description,

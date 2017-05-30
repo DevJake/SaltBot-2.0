@@ -27,13 +27,38 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Objects;
 
+/**
+ * This class acts as a container for a Cards Against Discord game session.
+ */
 public class CaDGameHandler implements Game {
+    /**
+     * A List of {@link Player}s registered to this game.
+     */
     private List<Player> players = new ArrayList<>();
+    /**
+     * An integer representing the score required by any player to win the game.
+     */
     private int winningScore; //Score required by anyone to win the game
+    /**
+     * An integer representing how many cards each player should consistently have.
+     */
     private int cardCount; //How many cards should each person get?
+    /**
+     * A List containing all previously-used {@link BlackCard}s. This List serves to prevent the rare chance of a
+     * game using duplicate black cards.
+     */
     private List<BlackCard> previousBlackCards = new ArrayList<>();
+    /**
+     * The {@link Player} who owns the game.
+     */
     private Player owner;
+    /**
+     * A boolean representing if the game is currently in progress.
+     */
     private boolean active = false; //is the game running?
+    /**
+     * The {@link Player} who is the current Card Czar.
+     */
     private Player cardCzar; //The current Card Czar of the game
     
     public CaDGameHandler(int winningScore, int cardCount, Player owner) {
@@ -54,10 +79,16 @@ public class CaDGameHandler implements Game {
         return owner;
     }
     
+    /**
+     * @return A List of all {@link Player}s within the game, <b>excluding</b> the game's owner.
+     */
     public List<Player> getPlayers() {
         return players;
     }
     
+    /**
+     * @return A List of all {@link Player}s within the game, <b>including</b> the game's owner.
+     */
     public List<Player> getAllPlayers() {
         List<Player> p = new ArrayList<>();
         p.addAll(players);
@@ -65,6 +96,10 @@ public class CaDGameHandler implements Game {
         return p;
     }
     
+    /**
+     * @return A List of all {@link Player}s within the game, <b>excluding</b> the game's owner and the current Card
+     * Czar.
+     */
     public List<Player> getPlayersNonCzar() {
         List<Player> p = new ArrayList<>();
         p.addAll(players);
@@ -72,6 +107,10 @@ public class CaDGameHandler implements Game {
         return p;
     }
     
+    /**
+     * @return A List of all {@link Player}s within the game, <b>including</b> the game's owner and <b>excluding</b>
+     * the current Card Czar.
+     */
     public List<Player> getAllPlayersNonCzar() {
         List<Player> p = new ArrayList<>();
         p.addAll(players);

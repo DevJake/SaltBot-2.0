@@ -15,6 +15,9 @@
  */
 package me.Salt.Exception.Language;
 
+/**
+ * Thrown when no language files can be found, or a language is missing required data.
+ */
 public class LanguageNotFoundException extends LanguageException {
     public LanguageNotFoundException() {
         super();

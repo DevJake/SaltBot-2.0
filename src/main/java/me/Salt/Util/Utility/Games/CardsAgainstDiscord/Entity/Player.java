@@ -20,10 +20,25 @@ import net.dv8tion.jda.core.entities.User;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class acts as a container for players of the Cards Against Discord game.
+ */
 public class Player {
+    /**
+     * A list of this player's {@link WhiteCard}s.
+     */
     private List<WhiteCard> cards = new ArrayList<>();
+    /**
+     * An integer representing the amount of rounds lost overall.
+     */
     private int roundsLost = 0;
+    /**
+     * An integer representing the amount of rounds won overall.
+     */
     private int roundsWon = 0;
+    /**
+     * The {@link User} that this class references to.
+     */
     private User user;
     
     public Player(User user) {

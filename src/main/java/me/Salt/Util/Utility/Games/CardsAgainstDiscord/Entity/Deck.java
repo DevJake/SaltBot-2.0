@@ -15,4 +15,6 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
-public class Deck {}
+public class Deck {
+    // TODO: 30/05/2017 Maybe use, though unlikely. Probably requires removal.
+}

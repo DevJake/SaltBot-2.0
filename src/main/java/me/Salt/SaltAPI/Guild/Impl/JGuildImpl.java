@@ -27,18 +27,38 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Salt001 on 10/04/2017.
+ * A container class for guilds.
  */
 public class JGuildImpl implements JGuild {
+    /**
+     * The guild which this class references to.
+     */
     private Guild guild;
+    /**
+     * The ID of the guild. Although storing the ID may seem pointless (due to storing the guild itself), it's stored
+     * for the purpose of allowing the gathering of guilds after restarts, where the guild ID is stored in plaintext.
+     */
     @Expose
     private long guildId;
+    /**
+     * The permissions registered to this guild
+     */
     @Expose
     private List<Perm> permissions = new ArrayList<>();
+    /**
+     * The last message received from this guild.
+     */
     @Expose
     private String lastMessage;
+    /**
+     * The last activity seen in this guild. Unlike the {@link JGuildImpl#lastMessage}, the activity is updated to
+     * reflect when users come online, send a message, join a voicechannel, or begin typing.
+     */
     @Expose
     private LocalDateTime lastActivity;
+    /**
+     * The last textchannel of this guild which received a message.
+     */
     @Expose
     private TextChannel lastTextChannelMessaged;
     

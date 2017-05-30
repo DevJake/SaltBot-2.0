@@ -15,6 +15,9 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
+/**
+ * This class stores details exclusively present to a White card, for Cards Against Discord.
+ */
 public class WhiteCard extends Card {
     public WhiteCard(String text) {
         super(text);

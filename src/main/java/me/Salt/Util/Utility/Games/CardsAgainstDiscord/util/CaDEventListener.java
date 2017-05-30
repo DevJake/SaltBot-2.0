@@ -19,6 +19,12 @@ import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import net.dv8tion.jda.core.events.message.priv.react.GenericPrivateMessageReactionEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
 
+/**
+ * This class receives Discord events, and handles them in accordance to any active Cards Against Discord games.
+ * <p>
+ * This class' purpose is to react to embed reaction changes, and to check if the message is related to a Cards
+ * Against Discord game instance.
+ */
 public class CaDEventListener extends ListenerAdapter {
     @Override
     public void onGenericPrivateMessageReaction(GenericPrivateMessageReactionEvent event) {
@@ -40,9 +46,13 @@ public class CaDEventListener extends ListenerAdapter {
         }
     }
     
+    /**
+     * This method is designed to handle and respond to game invites.
+     *
+     * @param emoteName String - The emote that was modified
+     * @param event     {@link GenericPrivateMessageReactionEvent} - The event instance that triggered this method's call
+     */
     private void handleInviteRespond(String emoteName, GenericPrivateMessageReactionEvent event) {
-        // TODO: 28/05/2017 get this bit to work... needs debugging, as not sure which bits are/aren't
-        // working
         if (emoteName.equals("✅")) {
             if (!CaDGameManager.getEmbeds()
                                .get(event.getMessageId())
@@ -57,6 +67,12 @@ public class CaDEventListener extends ListenerAdapter {
         }
     }
     
+    /**
+     * This method is designed to handle and respond the card selection phase of a game.
+     *
+     * @param emoteName String - The emote that was modified
+     * @param event     {@link GenericPrivateMessageReactionEvent} - The event instance that triggered this method's call
+     */
     private void handleCardSelect(String emoteName, GenericPrivateMessageReactionEvent event) {
     }
 }

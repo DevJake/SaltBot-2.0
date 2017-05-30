@@ -27,10 +27,6 @@ import net.dv8tion.jda.core.entities.User;
 import java.time.LocalDateTime;
 import java.util.List;
 
-/**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
- */
 public interface JUser {
     public User getUser();
     

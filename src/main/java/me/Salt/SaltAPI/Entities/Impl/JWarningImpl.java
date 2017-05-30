@@ -21,10 +21,12 @@ import me.Salt.SaltAPI.Util.WarningBuilder;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
+ * An implementation of JWarning, which represents the warnings that a user has.
  */
 public class JWarningImpl implements JWarning {
+    /**
+     * A list of warnings, applicable to a user.
+     */
     private List<WarningBuilder.Warning> warnings;
     
     @Override

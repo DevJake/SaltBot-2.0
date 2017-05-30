@@ -20,44 +20,54 @@ import net.dv8tion.jda.core.entities.User;
 import java.time.OffsetDateTime;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 16/04/2017.
+ * This class represents the privilege state held by a user. Privilege states are used to determine if an individual
+ * should be capable of performing restricted commands and using restricted tools. Such examples include premium-only
+ * features.
  */
 public class PrivilegeState {
+    /**
+     * The privilege state of the user.
+     */
     private State state;
+    /**
+     * The time at which the state was applied.
+     */
     private OffsetDateTime timeGiven;
+    /**
+     * The user who assigned the user this state.
+     */
     private User giver; //Who assigned this individual the state
-
+    
     public PrivilegeState(State state, OffsetDateTime timeGiven, User giver) {
         this.state = state;
         this.timeGiven = timeGiven;
         this.giver = giver;
     }
-
+    
     public State getState() {
         return state;
     }
-
+    
     public void setState(State state) {
         this.state = state;
     }
-
+    
     public OffsetDateTime getTimeGiven() {
         return timeGiven;
     }
-
+    
     public void setTimeGiven(OffsetDateTime timeGiven) {
         this.timeGiven = timeGiven;
     }
-
+    
     public User getGiver() {
         return giver;
     }
-
+    
     public void setGiver(User giver) {
         this.giver = giver;
     }
-
+    
     public enum State {
         REGULAR,
         PREMIUM,

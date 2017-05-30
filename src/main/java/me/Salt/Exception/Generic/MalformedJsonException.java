@@ -15,6 +15,9 @@
  */
 package me.Salt.Exception.Generic;
 
+/**
+ * Thrown when a Json input is malformed.
+ */
 public class MalformedJsonException extends GenericBotException {
     public MalformedJsonException() {
         super();

@@ -16,11 +16,11 @@
 package me.Salt.Permissions;
 
 /**
- * This class contains a list of all different permissions.
- * These are used for checking which permissions a user/textchannel/guild has,
- * and modifying bot behaviour accordingly.
+ * This class contains a list of all different permissions. These are used for checking which permissions a
+ * user/textchannel/guild has, and modifying bot behaviour accordingly.
  */
 public enum Perm {
+    // TODO: 30/05/2017 Add JavaDoc to each value
     //Add perm to bypass Cooldowns. Add per command.
     //Guild perms
     //User perms

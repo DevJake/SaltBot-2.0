@@ -34,14 +34,40 @@ import java.util.concurrent.ScheduledExecutorService;
 import java.util.concurrent.ScheduledThreadPoolExecutor;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This class is designed to handle and manage the control flow of every registered instance of {@link CaDGameHandler}.
+ */
 @Metrics(id = "An ID")
 public class CaDGameManager extends ListenerAdapter {
+    /**
+     * A Set of Map entries that associate {@link PlayState}s with {@link HandlerContainer} instances.
+     */
     private static Set<Map.Entry<PlayState, HandlerContainer>> handlers = new HashSet<>();
+    /**
+     * A HashMap containing Message ID's, and their respective expected response, contained in a
+     * {@link ResponseContainer}.
+     */
     private static HashMap<String, ResponseContainer> embeds = new HashMap<>();
+    /**
+     * A HashMap containing game owner ID's, and their respective {@link CaDGameHandler} game instance
+     */
     private static HashMap<String, CaDGameHandler> idLookup = new HashMap<>(); /*User ids and their respective game instance */
     
     public static HashMap<String, ResponseContainer> getEmbeds() { return embeds; }
     
+    /**
+     * When issuing a game-related message, it is likely it will require a response from the user. To do this, the ID
+     * of the message is recorded and, upon the modification of a message reaction, the ID of the message is checked.
+     * This method allows for a message to be registered as requiring action, by specifying the ID of the message,
+     * the {@link me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.ResponseContainer.ResponseExpector}, and the
+     * {@link CaDGameHandler} instance it is associated with.
+     *
+     * @param messageId        String - The ID of the message
+     * @param responseExpected {@link me.Salt.Util.Utility.Games.CardsAgainstDiscord.util.ResponseContainer.ResponseExpector} - The response
+     *                         we expect to gain from the message
+     * @param caDGameHandler   {@link CaDGameHandler} - The Cards Against Discord game instance that this message is
+     *                         linked to
+     */
     public static void addToEmbeds(String messageId, ResponseContainer.ResponseExpector responseExpected,
                                    CaDGameHandler caDGameHandler) {
         if (!embeds.containsKey(messageId))
@@ -49,6 +75,11 @@ public class CaDGameManager extends ListenerAdapter {
             embeds.put(messageId, new ResponseContainer(responseExpected, caDGameHandler));
     }
     
+    /**
+     * This method is used to register a {@link CaDGameHandler} instance to this class.
+     *
+     * @param handler {@link CaDGameHandler} - The game instance to be registered
+     */
     public static void registerHandler(CaDGameHandler handler) {
         if (GameManager.hasGameOfType(handler.getOwner().getUser(), CaDGameHandler.class))
             handlers.add(new AbstractMap.SimpleEntry<>(PlayState.IDLE, new HandlerContainer(handler, true)));
@@ -58,6 +89,13 @@ public class CaDGameManager extends ListenerAdapter {
         invoke();
     }
     
+    /**
+     * This method allows for a {@link CaDGameHandler} instance to have its {@link PlayState} updated, by specifying
+     * the ID of the {@link CaDGameHandler#owner}.
+     *
+     * @param ownerId   String - The ID of the game's owner
+     * @param playState {@link PlayState} - The new PlayState to update the game with
+     */
     public static void modifyHandler(String ownerId, PlayState playState) {
         if (idLookup.containsKey(ownerId)) {
             System.out.println("Found ID");
@@ -76,6 +114,12 @@ public class CaDGameManager extends ListenerAdapter {
         }
     }
     
+    /**
+     * This method is called when registering and updating game handlers. It calls upon the
+     * {@link HandlerContainer#shouldInvoke()} method to determine if the current handler should be interacted with
+     * and - if true - switches through its contained {@link PlayState}. The corresponding methods are then called
+     * upon, to handle the game's state changes.
+     */
     private static void invoke() {
         handlers.forEach(containerEntry -> {
             if (containerEntry.getValue().shouldInvoke()) {
@@ -107,6 +151,18 @@ public class CaDGameManager extends ListenerAdapter {
     
     public static void unregisterHandler(CaDGameHandler handler) { /* TODO: 29/05/2017 */ }
     
+    /**
+     * This method invokes and handles the startup phase of a game, including:
+     * <ul>
+     * <li>Assigning White cards to each player</li>
+     * <li>Informing each player of their white cards</li>
+     * <li>Selecting the (next) Card Czar</li>
+     * <li>Informing the Card Czar that they have been selected</li>
+     * <li>Managing time delays between card distribution and card selection stages</li>
+     * </ul>
+     *
+     * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
+     */
     private static void invokeStart(CaDGameHandler toHandle) {
         System.out.println(toHandle.getAllPlayers());
         EmbedBuilder eb;
@@ -143,7 +199,7 @@ public class CaDGameManager extends ListenerAdapter {
                     .getUser()
                     .openPrivateChannel()
                     .queue(privateChannel -> privateChannel.sendMessage(
-                            "You have been marked as this round's Card Czar! In 25 seconds, you will be provided with a " + "list of cards to select from. ")
+                            "You have been marked as this round's Card Czar! In 25 seconds, you will be provided " + "with a list of cards to select from. ")
                                                            .queue());
         }, 10, TimeUnit.SECONDS);
         executorService.schedule(() -> {
@@ -204,19 +260,44 @@ public class CaDGameManager extends ListenerAdapter {
         }, 35, TimeUnit.SECONDS);
     }
     
+    /**
+     * This method handles the steps taken for an idle Cards Against Discord game.
+     *
+     * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
+     */
     private static void invokeIdle(CaDGameHandler toHandle) {
         System.out.println("Invoked IDLE!");
     }
     
+    /**
+     * This method handles the steps taken for a Cards Against Discord game in the 'card submission' phase.
+     *
+     * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
+     */
     private static void invokeCardSubmitting(CaDGameHandler toHandle) {
     }
     
+    /**
+     * This method handles the steps taken for a Cards Against Discord game in the 'Card Czar card-selection' phase.
+     *
+     * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
+     */
     private static void invokeCardSelection(CaDGameHandler toHandle) {
     }
     
+    /**
+     * This method handles the steps taken for a Cards Against Discord game distributing leaderboard statistics.
+     *
+     * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
+     */
     private static void invokeLeaderboards(CaDGameHandler toHandle) {
     }
     
+    /**
+     * This method handles the steps taken for a Cards Against Discord game in the finishing phase.
+     *
+     * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
+     */
     private static void invokeFinish(CaDGameHandler toHandle) {
     }
     
@@ -224,17 +305,35 @@ public class CaDGameManager extends ListenerAdapter {
         return handlers;
     }
     
+    /**
+     * The PlayState represents the current state of activity that a Cards Against Discord game session is at. Due to
+     * multiple sessions being capable of simultaneously running, it is possible for multiple playstates to be
+     * assigned to a variety of game sessions at any one time.
+     */
     public enum PlayState {
+        /**
+         * The game is not started, but merely created
+         */
         IDLE,
-        //Not started, but merely created
+        /**
+         * The game is starting. Users are being assigned cards and a Card Czar is being selected.
+         */
         STARTING,
-        //Game starting. Users being assigned cards
+        /**
+         * Users are submitting white cards in response to a black card.
+         */
         CARD_SUBMITTING,
-        //Users are submitting white cards in response to a black card
+        /**
+         * The Card Czar is selecting a winning card/card-combo.
+         */
         CARD_SELECTION,
-        //Card Czar is selecting a winning card/card-combo
+        /**
+         * The game is now displaying scoring information to individuals.
+         */
         LEADERBOARDS,
-        //Displaying scoring information to individuals
-        FINISHING, //Finishing the game, removing users
+        /**
+         * The game is now finishing, and players are being removed.
+         */
+        FINISHING,
     }
 }

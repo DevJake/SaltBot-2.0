@@ -15,7 +15,16 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
+/**
+ * This class represents a Card; neither a Black nor White card.
+ *
+ * @see BlackCard
+ * @see WhiteCard
+ */
 public class Card {
+    /**
+     * The text present on the card.
+     */
     private String text;
     
     public Card(String text) {

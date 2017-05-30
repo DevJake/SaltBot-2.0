@@ -15,6 +15,9 @@
  */
 package me.Salt.Exception.Command;
 
+/**
+ * A Command-related Exception.
+ */
 public class CommandException extends Exception {
     public CommandException() {
         super();

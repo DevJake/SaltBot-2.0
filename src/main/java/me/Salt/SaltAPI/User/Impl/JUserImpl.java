@@ -35,30 +35,62 @@ import java.util.HashMap;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
+ * A container class for users.
  */
 public class JUserImpl implements JUser {
+    /**
+     * The {@link User} that this class references to.
+     */
     private User user;
+    /**
+     * A list of this user's warnings.
+     */
     @Expose
     private List<WarningBuilder.Warning> warnings = new ArrayList<>();
+    /**
+     * A list of this user's permissions.
+     */
     @Expose
-    private List<Permission> permissions = new ArrayList<>(); //TODO move to using Permission.class, not Perm.class.
+    private List<Permission> permissions = new ArrayList<>();
+    /**
+     * A HashMap of each {@link Perm}'s, and their corresponding {@link Permission}'s for this user.
+     */
     private HashMap<Perm, Permission> perms = new HashMap<>();
+    /**
+     * The {@link PrivilegeState} of this user.
+     */
     @Expose
     private PrivilegeState privilegeState;
+    /**
+     * This user's ID. Used for auto-loading and recovery after the bot restarts.
+     */
     @Expose
     private long userId;
+    /**
+     * The time at which the last message was sent by this user.
+     */
     @Expose
     private LocalDateTime lastMessage;
+    /**
+     * The time at which the user was last seen online.
+     */
     @Expose
     private LocalDateTime lastOnline;
+    /**
+     * The last guild that the user sent a message in.
+     */
     @Expose
     @SerializedName("lastSpokenGuildId")
     private Guild lastSpokenGuild;
+    /**
+     * The last textchannel that the user sent a message in.
+     */
     @Expose
     @SerializedName("lastTextChannelId")
     private TextChannel lastTextChannel;
+    /**
+     * The last-known nickname of the user.
+     */
     @Expose
     private String lastNickname;
     

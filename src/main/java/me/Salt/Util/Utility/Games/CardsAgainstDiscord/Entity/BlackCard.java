@@ -15,7 +15,14 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
+/**
+ * This class stores details exclusively present to a Black card, for Cards Against Discord.
+ */
 public class BlackCard extends Card {
+    /**
+     * An integer representing how many blank fields are present. This therefore also represents how many corresponding
+     * white cards are expected.
+     */
     private int blankFields;
     
     public BlackCard(String text, int blankFields) {

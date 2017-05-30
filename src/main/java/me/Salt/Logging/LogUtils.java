@@ -22,6 +22,9 @@ import java.time.Instant;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * A utility class for the simplistic writing of log entries.
+ */
 public class LogUtils {
     private List<LogEntry> logEntries = new ArrayList<>();
     

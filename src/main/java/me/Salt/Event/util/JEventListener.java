@@ -15,6 +15,37 @@
  */
 package me.Salt.Event.util;
 
+/**
+ * This interface can be used in two implementations;
+ * <ul>
+ * <li>Through {@link JListenerAdapter}, or;</li>
+ * <li>Through direct implementation</li>
+ * </ul>
+ * <p>
+ * If this interface is directly implemented, implementing classes will be responsible for receiving and handling
+ * events through {@link JEventListener#onEvent(JEvent)}. The instance type of the event isn't specified, therefore
+ * requiring the class to check the instance type themselves:
+ * <p>
+ * <code>
+ * public class MyCustomListener implements JEventListener {
+ *
+ *     @Override
+ *     public void onEvent(JEvent event) {
+ *         if (event instanceof GenericCommandEvent){
+ *         //Do stuff
+ *         } else if (event instanceof GenericCaDEvent){
+ *         //Do other stuff
+ *         }
+ *     }
+ * }
+ * </code>
+ */
 public interface JEventListener {
+    /**
+     * This method is called upon when {@link EventInitiator#fire(JEvent)} is called. Therefore, any implementing
+     * class of this interface will receive the fired event.
+     *
+     * @param event {@link JEvent} - The event being fired
+     */
     public void onEvent(JEvent event);
 }

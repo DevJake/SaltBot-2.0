@@ -20,7 +20,7 @@ import java.time.ZoneOffset;
 import java.util.List;
 
 /**
- * Allows for the logging of information to the console, text file, or both. Currently supports just console logging.
+ * Allows for the logging of information to the console, text file, or both.
  */
 public class JLogger {
     /**

@@ -16,7 +16,7 @@
 package me.Salt.Exception.Generic;
 
 /**
- * Created by Salt001 on 10/04/2017.
+ * Thrown when inputted command parameters are malformed, such as following an incorrect syntax.
  */
 public class MalformedParametersException extends GenericBotException {
     public MalformedParametersException() {

@@ -19,4 +19,6 @@ package me.Salt.Util.Utility.ChatTracker;
  * Project title: SaltBot-2.0
  * Authored by Salt on 18/04/2017.
  */
-public class ChatTracker { //TODO CRITICAL: Add a rate limiter on message sending, as it causes major delays in responses, due to bot rate limits.}
+public class ChatTracker {
+    //TODO CRITICAL: Add a rate limiter on message sending, as it causes major delays in responses, due to bot rate limits.
+}

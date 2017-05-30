@@ -31,8 +31,7 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 20/04/2017.
+ * This class acts as a builder for instances of {@link JUser}.
  */
 public class JUserBuilder {
     private User user;

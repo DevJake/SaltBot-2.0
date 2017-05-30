@@ -24,7 +24,13 @@ import java.util.List;
 import java.util.concurrent.ThreadLocalRandom;
 
 public class CaDUtil {
+    /**
+     * A list of available {@link WhiteCard}s
+     */
     private static List<WhiteCard> whiteCards = new ArrayList<>();
+    /**
+     * A list of available {@link BlackCard}s
+     */
     private static List<BlackCard> blackCards = new ArrayList<>();
     
     static {
@@ -379,14 +385,24 @@ public class CaDUtil {
         return blackCards;
     }
     
+    /**
+     * @return {@link WhiteCard} - A random white card
+     */
     public static WhiteCard getRandomWhiteCard() {
         return whiteCards.get(ThreadLocalRandom.current().nextInt(0, whiteCards.size())); //Random
     }
     
+    /**
+     * @return {@link BlackCard} - A random black card
+     */
     public static BlackCard getRandomBlackCard() {
         return blackCards.get(ThreadLocalRandom.current().nextInt(0, blackCards.size()));
     }
     
+    /**
+     * @param amount Integer - The amount of white cards desired
+     * @return List - A list of randomly-selected {@link WhiteCard}s
+     */
     public static List<WhiteCard> getRandomWhiteCards(int amount) {
         if (amount > whiteCards.size()) return null;
         List<WhiteCard> cards = new ArrayList<>();
@@ -396,6 +412,10 @@ public class CaDUtil {
         return cards;
     }
     
+    /**
+     * @param amount Integer - The amount of black cards desired
+     * @return List - A list of randomly-selected {@link BlackCard}s
+     */
     public static List<BlackCard> getRandomBlackCards(int amount) {
         if (amount > blackCards.size()) return null;
         List<BlackCard> cards = new ArrayList<>();

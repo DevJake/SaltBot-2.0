@@ -17,6 +17,9 @@ package me.Salt.Exception.Utility.CardsAgainstDiscord;
 
 import me.Salt.Exception.Permission.PermissionException;
 
+/**
+ * Thrown when Cards Against Discord encounters an exception.
+ */
 public class CardsAgainstDiscordException extends PermissionException {
     public CardsAgainstDiscordException() {
         super();

@@ -68,8 +68,8 @@ public class Main {
             DuplicateDataException, IOException {
         EventInitiator.fire(new SaltStartupEvent(startupTime));
         // TODO: 26/05/2017 Redo file reading system. Move to own class
-        System.out.println(ClassLoader.getSystemClassLoader().getResource("SaltBot.settings").getFile());
-        Scanner scanner = new Scanner(new File(Main.class.getClassLoader().getResource("SaltBot.settings").getFile()));
+        System.out.println(ClassLoader.getSystemClassLoader().getResource("SaltBot.salt").getFile());
+        Scanner scanner = new Scanner(new File(Main.class.getClassLoader().getResource("SaltBot.salt").getFile()));
         while (scanner.hasNextLine()) {
             String n = scanner.nextLine();
             System.out.println(n + "\n");

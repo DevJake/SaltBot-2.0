@@ -17,9 +17,21 @@ package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 
+/**
+ * This class acts as a container, and stores details about the expected response for a message.
+ */
 public class ResponseContainer {
+    /**
+     * A boolean representing if the message's response has already been handled.
+     */
     private boolean handled = false;
+    /**
+     * A {@link ResponseExpector} which determines what <i>type</i> of response is expected for this message.
+     */
     private ResponseExpector responseExpected;
+    /**
+     * The {@link CaDGameHandler} which this message is tied to.
+     */
     private CaDGameHandler caDGameHandler;
     
     public ResponseContainer(ResponseExpector responseExpected, CaDGameHandler caDGameHandler) {

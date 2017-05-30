@@ -17,8 +17,20 @@ package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 
+/**
+ * This class acts as a container for a {@link CaDGameHandler}. It stores information about the game for the
+ * {@link CaDGameManager}, such as whether or not the game should be run through the invocation method.
+ *
+ * @see CaDGameManager#invoke()
+ */
 public class HandlerContainer {
+    /**
+     * The {@link CaDGameManager} instance this class' instance references to.
+     */
     private CaDGameHandler handler;
+    /**
+     * A boolean, representing if the game instance should be invoked upon.
+     */
     private boolean shouldInvoke;
     
     public HandlerContainer(CaDGameHandler handler, boolean shouldInvoke) {

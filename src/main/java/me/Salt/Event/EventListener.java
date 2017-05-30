@@ -33,13 +33,20 @@ import java.util.concurrent.Executors;
 import java.util.concurrent.TimeUnit;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 05/04/2017.
+ * This class listens for {@link net.dv8tion.jda.core.events.Event}s from Discord, through JDA.
  */
 public class EventListener extends ListenerAdapter {
+    /**
+     * An {@link ExecutorService} of 20 pooled threads, used for the individual handling of commands.
+     */
     private ExecutorService executor = Executors.newFixedThreadPool(20);
-    
     //TODO add support for PrivateMessageReceivedEvent (Perhaps have an interface for guild events and one for private events. Each command that implements them is then able to be called upon in their respective methods)
+    
+    /**
+     * An Override of {@link ListenerAdapter#onGuildMessageReceived(GuildMessageReceivedEvent)}.
+     *
+     * @param event {@link GuildMessageReceivedEvent} - An instance of the received guild message
+     */
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {//TODO Update to MessageReceivedEvent
         Main.salt.setJUser(new JUserBuilder(event.getAuthor()).setUser(event.getAuthor())

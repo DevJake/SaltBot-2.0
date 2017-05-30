@@ -15,6 +15,9 @@
  */
 package me.Salt.Exception.Permission;
 
+/**
+ * Thrown when an individual attempts to execute a command, yet lack the required permissions.
+ */
 public class LackingPermissionException extends PermissionException {
     public LackingPermissionException() {
         super();

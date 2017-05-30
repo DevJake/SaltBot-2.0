@@ -23,16 +23,37 @@ import java.util.List;
  * distribution of fired events across the registered listeners.
  */
 public class EventInitiator {
+    /**
+     * A list of registered event listeners which are triggered upon the firing of an event.
+     */
     private static List<JEventListener> listeners = new ArrayList<>();
     
+    /**
+     * This method takes in a subclass of {@link JEvent}, and iterates through each registered listener, firing the
+     * event to each.
+     *
+     * @param event {@link JEvent} - The instance of an event to be fired
+     */
     public static void fire(JEvent event) {
         listeners.forEach(l -> l.onEvent(event));
     }
     
+    /**
+     * This method registers any passed-in instances of {@link JEventListener} to the internal list of listeners.
+     *
+     * @param listener {@link JEventListener} - The instance of JEventListener to be registered
+     */
     public static void register(JEventListener listener) {
         listeners.add(listener);
     }
     
+    /**
+     * Much like {@link EventInitiator#register(JEventListener)}, this method accepts an instance of
+     * {@link JEventListener}. If the instance is already registered, it is then removed from the list of registered
+     * listeners.
+     *
+     * @param listener {@link JEventListener} - The instance of JEventListener to be unregistered
+     */
     public static void unregister(JEventListener listener) {
         listeners.remove(listener);
     }

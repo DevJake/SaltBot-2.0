@@ -15,4 +15,7 @@
  */
 package me.Salt.Util.Utility.Games;
 
+/**
+ * This interface should be implemented by any class that identifies itself as being a game.
+ */
 public interface Game {}

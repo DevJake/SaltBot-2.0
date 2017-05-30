@@ -15,6 +15,9 @@
  */
 package me.Salt.Exception.Command;
 
+/**
+ * Thrown when a command is disabled.
+ */
 public class DisabledCommandException extends CommandException {
     public DisabledCommandException() {
         super();

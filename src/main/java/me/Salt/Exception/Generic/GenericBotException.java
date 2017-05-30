@@ -16,8 +16,7 @@
 package me.Salt.Exception.Generic;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 10/04/2017.
+ * A container exception for generic bot exceptions.
  */
 public class GenericBotException extends Exception {
     public GenericBotException() {

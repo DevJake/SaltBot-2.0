@@ -15,6 +15,10 @@
  */
 package me.Salt.Exception.Permission;
 
+/**
+ * Thrown when the bot attempts to query the has-permission status of a permission, yet the permission hasn't yet
+ * been registered.
+ */
 public class UnregisteredPermissionException extends PermissionException {
     public UnregisteredPermissionException() {
         super();
