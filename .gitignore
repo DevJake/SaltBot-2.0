@@ -12,3 +12,5 @@ gradlew
 *.iws
 
 *.settings
+
+*.salt
