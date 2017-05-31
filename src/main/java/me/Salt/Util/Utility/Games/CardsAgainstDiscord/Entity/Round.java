@@ -15,6 +15,9 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
+import java.util.ArrayList;
+import java.util.List;
+
 /**
  * This class acts as a container for a single round of the Cards Against Discord game.
  */
@@ -27,11 +30,20 @@ public class Round {
      * The {@link Player} who is the Card Czar for this round.
      */
     private Player cardCzar;
+    private List<CardSubmission> cardSubmissions = new ArrayList<>();
     
     // TODO: 30/05/2017 Add fields for winning card and winning player. This allows for us to go back through a game's history
     public Round(BlackCard question, Player cardCzar) {
         this.question = question;
         this.cardCzar = cardCzar;
+    }
+    
+    public List<CardSubmission> getCardSubmissions() {
+        return cardSubmissions;
+    }
+    
+    public void addCardSubmission(CardSubmission submission) {
+        this.cardSubmissions.add(submission);
     }
     
     public BlackCard getQuestion() {
