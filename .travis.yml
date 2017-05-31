@@ -1,5 +1,4 @@
 language: java
-script: shadowJar
 jdk:
   - oraclejdk8
 addons:
