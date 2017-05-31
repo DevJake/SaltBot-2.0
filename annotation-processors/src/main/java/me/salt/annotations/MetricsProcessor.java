@@ -24,7 +24,7 @@ import javax.lang.model.element.TypeElement;
 import java.util.Set;
 
 @SupportedAnnotationTypes("me.salt.annotations.Metrics")
-@SupportedSourceVersion(SourceVersion.RELEASE_6)
+@SupportedSourceVersion(SourceVersion.RELEASE_8)
 public class MetricsProcessor extends AbstractProcessor {
     @Override
     public boolean process(Set<? extends TypeElement> annotations, RoundEnvironment roundEnv) {
