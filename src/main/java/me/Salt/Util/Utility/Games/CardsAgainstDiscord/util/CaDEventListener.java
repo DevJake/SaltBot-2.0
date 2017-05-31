@@ -15,9 +15,16 @@
  */
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
+import com.vdurmont.emoji.EmojiManager;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CardSubmission;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Round;
 import net.dv8tion.jda.core.events.message.priv.react.GenericPrivateMessageReactionEvent;
 import net.dv8tion.jda.core.hooks.ListenerAdapter;
+
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class receives Discord events, and handles them in accordance to any active Cards Against Discord games.
@@ -36,10 +43,11 @@ public class CaDEventListener extends ListenerAdapter {
                     case INVITE_RESPOND:
                         handleInviteRespond(event.getReactionEmote().getName(), event);
                         break;
-                    case CZAR_CARD_SELECT:
-                        handleCardSelect(event.getReactionEmote().getName(), event);
-                        break;
                     case USER_CARD_SELECT:
+                        handleUserCardSelect(event.getReactionEmote().getName(), event);
+                        break;
+                    case CZAR_CARD_SELECT:
+                        handleCzarCardSelect(event.getReactionEmote().getName(), event);
                         break;
                 }
             }
@@ -73,6 +81,105 @@ public class CaDEventListener extends ListenerAdapter {
      * @param emoteName String - The emote that was modified
      * @param event     {@link GenericPrivateMessageReactionEvent} - The event instance that triggered this method's call
      */
-    private void handleCardSelect(String emoteName, GenericPrivateMessageReactionEvent event) {
+    private void handleUserCardSelect(String emoteName, GenericPrivateMessageReactionEvent event) {
+        System.out.println("Now handling user card selection/reaction change");
+        ResponseContainer responseContainer = CaDGameManager.getEmbeds().get(event.getMessageId());
+        int chosen = -1;
+        if (emoteName.equals(EmojiManager.getForAlias("one").getUnicode())) {
+            chosen = 1;
+        } else if (emoteName.equals(EmojiManager.getForAlias("two").getUnicode())) {
+            chosen = 2;
+        } else if (emoteName.equals(EmojiManager.getForAlias("three").getUnicode())) {
+            chosen = 3;
+        } else if (emoteName.equals(EmojiManager.getForAlias("four").getUnicode())) {
+            chosen = 4;
+        } else if (emoteName.equals(EmojiManager.getForAlias("five").getUnicode())) {
+            chosen = 5;
+        } else if (emoteName.equals(EmojiManager.getForAlias("six").getUnicode())) {
+            chosen = 6;
+        } else if (emoteName.equals(EmojiManager.getForAlias("seven").getUnicode())) {
+            chosen = 7;
+        } else if (emoteName.equals(EmojiManager.getForAlias("eight").getUnicode())) {
+            chosen = 8;
+        } else if (emoteName.equals(EmojiManager.getForAlias("nine").getUnicode())) {
+            chosen = 9;
+        } else if (emoteName.equals(EmojiManager.getForAlias("keycap_ten").getUnicode())) {
+            chosen = 10;
+        }
+        System.out.println("User chose card number " + chosen);
+        if (chosen > responseContainer.getCaDGameHandler().getCardCount()) {
+            System.out.println("Return 1");
+            return; //User added their own reaction?
+        }
+        List<Player> players = responseContainer.getCaDGameHandler()
+                                                .getAllPlayersNonCzar()
+                                                .stream()
+                                                .filter(player -> player.getUser()
+                                                                        .getId()
+                                                                        .equals(event.getUser().getId()))
+                                                .collect(Collectors.toList());
+        if (players.size() != 1) {
+            System.out.println("Return 2");
+            return; //Seemingly unreachable issue, but acts as a failsafe
+        }
+        CaDGameManager.getHandlerContainer(responseContainer.getCaDGameHandler().getOwner().getUser().getId())
+                      .getRound(responseContainer.getCaDGameHandler().getCardCzar())
+                      .addCardSubmission(new CardSubmission(players.get(0).getCards().get(chosen - 1), players.get(0)));
+        System.out.println(
+                "Added new card submission!" + players.get(0).getCards().get(chosen - 1) + ":" + players.get(0));
+        responseContainer.setHandled(true);
+        event.getChannel()
+             .sendMessage("Submitted your card: " + players.get(0).getCards().get(chosen - 1).getText())
+             .queue();
+    }
+    
+    private void handleCzarCardSelect(String emoteName, GenericPrivateMessageReactionEvent event) {
+        System.out.println("Now handling czar card selection/reaction change");
+        ResponseContainer responseContainer = CaDGameManager.getEmbeds().get(event.getMessageId());
+        int chosen = -1;
+        if (emoteName.equals(EmojiManager.getForAlias("one").getUnicode())) {
+            chosen = 1;
+        } else if (emoteName.equals(EmojiManager.getForAlias("two").getUnicode())) {
+            chosen = 2;
+        } else if (emoteName.equals(EmojiManager.getForAlias("three").getUnicode())) {
+            chosen = 3;
+        } else if (emoteName.equals(EmojiManager.getForAlias("four").getUnicode())) {
+            chosen = 4;
+        } else if (emoteName.equals(EmojiManager.getForAlias("five").getUnicode())) {
+            chosen = 5;
+        } else if (emoteName.equals(EmojiManager.getForAlias("six").getUnicode())) {
+            chosen = 6;
+        } else if (emoteName.equals(EmojiManager.getForAlias("seven").getUnicode())) {
+            chosen = 7;
+        } else if (emoteName.equals(EmojiManager.getForAlias("eight").getUnicode())) {
+            chosen = 8;
+        } else if (emoteName.equals(EmojiManager.getForAlias("nine").getUnicode())) {
+            chosen = 9;
+        } else if (emoteName.equals(EmojiManager.getForAlias("keycap_ten").getUnicode())) {
+            chosen = 10;
+        }
+        System.out.println("Czar chose card number " + chosen);
+        if (chosen > responseContainer.getCaDGameHandler().getCardCount()) {
+            System.out.println("Return 1");
+            return; //User added their own reaction?
+        }
+        Round finalRound = CaDGameManager.getHandlerContainer(
+                responseContainer.getCaDGameHandler().getOwner().getUser().getId())
+                                         .getRound(responseContainer.getCaDGameHandler().getCardCzar());
+        System.out.println(
+                finalRound.getCardCzar().getUser().getName() + " has chosen " + finalRound.getCardSubmissions()
+                                                                                          .get(chosen)
+                                                                                          .getWhiteCard()
+                                                                                          .getText() + " as this rounds winning card!");
+        Player winningPlayer = finalRound.getCardSubmissions().get(chosen).getPlayer();
+        winningPlayer.incrementRoundsWon();
+        CaDGameManager.getEmbeds().get(event.getMessageId()).setHandled(true);
+        CaDGameHandler handler = CaDGameManager.getEmbeds().get(event.getMessageId()).getCaDGameHandler();
+        handler.getAllPlayers().forEach(player -> player.getUser().openPrivateChannel().queue(privateChannel -> {
+            if (player.getUser().getId().equals(winningPlayer.getUser().getId())) privateChannel.sendMessage(
+                    "You have won the round! Your score has been incremented. Current score: " + player.getRoundsWon())
+                                                                                                .queue();
+            else privateChannel.sendMessage("You haven't won the round :( Better luck next round!").queue();
+        }));
     }
 }
