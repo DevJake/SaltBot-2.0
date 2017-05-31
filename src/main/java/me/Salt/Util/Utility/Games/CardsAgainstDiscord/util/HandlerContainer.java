@@ -16,6 +16,12 @@
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
+import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Round;
+
+import java.util.ArrayList;
+import java.util.List;
+import java.util.stream.Collectors;
 
 /**
  * This class acts as a container for a {@link CaDGameHandler}. It stores information about the game for the
@@ -32,10 +38,32 @@ public class HandlerContainer {
      * A boolean, representing if the game instance should be invoked upon.
      */
     private boolean shouldInvoke;
+    /**
+     * A list of {@link Round}s within this game instance.
+     */
+    private List<Round> rounds = new ArrayList<>();
     
     public HandlerContainer(CaDGameHandler handler, boolean shouldInvoke) {
         this.handler = handler;
         this.shouldInvoke = shouldInvoke;
+    }
+    
+    public List<Round> getRounds() {
+        return rounds;
+    }
+    
+    public void addRound(Round round) {
+        this.rounds.add(round);
+    }
+    
+    public Round getRound(Player cardCzar) {
+        List<Round> rounds = this.rounds.stream()
+                                        .filter(round -> round.getCardCzar()
+                                                              .getUser()
+                                                              .getId()
+                                                              .equals(cardCzar.getUser().getId()))
+                                        .collect(Collectors.toList());
+        return rounds.size() == 1 ? rounds.get(0) : null;
     }
     
     public CaDGameHandler getHandler() {
