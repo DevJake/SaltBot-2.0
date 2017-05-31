@@ -16,6 +16,6 @@ include 'services:webservice'
 */
 
 rootProject.name = 'SaltBot-2.0'
-include 'annotation-processors'
-project('annotation-processors').projectDir = new File("annotation-processors", "build.gradle")
-
+include ':annotation-processors'
+project(':annotation-processors').projectDir = new File(settingsDir, 'annotation-processors')
+project(':annotation-processors').buildFileName = 'build.gradle'
