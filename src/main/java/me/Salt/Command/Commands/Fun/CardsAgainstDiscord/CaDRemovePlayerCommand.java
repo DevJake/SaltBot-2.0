@@ -39,11 +39,11 @@ import java.util.List;
  * executor must not only have a Cards Against Discord game session, but the session must also contain the specified
  * player.
  * <p>
- * This command requires one parameter minimum. The parameter must be either <code>u:</code> or <code>id:</code>,
+ * This command requires one parameter minimum. The parameter must be either {@code u:} or {@code id:},
  * where either a full username or a user's ID must be immediately appended, respectively. For example, the following
- * command would remove a user with the username <code>user1</code> and a user with the ID of
- * <code>203182861401063425</code> from the game - if they are <i>in</i> the game:
- * <code>.cadremove u:user1 id:203182861401063425</code>
+ * command would remove a user with the username {@code user1} and a user with the ID of
+ * {@code 203182861401063425} from the game - if they are <i>in</i> the game:
+ * {@code .cadremove u:user1 id:203182861401063425}
  * <p>
  * A list of those removed is returned to the command executor.
  */

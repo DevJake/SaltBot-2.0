@@ -41,11 +41,11 @@ import java.util.List;
  * invite-only, therefore meaning that the one inviting players must also <i>own</i> the game session they invite
  * people to.
  * <p>
- * This command requires one parameter minimum. The parameter must be either <code>u:</code> or <code>id:</code>,
+ * This command requires one parameter minimum. The parameter must be either {@code u:} or {@code id:},
  * where either a full username or a user's ID must be immediately appended, respectively. For example, the following
- * command would invite a user with the username <code>user1</code> and a user with the ID of
- * <code>203182861401063425</code> to the game:
- * <code>.cadadd u:user1 id:203182861401063425</code>
+ * command would invite a user with the username {@code user1} and a user with the ID of
+ * {@code 203182861401063425} to the game:
+ * {@code .cadadd u:user1 id:203182861401063425}
  * <p>
  * A list of those invited is returned to the command executor, whilst each user is sent a private message inviting
  * them to join. Each invite is given a 'white tick' reaction, which can be clicked to accept the invite.
