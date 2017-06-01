@@ -1,5 +1,6 @@
 me.Salt
 me.Salt.Command
+me.Salt.Command.Commands
 me.Salt.Command.Commands.Administrator
 me.Salt.Command.Commands.Configuration
 me.Salt.Command.Commands.Debugging
@@ -13,10 +14,12 @@ me.Salt.Event.jevent
 me.Salt.Event.jevent.game
 me.Salt.Event.jevent.game.cardsagainstdiscord
 me.Salt.Event.util
+me.Salt.Exception
 me.Salt.Exception.Command
 me.Salt.Exception.Generic
 me.Salt.Exception.Language
 me.Salt.Exception.Permission
+me.Salt.Exception.Utility
 me.Salt.Exception.Utility.CardsAgainstDiscord
 me.Salt.Exception.Utility.Rainbow6
 me.Salt.Logging
@@ -33,13 +36,17 @@ me.Salt.SaltAPI.Util.Interface
 me.Salt.Util
 me.Salt.Util.Language
 me.Salt.Util.Serialiser
+me.Salt.Util.Utility
 me.Salt.Util.Utility.ChatTracker
 me.Salt.Util.Utility.Games
+me.Salt.Util.Utility.Games.CardsAgainstDiscord
 me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity
 me.Salt.Util.Utility.Games.CardsAgainstDiscord.util
 me.Salt.Util.Utility.Reminder
 me.Salt.Util.Utility.SpamTracker
+me.Salt.Util.Utility.StatGrabber
 me.Salt.Util.Utility.StatGrabber.Rainbow6
+me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities
 me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator
 me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl
 me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player
