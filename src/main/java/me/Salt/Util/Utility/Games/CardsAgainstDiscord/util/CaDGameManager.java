@@ -221,23 +221,7 @@ public class CaDGameManager extends ListenerAdapter {
                           toHandle));
             // TODO: 27/05/2017 set card czar}
         }
-        //Choosing the Card Czar
-        if (toHandle.getCardCzar() == null) {
-            toHandle.setCardCzar(toHandle.getAllPlayers().get(0)); //Set to first user
-        } else {
-            if (toHandle.getAllPlayers().indexOf(toHandle.getCardCzar()) >= toHandle.getAllPlayers().size())
-                toHandle.setCardCzar(toHandle.getAllPlayers().get(0)); //Reset to first list member
-            else toHandle.setCardCzar(toHandle.getAllPlayers()
-                                              .get(toHandle.getAllPlayers()
-                                                           .indexOf(
-                                                                   toHandle.getCardCzar()))); //Set to next member of list
-        }
-        toHandle.getCardCzar()
-                .getUser()
-                .openPrivateChannel()
-                .queue(privateChannel -> privateChannel.sendMessage(
-                        "You have been marked as this round's Card Czar! In 25 seconds, you will be provided " + "with a list of cards to select from. ")
-                                                       .queue());
+        toHandle.setCardCzar(pickCardCzar(toHandle));
         modifyHandler(toHandle.getOwner().getUser().getId(), PlayState.USER_CARD_SUBMITTING);
     }
     
@@ -256,6 +240,12 @@ public class CaDGameManager extends ListenerAdapter {
      * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
      */
     private static void invokeUserCardSubmitting(CaDGameHandler toHandle) {
+        toHandle.getCardCzar()
+                .getUser()
+                .openPrivateChannel()
+                .queue(privateChannel -> privateChannel.sendMessage(
+                        "You have been marked as this round's Card Czar! In 25 seconds, you will be provided with a list of cards to select from. ")
+                                                       .queue());
         //Issuing the response embed
         BlackCard card = CaDUtil.getRandomBlackCard();
         getHandlerContainer(toHandle.getOwner().getUser().getId()).addRound(new Round(card, toHandle.getCardCzar()));
@@ -338,55 +328,82 @@ public class CaDGameManager extends ListenerAdapter {
         EmbedBuilder eb1 = new EmbedBuilder();
         StringBuilder sb1 = new StringBuilder();
         eb1.setTitle("Choose the winning card!", null);
+        if (rounds.get(rounds.size() - 1).getCardSubmissions() == null) System.out.println("Card subs be null");
         int i = 0;
-        for (CardSubmission cardSubmission : rounds.get(rounds.size()).getCardSubmissions()) {
+        for (CardSubmission cardSubmission : rounds.get(rounds.size() - 1).getCardSubmissions()) {
             i++;
             sb1.append("(").append(i).append(") ").append(cardSubmission.getWhiteCard().getText()).append("\n");
         }
         eb1.addField("Cards", sb1.toString(), false);
+        eb1.setFooter("You have 20 seconds to make a selection", null);
         System.out.println("Current Card Czar is " + toHandle.getCardCzar().getUser().getName());
         // TODO: 31/05/2017 Make message actually send, then we are complete
-        toHandle.getCardCzar()
-                .getUser()
-                .openPrivateChannel()
-                .queue(privateChannel -> privateChannel.sendMessage(eb1.build()).queue(message -> {
-                    for (int ii = 0; ii < rounds.get(rounds.size()).getCardSubmissions().size(); ii++) {
-                        switch (ii) {
-                            case 0:
-                                message.addReaction(EmojiManager.getForAlias("one").getUnicode()).queue();
-                                break;
-                            case 1:
-                                message.addReaction(EmojiManager.getForAlias("two").getUnicode()).queue();
-                                break;
-                            case 2:
-                                message.addReaction(EmojiManager.getForAlias("three").getUnicode()).queue();
-                                break;
-                            case 3:
-                                message.addReaction(EmojiManager.getForAlias("four").getUnicode()).queue();
-                                break;
-                            case 4:
-                                message.addReaction(EmojiManager.getForAlias("five").getUnicode()).queue();
-                                break;
-                            case 5:
-                                message.addReaction(EmojiManager.getForAlias("six").getUnicode()).queue();
-                            break;
-                            case 6:
-                                message.addReaction(EmojiManager.getForAlias("seven").getUnicode()).queue();
-                                break;
-                            case 7:
-                                message.addReaction(EmojiManager.getForAlias("eight").getUnicode()).queue();
-                                break;
-                            case 8:
-                                message.addReaction(EmojiManager.getForAlias("nine").getUnicode()).queue();
-                                break;
-                            case 9:
-                                message.addReaction(EmojiManager.getForAlias("keycap_ten").getUnicode()).queue();
-                                break;
+        if (rounds.get(rounds.size() - 1).getCardSubmissions().size() > 0) {
+            toHandle.getCardCzar()
+                    .getUser()
+                    .openPrivateChannel()
+                    .queue(privateChannel -> privateChannel.sendMessage(eb1.build()).queue(message -> {
+                        for (int ii = 0; ii < rounds.get(rounds.size() - 1).getCardSubmissions().size(); ii++) {
+                            switch (ii) {
+                                case 0:
+                                    message.addReaction(EmojiManager.getForAlias("one").getUnicode()).queue();
+                                    break;
+                                case 1:
+                                    message.addReaction(EmojiManager.getForAlias("two").getUnicode()).queue();
+                                    break;
+                                case 2:
+                                    message.addReaction(EmojiManager.getForAlias("three").getUnicode()).queue();
+                                    break;
+                                case 3:
+                                    message.addReaction(EmojiManager.getForAlias("four").getUnicode()).queue();
+                                    break;
+                                case 4:
+                                    message.addReaction(EmojiManager.getForAlias("five").getUnicode()).queue();
+                                    break;
+                                case 5:
+                                    message.addReaction(EmojiManager.getForAlias("six").getUnicode()).queue();
+                                    break;
+                                case 6:
+                                    message.addReaction(EmojiManager.getForAlias("seven").getUnicode()).queue();
+                                    break;
+                                case 7:
+                                    message.addReaction(EmojiManager.getForAlias("eight").getUnicode()).queue();
+                                    break;
+                                case 8:
+                                    message.addReaction(EmojiManager.getForAlias("nine").getUnicode()).queue();
+                                    break;
+                                case 9:
+                                    message.addReaction(EmojiManager.getForAlias("keycap_ten").getUnicode()).queue();
+                                    break;
+                            }
                         }
-                    }
-                    addToEmbeds(message.getId(), ResponseContainer.ResponseExpector.CZAR_CARD_SELECT, toHandle);
-                }));
-        //modifyHandler(toHandle.getOwner().getUser().getId(), PlayState.USER_CARD_SUBMITTING);
+                        addToEmbeds(message.getId(), ResponseContainer.ResponseExpector.CZAR_CARD_SELECT, toHandle);
+                        executorService.schedule(() -> getEmbeds().get(message.getId()).setHandled(true), 20,
+                                TimeUnit.SECONDS); //Disable selection after 20 seconds
+                    }));
+        } else {
+            toHandle.getCardCzar()
+                    .getUser()
+                    .openPrivateChannel()
+                    .queue(privateChannel -> privateChannel.sendMessage(
+                            "It looks like nobody submitted any cards this round... We've given the point to you instead!")
+                                                           .queue());
+            toHandle.getCardCzar().incrementRoundsWon();
+            //Upping score by one, because nobody chose to submit any cards :/
+        }
+        executorService.schedule(() -> {
+            toHandle.getAllPlayersNonCzar()
+                    .forEach(player -> rounds.get(rounds.size() - 1).getCardSubmissions().forEach(cs -> {
+                        if (cs.getPlayer() == player) {
+                            player.getCards().remove(cs.getWhiteCard());
+                            player.getCards().add(CaDUtil.getRandomWhiteCard());
+                            //Replenish removed card
+                        }
+                        //Remove used card from player
+                    }));
+            toHandle.setCardCzar(pickCardCzar(toHandle));
+            modifyHandler(toHandle.getOwner().getUser().getId(), PlayState.USER_CARD_SUBMITTING);
+        }, 20, TimeUnit.SECONDS); //Reset game, choose next card czar, etc.
     }
     
     /**
@@ -403,6 +420,19 @@ public class CaDGameManager extends ListenerAdapter {
      * @param toHandle {@link CaDGameHandler} - The current game instance that is being invoked
      */
     private static void invokeFinish(CaDGameHandler toHandle) {
+    }
+    
+    private static Player pickCardCzar(CaDGameHandler gameHandler) {
+        //Choosing the Card Czar
+        if (gameHandler.getCardCzar() == null) {
+            return gameHandler.getAllPlayers().get(0); //Set to first user
+        } else {
+            if (gameHandler.getAllPlayers().indexOf(gameHandler.getCardCzar()) >= gameHandler.getAllPlayers().size())
+                return gameHandler.getAllPlayers().get(0); //Reset to first list member
+            else return gameHandler.getAllPlayers()
+                                   .get(gameHandler.getAllPlayers()
+                                                   .indexOf(gameHandler.getCardCzar()) + 1); //Set to next member of  list
+        }
     }
     
     public Set<Map.Entry<PlayState, HandlerContainer>> getHandlers() {

@@ -16,7 +16,6 @@
 package me.Salt.Util.Utility.Games.CardsAgainstDiscord.util;
 
 import com.vdurmont.emoji.EmojiManager;
-import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CaDGameHandler;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.CardSubmission;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Player;
 import me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity.Round;
@@ -76,7 +75,7 @@ public class CaDEventListener extends ListenerAdapter {
     }
     
     /**
-     * This method is designed to handle and respond the card selection phase of a game.
+     * This method is designed to handle and respond to the card selection phase of a game.
      *
      * @param emoteName String - The emote that was modified
      * @param event     {@link GenericPrivateMessageReactionEvent} - The event instance that triggered this method's call
@@ -167,19 +166,29 @@ public class CaDEventListener extends ListenerAdapter {
                 responseContainer.getCaDGameHandler().getOwner().getUser().getId())
                                          .getRound(responseContainer.getCaDGameHandler().getCardCzar());
         System.out.println(
-                finalRound.getCardCzar().getUser().getName() + " has chosen " + finalRound.getCardSubmissions()
-                                                                                          .get(chosen)
-                                                                                          .getWhiteCard()
-                                                                                          .getText() + " as this rounds winning card!");
-        Player winningPlayer = finalRound.getCardSubmissions().get(chosen).getPlayer();
+                finalRound.getCardCzar().getUser().getName() + " has chosen \"" + finalRound.getCardSubmissions()
+                                                                                            .get(chosen - 1)
+                                                                                            .getWhiteCard()
+                                                                                            .getText() + "\" as this rounds winning card!");
+        Player winningPlayer = finalRound.getCardSubmissions().get(chosen - 1).getPlayer();
         winningPlayer.incrementRoundsWon();
-        CaDGameManager.getEmbeds().get(event.getMessageId()).setHandled(true);
-        CaDGameHandler handler = CaDGameManager.getEmbeds().get(event.getMessageId()).getCaDGameHandler();
-        handler.getAllPlayers().forEach(player -> player.getUser().openPrivateChannel().queue(privateChannel -> {
-            if (player.getUser().getId().equals(winningPlayer.getUser().getId())) privateChannel.sendMessage(
-                    "You have won the round! Your score has been incremented. Current score: " + player.getRoundsWon())
-                                                                                                .queue();
-            else privateChannel.sendMessage("You haven't won the round :( Better luck next round!").queue();
-        }));
+        ResponseContainer container = CaDGameManager.getEmbeds().get(event.getMessageId());
+        container.setHandled(true); //No further selection of cards
+        container.getCaDGameHandler()
+                 .getAllPlayersNonCzar()
+                 .forEach(player -> player.getUser().openPrivateChannel().queue(privateChannel -> {
+                     if (player.getUser().getId().equals(winningPlayer.getUser().getId())) privateChannel.sendMessage(
+                             "You have won the round! Your score has been incremented. Current score: " + player.getRoundsWon())
+                                                                                                         .queue();
+                     else {
+                         privateChannel.sendMessage("You haven't won the round :( Better luck next round!").queue();
+                         player.incrementRoundsLost(); //Increase lost rounds
+                     }
+                 }));
+        container.getCaDGameHandler()
+                 .getCardCzar()
+                 .getUser()
+                 .openPrivateChannel()
+                 .queue(privateChannel -> privateChannel.sendMessage("Good choice!").queue());
     }
 }

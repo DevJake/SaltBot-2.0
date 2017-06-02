@@ -37,9 +37,8 @@ import java.util.List;
 /**
  * This command is used to add a player to a Cards Against Discord game.
  * <p>
- * Cards Against Discord is setup to be
- * invite-only, therefore meaning that the one inviting players must also <i>own</i> the game session they invite
- * people to.
+ * Cards Against Discord is setup to be invite-only, therefore meaning that the one inviting players must also
+ * <i>own</i> the game session they invite people to.
  * <p>
  * This command requires one parameter minimum. The parameter must be either {@code u:} or {@code id:},
  * where either a full username or a user's ID must be immediately appended, respectively. For example, the following

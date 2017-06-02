@@ -45,7 +45,7 @@ public class CaDStartGameCommand extends Command implements ICommand {
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         if (GameManager.hasGameOfType(e.getAuthor(), CaDGameHandler.class)) {
             if (((CaDGameHandler) GameManager.getGameOfType(e.getAuthor(), CaDGameHandler.class)).getAllPlayers()
-                                                                                                 .size() < 1 /*Temp, change back to three*/) {
+                                                                                                 .size() < 3) {
                 e.getChannel()
                  .sendMessage("You need at least three players in your game! Invite some to begin")
                  .queue();
