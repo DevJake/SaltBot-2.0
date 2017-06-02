@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Serialiser;
+package me.Salt.Util.Serialiser;
 
 import com.google.gson.JsonElement;
 import com.google.gson.JsonPrimitive;

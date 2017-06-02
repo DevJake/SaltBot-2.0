@@ -13,20 +13,19 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator;
 
 /**
  * Created by 15122390 on 27/04/2017.
  */
 public interface OperationSpecial {
     public String getRaw();
-
+    
     public String getOperatorName();
-
+    
     public String getSpecialName();
-
+    
     public int getValue();
-
+    
     public String getDescription();
 }

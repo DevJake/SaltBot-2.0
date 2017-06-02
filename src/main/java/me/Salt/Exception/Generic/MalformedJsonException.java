@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Exception.Generic;
 
-package main.java.me.Salt.Exception.Generic;
-
+/**
+ * Thrown when a Json input is malformed.
+ */
 public class MalformedJsonException extends GenericBotException {
     public MalformedJsonException() {
         super();

@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
-
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerOverallStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerOverallStats;
 
 public class PlayerOverallStatsImpl implements PlayerOverallStats {
     private int revives;
@@ -31,8 +30,9 @@ public class PlayerOverallStatsImpl implements PlayerOverallStats {
     private int penetrationKills;
     private int assists;
 
-    public PlayerOverallStatsImpl(int revives, int suicides, int reinforcementsDeployed, int barricadedBuilt, int stepsMoved, int bulletsFired, int bulletsHit, int headshots, int meleeKills, int penetrationKills, int assists) {
-
+    public PlayerOverallStatsImpl(int revives, int suicides, int reinforcementsDeployed, int barricadedBuilt,
+                                  int stepsMoved, int bulletsFired, int bulletsHit, int headshots, int meleeKills,
+                                  int penetrationKills, int assists) {
         this.revives = revives;
         this.suicides = suicides;
         this.reinforcementsDeployed = reinforcementsDeployed;
@@ -48,19 +48,7 @@ public class PlayerOverallStatsImpl implements PlayerOverallStats {
 
     @Override
     public String toString() {
-        return "PlayerOverallStatsImpl{" +
-                "revives=" + revives +
-                ", suicides=" + suicides +
-                ", reinforcementsDeployed=" + reinforcementsDeployed +
-                ", barricadedBuilt=" + barricadedBuilt +
-                ", stepsMoved=" + stepsMoved +
-                ", bulletsFired=" + bulletsFired +
-                ", bulletsHit=" + bulletsHit +
-                ", headshots=" + headshots +
-                ", meleeKills=" + meleeKills +
-                ", penetrationKills=" + penetrationKills +
-                ", assists=" + assists +
-                '}';
+        return "PlayerOverallStatsImpl{" + "revives=" + revives + ", suicides=" + suicides + ", reinforcementsDeployed=" + reinforcementsDeployed + ", barricadedBuilt=" + barricadedBuilt + ", stepsMoved=" + stepsMoved + ", bulletsFired=" + bulletsFired + ", bulletsHit=" + bulletsHit + ", headshots=" + headshots + ", meleeKills=" + meleeKills + ", penetrationKills=" + penetrationKills + ", assists=" + assists + '}';
     }
 
     public int getRevives() {

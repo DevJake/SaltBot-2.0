@@ -13,55 +13,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Logging;
+package me.Salt.Logging;
 
 import java.time.ZonedDateTime;
 
+/**
+ * A container class for Log entries.
+ */
 public class LogEntry {
+    /**
+     * The time that the log entry was created.
+     */
     private ZonedDateTime time;
+    /**
+     * The {@link me.Salt.Logging.JLogger.Level} of the log entry.
+     */
     private JLogger.Level level;
+    /**
+     * The contained message of the log entry.
+     */
     private String message;
+    /**
+     * The class that caused the creation of this log entry.
+     */
     private String className; //Class that created this log entry
+    /**
+     * The exception that caused the log entry - if applicable.
+     */
     private Exception cause;
-
-    @Override
-    public String toString() {
-        return "LogEntry{" +
-                "time=" + time +
-                ", level=" + level +
-                ", message='" + message + '\'' +
-                ", className='" + className + '\'' +
-                ", cause=" + cause +
-                '}';
-    }
-
-    public ZonedDateTime getTime() {
-        return time;
-    }
-
-    public JLogger.Level getLevel() {
-        return level;
-    }
-
-    public String getMessage() {
-        return message;
-    }
-
-    public String getClassName() {
-        return className;
-    }
-
-    public Exception getCause() {
-        return cause;
-    }
-
+    
     public LogEntry(ZonedDateTime time, JLogger.Level level, String message, String className, Exception cause) {
-
         this.time = time;
         this.level = level;
         this.message = message;
         this.className = className;
         this.cause = cause;
+    }
+    
+    @Override
+    public String toString() {
+        return "LogEntry{" + "time=" + time + ", level=" + level + ", message='" + message + '\'' + ", className='" + className + '\'' + ", cause=" + cause + '}';
+    }
+    
+    public ZonedDateTime getTime() {
+        return time;
+    }
+    
+    public JLogger.Level getLevel() {
+        return level;
+    }
+    
+    public String getMessage() {
+        return message;
+    }
+    
+    public String getClassName() {
+        return className;
+    }
+    
+    public Exception getCause() {
+        return cause;
     }
 }

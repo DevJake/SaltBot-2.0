@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.SaltAPI.Guild.Impl;
+package me.Salt.SaltAPI.Guild.Impl;
 
 import com.google.gson.annotations.Expose;
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.SaltAPI.Guild.JGuild;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Permissions.Perm;
+import me.Salt.SaltAPI.Guild.JGuild;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 
@@ -28,22 +27,43 @@ import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by Salt001 on 10/04/2017.
+ * A container class for guilds.
  */
 public class JGuildImpl implements JGuild {
+    /**
+     * The guild which this class references to.
+     */
     private Guild guild;
+    /**
+     * The ID of the guild. Although storing the ID may seem pointless (due to storing the guild itself), it's stored
+     * for the purpose of allowing the gathering of guilds after restarts, where the guild ID is stored in plaintext.
+     */
     @Expose
     private long guildId;
+    /**
+     * The permissions registered to this guild
+     */
     @Expose
     private List<Perm> permissions = new ArrayList<>();
+    /**
+     * The last message received from this guild.
+     */
     @Expose
     private String lastMessage;
+    /**
+     * The last activity seen in this guild. Unlike the {@link JGuildImpl#lastMessage}, the activity is updated to
+     * reflect when users come online, send a message, join a voicechannel, or begin typing.
+     */
     @Expose
     private LocalDateTime lastActivity;
+    /**
+     * The last textchannel of this guild which received a message.
+     */
     @Expose
     private TextChannel lastTextChannelMessaged;
-
-    public JGuildImpl(Guild guild, long guildId, List<Perm> permissions, String lastMessage, LocalDateTime lastActivity, TextChannel lastTextChannelMessaged) {
+    
+    public JGuildImpl(Guild guild, long guildId, List<Perm> permissions, String lastMessage, LocalDateTime lastActivity,
+                      TextChannel lastTextChannelMessaged) {
         this.guild = guild;
         this.guildId = guildId;
         this.permissions = permissions;
@@ -51,17 +71,17 @@ public class JGuildImpl implements JGuild {
         this.lastActivity = lastActivity;
         this.lastTextChannelMessaged = lastTextChannelMessaged;
     }
-
+    
     @Override
     public Guild getGuild() {
         return guild;
     }
-
+    
     @Override
     public long getGuildId() {
         return guildId;
     }
-
+    
     @Override
     public JGuild addPermission(Perm permission) throws DuplicateDataException {
         if (this.permissions.contains(permission))
@@ -69,28 +89,28 @@ public class JGuildImpl implements JGuild {
         else this.permissions.add(permission);
         return this;
     }
-
+    
     @Override
     public JGuild removePermission(Perm permission) {
         if (this.permissions.contains(permission)) this.permissions.remove(permission);
         return this;
     }
-
+    
     @Override
     public List<Perm> getPermissions() {
         return permissions;
     }
-
+    
     @Override
     public String getLastMessage() {
         return lastMessage;
     }
-
+    
     @Override
     public LocalDateTime getLastActivity() {
         return lastActivity;
     }
-
+    
     @Override
     public TextChannel getLastTextChannelMessaged() {
         return lastTextChannelMessaged;

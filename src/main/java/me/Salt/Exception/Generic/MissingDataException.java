@@ -13,25 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Exception.Generic;
+package me.Salt.Exception.Generic;
 
 /**
- * Created by Salt001 on 09/04/2017.
+ * Thrown when command parameters are <i>missing</i> data, or when a command is missing parameters.
  */
 public class MissingDataException extends GenericBotException {
     public MissingDataException() {
         super();
     }
-
+    
     public MissingDataException(String message) {
         super(message);
     }
-
+    
     public MissingDataException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public MissingDataException(Throwable cause) {
         super(cause);
     }

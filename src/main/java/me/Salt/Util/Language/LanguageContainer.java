@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Language;
+package me.Salt.Util.Language;
 
 import com.google.gson.annotations.Expose;
 
@@ -27,14 +26,6 @@ public class LanguageContainer {
     @Expose
     private Map<LangString, String> strings = new HashMap<>();
 
-    @Override
-    public String toString() {
-        return "LanguageContainer{" +
-                "code='" + code + '\'' +
-                ", strings=" + strings +
-                '}';
-    }
-
     public LanguageContainer(LanguageContainer l) {
         this.code = l.getCode();
         this.strings = l.getStrings();
@@ -43,6 +34,11 @@ public class LanguageContainer {
     public LanguageContainer(LangCode code, Map<LangString, String> strings) {
         this.code = code;
         this.strings = strings;
+    }
+
+    @Override
+    public String toString() {
+        return "LanguageContainer{" + "code='" + code + '\'' + ", strings=" + strings + '}';
     }
 
     public LangCode getCode() {

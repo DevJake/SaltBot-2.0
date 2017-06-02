@@ -13,44 +13,50 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Informative;
 
-package main.java.me.Salt.Command.Commands.Informative;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Main;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
 import java.util.concurrent.TimeUnit;
 
+/**
+ * This command provides simplistic information about the bot's current uptime.
+ */
 public class UptimeCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Perhaps integrate into Stats command
     public UptimeCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
-
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
-
-        e.getChannel().sendMessage(
-                new EmbedBuilder()
-                        .addField("Current Uptime", String.valueOf(TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - Main.salt.getStartupTime())) + " Minutes", true) //TODO only show current time, such as 3 Days, 2 Hours, 12 Minutes and 44 Seconds.
-                        .setColor(Main.salt.getEmbedColour())
-                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                        .build()).queue();
+        e.getChannel()
+         .sendMessage(new EmbedBuilder().addField("Current Uptime", String.valueOf(
+                 TimeUnit.MILLISECONDS.toMinutes(System.currentTimeMillis() - Main.salt.getStartupTime())) + " Minutes",
+                 true) //TODO only show current time, such as 3 Days, 2 Hours, 12 Minutes and 44 Seconds.
+                                        .setColor(Main.salt.getEmbedColour())
+                                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage()
+                                                                                                         .getCreationTime()
+                                                                                                         .plusHours(1)
+                                                                                                         .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                e.getAuthor().getAvatarUrl())
+                                        .build())
+         .queue();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

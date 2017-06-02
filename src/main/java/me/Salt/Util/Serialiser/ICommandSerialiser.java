@@ -13,20 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Serialiser;
+package me.Salt.Util.Serialiser;
 
 import com.google.gson.GsonBuilder;
 import com.google.gson.JsonElement;
 import com.google.gson.JsonSerializationContext;
 import com.google.gson.JsonSerializer;
-import main.java.me.Salt.Command.ICommand;
+import me.Salt.Command.ICommand;
 
 import java.lang.reflect.Type;
 
 public class ICommandSerialiser implements JsonSerializer<ICommand> {
     @Override
     public JsonElement serialize(ICommand src, Type typeOfSrc, JsonSerializationContext context) {
-        return new GsonBuilder().enableComplexMapKeySerialization().serializeNulls().create().toJsonTree(src.getCmdContainer());
+        return new GsonBuilder().enableComplexMapKeySerialization()
+                                .serializeNulls()
+                                .create()
+                                .toJsonTree(src.getCmdContainer());
     }
 }

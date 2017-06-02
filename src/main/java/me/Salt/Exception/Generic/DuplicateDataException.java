@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Exception.Generic;
+package me.Salt.Exception.Generic;
 
 /**
- * Created by Salt001 on 10/04/2017.
+ * Thrown when initialisation code attempts to create a duplicate set of data, such as attempting to register
+ * duplicate commands, permissions or languages.
  */
 public class DuplicateDataException extends GenericBotException {
     public DuplicateDataException() {

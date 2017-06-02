@@ -13,18 +13,17 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6;
 
 import com.google.gson.Gson;
 import com.google.gson.GsonBuilder;
 import com.mashape.unirest.http.Unirest;
 import com.mashape.unirest.http.exceptions.UnirestException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl.R6PlayerImpl;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Serialiser.R6PlayerDeserialiaser;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl.R6PlayerImpl;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.R6Player;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Platform;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Serialiser.R6PlayerDeserialiaser;
 
 import java.io.IOException;
 import java.io.InputStreamReader;
@@ -37,10 +36,8 @@ import java.util.List;
  */
 public class R6Handler {
     private final String apiURL;
-    private final Gson g =
-            new GsonBuilder()
-                    .registerTypeAdapter(R6PlayerImpl.class, new R6PlayerDeserialiaser())
-                    .create();
+    private final Gson g = new GsonBuilder().registerTypeAdapter(R6PlayerImpl.class, new R6PlayerDeserialiaser())
+                                            .create();
     private List<R6Player> players = new ArrayList<>();
     private HashMap<String, R6Player> namePlayerLookup = new HashMap<>(); //Lookup by name
 
@@ -65,24 +62,21 @@ public class R6Handler {
         R6Player r = null;
         try {
             StringBuilder n = new StringBuilder();
-
-            InputStreamReader i = new InputStreamReader(
-                    Unirest.get(apiURL + "/players/{username}")
-                            .routeParam("username", username)
-                            .header("accept", "application/json")
-                            .queryString("platform", platform.name().toLowerCase())
-                            .asJson().getRawBody());
+            InputStreamReader i = new InputStreamReader(Unirest.get(apiURL + "/players/{username}")
+                                                               .routeParam("username", username)
+                                                               .header("accept", "application/json")
+                                                               .queryString("platform", platform.name().toLowerCase())
+                                                               .asJson()
+                                                               .getRawBody());
             int x = i.read();
             while (x != -1) {
                 n.append(String.valueOf((char) x));
                 x = i.read();
             }
-            
             if (n.toString().contains("status")) throw new MissingDataException("Wrong data!");
             r = g.fromJson(n.toString(), R6PlayerImpl.class);
             System.out.println(r.toString());
             System.out.println(n.toString());
-
         } catch (UnirestException | IOException | MissingDataException e) {
             e.printStackTrace();
         }

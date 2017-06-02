@@ -13,50 +13,65 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Informative;
 
-package main.java.me.Salt.Command.Commands.Informative;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Main;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.OnlineStatus;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
 
+/**
+ * This command provides information to the command's executor about the current TextChannel.
+ */
 public class TextChannelInfoCommand extends Command implements ICommand {
+    // TODO: 29/05/2017 Allow specifying TextChannel. Perhaps even allow Guild#TextChannel. Also update JavaDoc accordingly
     public TextChannelInfoCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         long n = System.currentTimeMillis();
-
-        e.getChannel().sendMessage(
-                new EmbedBuilder()
-                        .setThumbnail(e.getGuild().getIconUrl())
-                        .addField(e.getChannel().getName(), "ID#" + e.getGuild().getIdLong(), true)
-                        .addField("Topic", e.getChannel().getTopic().length() >0 ? e.getChannel().getTopic() : "None set", true)
-                        .addField("Members", e.getChannel().getMembers().stream().filter(member -> member.getOnlineStatus().equals(OnlineStatus.ONLINE)).count() + "/" + e.getChannel().getMembers().size(), true)
-                        .addField("Creation Timestamp", e.getChannel().getCreationTime().format(DateTimeFormatter.RFC_1123_DATE_TIME), true)
-
-                        .setColor(Main.salt.getEmbedColour())
-                        .appendDescription("Generated in " + String.valueOf(System.currentTimeMillis() - n) + "ms")
-                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), e.getAuthor().getAvatarUrl())
-                        .build()).queue();
+        e.getChannel()
+         .sendMessage(new EmbedBuilder().setThumbnail(e.getGuild().getIconUrl())
+                                        .addField(e.getChannel().getName(), "ID#" + e.getGuild().getIdLong(), true)
+                                        .addField("Topic", e.getChannel().getTopic().length() > 0 ? e.getChannel()
+                                                                                                     .getTopic() : "None set",
+                                                true)
+                                        .addField("Members", e.getChannel()
+                                                              .getMembers()
+                                                              .stream()
+                                                              .filter(member -> member.getOnlineStatus()
+                                                                                      .equals(OnlineStatus.ONLINE))
+                                                              .count() + "/" + e.getChannel().getMembers().size(), true)
+                                        .addField("Creation Timestamp", e.getChannel()
+                                                                         .getCreationTime()
+                                                                         .format(DateTimeFormatter.RFC_1123_DATE_TIME),
+                                                true)
+                                        .setColor(Main.salt.getEmbedColour())
+                                        .appendDescription(
+                                                "Generated in " + String.valueOf(System.currentTimeMillis() - n) + "ms")
+                                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage()
+                                                                                                         .getCreationTime()
+                                                                                                         .plusHours(1)
+                                                                                                         .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                e.getAuthor().getAvatarUrl())
+                                        .build())
+         .queue();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

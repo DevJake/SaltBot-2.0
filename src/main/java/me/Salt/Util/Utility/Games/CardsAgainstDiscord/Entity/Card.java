@@ -13,11 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
+package me.Salt.Util.Utility.Games.CardsAgainstDiscord.Entity;
 
 /**
- * Created by 15122390 on 24/04/2017.
+ * This class represents a Card; neither a Black nor White card.
+ *
+ * @see BlackCard
+ * @see WhiteCard
  */
 public class Card {
+    /**
+     * The text present on the card.
+     */
+    private String text;
+    
+    public Card(String text) {
+        this.text = text;
+    }
+    
+    public String getText() {
+        return text;
+    }
 }

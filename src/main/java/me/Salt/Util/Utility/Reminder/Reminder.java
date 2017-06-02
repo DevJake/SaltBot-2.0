@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.Reminder;
+package me.Salt.Util.Utility.Reminder;
 
 import net.dv8tion.jda.core.entities.TextChannel;
 import net.dv8tion.jda.core.entities.User;
@@ -37,7 +36,8 @@ public class Reminder {
     private List<TextChannel> channels = new ArrayList<>(); //Channel to put message in
     //TODO allow a specific message to be mentioned. Can then quote the message content, as well as providing date/time/author details about it.
 
-    public Reminder(User creator, long startTime, long endTime, List<User> mentionables, String message, boolean recursive, List<Long> remindTimes, List<TextChannel> channels) {
+    public Reminder(User creator, long startTime, long endTime, List<User> mentionables, String message,
+                    boolean recursive, List<Long> remindTimes, List<TextChannel> channels) {
         this.creator = creator;
         this.startTime = startTime;
         this.endTime = endTime;

@@ -13,9 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.TubeMapper;
-
+package me.Salt.Util.Utility.TubeMapper;
 
 import java.util.List;
 
@@ -24,7 +22,6 @@ import java.util.List;
  * Created by Salt on 13/04/2017.
  */
 public class TubeLine {
-
     private String name;
     private Colour colour;
     private List<Station> stations;
@@ -33,7 +30,6 @@ public class TubeLine {
         this.name = name;
         this.colour = colour;
         this.stations = stations;
-
     }
 
     public String getName() {
@@ -42,11 +38,7 @@ public class TubeLine {
 
     @Override
     public String toString() {
-        return "TubeLine{" +
-                "name='" + name + '\'' +
-                ", colour=" + colour +
-                ", stations=" + stations.toString() +
-                '}';
+        return "TubeLine{" + "name='" + name + '\'' + ", colour=" + colour + ", stations=" + stations.toString() + '}';
     }
 
     public Colour getColour() {

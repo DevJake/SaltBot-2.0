@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Utility;
 
-package main.java.me.Salt.Command.Commands.Utility;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * This class provides details to the command caller about the project's current roadmap.
+ * This command provides details to the command caller about the project's current roadmap.
  * This allows them to keep up to date with planned changes.
  */
 public class RoadmapCommand extends Command implements ICommand {
@@ -43,6 +42,5 @@ public class RoadmapCommand extends Command implements ICommand {
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

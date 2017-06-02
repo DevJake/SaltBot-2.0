@@ -13,26 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Logging;
+package me.Salt.Logging;
 
 import java.time.Instant;
 import java.time.ZoneOffset;
 import java.util.List;
 
 /**
- * Allows for the logging of information to the console, text file, or both. Currently supports just console logging.
+ * Allows for the logging of information to the console, text file, or both.
  */
 public class JLogger {
-
     /**
      * Attempts to write a string to the console.
      *
      * @param message String - The message to be written
      */
-
     public static void writeToConsole(String message) {
-        System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + Level.INFO.name() + "] " + message);
+        System.out.println(
+                "[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + Level.INFO.name() + "] " + message);
         //TODO add a call to a private writeToFile and writeToChannel method
     }
 
@@ -43,7 +41,11 @@ public class JLogger {
      * @param o       Object - The object to write details about
      */
     public static void writeToConsole(String message, Object o) {
-        System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + Level.INFO.name() + "] " + message + ". Thrown by class: " + o.getClass().getName());
+        System.out.println("[" + Instant.now()
+                                        .atOffset(ZoneOffset.ofHours(
+                                                -1)) + "]" + " [" + Level.INFO.name() + "] " + message + ". Thrown by class: " + o
+                .getClass()
+                .getName());
     }
 
     /**
@@ -53,7 +55,8 @@ public class JLogger {
      * @param message String - The message to be written
      */
     public static void writeToConsole(Level level, String message) {
-        System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + level.name() + "] " + message);
+        System.out.println(
+                "[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + level.name() + "] " + message);
     }
 
     /**
@@ -64,7 +67,11 @@ public class JLogger {
      * @param o       Object - The object to write details about
      */
     public static void writeToConsole(Level level, String message, Object o) {
-        System.out.println("[" + Instant.now().atOffset(ZoneOffset.ofHours(-1)) + "]" + " [" + level.name() + "] " + message + ". Thrown by class: " + o.getClass().getName());
+        System.out.println("[" + Instant.now()
+                                        .atOffset(ZoneOffset.ofHours(
+                                                -1)) + "]" + " [" + level.name() + "] " + message + ". Thrown by class: " + o
+                .getClass()
+                .getName());
     }
 
     public static void writeToConsole(List<String> prefixes, Level level, String message, Object o) {
@@ -99,8 +106,7 @@ public class JLogger {
         sb.append(message);
         System.out.println(sb.toString());
     }
-
-//TODO Change to a simple method with a message, or a method with a LogBuilder. Simplifies the process of making log entries.
+    //TODO Change to a simple method with a message, or a method with a LogBuilder. Simplifies the process of making log entries.
 
     /**
      * The level of the warning that should be used when creating log and/or console entries.
@@ -118,15 +124,17 @@ public class JLogger {
      * DEBUG - Information displayed whilst debugging mode is enabled
      */
     public enum Level {
-        INFO, //Information and details of generic operation
-        CONFIG, //Information about changes related to configurations
-        WARNING, //A notice of improper behaviour in the application
-        SEVERE, //A notice of extremely improper - potentially crash-causing - behaviour
-        FATAL, //A notice of crash-causing details; often composing the final set of entries to a log file
+        INFO,
+        //Information and details of generic operation
+        CONFIG,
+        //Information about changes related to configurations
+        WARNING,
+        //A notice of improper behaviour in the application
+        SEVERE,
+        //A notice of extremely improper - potentially crash-causing - behaviour
+        FATAL,
+        //A notice of crash-causing details; often composing the final set of entries to a log file
         DEBUG //Information displayed when debugging mode is enabled
     }
-
-
 }
-
 //TODO allow toggling of console/file logging on entries (though not allowing such an ability on SEVERE and FATAL details)

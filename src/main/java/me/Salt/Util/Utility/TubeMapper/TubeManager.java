@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.TubeMapper;
+package me.Salt.Util.Utility.TubeMapper;
 
 import java.util.ArrayList;
 import java.util.HashMap;
@@ -32,13 +31,10 @@ public class TubeManager {
 
     public List<Station> getShortestRoute(Station start, Station end) {
         List<Road> priorityQueue = new ArrayList<>();
-
         for (Station s : tubeLines.get(0).getStations()) {
             priorityQueue.add(new Road(s, null, 0));
         }
-
         int index = tubeLines.get(0).getStations().indexOf(start);
-
         if (index == 0 && tubeLines.get(0).getStations().size() > 0) {
             //We are at the first station of the line, and there are more stations
         } else if (index > 0 && tubeLines.get(0).getStations().size() != index) {
@@ -46,14 +42,11 @@ public class TubeManager {
         } else if (index > 0) {
             //We are at the last station of this line
         } else return null; //Not possible to continue. Line must only have 1 station
-
         return null;
     }
 
-
     public void init() {
         List<Station> stations = new ArrayList<>();
-
         stations.add(new Station("Harrow & Wealdstone", true));
         stations.add(new Station("Kenton", false));
         stations.add(new Station("South Kenton", false));
@@ -79,9 +72,7 @@ public class TubeManager {
         stations.add(new Station("Waterloo", true));
         stations.add(new Station("Lambeth North", false));
         stations.add(new Station("Elephant & Castle", false));
-
         tubeLines.add(new TubeLine("Bakerloo", TubeLine.Colour.BROWN, stations));
     }
-
     //TODO this is a complete mess. Rework.
 }

@@ -13,17 +13,16 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Utility;
 
-package main.java.me.Salt.Command.Commands.Utility;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Main;
-import main.java.me.Salt.Util.Utility.Reminder.Reminder;
-import main.java.me.Salt.Util.Utility.Reminder.ReminderBuilder;
-import main.java.me.Salt.Util.Utility.Reminder.ReminderHandler;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Main;
+import me.Salt.Util.Utility.Reminder.Reminder;
+import me.Salt.Util.Utility.Reminder.ReminderBuilder;
+import me.Salt.Util.Utility.Reminder.ReminderHandler;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.Instant;
@@ -35,31 +34,34 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 /**
- * Allows the user to establish a timescale, in which a timer shall be started. At the end of the timer, the user shall be notified that their timer has expired.
- * This allows an individual to set up a reminder, to remind them in any range of time periods.
+ * This command allows the user to establish a timescale, in which a timer shall be started. At the end of the timer
+ * the user shall be notified that their timer has expired. This allows an individual to set up a reminder, to remind
+ * them in any range of time periods, about anything.
  */
 public class ReminderCommand extends Command implements ICommand {
-    final Pattern TIMEMEASURE = Pattern.compile("\\d*[smhd]{1}"); //Filters out the remind time (such as 3s10m for 10 minutes and 3 seconds)
+    final Pattern TIMEMEASURE = Pattern.compile(
+            "\\d*[smhd]{1}"); //Filters out the remind time (such as 3s10m for 10 minutes and 3 seconds)
     final Pattern MESSAGE = Pattern.compile("\"{1}.+\"{1}"); //Filters out the message to be displayed
-
+    
     public ReminderCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         ReminderBuilder rb = new ReminderBuilder();
         rb.addChannel(e.getChannel());
         rb.addMentionable(e.getAuthor());
         rb.setCreator(e.getAuthor());
-
-        Matcher m = TIMEMEASURE.matcher(cmd.getRawText().toLowerCase().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd() + " ", ""));
+        Matcher m = TIMEMEASURE.matcher(
+                cmd.getRawText().toLowerCase().replaceFirst(Main.salt.getCmdPrefix() + cmd.getCmd() + " ", ""));
         while (m.find()) {
+            // TODO: 29/05/2017 Move time-checking logic to utilities class
             String n = m.group();
             switch (n.substring(n.length() - 1, n.length())) {
                 case "s":
@@ -76,21 +78,22 @@ public class ReminderCommand extends Command implements ICommand {
                     continue;
             }
         }
-
         if (MESSAGE.matcher(cmd.getRawText()).find())
             rb.setMessage(MESSAGE.matcher(cmd.getRawText()).group()); //Don't convert to lower
         else rb.setMessage("Here is your reminder " + e.getAuthor().getAsMention() + "!");
-
         rb.setStartTime(System.currentTimeMillis()); //Do last to get the closest possible timing
         Reminder r = rb.build();
         ReminderHandler.setNewReminder(r);
-
-        ZonedDateTime z = Instant.ofEpochMilli(System.currentTimeMillis() + r.getEndTime()).atZone(ZoneId.of("Europe/London"));
-        e.getChannel().sendMessage("Scheduled a new reminder for " + z.format(DateTimeFormatter.ofPattern("EEE, dd MMM")) + " at " + z.format(DateTimeFormatter.ofPattern("K:m:s a"))).queue(j -> j.delete().queueAfter(10, TimeUnit.SECONDS)); //TODO format to be like 1st, 2nd and 3rd, etc.
+        ZonedDateTime z = Instant.ofEpochMilli(System.currentTimeMillis() + r.getEndTime())
+                                 .atZone(ZoneId.of("Europe/London"));
+        e.getChannel()
+         .sendMessage("Scheduled a new reminder for " + z.format(
+                 DateTimeFormatter.ofPattern("EEE, dd MMM")) + " at " + z.format(
+                 DateTimeFormatter.ofPattern("K:m:s a")))
+         .queue(j -> j.delete().queueAfter(10, TimeUnit.SECONDS)); //TODO format to be like 1st, 2nd and 3rd, etc.
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

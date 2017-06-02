@@ -13,52 +13,53 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Informative;
 
-package main.java.me.Salt.Command.Commands.Informative;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Main;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Main;
 import net.dv8tion.jda.core.EmbedBuilder;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 import java.time.format.DateTimeFormatter;
 
 /**
- * Calculates a ping value (in milliseconds) and returns the value to the user.
+ * This command calculates a ping value (in milliseconds) and returns the value to the command executor.
  */
 public class PingCommand extends Command implements ICommand {
-
+    // TODO: 29/05/2017 Add arguments to request the average of repeat pings
+    // TODO: 29/05/2017 Update JavaDoc to reflect chosen arguments
     public PingCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
-
+    
     @Override
     public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) {
         return true;
     }
-
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         long n = System.currentTimeMillis();
-        e.getChannel().sendMessage(
-                new EmbedBuilder()
-                        .appendDescription("Calculating...")
-                        .setColor(Main.salt.getEmbedColour())
-                        .build()).queue(m -> m.editMessage(
-                new EmbedBuilder()
-                        .setTitle("Pong! \uD83C\uDFD3", null)
-                        .setFooter("Requested by " + e.getAuthor().getName() + " at " + e.getMessage().getCreationTime().plusHours(1).format(DateTimeFormatter.ISO_LOCAL_TIME), null)
-                        .setDescription("Response speed of " + (System.currentTimeMillis() - n) + "ms")
-                        .setColor(Main.salt.getEmbedColour()).build())
-                .queue());
+        e.getChannel()
+         .sendMessage(
+                 new EmbedBuilder().appendDescription("Calculating...").setColor(Main.salt.getEmbedColour()).build())
+         .queue(m -> m.editMessage(new EmbedBuilder().setTitle("Pong! \uD83C\uDFD3", null)
+                                                     .setFooter("Requested by " + e.getAuthor()
+                                                                                   .getName() + " at " + e.getMessage()
+                                                                                                          .getCreationTime()
+                                                                                                          .plusHours(1)
+                                                                                                          .format(DateTimeFormatter.ISO_LOCAL_TIME),
+                                                             null)
+                                                     .setDescription(
+                                                             "Response speed of " + (System.currentTimeMillis() - n) + "ms")
+                                                     .setColor(Main.salt.getEmbedColour())
+                                                     .build()).queue());
     }
-
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

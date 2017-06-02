@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
 
 /**
  * An enum for the different types of Gamemodes in Rainbow 6 Siege

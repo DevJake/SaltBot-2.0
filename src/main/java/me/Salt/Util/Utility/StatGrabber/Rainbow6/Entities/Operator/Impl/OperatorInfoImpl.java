@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
-
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorInfo;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperatorInfo;
 
 public class OperatorInfoImpl implements OperatorInfo {
     private String name;
@@ -26,7 +25,6 @@ public class OperatorInfoImpl implements OperatorInfo {
     private String bustUrl;
 
     public OperatorInfoImpl(String name, String ctu, String figureUrl, String badgeUrl, String bustUrl) {
-
         this.name = name;
         this.ctu = ctu;
         this.figureUrl = figureUrl;

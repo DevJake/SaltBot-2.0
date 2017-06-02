@@ -13,10 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Exception.Language;
 
-package main.java.me.Salt.Exception.Language;
-
-
+/**
+ * A container exception for Language-related exceptions.
+ */
 public class LanguageException extends Exception {
     public LanguageException() {
         super();

@@ -13,13 +13,12 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
-
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerOverallStats;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerProgressionStats;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerOverallStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerProgressionStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerStats;
 
 public class PlayerStatsImpl implements PlayerStats {
     private PlayerGamemodeStats ranked;
@@ -27,7 +26,8 @@ public class PlayerStatsImpl implements PlayerStats {
     private PlayerOverallStats overall;
     private PlayerProgressionStats progression;
 
-    public PlayerStatsImpl(PlayerGamemodeStats ranked, PlayerGamemodeStats casual, PlayerOverallStats overall, PlayerProgressionStats progression) {
+    public PlayerStatsImpl(PlayerGamemodeStats ranked, PlayerGamemodeStats casual, PlayerOverallStats overall,
+                           PlayerProgressionStats progression) {
         this.ranked = ranked;
         this.casual = casual;
         this.overall = overall;
@@ -56,11 +56,7 @@ public class PlayerStatsImpl implements PlayerStats {
 
     @Override
     public String toString() {
-        return "PlayerStatsImpl{" +
-                "ranked=" + ranked.toString() +
-                ", casual=" + casual.toString() +
-                ", overall=" + overall.toString() +
-                ", progression=" + progression.toString() +
-                '}';
+        return "PlayerStatsImpl{" + "ranked=" + ranked.toString() + ", casual=" + casual.toString() + ", overall=" + overall
+                .toString() + ", progression=" + progression.toString() + '}';
     }
 }

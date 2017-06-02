@@ -13,10 +13,9 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.Impl;
-
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperationSpecial;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Operator.OperationSpecial;
 
 public class OperatorSpecialImpl implements OperationSpecial {
     private String raw; //Typical incoming data might be "operatorpvp_glaz_sniperkill": "92"
@@ -24,7 +23,7 @@ public class OperatorSpecialImpl implements OperationSpecial {
     private String specialName;
     private int value;
     private String description;
-
+    
     public OperatorSpecialImpl(String raw, String operatorName, String specialName, int value, String description) {
         this.raw = raw;
         this.operatorName = operatorName;
@@ -32,27 +31,27 @@ public class OperatorSpecialImpl implements OperationSpecial {
         this.value = value;
         this.description = description;
     }
-
+    
     @Override
     public String getRaw() {
         return raw;
     }
-
+    
     @Override
     public String getOperatorName() {
         return operatorName;
     }
-
+    
     @Override
     public String getSpecialName() {
         return specialName;
     }
-
+    
     @Override
     public int getValue() {
         return value;
     }
-
+    
     @Override
     public String getDescription() {
         return description;

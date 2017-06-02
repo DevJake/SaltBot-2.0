@@ -13,26 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Exception.Generic;
+package me.Salt.Exception.Generic;
 
 /**
- * Project title: SaltBot-2.0
- * Authored by Salt on 10/04/2017.
+ * A container exception for generic bot exceptions.
  */
 public class GenericBotException extends Exception {
     public GenericBotException() {
         super();
     }
-
+    
     public GenericBotException(String message) {
         super(message);
     }
-
+    
     public GenericBotException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public GenericBotException(Throwable cause) {
         super(cause);
     }

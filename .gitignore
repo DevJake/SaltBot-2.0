@@ -10,3 +10,7 @@ libs/
 gradlew
 *.bat
 *.iws
+
+*.settings
+
+*.salt

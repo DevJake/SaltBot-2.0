@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
-
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerGamemodeStats;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Util.Gamemode;
 
 public class PlayerGamemodeStatsImpl implements PlayerGamemodeStats {
     private Gamemode gamemode;
@@ -30,8 +29,8 @@ public class PlayerGamemodeStatsImpl implements PlayerGamemodeStats {
     private double killDeathRatio;
     private int playtime;
 
-    public PlayerGamemodeStatsImpl(Gamemode gamemode, boolean hasPlayed, int wins, int losses, double winLoseRatio, int kills, int deaths, double killDeathRatio, int playtime) {
-
+    public PlayerGamemodeStatsImpl(Gamemode gamemode, boolean hasPlayed, int wins, int losses, double winLoseRatio,
+                                   int kills, int deaths, double killDeathRatio, int playtime) {
         this.gamemode = gamemode;
         this.hasPlayed = hasPlayed;
         this.wins = wins;
@@ -45,17 +44,7 @@ public class PlayerGamemodeStatsImpl implements PlayerGamemodeStats {
 
     @Override
     public String toString() {
-        return "PlayerGamemodeStatsImpl{" +
-                "gamemode=" + gamemode +
-                ", hasPlayed=" + hasPlayed +
-                ", wins=" + wins +
-                ", losses=" + losses +
-                ", winLoseRatio=" + winLoseRatio +
-                ", kills=" + kills +
-                ", deaths=" + deaths +
-                ", killDeathRatio=" + killDeathRatio +
-                ", playtime=" + playtime +
-                '}';
+        return "PlayerGamemodeStatsImpl{" + "gamemode=" + gamemode + ", hasPlayed=" + hasPlayed + ", wins=" + wins + ", losses=" + losses + ", winLoseRatio=" + winLoseRatio + ", kills=" + kills + ", deaths=" + deaths + ", killDeathRatio=" + killDeathRatio + ", playtime=" + playtime + '}';
     }
 
     public Gamemode getGamemode() {

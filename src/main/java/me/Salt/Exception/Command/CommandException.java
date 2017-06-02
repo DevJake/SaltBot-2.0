@@ -13,22 +13,24 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Exception.Command;
 
-package main.java.me.Salt.Exception.Command;
-
+/**
+ * A Command-related Exception.
+ */
 public class CommandException extends Exception {
     public CommandException() {
         super();
     }
-
+    
     public CommandException(String message) {
         super(message);
     }
-
+    
     public CommandException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public CommandException(Throwable cause) {
         super(cause);
     }

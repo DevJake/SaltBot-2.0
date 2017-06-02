@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Language;
+package me.Salt.Util.Language;
 
 public enum LangString {
-    LACKING_PERMISSION, //TODO add to
-
+    LACKING_PERMISSION,
+    //TODO add to
     //Logging values
     LOGGING_INFO,
     LOGGING_CONFIG,
@@ -26,6 +25,4 @@ public enum LangString {
     LOGGING_SEVERE,
     LOGGING_FATAL,
     LOGGING_DEBUG,
-
-
 }

@@ -13,18 +13,15 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.SaltAPI.Util;
 
-package main.java.me.Salt.SaltAPI.Util;
-
-import main.java.me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Generic.MissingDataException;
 import net.dv8tion.jda.core.entities.User;
 
 import java.time.ZonedDateTime;
 
-
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
+ * This class acts as a builder for making new instances of {@link WarningBuilder.Warning}
  */
 public class WarningBuilder {
     private User setter; //Who created the warning
@@ -82,14 +79,7 @@ public class WarningBuilder {
 
         @Override
         public String toString() {
-            return "Warning{" +
-                    "setter=" + setter +
-                    ", affector=" + affector +
-                    ", reason='" + reason + '\'' +
-                    ", setDate=" + setDate +
-                    ", expirationDate=" + expirationDate +
-                    ", evidenceID='" + evidenceID + '\'' +
-                    '}';
+            return "Warning{" + "setter=" + setter + ", affector=" + affector + ", reason='" + reason + '\'' + ", setDate=" + setDate + ", expirationDate=" + expirationDate + ", evidenceID='" + evidenceID + '\'' + '}';
         }
 
         public User getSetter() {

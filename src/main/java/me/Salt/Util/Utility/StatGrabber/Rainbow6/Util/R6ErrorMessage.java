@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
 
 public class R6ErrorMessage {
     private String description;
@@ -23,7 +22,6 @@ public class R6ErrorMessage {
     private String field;
 
     public R6ErrorMessage(String description, String title, int code, String field) {
-
         this.description = description;
         this.title = title;
         this.code = code;

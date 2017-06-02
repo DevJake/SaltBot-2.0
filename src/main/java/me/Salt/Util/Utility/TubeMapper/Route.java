@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.TubeMapper;
+package me.Salt.Util.Utility.TubeMapper;
 
 import java.util.List;
 
@@ -28,7 +27,6 @@ public class Route {
     private List<Station> stops;
 
     public Route(Station start, Station end, List<Station> stops) {
-
         this.start = start;
         this.end = end;
         this.stops = stops;

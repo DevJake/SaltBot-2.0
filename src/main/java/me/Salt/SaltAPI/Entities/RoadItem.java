@@ -13,19 +13,37 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.SaltAPI.Entities;
+package me.Salt.SaltAPI.Entities;
 
 import net.dv8tion.jda.core.entities.User;
 
 import java.time.ZonedDateTime;
 
+/**
+ * This class acts as a container for all entries of the bot's roadmap.
+ */
 public class RoadItem {
+    /**
+     * The author of the entry.
+     */
     private User author;
+    /**
+     * The start date for development.
+     */
     private ZonedDateTime setDate;
+    /**
+     * The end date for release.
+     */
     private ZonedDateTime endDate;
+    /**
+     * The title of the entry.
+     */
     private String title;
+    /**
+     * The description of the entry.
+     */
     private String description;
+    
     public RoadItem(User author, ZonedDateTime setDate, ZonedDateTime endDate, String title, String description) {
         this.author = author;
         this.setDate = setDate;
@@ -33,35 +51,28 @@ public class RoadItem {
         this.title = title;
         this.description = description;
     }
-
+    
     @Override
     public String toString() {
-        return "RoadItem{" +
-                "author=" + author.toString() +
-                ", setDate=" + setDate +
-                ", endDate=" + endDate +
-                ", title='" + title + '\'' +
-                ", description='" + description + '\'' +
-                '}';
+        return "RoadItem{" + "author=" + author.toString() + ", setDate=" + setDate + ", endDate=" + endDate + ", title='" + title + '\'' + ", description='" + description + '\'' + '}';
     }
-
+    
     public User getAuthor() {
-
         return author;
     }
-
+    
     public ZonedDateTime getSetDate() {
         return setDate;
     }
-
+    
     public ZonedDateTime getEndDate() {
         return endDate;
     }
-
+    
     public String getTitle() {
         return title;
     }
-
+    
     public String getDescription() {
         return description;
     }

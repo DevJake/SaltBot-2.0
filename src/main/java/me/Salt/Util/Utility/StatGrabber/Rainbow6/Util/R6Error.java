@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Util;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -24,7 +23,6 @@ public class R6Error {
     private List<R6ErrorMessage> errors = new ArrayList<>();
 
     public R6Error(String status, List<R6ErrorMessage> errors) {
-
         this.status = status;
         this.errors = errors;
     }

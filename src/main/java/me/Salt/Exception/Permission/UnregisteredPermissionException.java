@@ -13,22 +13,25 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Exception.Permission;
 
-package main.java.me.Salt.Exception.Permission;
-
+/**
+ * Thrown when the bot attempts to query the has-permission status of a permission, yet the permission hasn't yet
+ * been registered.
+ */
 public class UnregisteredPermissionException extends PermissionException {
     public UnregisteredPermissionException() {
         super();
     }
-
+    
     public UnregisteredPermissionException(String message) {
         super(message);
     }
-
+    
     public UnregisteredPermissionException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public UnregisteredPermissionException(Throwable cause) {
         super(cause);
     }

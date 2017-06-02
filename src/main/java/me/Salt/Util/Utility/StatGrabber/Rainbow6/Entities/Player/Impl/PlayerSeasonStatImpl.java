@@ -13,11 +13,10 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
 
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.Impl;
-
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerSeasonStat;
-import main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerSeasonalRankingStat;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerSeasonStat;
+import me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player.PlayerSeasonalRankingStat;
 
 public class PlayerSeasonStatImpl implements PlayerSeasonStat {
     private int wins;
@@ -27,8 +26,8 @@ public class PlayerSeasonStatImpl implements PlayerSeasonStat {
     private String region;
     private PlayerSeasonalRankingStat ranking;
 
-    public PlayerSeasonStatImpl(int wins, int losses, int abandons, int season, String region, PlayerSeasonalRankingStat ranking) {
-
+    public PlayerSeasonStatImpl(int wins, int losses, int abandons, int season, String region,
+                                PlayerSeasonalRankingStat ranking) {
         this.wins = wins;
         this.losses = losses;
         this.abandons = abandons;

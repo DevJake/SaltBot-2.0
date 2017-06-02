@@ -13,21 +13,18 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Debugging;
 
-package main.java.me.Salt.Command.Commands.Debugging;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
 /**
- * Allows an individual to submit a command, in which the bot shall respond with a message containing their arguments,
- * i.e., a duplicate of their message without the command header.
+ * This command allows for the user to have the bot echo their inputted arguments.
  */
 public class SayCommand extends Command implements ICommand {
-
     public SayCommand(CommandContainer commandContainer) {
         super(commandContainer);
     }
@@ -40,13 +37,11 @@ public class SayCommand extends Command implements ICommand {
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         StringBuilder sb = new StringBuilder();
-
         cmd.getArgsUpper().forEach(n -> sb.append(n + " "));
         e.getChannel().sendMessage(sb.toString()).queue();
     }
 
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
     }
 }

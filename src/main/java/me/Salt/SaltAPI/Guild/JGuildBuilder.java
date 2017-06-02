@@ -13,12 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.SaltAPI.Guild;
 
-package main.java.me.Salt.SaltAPI.Guild;
-
-import main.java.me.Salt.Exception.Generic.DuplicateDataException;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.SaltAPI.Guild.Impl.JGuildImpl;
+import me.Salt.Exception.Generic.DuplicateDataException;
+import me.Salt.Permissions.Perm;
+import me.Salt.SaltAPI.Guild.Impl.JGuildImpl;
 import net.dv8tion.jda.core.entities.Guild;
 import net.dv8tion.jda.core.entities.TextChannel;
 
@@ -26,6 +25,9 @@ import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.List;
 
+/**
+ * This class acts as a builder for instances of {@link JGuild}.
+ */
 public class JGuildBuilder {
     private Guild guild;
     private long guildId;

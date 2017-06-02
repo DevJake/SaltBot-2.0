@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
+package me.Salt.Util.Utility.StatGrabber.Rainbow6.Entities.Player;
 
 public interface PlayerOverallStats {
     public int getRevives();

@@ -13,24 +13,40 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Permissions;
 
-package main.java.me.Salt.Permissions;
-
-import main.java.me.Salt.SaltAPI.Util.Interface.Buildable;
-import main.java.me.Salt.Permissions.Perm;
+import me.Salt.SaltAPI.Util.Interface.Buildable;
 
 import java.util.ArrayList;
 import java.util.List;
 
 /**
- * Created by 15122390 on 21/04/2017.
+ * This class serves as a builder for new {@link Permission} instances.
  */
 public class PermissionBuilder implements Buildable {
+    /**
+     * @see Permission#permission
+     */
     private String permission;
+    /**
+     * @see Permission#permEnum
+     */
     private Perm permEnum;
+    /**
+     * @see Permission#range
+     */
     private Permission.Range range;
+    /**
+     * @see Permission#subperms
+     */
     private List<Permission> subperms = new ArrayList<>();
+    /**
+     * @see Permission#description
+     */
     private String description;
+    /**
+     * @see Permission#id
+     */
     private long id;
 
     public PermissionBuilder(Permission permission) {
@@ -43,7 +59,6 @@ public class PermissionBuilder implements Buildable {
     }
 
     public PermissionBuilder() {
-
     }
 
     public PermissionBuilder setPermission(String permission) {

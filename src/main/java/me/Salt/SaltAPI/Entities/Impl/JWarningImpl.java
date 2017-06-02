@@ -13,21 +13,22 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.SaltAPI.Entities.Impl;
 
-package main.java.me.Salt.SaltAPI.Entities.Impl;
-
-import main.java.me.Salt.SaltAPI.Entities.JWarning;
-import main.java.me.Salt.SaltAPI.Util.WarningBuilder;
+import me.Salt.SaltAPI.Entities.JWarning;
+import me.Salt.SaltAPI.Util.WarningBuilder;
 
 import java.util.List;
 
 /**
- * Project title: SaltBot-2.0
- * Created by Salt on 10/04/2017.
+ * An implementation of JWarning, which represents the warnings that a user has.
  */
 public class JWarningImpl implements JWarning {
+    /**
+     * A list of warnings, applicable to a user.
+     */
     private List<WarningBuilder.Warning> warnings;
-
+    
     @Override
     public List<WarningBuilder.Warning> getWarnings() {
         return warnings;

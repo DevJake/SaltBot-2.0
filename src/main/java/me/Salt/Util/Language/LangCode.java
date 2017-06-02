@@ -13,8 +13,7 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.Util.Language;
+package me.Salt.Util.Language;
 
 public enum LangCode {
     en_GB,

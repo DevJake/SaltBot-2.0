@@ -13,9 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Exception.Language;
 
-package main.java.me.Salt.Exception.Language;
-
+/**
+ * Thrown when no language files can be found, or a language is missing required data.
+ */
 public class LanguageNotFoundException extends LanguageException {
     public LanguageNotFoundException() {
         super();

@@ -13,39 +13,43 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
+package me.Salt.Command.Commands.Administrator;
 
-package main.java.me.Salt.Command.Commands.Administrator;
-
-import main.java.me.Salt.Command.Command;
-import main.java.me.Salt.Command.CommandContainer;
-import main.java.me.Salt.Command.Container.CommandParser;
-import main.java.me.Salt.Command.ICommand;
-import main.java.me.Salt.Exception.Command.DisabledCommandException;
-import main.java.me.Salt.Exception.Generic.MissingDataException;
-import main.java.me.Salt.Exception.Permission.LackingPermissionException;
-import main.java.me.Salt.Main;
-import main.java.me.Salt.Permissions.Perm;
-import main.java.me.Salt.Permissions.Permission;
+import me.Salt.Command.Command;
+import me.Salt.Command.CommandContainer;
+import me.Salt.Command.Container.CommandParser;
+import me.Salt.Command.ICommand;
+import me.Salt.Exception.Command.DisabledCommandException;
+import me.Salt.Exception.Generic.MissingDataException;
+import me.Salt.Exception.Permission.LackingPermissionException;
+import me.Salt.Main;
+import me.Salt.Permissions.Perm;
+import me.Salt.Permissions.Permission;
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent;
 
+/**
+ * This command is restricted to the bot owner, and is used solely for the controlled shutting down of the bot.
+ */
 public class ShutdownCommand extends Command implements ICommand {
-    @Override
-    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event) throws LackingPermissionException, MissingDataException, DisabledCommandException {
-        System.out.println(Main.salt.getJUserById(event.getAuthor().getId()).hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE));
-        return Main.salt.getJUserById(event.getAuthor().getId()).hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE);
+    public ShutdownCommand(CommandContainer commandContainer) {
+        super(commandContainer);
     }
-
+    
+    @Override
+    public boolean preExecution(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent event)
+            throws LackingPermissionException, MissingDataException, DisabledCommandException {
+        System.out.println(Main.salt.getJUserById(event.getAuthor().getId())
+                                    .hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE));
+        return Main.salt.getJUserById(event.getAuthor().getId())
+                        .hasPermission(Perm.COMMAND_SHUTDOWN_USE, Permission.Range.USER_WIDE);
+    }
+    
     @Override
     public void execute(CommandParser.ParsedCommandContainer cmd, GuildMessageReceivedEvent e) {
         //Main.jda.shutdown();
     }
-
+    
     @Override
     public void postExecution(CommandParser.ParsedCommandContainer cmd) {
-
-    }
-
-    public ShutdownCommand(CommandContainer commandContainer) {
-        super(commandContainer);
     }
 }

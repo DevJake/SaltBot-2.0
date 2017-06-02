@@ -13,11 +13,11 @@
  * See the License for the specific language governing permissions and
  * limitations under the License.
  */
-
-package main.java.me.Salt.SaltAPI.Util.Interface;
+package me.Salt.SaltAPI.Util.Interface;
 
 /**
- * Created by 15122390 on 21/04/2017.
+ * An interface to mark a class as being buildable; the class can accept data through specific methods, and produce a
+ * new class which contains the passed-in data.
  */
 public interface Buildable {
     public Object build();
