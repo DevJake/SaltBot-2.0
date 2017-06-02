@@ -15,24 +15,22 @@
  */
 package me.Salt.Exception.Utility.CardsAgainstDiscord;
 
-import me.Salt.Exception.Permission.PermissionException;
-
 /**
  * Thrown when Cards Against Discord encounters an exception.
  */
-public class CardsAgainstDiscordException extends PermissionException {
+public class CardsAgainstDiscordException extends Exception {
     public CardsAgainstDiscordException() {
         super();
     }
-
+    
     public CardsAgainstDiscordException(String message) {
         super(message);
     }
-
+    
     public CardsAgainstDiscordException(String message, Throwable cause) {
         super(message, cause);
     }
-
+    
     public CardsAgainstDiscordException(Throwable cause) {
         super(cause);
     }
