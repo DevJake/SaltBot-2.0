@@ -49,6 +49,7 @@ public class EventListener extends ListenerAdapter {
      */
     @Override
     public void onGuildMessageReceived(GuildMessageReceivedEvent event) {//TODO Update to MessageReceivedEvent
+        if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
         Main.salt.setJUser(new JUserBuilder(event.getAuthor()).setUser(event.getAuthor())
                                                               .setLastTextChannel(event.getChannel())
                                                               .setLastMessage(LocalDateTime.now())
@@ -63,7 +64,6 @@ public class EventListener extends ListenerAdapter {
                                                               .build());
         Main.salt.init();
         Runnable r = () -> {
-            if (event.getAuthor().isBot() || event.getAuthor().getId().equals(Main.jda.getSelfUser().getId())) return;
             try {
                 CommandExecutor.execute(new CommandParser().parse(event.getMessage().getRawContent()), event);
             } catch (MalformedParametersException | MissingDataException | DisabledCommandException | LackingPermissionException e) {
