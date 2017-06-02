@@ -20,6 +20,7 @@ import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameAddPreviousBlackCard
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameRemovePlayerEvent;
 import me.Salt.Event.jevent.game.cardsagainstdiscord.CaDGameUpdateActiveEvent;
 import me.Salt.Event.util.EventInitiator;
+import me.Salt.Exception.Utility.CardsAgainstDiscord.CardsAgainstDiscordException;
 import me.Salt.Util.Utility.Games.Game;
 import net.dv8tion.jda.core.entities.User;
 
@@ -61,7 +62,12 @@ public class CaDGameHandler implements Game {
      */
     private Player cardCzar; //The current Card Czar of the game
     
-    public CaDGameHandler(int winningScore, int cardCount, Player owner) {
+    public CaDGameHandler(int winningScore, int cardCount, Player owner) throws CardsAgainstDiscordException {
+        if (cardCount > 9 || cardCount < 1) throw new CardsAgainstDiscordException(
+                "Incorrect card limit! Specified: " + cardCount + ". Maximum permitted: 9");
+        if (owner == null) {
+            throw new CardsAgainstDiscordException("Game owner cannot be null!");
+        }
         this.winningScore = winningScore;
         this.cardCount = cardCount;
         this.owner = owner;
