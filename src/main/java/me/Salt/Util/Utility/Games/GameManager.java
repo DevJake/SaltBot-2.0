@@ -65,9 +65,13 @@ public class GameManager {
      * @param game {@link Game} - The Game instance to be removed from the specified user
      */
     public static void unregisterGameFromUser(User user, Game game) {
-        // FIXME: 30/05/2017
         // TODO: 30/05/2017 Update game to generic type that implements Game
         // TODO: 30/05/2017 Force games to have a shutdown() method, which is called upon game unregistration. Ensures games shut down smoothly.
+        if (userGames.containsKey(user)){
+            if (userGames.get(user).contains(game)){
+                userGames.get(user).remove(userGames.get(user).indexOf(game));
+            }
+        }
     }
     
     /**
