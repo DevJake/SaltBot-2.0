@@ -57,8 +57,8 @@ public class Player {
         this.roundsWon += 1;
     }
     
-    public void decrementRoundsWon() {
-        this.roundsWon -= 1;
+    public void incrementRoundsLost() {
+        this.roundsLost += 1;
     }
     
     public User getUser() {
