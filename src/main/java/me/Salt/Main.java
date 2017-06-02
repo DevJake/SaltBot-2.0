@@ -365,10 +365,37 @@ public class Main {
                                             .registerCommand("cadInfo", new CaDInfoCommand(new CommandContainer(
                                                     new CommandDescriptionBuilder().addAuthor(
                                                             jda.getUserById("112633500447838208"))
+                                                                                   .addAlias("cadetails")
+                                                                                   .addAlias("caddetails")
                                                                                    .setComplete(false)
                                                                                    .setDeprecated(false)
                                                                                    .setDescription(
                                                                                            "Get information about your personal CardsAgainstDiscord session")
+                                                                                   .setName(
+                                                                                           "CardsAgainstDiscord view info command")
+                                                                                   .build(),
+                                                    Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                                            .registerCommand("cadScore", new CaDScoresCommand(new CommandContainer(
+                                                    new CommandDescriptionBuilder().addAuthor(
+                                                            jda.getUserById("112633500447838208"))
+                                                                                   .addAlias("cadstats")
+                                                                                   .setComplete(false)
+                                                                                   .setDeprecated(false)
+                                                                                   .setDescription(
+                                                                                           "Get scoring information " + "about your CardsAgainstDiscord session")
+                                                                                   .setName(
+                                                                                           "CardsAgainstDiscord view info command")
+                                                                                   .build(),
+                                                    Arrays.asList(CommandContainer.JEventType.GENERIC_MESSAGE))))
+                                            .registerCommand("cadEnd", new CaDEndGameCommand(new CommandContainer(
+                                                    new CommandDescriptionBuilder().addAuthor(
+                                                            jda.getUserById("112633500447838208"))
+                                                                                   .addAlias("cadStop")
+                                                                                   .addAlias("cadFinish")
+                                                                                   .setComplete(false)
+                                                                                   .setDeprecated(false)
+                                                                                   .setDescription(
+                                                                                           "Finish up the Cards Against Discord game, and provide details about scoring to each player")
                                                                                    .setName(
                                                                                            "CardsAgainstDiscord view info command")
                                                                                    .build(),
