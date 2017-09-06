@@ -14,9 +14,9 @@ buildscript {
 plugins {
     id 'idea'
     id 'java'
+    id 'jacoco'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
     id 'application'
-    id 'jacoco'
     id "org.jetbrains.kotlin.jvm" version "1.1.4"
 }
 
@@ -24,11 +24,37 @@ apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'org.junit.platform.gradle.plugin'
 
 junitPlatform {
+    reportsDir file("$buildDir/test-results/spek")
+
     filters {
         engines {
             include 'spek'
         }
     }
+}
+
+jacoco {
+    reportsDir = file("$buildDir/reports/jacoco")
+    toolVersion = "0.6.5.201403032054"
+}
+
+jacocoTestReport {
+
+    group = "Report"
+//
+    reports {
+        html.enabled true
+        xml.enabled true
+//        csv.enabled false
+
+////        xml.destination = "${buildDir}/reports/spek"
+////        html.destination = "${buildDir}/reports/jacoco"
+    }
+
+onlyIf = {
+    true
+}
+
 }
 
 //applicationDefaultJvmArgs = ["-Xmx400m"]
@@ -43,7 +69,7 @@ dependencies {
     compile 'org.neo4j:neo4j-ogm-bolt-driver:2.1.2'
 
     compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
-    
+
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
     compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.0"
 
@@ -86,17 +112,6 @@ dokka {
     }
 }
 
-//tasks.withType(org.jetbrains.kotlin.gradle.tasks.KotlinCompile).all {
-//    sourceCompatibility = JavaVersion.VERSION_1_8
-//    targetCompatibility = JavaVersion.VERSION_1_8
-//
-//    kotlinOptions {
-//        jvmTarget = '1.8'
-//        apiVersion = '1.1'
-//        languageVersion = '1.1'
-//    }
-//}
-
 sourceSets {
     main.java.srcDirs = []
     main.kotlin.srcDirs = ['src/main/java', 'src/main/kotlin']
@@ -111,18 +126,12 @@ repositories {
     // Use 'jcenter' for resolving your dependencies.
     // You can declare any Maven/Ivy/file repository here.
     jcenter()
+    mavenCentral()
 }
 
-jacocoTestReport {
-    reports {
-        //xml.enabled false
-        csv.enabled false
-    }
-}
-
-test {
-    finalizedBy jacocoTestReport
-}
+//test {
+//    finalizedBy jacocoTestReport
+//}
 
 compileJava.options.encoding = 'UTF-8'
 
