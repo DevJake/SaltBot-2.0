@@ -14,28 +14,19 @@
  * limitations under the License.
  */
 
-package me.salt.lang
+package me.salt.util
 
-enum class LangCode(val language: Language, val country: Country) {
-    en_GB(Language.ENGLISH, Country.GREAT_BRITAIN),
-    en_US(Language.ENGLISH, Country.UNITED_STATES);
-}
+import com.winterbe.expekt.should
+import org.jetbrains.spek.api.Spek
+import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.dsl.on
 
-enum class Language {
-    ENGLISH,
-    FRENCH,
-    RUSSIAN,
-    GERMAN,
-    SPANISH,
-    MANDARIN;
-}
-
-enum class Country {
-    GREAT_BRITAIN,
-    UNITED_STATES,
-    FRANCE,
-    GERMANY,
-    RUSSIA,
-    CHINA,
-    SPAIN;
-}
+class ColourTest: Spek({
+    on("Requesting the red, green and blue values of Colour.RED"){
+        it("should return 255, 0 and 0, respectively"){
+            Colour.RED.red.should.equal(255)
+            Colour.RED.green.should.equal(0)
+            Colour.RED.blue.should.equal(0)
+        }
+    }
+})
