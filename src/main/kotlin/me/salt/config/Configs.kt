@@ -17,44 +17,25 @@
 package me.salt.config
 
 import me.salt.config.entities.Configuration
-import me.salt.config.entities.SaltConfig
 import me.salt.exception.ConfigHandlerException
 
 object Configs {
     private var chain = mutableListOf<String>()
     private var entityId: String? = null
 
-    val SALT = ConfigTypes
-        get() {
-            chain.clear()
-            chain.add("SALT")
-            return field
-        }
+    val SALT  = clearAndAdd("SALT")
 
-    fun GUILD(entityId: String): ConfigTypes {
-        chain.clear()
-        chain.add("GUILD")
-        this.entityId = entityId
-        return ConfigTypes
-    }
+    fun GUILD(entityId: String): ConfigTypes = clearAndAdd("USER")
 
-    fun TEXTCHANNEL(entityId: String): ConfigTypes {
-        chain.clear()
-        chain.add("TEXTCHANNEL")
-        this.entityId = entityId
-        return ConfigTypes
-    }
+    fun TEXTCHANNEL(entityId: String): ConfigTypes = clearAndAdd("TEXTCHANNEL")
 
-    fun VOICECHANNEL(entityId: String): ConfigTypes {
-        chain.clear()
-        chain.add("VOICECHANNEL")
-        this.entityId = entityId
-        return ConfigTypes
-    }
+    fun VOICECHANNEL(entityId: String): ConfigTypes = clearAndAdd("VOICECHANNEL")
 
-    fun USER(entityId: String): ConfigTypes {
+    fun USER(entityId: String): ConfigTypes = clearAndAdd("USER")
+
+    private fun clearAndAdd(termToAdd: String): ConfigTypes {
         chain.clear()
-        chain.add("USER")
+        chain.add(termToAdd)
         this.entityId = entityId
         return ConfigTypes
     }
@@ -111,7 +92,7 @@ object Configs {
 
 }
 
-class Handler(val chain: List<String>, val entityId: String?) {
+class Handler(chain: List<String>, entityId: String?) {
     var expectedPath = ""
     private var keyword = ""
 
