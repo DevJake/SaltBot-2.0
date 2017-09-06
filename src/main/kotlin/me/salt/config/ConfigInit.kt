@@ -1,93 +1,100 @@
+/*
+ * Copyright 2017 DevJake
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *     http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package me.salt.config
 
-import me.salt.config.entities.PermissionMap
-import me.salt.config.entities.SaltConfig
-import me.salt.Admin
-import me.salt.GroupPermission
-import me.salt.Module
-import me.salt.UserPermission
-import me.salt.lang.LangCode
-import me.salt.ConfigHandler
-import me.salt.GenUtil
-import me.salt.SimpleRGBColour
+import me.salt.config.entities.*
+import me.salt.util.*
 
 fun initConfigs() {
-    GenUtil.createFileFromResources("Data/Admin", "SaltConfig.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Configs", "SaltConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Configs", "SaltConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Configs", "GuildConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Configs", "TextChannelConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Configs", "UserConfig.yaml")
 
-    GenUtil.createFileFromResources("Data/Admin", "SaltPermConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Permissions", "SaltPermConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Permissions", "GuildPermConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Permissions", "TextChannelPermConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Permissions", "UserPermConfig.yaml")
-
     /*
     Things configured to be logged
      */
-    GenUtil.createFileFromResources("Data/Admin", "SaltLogConfig.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Configs", "SaltLogConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Logs", "SaltLogsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Logs", "GuildLogsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Logs", "TextChannelLogsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Logs", "UserLogsConfig.yaml")
 //Stats
-    GenUtil.createFileFromResources("Data/Admin", "SaltStatsConfig.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Configs", "SaltStatsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Stats", "SaltStatsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Stats", "GuildStatsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Stats", "TextChannelStatsConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Stats", "UserStatsConfig.yaml")
 // Languages
-    GenUtil.createFileFromResources("Data/Admin", "SaltLanguageConfig.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Configs", "SaltLanguageConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Languages", "SaltLanguageConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Languages", "GuildLanguageConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Languages", "TextChannelLanguageConfig.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Languages", "UserLanguageConfig.yaml")
-// Levelling
-    GenUtil.createFileFromResources("Data/Admin", "SaltLevellingConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Levelling", "SaltLevellingConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Levelling", "GuildLevellingConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Levelling", "TextChannelLevellingConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Levelling", "UserLevellingConfig.yaml")
-// Chat Filtering
-    GenUtil.createFileFromResources("Data/Admin", "SaltFilteringConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Filtering", "SaltFilteringConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Filtering", "GuildFilteringConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Filtering", "TextChannelFilteringConfig.yaml")
-    GenUtil.createFileFromResources("Data/Admin/DefaultConfigs/Filtering", "UserFilteringConfig.yaml")
-
+//Maps
     GenUtil.createFileFromResources("Data/Admin/DefaultMaps", "PermissionsMap.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultMaps", "SelfAssignableRoleMap.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultMaps", "FilteringMap.yaml")
+    GenUtil.createFileFromResources("Data/Admin/DefaultMaps", "StatTrackingMap.yaml")
     GenUtil.createFileFromResources("Data/Admin/DefaultMaps", "LevellingMap.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Maps", "PermMap.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Maps", "SelfAssignableRoleMap.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Maps", "FilteringMap.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Maps", "StatTrackingMap.yaml")
+    GenUtil.createFileFromResources("Data/Admin/Maps", "LevellingMap.yaml")
 
     GenUtil.createDirFromResources("Data/Guilds")
     GenUtil.createDirFromResources("Data/Users")
-//TODO add maps to defaultconfigs, rename defaultconfigs to defaults, and add system of copying relevant contents to new guilds/textchannels/users
 //TODO each Guild directory has their own sub-folders for TextChannels
 
-    ConfigHandler.writeValue("Data/Admin/DefaultConfigs/Configs/SaltConfig.yaml",
-            SaltConfig("MyBotToken", false,
-                    listOf(Module("Module 1", "Desc 1", true),
-                            Module("Module 2", "Desc 2", false)),
-                    listOf(Admin("John", "302483")),
-                    true, listOf("", "salt", "!"), true, 3.0,
-                    SimpleRGBColour(200, 20, 15),
-                    LangCode.en_GB, true, true,
-                    true, false, 0.0))
+//    ConfigHandler.writeValue("Data/Admin/DefaultConfigs/Configs/SaltConfig.yaml",
+//            SaltConfigBuilder("MyBotToken", false,
+//                    listOf(Module("Module 1", "Desc 1", true),
+//                            Module("Module 2", "Desc 2", false)),
+//                    listOf(Admin("John", "302483")),
+//                    true, listOf("", "salt", "!"), true, 3.0,
+//                    SimpleRGBColour(200, 20, 15),
+//                    LangCode.en_GB, true, true,
+//                    true, false, 0.0))
 
-    ConfigHandler.writeValue("Data/Admin/DefaultMaps/PermissionsMap.yaml",
-            PermissionMap(
+    //TODO add check that a config is being written to the correct location, such as preventing a filteringmap instance being written to a non-filteringmap.yaml file
+    ConfigHandler.writeConfig(Configs.SALT.FILTERING_MAP,
+            FilteringMap(true,
                     listOf(
-                            GroupPermission("Group 1", listOf("Perm 1", "Perm 2", "Perm 3")),
-                            GroupPermission("Group 2", listOf("Perm 1", "Perm 2", "Perm 3"))),
-                    listOf(
-                            UserPermission("925872398572598275",
-                                    listOf("Group 1", "Group 2"),
-                                    listOf("UserPerm 1", "UserPerm 2", "UserPerm 3")),
-                            UserPermission("949574953458903465",
-                                    listOf("Group 2"),
-                                    listOf("UserPerm 1"))
-                    )))
+                            FilterMap("Fuck", false, true, true, true),
+                            FilterMap("Shit", false, true, true, true)),
+                    true)
+    )
+
+    ConfigHandler.writeConfig(Configs.SALT.LEVELLING_MAP,
+            LevellingMap(listOf(
+                    LevellingPointComponent(LevellingPointComponent.PointMethod.EMOJI, 4),
+                    LevellingPointComponent(LevellingPointComponent.PointMethod.MESSAGE_WITH_URL, 8)),
+                    2.6, 500, Entity.GLOBAL)
+    )
+
+    ConfigHandler.writeConfig(Configs.SALT.MAIN_CONFIG,
+            SaltConfigBuilder("tokeynbois")
+                    .addModules(Module("module1", "desc1", false))
+                    .build()
+    )
+}
+
+fun checkForBrokenConfigs(){
+    //TODO checking that there are no empty default configs or broken configs, such as broken formatting
 }
