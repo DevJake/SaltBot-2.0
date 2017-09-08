@@ -26,7 +26,7 @@ class SaltLogConfig {
     val logUserLoseXp: Boolean?
     val logUserGainLevel: Boolean?
     val logUserLoseLevel: Boolean?
-    val logCommands: Boolean? //TODO map of commands and subcommands to log
+    val logCommands: Boolean? //TODO termMap of commands and subcommands to log
     val splitLogsByEntryType: Boolean? //Separate log file per type of entry. Avoids commands as too many to make splitting useful.
     val groupLogsByTimeDate: Boolean? //Divide logs into a new file per hour of logging, and each group of 24-hour logs into a dated-directory.
 

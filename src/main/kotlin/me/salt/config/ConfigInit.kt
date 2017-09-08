@@ -16,9 +16,6 @@
 
 package me.salt.config
 
-import me.salt.config.entities.*
-import me.salt.util.*
-
 fun initConfigs() {
 //TODO each Guild directory has their own sub-folders for TextChannels
 
