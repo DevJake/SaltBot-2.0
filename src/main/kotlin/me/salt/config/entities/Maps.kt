@@ -16,10 +16,19 @@
 
 package me.salt.config.entities
 
+import com.fasterxml.jackson.annotation.JsonIgnore
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties
+import com.fasterxml.jackson.annotation.JsonIgnoreType
 import com.fasterxml.jackson.annotation.JsonProperty
+import me.salt.config.ConfigHandler
+import me.salt.config.Configs
+import me.salt.config.Handler
+import me.salt.exception.ConfigMissingValueException
+import me.salt.lang.LangTerm
+import me.salt.lang.LangUtils
 import me.salt.util.*
 
-class PermissionMap: ConfigMap {
+class PermissionMap : ConfigMap {
     @JsonProperty("Groups")
     var groups: MutableList<GroupPermission>?
     @JsonProperty("Users")
@@ -30,7 +39,7 @@ class PermissionMap: ConfigMap {
         this.users = users
     }
 
-    constructor(builder: PermissionMapBuilder): this(
+    constructor(builder: PermissionMapBuilder) : this(
             builder.groups,
             builder.users
     )
@@ -48,7 +57,7 @@ class RolesMap {
 No requirement for multiple RolesMap types, as they're consistent across a SaltRolesMap, Guild and TextChannel alternatives
  */
 
-class LevellingMap: ConfigMap {
+class LevellingMap : ConfigMap {
     @JsonProperty("Point scoring")
     val pointSystems: List<LevellingPointComponent>?
     @JsonProperty("Level multiplier")
@@ -68,7 +77,7 @@ class LevellingMap: ConfigMap {
 
 //TODO enforcements to require a specific level before allowing usage of a command
 
-class FilteringMap: ConfigMap {
+class FilteringMap : ConfigMap {
     @JsonProperty("Filtering enabled")
     val enabled: Boolean?
     @JsonProperty("Filter Maps")
@@ -81,4 +90,43 @@ class FilteringMap: ConfigMap {
         this.filterMaps = filterMaps
         this.filterDefaultFoulList = filterDefaultFoulList
     }
+}
+
+class LanguageMap : ConfigMap {
+    val languages: MutableList<CustomLang> = mutableListOf()
+    /*
+    Allows for code to get an immutable set of the languages, whilst not exposing the mutable set.
+    This forces usage of function addLang, which provides distinction checking of language names - a necessity.
+     */
+
+    fun addLang(vararg lang: CustomLang) = apply {
+        val indistinct: MutableList<CustomLang> = mutableListOf()
+        val distinct = lang.distinctBy { cl -> cl.languageName }
+        lang.forEach { cl -> if (!distinct.contains(cl)) indistinct.add(cl) }
+
+        if (indistinct.isNotEmpty())
+            throw ConfigMissingValueException("Some languages lack distinct names! " +
+                    "Indistinct names=${indistinct.mapTo(mutableListOf(), { cl -> cl.languageName }).distinct()}")
+        //Calculates a list of language names for the indistinct instances, then makes the list entries distinct
+
+        languages.addAll(lang)
+    }
+
+    fun getLanguage(langName: String) = languages.getByLangName(langName)
+
+}
+
+/*
+Override the specified langcode (if present).
+When an individual specifies the overriden langcode,
+they are told that a selection of terms are overriden,
+and can choose to be shown the edited list.
+
+Note: overriden languages should swap out base terms for overriden ones,
+whilst keeping any unmodified base terms
+ */
+data class CustomLang(val languageName: String, val author: String?, val permission: String?, val languageOverride: LanguageOverride?, val termMap: Map<LangTerm, String>) {
+    fun getTerm(langTerm: LangTerm) = LangUtils.getTerm(this, langTerm)
+    fun getTerm(langTerm: LangTerm, replacements: MutableMap<String, String>) = LangUtils.getTerm(this, langTerm, replacements)
+    class LanguageOverride(val handler: Handler, val languageName: String)
 }

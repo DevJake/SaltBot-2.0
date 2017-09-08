@@ -16,10 +16,10 @@
 
 package me.salt.util
 
+import me.salt.config.entities.CustomLang
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
-fun File.isEmpty(): Boolean {
-    return BufferedReader(FileReader(this)).readLine() == null
-}
+fun File.isEmpty(): Boolean { return BufferedReader(FileReader(this)).readLine() == null }
+fun List<CustomLang>.getByLangName(langName: String): CustomLang = this.first { it.languageName == langName }

@@ -39,3 +39,11 @@ enum class Country {
     CHINA,
     SPAIN;
 }
+
+enum class LangTerm(val variables: List<LangTermParam>?) {
+    WELCOME(null),
+    GOODBYE(null);
+
+    //TODO params should be wrapped with double asterisks, i.e., **user**
+    data class LangTermParam(var term: String, var name: String, var description: String)
+}
