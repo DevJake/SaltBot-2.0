@@ -14,12 +14,29 @@
  * limitations under the License.
  */
 
-package me.salt.util
+package me.salt.objects
 
 import me.salt.config.entities.CustomLang
+import me.salt.exception.ConfigMissingValueException
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
 
-fun File.isEmpty(): Boolean { return BufferedReader(FileReader(this)).readLine() == null }
-fun List<CustomLang>.getByLangName(langName: String): CustomLang = this.first { it.languageName == langName }
+fun File.isEmpty(): Boolean {
+    return BufferedReader(FileReader(this)).readLine() == null
+}
+
+fun List<CustomLang>.getByLangName(langName: String): CustomLang = try {
+    this.first { it.languageName == langName }
+} catch (e: Exception) {
+    throw ConfigMissingValueException() //TODO change exception + message
+}
+
+/*
+Get a list of indistinct elements. The opposite result of List<T>.distinct{ ... }
+ */
+fun <T, K> List<T>.indistinctBy(selector: (T) -> K): List<T> {
+    val p = this.toMutableList()
+    p.removeAll(this.distinctBy(selector))
+    return p
+}
