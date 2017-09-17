@@ -20,6 +20,7 @@ import me.salt.Main
 import me.salt.events.FileCreateEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ColourValueException
+import me.salt.objects.Colour
 import java.io.*
 
 object GenUtil {

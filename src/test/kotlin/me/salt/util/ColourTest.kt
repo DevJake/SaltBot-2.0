@@ -17,6 +17,7 @@
 package me.salt.util
 
 import com.winterbe.expekt.should
+import me.salt.objects.Colour
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on

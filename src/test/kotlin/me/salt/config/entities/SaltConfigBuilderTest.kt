@@ -19,8 +19,8 @@ package me.salt.config.entities
 import com.winterbe.expekt.should
 import me.salt.exception.ExcessiveValueException
 import me.salt.lang.LangCode
-import me.salt.util.Admin
-import me.salt.util.Module
+import me.salt.objects.Admin
+import me.salt.objects.Module
 import me.salt.util.SimpleRGBColour
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
