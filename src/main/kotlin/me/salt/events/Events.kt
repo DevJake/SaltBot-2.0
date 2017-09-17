@@ -18,6 +18,7 @@ package me.salt.events
 
 import me.salt.config.Handler
 import me.salt.config.entities.Configuration
+import me.salt.objects.Interaction
 import java.io.File
 
 interface Event
@@ -39,18 +40,13 @@ open class EventHandler : ListenerAdapter {
     override fun onEvent(e: Event) {
         when (e) {
             is FileCreateEvent -> onFileCreate(e)
-            is ConfigReadWriteEvent -> onConfigReadWrite(e)
+            is ConfigInteractEvent -> onConfigReadWrite(e)
         }
     }
 
     open fun onFileCreate(e: FileCreateEvent) {}
-    open fun onConfigReadWrite(e: ConfigReadWriteEvent) {}
+    open fun onConfigReadWrite(e: ConfigInteractEvent) {}
 }
 
 data class FileCreateEvent(val file: File, val isFile: Boolean) : Event
-data class ConfigReadWriteEvent(val handler: Handler, val entity: Configuration, val type: Interact) : Event {
-    enum class Interact{
-        READ,
-        WRITE;
-    }
-}
+data class ConfigInteractEvent(val handler: Handler, val entity: Configuration, val type: Interaction) : Event
