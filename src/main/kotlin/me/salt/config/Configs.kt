@@ -16,9 +16,6 @@
 
 package me.salt.config
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonIgnoreType
 import me.salt.config.entities.Configuration
 import me.salt.exception.ConfigHandlerException
 
@@ -157,6 +154,7 @@ class Handler(private val chain: List<String> = emptyList(), private val entityI
         //TODO decipher chain, determine path, throw required exceptions
     }
 
-    fun <T : Configuration> getConfigFile(configClass: Class<T>): T = ConfigHandler.readConfig(this, configClass)
-    fun updateConfig(config: Configuration) = ConfigHandler.updateConfig(this, config)
+    fun <T : Configuration> getConfig(configClass: Class<T>): T = ConfigHandler.readConfig(this, configClass)
+    fun overwriteConfig(config: Configuration) = ConfigHandler.overwriteConfig(this, config)
+    fun writeConfig(config: Configuration) = ConfigHandler.writeConfig(this, config)
 }

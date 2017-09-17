@@ -17,12 +17,12 @@
 package me.salt.config.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
-import me.salt.exception.ConfigMissingValueException
+import me.salt.config.ConfigHandler
+import me.salt.config.Handler
 import me.salt.lang.LangCode
-import me.salt.util.Admin
-import me.salt.util.Module
+import me.salt.objects.Admin
+import me.salt.objects.Module
 import me.salt.util.SimpleRGBColour
-import java.util.*
 
 interface ConfigBuilder {
     fun build(): Config
@@ -31,9 +31,15 @@ interface ConfigBuilder {
 interface ConfigMapBuilder {
     fun build(): ConfigMap
 }
-interface Configuration
-interface Config: Configuration
-interface ConfigMap: Configuration
+
+interface Configuration {
+    fun write(handler: Handler) = ConfigHandler.writeConfig(handler, this)
+    fun overwrite(handler: Handler) = ConfigHandler.overwriteConfig(handler, this
+    )
+}
+
+interface Config : Configuration
+interface ConfigMap : Configuration
 
 class SaltConfig : Config {
     @JsonProperty("Bot_Token")

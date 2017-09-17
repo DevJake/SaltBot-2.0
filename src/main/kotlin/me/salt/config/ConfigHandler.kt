@@ -22,13 +22,12 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
-import me.salt.config.entities.Config
 import me.salt.config.entities.Configuration
-import me.salt.config.entities.LanguageMap
-import me.salt.events.ConfigReadWriteEvent
+import me.salt.events.ConfigInteractEvent
 import me.salt.events.fireEvent
+import me.salt.objects.Interaction
 import me.salt.util.GenUtil
-import me.salt.util.isEmpty
+import me.salt.objects.isEmpty
 import java.io.File
 
 object ConfigHandler {
@@ -46,23 +45,23 @@ object ConfigHandler {
         GenUtil.createFile(f)
         if (f.exists() && f.isEmpty()) {
             mapper.writeValue(f, conf)
-            fireEvent(ConfigReadWriteEvent(handler, conf, ConfigReadWriteEvent.Interact.WRITE))
+            fireEvent(ConfigInteractEvent(handler, conf, Interaction.WRITE))
         }
     }
-    /*
-    Updates a config if it exists, or creates it.
-     */
-    fun updateConfig(handler: Handler, conf: Configuration) {
+
+    fun overwriteConfig(handler: Handler, conf: Configuration) {
         val f = getFile(handler)
         if (f.exists()) {
             mapper.writeValue(f, conf)
-            fireEvent(ConfigReadWriteEvent(handler, conf, ConfigReadWriteEvent.Interact.WRITE))
+            fireEvent(ConfigInteractEvent(handler, conf, Interaction.WRITE))
         } else writeConfig(handler, conf)
     }
 
-    fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T {
-        return ObjectMapper(YAMLFactory()).registerKotlinModule()
+    fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T = try {
+        ObjectMapper(YAMLFactory()).registerKotlinModule()
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
                 .readValue(getFile(handler), type)
+    } catch (e: Exception) {
+        throw e //TODO change and update
     }
 }

@@ -18,6 +18,10 @@ package me.salt.config.entities
 
 import me.salt.exception.ExcessiveValueException
 import me.salt.lang.LangCode
+import me.salt.objects.Admin
+import me.salt.permissions.GroupPermission
+import me.salt.objects.Module
+import me.salt.permissions.UserPermission
 import me.salt.util.*
 import java.util.concurrent.TimeUnit
 

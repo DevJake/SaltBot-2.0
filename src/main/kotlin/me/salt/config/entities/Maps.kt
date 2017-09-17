@@ -16,25 +16,32 @@
 
 package me.salt.config.entities
 
-import com.fasterxml.jackson.annotation.JsonIgnore
-import com.fasterxml.jackson.annotation.JsonIgnoreProperties
-import com.fasterxml.jackson.annotation.JsonIgnoreType
 import com.fasterxml.jackson.annotation.JsonProperty
-import me.salt.config.ConfigHandler
-import me.salt.config.Configs
 import me.salt.config.Handler
 import me.salt.exception.ConfigMissingValueException
 import me.salt.lang.LangTerm
 import me.salt.lang.LangUtils
-import me.salt.util.*
+import me.salt.objects.*
+import me.salt.permissions.GroupPermission
+import me.salt.permissions.UserPermission
 
 class PermissionMap : ConfigMap {
     @JsonProperty("Groups")
-    var groups: MutableList<GroupPermission>?
+    var groups: List<GroupPermission>?
     @JsonProperty("Users")
-    var users: MutableList<UserPermission>?
+    var users: List<UserPermission>?
 
-    private constructor(groups: MutableList<GroupPermission>?, users: MutableList<UserPermission>?) {
+    constructor(groups: List<GroupPermission>?, users: List<UserPermission>?) {
+        if (groups != null && groups.indistinctBy { it.groupName }.isNotEmpty())
+            throw ConfigMissingValueException(
+                    "The provided GroupPermissions are not distinct! " +
+                            "Indistinct = ${groups.indistinctBy { it.groupName }}")
+
+        if (users != null && users.indistinctBy { it.userId }.isNotEmpty())
+            throw ConfigMissingValueException(
+                    "The provided UserPermissions are not distinct! " +
+                            "Indistinct = ${users.indistinctBy { it.userId }}")
+
         this.groups = groups
         this.users = users
     }
@@ -43,6 +50,12 @@ class PermissionMap : ConfigMap {
             builder.groups,
             builder.users
     )
+
+    override fun toString(): String {
+        return "PermissionMap(groups=$groups, users=$users)"
+    }
+
+
 }
 
 class RolesMap {
@@ -113,7 +126,6 @@ class LanguageMap : ConfigMap {
     }
 
     fun getLanguage(langName: String) = languages.getByLangName(langName)
-
 }
 
 /*
