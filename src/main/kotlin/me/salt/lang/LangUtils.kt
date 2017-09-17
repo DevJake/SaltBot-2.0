@@ -29,7 +29,7 @@ object LangUtils {
         replacements.forEach { s0, s1 -> repl.put(s0.toLowerCase(), s1) }
         var finalString = getTerm(customLang, langTerm)
 
-        if (langTerm.variables == null) return finalString
+        if (langTerm.variables.isEmpty()) return finalString
         //This LangCode has no defined variables, meaning the user has placed a non-existent variable
         val matcher = paramMatch.matcher(finalString)
         while (matcher.find()) {
@@ -56,7 +56,7 @@ object LangUtils {
             if (lang.languageOverride == null)
                 throw ConfigMissingValueException() //TODO change exception and add message
             //There is no higher language to check
-            val lMap = lang.languageOverride.handler.getConfigFile(LanguageMap::class.java)
+            val lMap = lang.languageOverride.handler.getConfig(LanguageMap::class.java)
             val filtered = lMap.languages.filter{ lang.languageOverride.languageName == it.languageName }
             if (filtered.isEmpty() || filtered.size != 1)
                 throw ConfigMissingValueException() //TODO change exception and add message
@@ -80,7 +80,7 @@ object LangUtils {
                 return false
             }
 
-            val languages = lang.languageOverride.handler.getConfigFile(LanguageMap::class.java).languages
+            val languages = lang.languageOverride.handler.getConfig(LanguageMap::class.java).languages
             val filtered = languages.filter { cl -> lang.languageOverride.languageName == cl.languageName }
             if (filtered.isEmpty()) {
                 return false
