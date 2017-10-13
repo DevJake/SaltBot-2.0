@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,6 +25,8 @@ import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import me.salt.config.entities.Configuration
 import me.salt.events.ConfigInteractEvent
 import me.salt.events.fireEvent
+import me.salt.exception.ConfigMissingValueException
+import me.salt.logging.logWarn
 import me.salt.objects.Interaction
 import me.salt.util.GenUtil
 import me.salt.objects.isEmpty
@@ -57,11 +59,11 @@ object ConfigHandler {
         } else writeConfig(handler, conf)
     }
 
-    fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T = try {
+    fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T? = try {
         ObjectMapper(YAMLFactory()).registerKotlinModule()
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
                 .readValue(getFile(handler), type)
     } catch (e: Exception) {
-        throw e //TODO change and update
+        null
     }
 }

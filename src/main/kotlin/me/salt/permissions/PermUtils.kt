@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -50,7 +50,7 @@ object PermUtils {
 
         val permMap = getAuthHandler(level, entityId).getConfig(PermissionMap::class.java)
 
-        if (permMap.users?.any { it.userId == user.id } == true) {
+        if (permMap?.users?.any { it.userId == user.id } == true) {
 
             val userPerm: UserPermission = permMap.users?.first { it.userId == user.id } ?: return false
 

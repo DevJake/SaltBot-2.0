@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -26,7 +26,7 @@ enum class LangCode(val language: Language, val country: Country) {
     en_GB(Language.ENGLISH, Country.GREAT_BRITAIN),
     en_US(Language.ENGLISH, Country.UNITED_STATES);
 
-    fun getLang() = Configs.SALT.LANGUAGE_MAP.getConfig(LanguageMap::class.java).getLanguage(this.name)
+    fun getLang() = Configs.SALT.LANGUAGE_MAP.getConfig(LanguageMap::class.java)?.getLanguage(this.name)
 
     fun filterBy(language: Language, country: Country, inverse: Boolean = false) =
             LangCode.values().toList().filter { (it.language == language && it.country == country) != inverse }

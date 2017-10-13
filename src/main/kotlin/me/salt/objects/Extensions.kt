@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -34,6 +34,7 @@ fun List<CustomLang>.getByLangName(langName: String): CustomLang = try {
 
 /*
 Get a list of indistinct elements. The opposite result of List<T>.distinct{ ... }
+Effectively removes all distinct values from a list, leaving only those with duplicates
  */
 fun <T, K> List<T>.indistinctBy(selector: (T) -> K): List<T> {
     val p = this.toMutableList()

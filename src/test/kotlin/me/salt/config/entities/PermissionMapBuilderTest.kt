@@ -25,9 +25,9 @@ import org.jetbrains.spek.api.dsl.on
 
 class PermissionMapBuilderTest : Spek({
     var subject = PermissionMapBuilder()
-    val g0 = GroupPermission("group1", mutableListOf(), mutableListOf(), true, mutableListOf())
-    val g1 = GroupPermission("group2", mutableListOf(), mutableListOf(), false, mutableListOf())
-    val g2 = GroupPermission("group3", mutableListOf(), mutableListOf(), true, mutableListOf())
+    val g0 = GroupPermission("group1", mutableListOf(), mutableListOf(), mutableListOf(), true, mutableListOf())
+    val g1 = GroupPermission("group2", mutableListOf(), mutableListOf(), mutableListOf(),false, mutableListOf())
+    val g2 = GroupPermission("group3", mutableListOf(), mutableListOf(), mutableListOf(),true, mutableListOf())
 
     beforeEachTest { subject = PermissionMapBuilder() }
     context("Group permissions") {

@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -17,13 +17,14 @@
 package me.salt
 
 import me.salt.config.Configs
-import me.salt.config.entities.PermissionMap
-import me.salt.config.entities.PermissionMapBuilder
-import me.salt.config.entities.SaltConfig
-import me.salt.config.entities.SaltConfigBuilder
+import me.salt.config.entities.*
 import me.salt.config.initConfigs
 import me.salt.lang.LangCode
 import me.salt.lang.initLangs
+import me.salt.logging.LogUtils
+import me.salt.logging.logEasy
+import me.salt.logging.logInfo
+import me.salt.logging.logWarn
 import me.salt.objects.*
 import me.salt.permissions.*
 import net.dv8tion.jda.core.AccountType
@@ -41,7 +42,11 @@ class Main {
             initLangs()
             println(LangCode.en_GB.getLang())
 //            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("mytoken").build())
-            jda = JDABuilder(AccountType.BOT).setToken("MjQ2MzA5NDI1OTAyNjQ5MzQ1.DJmMIg.1-NlY9WoQbnOnLC5UEA45dzSIZ0").buildAsync()
+            Configs.SALT.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
+            logEasy("Simple, easy logging")
+            logWarn("A warning log")
+            LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
+            jda = JDABuilder(AccountType.BOT).setToken(Configs.SALT.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken).buildAsync()
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
             Configs.SALT.PERMISSIONS_MAP.overwriteConfig(
                     PermissionMapBuilder().addGroups(

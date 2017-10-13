@@ -5,7 +5,7 @@
  * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *     http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -57,8 +57,8 @@ object LangUtils {
                 throw ConfigMissingValueException() //TODO change exception and add message
             //There is no higher language to check
             val lMap = lang.languageOverride.handler.getConfig(LanguageMap::class.java)
-            val filtered = lMap.languages.filter{ lang.languageOverride.languageName == it.languageName }
-            if (filtered.isEmpty() || filtered.size != 1)
+            val filtered = lMap?.languages?.filter{ lang.languageOverride.languageName == it.languageName }
+            if (filtered?.isEmpty() as Boolean || filtered.size != 1)
                 throw ConfigMissingValueException() //TODO change exception and add message
             /*
             Checked the overriden language, but it has no languages matching the one specified,
@@ -80,9 +80,9 @@ object LangUtils {
                 return false
             }
 
-            val languages = lang.languageOverride.handler.getConfig(LanguageMap::class.java).languages
-            val filtered = languages.filter { cl -> lang.languageOverride.languageName == cl.languageName }
-            if (filtered.isEmpty()) {
+            val languages = lang.languageOverride.handler.getConfig(LanguageMap::class.java)?.languages
+            val filtered = languages?.filter { cl -> lang.languageOverride.languageName == cl.languageName }
+            if (filtered?.isEmpty() as Boolean) {
                 return false
             }
 
