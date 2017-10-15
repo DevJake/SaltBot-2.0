@@ -17,20 +17,23 @@
 package me.salt.config
 
 import com.fasterxml.jackson.annotation.JsonInclude
+import com.fasterxml.jackson.core.JsonParseException
 import com.fasterxml.jackson.databind.DeserializationFeature
+import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import me.salt.config.entities.Configuration
+import me.salt.entities.Constants
 import me.salt.events.ConfigInteractEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ConfigMissingValueException
-import me.salt.logging.logWarn
 import me.salt.objects.Interaction
-import me.salt.util.GenUtil
 import me.salt.objects.isEmpty
+import me.salt.util.GenUtil
 import java.io.File
+import java.io.IOException
 
 object ConfigHandler {
     private val mapper = ObjectMapper(YAMLFactory()
@@ -40,7 +43,7 @@ object ConfigHandler {
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER))
             .setSerializationInclusion(JsonInclude.Include.NON_ABSENT)
 
-    private fun getFile(handler: Handler): File = File(File(GenUtil.saltResourceDir, "\\Data"), handler.expectedPath)
+    private fun getFile(handler: Handler): File = File(File(GenUtil.saltResourceDir, Constants.CONFIG_DIR.value), handler.expectedPath)
 
     fun writeConfig(handler: Handler, conf: Configuration) {
         val f = getFile(handler)
@@ -63,7 +66,14 @@ object ConfigHandler {
         ObjectMapper(YAMLFactory()).registerKotlinModule()
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
                 .readValue(getFile(handler), type)
-    } catch (e: Exception) {
-        null
+    } catch (e: IOException) {
+        throw ConfigMissingValueException(//TODO update exception names
+                "The config could not be loaded... it likely does not exist, and must first be created!")
+    } catch (e: JsonMappingException) {
+        throw ConfigMissingValueException(
+                "The config could not be mapped to the specified Handler instance... the Handler likely has a different structure to the parsed file!")
+    } catch (e: JsonParseException) {
+        throw ConfigMissingValueException(
+                "The config could not be parsed... it's structure is likely malformed. Regenerate the file to fix structural issues.")
     }
 }
