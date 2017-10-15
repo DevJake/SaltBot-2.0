@@ -25,30 +25,74 @@ import java.util.regex.Pattern
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
 class Node {
-    var node: String
+    var node = ""
         get() = makeFinalNode(field)
     @JsonIgnore
-    var type: NodeType
+    var type = NodeType.PERMISSION
     @JsonIgnore
-    var negate: Boolean
+    var negate = false
     @JsonIgnore
-    var segments: List<NodeSegment>
+    var segments = mutableListOf<NodeSegment>()
         get() = calcSegments()
-    var authority: Authority.NodeAuthority
+    var authority = Authority.None()
+
+    constructor(node: String) {
+        this.node = node
+    }
+
+    constructor(node: String, type: NodeType, negate: Boolean, segments: MutableList<NodeSegment>, authority: Authority.NodeAuthority) {
+        this.node = node
+        this.type = type
+        this.negate = negate
+        this.segments = segments
+        this.authority = authority
+    }
+
+    constructor(node: String, authority: Authority.NodeAuthority) {
+        this.node = node
+        this.authority = authority
+    }
+
+    constructor(node: String, negate: Boolean) {
+        this.node = node
+        this.negate = negate
+    }
+
+    constructor(node: String, type: NodeType) {
+        this.node = node
+        this.type = type
+    }
+
+    constructor(node: String, type: NodeType, negate: Boolean) {
+        this.node = node
+        this.type = type
+        this.negate = negate
+    }
+
+    constructor(node: String, type: NodeType, authority: Authority.NodeAuthority) {
+        this.node = node
+        this.type = type
+        this.authority = authority
+    }
+
+    constructor(node: String, negate: Boolean, authority: Authority.NodeAuthority) {
+        this.node = node
+        this.negate = negate
+        this.authority = authority
+    }
+
+    constructor(node: String, type: NodeType, negate: Boolean, authority: Authority.NodeAuthority) {
+        this.node = node
+        this.type = type
+        this.negate = negate
+        this.authority = authority
+    }
 
     @JsonProperty("authority")
     private fun getJacksonAuthority() =
             if (!(authority.levels.contains(Authority.Level.NONE) && authority.interactions.contains(Interaction.ALL))) authority else null
 
-    constructor(node: String, authority: Authority.NodeAuthority = Authority.None(), type: NodeType = NodeType.PERMISSION, negate: Boolean = false) {
-        this.type = type
-        this.authority = authority
-        this.negate = negate
-        this.node = parse(node)
-        segments = calcSegments()
-
-        PermUtils.registerPermission(this) //Inform the bot of this permission's existence
-    }
+//    PermUtils.registerPermission(this) //Inform the bot of this permission's existence
 
     enum class NodeType {
         PERMISSION,
@@ -59,7 +103,7 @@ class Node {
     private fun parse(node: String): String {
         val matchIllegals = Pattern.compile("[^a-zA-Z*.\\s]")
         var n0 = node
-        if (node.startsWith("-")){
+        if (node.startsWith("-")) {
             negate = true
             n0 = node.removePrefix("-")
         }

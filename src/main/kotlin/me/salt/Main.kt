@@ -53,31 +53,31 @@ class Main {
                             GroupPermission("PermGroup1",
                                     listOf(
                                             Node("my.first.node", Authority.Guild(Interaction.WRITE)),
-                                            Node("my.second.node", type = Node.NodeType.PERMISSION, negate = true),
-                                            Node("my.*", type = Node.NodeType.PERMISSION, negate = true)),
+                                            Node("my.second.node", Node.NodeType.PERMISSION, true),
+                                            Node("my.*", Node.NodeType.PERMISSION, true)),
                                     listOf(
-                                            Node("my.first.enforcement.node", type = Node.NodeType.ENFORCEMENT),
-                                            Node("my.second.enforcement.node", type = Node.NodeType.ENFORCEMENT, negate = true),
-                                            Node("my.enforcement.*", type = Node.NodeType.ENFORCEMENT, negate = true))
+                                            Node("my.first.enforcement.node", Node.NodeType.ENFORCEMENT),
+                                            Node("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true),
+                                            Node("my.enforcement.*", Node.NodeType.ENFORCEMENT, true))
                                     , null, false, null),
                             GroupPermission("Group2",
                                     listOf(
                                             Node("second.perm.node"),
                                             Node("third.perm.node"),
-                                            Node("fourth.perm.node", negate = true)
+                                            Node("fourth.perm.node", true)
                                     ), null, null, false, null)
                     ).addUsers(
                             UserPermission("112633500447838208", listOf("Group2"),
                                     listOf(
-                                            Node("user.perm.node.one", type = Node.NodeType.PERMISSION),
-                                            Node("user.perm.node.two", type = Node.NodeType.PERMISSION, negate = false),
-                                            Node("user.perm.node.*", type = Node.NodeType.PERMISSION, negate = true)),
+                                            Node("user.perm.node.one", Node.NodeType.PERMISSION),
+                                            Node("user.perm.node.two", Node.NodeType.PERMISSION, false),
+                                            Node("user.perm.node.*", Node.NodeType.PERMISSION, true)),
                                     listOf(
-                                            Node("user.enforcement.node.one", type = Node.NodeType.ENFORCEMENT, authority = Authority.None()),
-                                            Node("user.enforcement.node.two", type = Node.NodeType.ENFORCEMENT, negate = false, authority = Authority.Bot(Interaction.READ)
+                                            Node("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, Authority.None()),
+                                            Node("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false, Authority.Bot(Interaction.READ)
                                                     .addInteractions(Interaction.REMOVE)
                                                     .addLevels(Authority.Level.GUILD)),
-                                            Node("user.enforcement.node.*", type = Node.NodeType.ENFORCEMENT, negate = true, authority = Authority.Guild(Interaction.WRITE)))
+                                            Node("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.Guild(Interaction.WRITE)))
                             )
                     ).build()
             )
@@ -85,7 +85,7 @@ class Main {
             println(Configs.SALT.PERMISSIONS_MAP.getConfig(PermissionMap::class.java).toString())
 
             println("hasperm=" +
-                    "${jda.getUserById("112633500447838208").hasBotPermissions(nodes = "second.perm.node")}")
+                    "${jda.getUserById("112633500447838208").hasBotPermissions("second.perm.node")}")
         }
     }
 }
