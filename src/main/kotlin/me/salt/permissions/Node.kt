@@ -112,11 +112,11 @@ class Node {
 }
 
 class NodeBuilder(node: String){
-    var node = node
-    var type = Node.NodeType.PERMISSION
-    var negate = false
-    var segments = mutableListOf<Node.NodeSegment>()
-    var authority = Authority.None()
+    private var node = node
+    private var type = Node.NodeType.PERMISSION
+    private var negate = false
+    private var segments = mutableListOf<Node.NodeSegment>()
+    private var authority = Authority.None()
 
 
     constructor(node: String, authority: Authority.NodeAuthority) : this(node) {
@@ -160,4 +160,9 @@ class NodeBuilder(node: String){
     }
 
     fun build() = Node(node, type, negate, segments, authority)
+
+    fun setNode(node: String) = apply { this.node = node }
+    fun setType(type: Node.NodeType) = apply { this.type = type }
+    fun setNegate(negate: Boolean) = apply { this.negate = negate }
+    fun setAuthority(authority: Authority.NodeAuthority) = apply { this.authority = authority }
 }
