@@ -23,6 +23,7 @@ import com.fasterxml.jackson.databind.JsonMappingException
 import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
+import com.fasterxml.jackson.module.kotlin.KotlinModule
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import me.salt.config.entities.Configuration
 import me.salt.entities.Constants
@@ -69,8 +70,9 @@ object ConfigHandler {
                 .enable(DeserializationFeature.WRAP_EXCEPTIONS)
                 .readValue(getFile(handler), type)
     } catch (e: IOException) {
-        throw ConfigWriteException( //TODO update exception names
-                "The config could not be loaded... it likely does not exist, and must first be created! \nSpecified Handler=$handler\nerror=${e.message}")
+        throw ConfigWriteException(//TODO update exception names
+                "The config could not be loaded... it likely does not exist, and must first be created, or there was an internal issue converting it to an object! " +
+                        "\nSpecified Handler=$handler\nerror=${e.message}")
 
         /*
         Due to a limitation with generics and type erasure, it is not possible to automatically create the file.
