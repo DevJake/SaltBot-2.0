@@ -53,33 +53,33 @@ class Main {
                     PermissionMapBuilder().addGroups(
                             GroupPermission("PermGroup1",
                                     mutableListOf(
-                                            Node("my.first.node", Authority.Guild(Interaction.WRITE)),
-                                            Node("my.second.node", Node.NodeType.PERMISSION, true),
-                                            Node("my.*", Node.NodeType.PERMISSION, true)),
+                                            NodeBuilder("my.first.node", authority = Authority.Guild(Interaction.WRITE)).build(),
+                                            NodeBuilder("my.second.node", Node.NodeType.PERMISSION, true).build(),
+                                            NodeBuilder("my.*", Node.NodeType.PERMISSION, true).build()),
                                     mutableListOf(
-                                            Node("my.first.enforcement.node", Node.NodeType.ENFORCEMENT),
-                                            Node("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true),
-                                            Node("my.enforcement.*", Node.NodeType.ENFORCEMENT, true))
+                                            NodeBuilder("my.first.enforcement.node", Node.NodeType.ENFORCEMENT).build(),
+                                            NodeBuilder("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true).build(),
+                                            NodeBuilder("my.enforcement.*", Node.NodeType.ENFORCEMENT, true).build())
                                     , null, false, null),
                             GroupPermission("Group2",
                                     mutableListOf(
-                                            Node("second.perm.node"),
-                                            Node("third.perm.node"),
-                                            Node("fourth.perm.node", true)
+                                            NodeBuilder("second.perm.node").build(),
+                                            NodeBuilder("third.perm.node").build(),
+                                            NodeBuilder("fourth.perm.node", negate = true).build()
                                     ), null, null, false, null)
                     ).addUsers(
                             UserPermissionBuilder("112633500447838208")
                                     .addPermissions(
-                                            Node("user.perm.node.one", Node.NodeType.PERMISSION),
-                                            Node("user.perm.node.two", Node.NodeType.PERMISSION, false),
-                                            Node("user.perm.node.*", Node.NodeType.PERMISSION, true))
+                                            NodeBuilder("user.perm.node.one", Node.NodeType.PERMISSION).build(),
+                                            NodeBuilder("user.perm.node.two", Node.NodeType.PERMISSION, false).build(),
+                                            NodeBuilder("user.perm.node.*", Node.NodeType.PERMISSION, true).build())
                                     .addEnforcements(
-                                            Node("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, Authority.None()),
-                                            Node("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false,
-                                                    Authority.Bot(Interaction.READ)
+                                            NodeBuilder("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, authority = Authority.None()).build(),
+                                            NodeBuilder("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false,
+                                                    authority = Authority.Bot(Interaction.READ)
                                                     .addInteractions(Interaction.REMOVE)
-                                                    .addLevels(Authority.Level.GUILD)),
-                                            Node("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.Guild(Interaction.WRITE))
+                                                    .addLevels(Authority.Level.GUILD)).build(),
+                                            NodeBuilder("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, authority = Authority.Guild(Interaction.WRITE)).build()
                                     )
                                     .build()
                     ).build()

@@ -16,6 +16,7 @@
 
 package me.salt.permissions
 
+import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
@@ -28,77 +29,37 @@ class Node {
     var node = ""
         get() = makeFinalNode(field)
     @JsonIgnore
-    var type = NodeType.PERMISSION
+    var type: NodeType? = null
     @JsonIgnore
-    var negate = false
+    var negate: Boolean? = null
     @JsonIgnore
-    var segments = mutableListOf<NodeSegment>()
+    var segments: MutableList<NodeSegment>? = null
         get() = calcSegments()
-    var authority = Authority.None()
+    var authority: Authority.NodeAuthority? = null
 
     constructor(node: String) {
         this.node = node
     }
 
-    constructor(node: String, type: NodeType, negate: Boolean, segments: MutableList<NodeSegment>, authority: Authority.NodeAuthority) {
+//    constructor(node: String, type: NodeType, negate: Boolean, segments: MutableList<NodeSegment>, authority: Authority.NodeAuthority) {
+//        this.node = node
+//        this.type = type
+//        this.negate = negate
+//        this.segments = segments
+//        this.authority = authority
+//    }
+    @JsonCreator(mode = JsonCreator.Mode.DEFAULT)
+    constructor(node: String, type: NodeType?, negate: Boolean?, segments: MutableList<NodeSegment>?, authority: Authority.NodeAuthority?) {
         this.node = node
-        this.type = type
+        this.type = type ?: NodeType.PERMISSION
         this.negate = negate
         this.segments = segments
-        this.authority = authority
-    }
-
-    private constructor(node: String?, type: NodeType?, negate: Boolean?, segments: MutableList<NodeSegment>?, authority: Authority.NodeAuthority?) {
-        this.node = node ?: ""
-        this.type = type ?: NodeType.PERMISSION
-        this.negate = negate ?: false
-        this.segments = segments ?: calcSegments()
-        this.authority = authority ?: Authority.None()
-    }
-
-    constructor(node: String, authority: Authority.NodeAuthority) {
-        this.node = node
-        this.authority = authority
-    }
-
-    constructor(node: String, negate: Boolean) {
-        this.node = node
-        this.negate = negate
-    }
-
-    constructor(node: String, type: NodeType) {
-        this.node = node
-        this.type = type
-    }
-
-    constructor(node: String, type: NodeType, negate: Boolean) {
-        this.node = node
-        this.type = type
-        this.negate = negate
-    }
-
-    constructor(node: String, type: NodeType, authority: Authority.NodeAuthority) {
-        this.node = node
-        this.type = type
-        this.authority = authority
-    }
-
-    constructor(node: String, negate: Boolean, authority: Authority.NodeAuthority) {
-        this.node = node
-        this.negate = negate
-        this.authority = authority
-    }
-
-    constructor(node: String, type: NodeType, negate: Boolean, authority: Authority.NodeAuthority) {
-        this.node = node
-        this.type = type
-        this.negate = negate
-        this.authority = authority
+        this.authority  = authority ?: Authority.None()
     }
 
     @JsonProperty("authority")
     private fun getJacksonAuthority() =
-            if (!(authority.levels.contains(Authority.Level.NONE) && authority.interactions.contains(Interaction.ALL))) authority else null
+            if (!(authority?.levels?.contains(Authority.Level.NONE) ?: true && authority?.interactions?.contains(Interaction.ALL) ?: true)) authority else null
 
 //    PermUtils.registerPermission(this) //Inform the bot of this permission's existence
 
@@ -133,7 +94,7 @@ class Node {
                             { NodeSegment(it, it == "*") })
 
     private fun makeFinalNode(node: String) =
-            "${if (negate && type == NodeType.PERMISSION) "-" else ""}$node"
+            "${if (negate ?: false && type == NodeType.PERMISSION) "-" else ""}$node"
 
     fun addSegment(segment: String) {
         //TODO block if last segment is a single asterisk
@@ -148,4 +109,55 @@ class Node {
     }
 
     data class NodeSegment(val segment: String, val isBlanket: Boolean = false)
+}
+
+class NodeBuilder(node: String){
+    var node = node
+    var type = Node.NodeType.PERMISSION
+    var negate = false
+    var segments = mutableListOf<Node.NodeSegment>()
+    var authority = Authority.None()
+
+
+    constructor(node: String, authority: Authority.NodeAuthority) : this(node) {
+        this.node = node
+        this.authority = authority
+    }
+
+    constructor(node: String, negate: Boolean) : this(node) {
+        this.node = node
+        this.negate = negate
+    }
+
+    constructor(node: String, type: Node.NodeType) : this(node) {
+        this.node = node
+        this.type = type
+    }
+
+    constructor(node: String, type: Node.NodeType, negate: Boolean) : this(node) {
+        this.node = node
+        this.type = type
+        this.negate = negate
+    }
+
+    constructor(node: String, type: Node.NodeType, authority: Authority.NodeAuthority) : this(node) {
+        this.node = node
+        this.type = type
+        this.authority = authority
+    }
+
+    constructor(node: String, negate: Boolean, authority: Authority.NodeAuthority) : this(node) {
+        this.node = node
+        this.negate = negate
+        this.authority = authority
+    }
+
+    constructor(node: String, type: Node.NodeType, negate: Boolean, authority: Authority.NodeAuthority) : this(node) {
+        this.node = node
+        this.type = type
+        this.negate = negate
+        this.authority = authority
+    }
+
+    fun build() = Node(node, type, negate, segments, authority)
 }
