@@ -54,7 +54,7 @@ class Node {
         this.type = type ?: NodeType.PERMISSION
         this.negate = negate
         this.segments = segments
-        this.authority  = authority ?: Authority.None()
+        this.authority = authority ?: Authority.None()
     }
 
     @JsonProperty("authority")
@@ -67,7 +67,6 @@ class Node {
         PERMISSION,
         ENFORCEMENT
     }
-
 
     private fun parse(node: String): String {
         val matchIllegals = Pattern.compile("[^a-zA-Z*.\\s]")
@@ -111,13 +110,12 @@ class Node {
     data class NodeSegment(val segment: String, val isBlanket: Boolean = false)
 }
 
-class NodeBuilder(node: String){
+class NodeBuilder(node: String) {
     private var node = node
     private var type = Node.NodeType.PERMISSION
     private var negate = false
     private var segments = mutableListOf<Node.NodeSegment>()
     private var authority = Authority.None()
-
 
     constructor(node: String, authority: Authority.NodeAuthority) : this(node) {
         this.node = node

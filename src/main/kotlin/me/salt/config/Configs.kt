@@ -99,7 +99,6 @@ object Configs {
             }
     }
 
-
 }
 
 //@JsonIgnoreType
@@ -148,7 +147,6 @@ data class Handler(private val chain: List<String> = emptyList(), private val en
             "LANGUAGE MAP" -> "/Maps/${keyword}LanguageMap.yaml"
             else -> throw ConfigHandlerException("The value at chain[1] is incorrect! Must be one of me.salt.config.Configs.ConfigTypes")
         }
-
 
         //TODO checking specified entityId is valid
         //TODO decipher chain, determine path, throw required exceptions

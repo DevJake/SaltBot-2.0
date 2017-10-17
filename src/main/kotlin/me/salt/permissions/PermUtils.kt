@@ -70,8 +70,8 @@ object PermUtils {
 
             if (userPerm.permissions != null) {
                 hasNodes =
-                        userPerm.permissions.mapTo(mutableListOf(), {it.node})
-                                .containsAll(nodes.mapTo(mutableListOf(), {it.node}))
+                        userPerm.permissions.mapTo(mutableListOf(), { it.node })
+                                .containsAll(nodes.mapTo(mutableListOf(), { it.node }))
             }
             //If the user has a series of permissions, determine if it contains all of the specified nodes
 
@@ -79,8 +79,8 @@ object PermUtils {
                 if (userPerm.groups == null) return false //No groups; no perms
                 val groupsToCheck = permMap?.groups?.filter { userPerm.groups.contains(it.groupName) }
 
-                val indistinctPermList = nodes.mapTo(mutableListOf(), {it.node})
-                indistinctPermList.removeAll(userPerm.permissions?.mapTo(mutableListOf(), {it.node}) ?: return false)
+                val indistinctPermList = nodes.mapTo(mutableListOf(), { it.node })
+                indistinctPermList.removeAll(userPerm.permissions?.mapTo(mutableListOf(), { it.node }) ?: return false)
 
                     /*
                     Get the permissions the user -should- have, and remove all of those they actually -do- have.
@@ -89,7 +89,7 @@ object PermUtils {
 
                     groupsToCheck?.forEach { group ->
                             indistinctPermList
-                                    .removeAll(group.permissions?.mapTo(mutableListOf(), {it.node}) ?:
+                                    .removeAll(group.permissions?.mapTo(mutableListOf(), { it.node }) ?:
                                             throw ConfigMissingValueException())
                     }
                     return indistinctPermList.isEmpty()

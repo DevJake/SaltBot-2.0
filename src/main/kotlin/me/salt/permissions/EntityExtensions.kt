@@ -45,8 +45,6 @@ fun User.hasBotPermissions(vararg nodes: String, checkGroups: Boolean = true) =
 fun User.hasBotPermissions(vararg nodes: Node, checkGroups: Boolean = true) =
         PermUtils.hasBotPermissions(this, nodes.toList(), checkGroups)
 
-
-
 fun Guild.hasPermissions(userId: String, vararg nodes: String, checkGroups: Boolean = true) =
         PermUtils.hasGuildPermissions(Main.jda.getUserById(userId), this, nodes.mapTo(mutableListOf(), { Node(it) }), checkGroups)
 fun Guild.hasPermissions(user: User, vararg nodes: String, checkGroups: Boolean = true) =

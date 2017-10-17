@@ -96,7 +96,6 @@ class SaltConfig : Config {
         return "SaltConfig(botToken=$botToken, botSafeMode=$botSafeMode, modules=$modules, globalAdmins=$globalAdmins, respondToMentions=$respondToMentions, globalPrefixes=$globalPrefixes, defaultCooldownValue=$defaultCooldownValue, defaultEmbedColour=$defaultEmbedColour, defaultLangCode=$defaultLangCode)"
     }
 
-
 }
 
 class GuildConfig : Config {

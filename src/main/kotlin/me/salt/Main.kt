@@ -21,10 +21,6 @@ import me.salt.config.entities.*
 import me.salt.config.initConfigs
 import me.salt.lang.LangCode
 import me.salt.lang.initLangs
-import me.salt.logging.LogUtils
-import me.salt.logging.logEasy
-import me.salt.logging.logInfo
-import me.salt.logging.logWarn
 import me.salt.objects.*
 import me.salt.permissions.*
 import net.dv8tion.jda.core.AccountType

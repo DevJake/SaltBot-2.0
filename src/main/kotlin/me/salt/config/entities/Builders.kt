@@ -25,7 +25,7 @@ import me.salt.permissions.UserPermission
 import me.salt.util.*
 import java.util.concurrent.TimeUnit
 
-class SaltConfigBuilder(botToken: String): ConfigBuilder {
+class SaltConfigBuilder(botToken: String) : ConfigBuilder {
     var botToken: String = botToken
         private set
     var botSafeMode: Boolean = false

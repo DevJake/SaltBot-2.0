@@ -60,7 +60,6 @@ class PermissionMap : ConfigMap {
         return "PermissionMap(groups=$groups, users=$users)"
     }
 
-
 }
 
 class RolesMap {

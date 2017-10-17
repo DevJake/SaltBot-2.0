@@ -23,7 +23,6 @@ import me.salt.config.entities.TextChannelConfig
 import me.salt.config.entities.UserConfig
 import me.salt.objects.Entity
 
-
 object CommandParser {
 
     fun parse(raw: String, guildId: String, textChannelId: String, userId: String) {

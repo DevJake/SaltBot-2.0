@@ -79,6 +79,5 @@ object Authority {
             return "NodeAuthority(levels=$levels, interactions=$interactions), authorityNodes=${getAuthorityNodes()}"
         }
 
-
     }
 }

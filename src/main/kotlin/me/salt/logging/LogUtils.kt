@@ -22,7 +22,6 @@ import me.salt.events.Event
 import me.salt.exception.ConfigMissingValueException
 import java.time.Instant
 
-
 object LogUtils {
     private val cache = mutableListOf<LogEntry>()
     private fun addLogEntry(entry: LogEntry) {
@@ -42,7 +41,7 @@ object LogUtils {
 //TODO("Writing entries (with log entry about the flush), clearing cache"), splitting logs to different files, such as one for exceptions
     }
 
-    private fun flush(entry: LogEntry){
+    private fun flush(entry: LogEntry) {
         var logConfig = Configs.SALT.LOG_CONFIG.getConfig(SaltLogConfig::class.java) ?: throw ConfigMissingValueException() //TODO
         if (logConfig.logToConsole) println(calcLogMessage(entry))
 

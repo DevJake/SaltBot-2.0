@@ -57,7 +57,7 @@ object LangUtils {
                 throw ConfigMissingValueException() //TODO change exception and add message
             //There is no higher language to check
             val lMap = lang.languageOverride.handler.getConfig(LanguageMap::class.java)
-            val filtered = lMap?.languages?.filter{ lang.languageOverride.languageName == it.languageName }
+            val filtered = lMap?.languages?.filter { lang.languageOverride.languageName == it.languageName }
             if (filtered?.isEmpty() as Boolean || filtered.size != 1)
                 throw ConfigMissingValueException() //TODO change exception and add message
             /*

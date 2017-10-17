@@ -16,7 +16,6 @@
 
 package me.salt.permissions
 
-import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.exception.BuilderValueException
 import me.salt.objects.PermRole
 import java.util.regex.Pattern
