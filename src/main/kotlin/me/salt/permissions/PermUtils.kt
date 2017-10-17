@@ -17,7 +17,12 @@
 package me.salt.permissions
 
 import me.salt.config.Configs
+import me.salt.config.Handler
 import me.salt.config.entities.PermissionMap
+import me.salt.events.PermissionCheckEvent
+import me.salt.events.PermissionRegisterEvent
+import me.salt.events.PermissionUnregisterEvent
+import me.salt.events.fireEvent
 import me.salt.exception.ConfigMissingValueException
 import me.salt.objects.Action
 import net.dv8tion.jda.core.entities.Guild
@@ -27,11 +32,17 @@ import net.dv8tion.jda.core.entities.User
 object PermUtils {
     private val permissions: MutableList<Node> = mutableListOf()
 
-    fun registerPermission(vararg nodes: Node) = this.permissions.addAll(nodes)
+    fun registerPermission(vararg nodes: Node) {
+        this.permissions.addAll(nodes)
+        fireEvent(PermissionRegisterEvent(nodes.toList()))
+    }
 
-    fun unregisterPermission(vararg nodes: Node) = this.permissions.removeAll(nodes)
+    fun unregisterPermission(vararg nodes: Node) {
+        this.permissions.removeAll(nodes)
+        fireEvent(PermissionUnregisterEvent(nodes.toList()))
+    }
 
-    private fun getAuthHandler(level: Authority.Level, entityId: String?): me.salt.config.Handler {
+    private fun getAuthHandler(level: Authority.Level, entityId: String?): Handler {
         val tempEntityId: String =
                 if (entityId == null && level != Authority.Level.BOT)
                     throw ConfigMissingValueException()
@@ -46,13 +57,16 @@ object PermUtils {
     }
 
     private fun checkHasPerms(level: Authority.Level, nodes: List<Node>, entityId: String?, user: User): Boolean {
+        fireEvent(PermissionCheckEvent(level, nodes, entityId, user))
+        //TODO check that group permissions are checked across a group's specified super groups
+        //TODO check asterisk modifier on permissions works
         var hasNodes = false
 
         val permMap = getAuthHandler(level, entityId).getConfig(PermissionMap::class.java)
 
         if (permMap?.users?.any { it.userId == user.id } == true) {
 
-            val userPerm: UserPermission = permMap.users?.first { it.userId == user.id } ?: return false
+            val userPerm: UserPermission = permMap?.users?.first { it.userId == user.id } ?: return false
 
             if (userPerm.permissions != null) {
                 hasNodes =
@@ -63,7 +77,7 @@ object PermUtils {
 
             if (!hasNodes) { //Time to check groups
                 if (userPerm.groups == null) return false //No groups; no perms
-                val groupsToCheck = permMap.groups?.filter { userPerm.groups.contains(it.groupName) }
+                val groupsToCheck = permMap?.groups?.filter { userPerm.groups.contains(it.groupName) }
 
                 val indistinctPermList = nodes.mapTo(mutableListOf(), {it.node})
                 indistinctPermList.removeAll(userPerm.permissions?.mapTo(mutableListOf(), {it.node}) ?: return false)
