@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -31,25 +31,30 @@ class PermissionMap : ConfigMap {
     @JsonProperty("Users")
     var users: List<UserPermission>?
 
-    constructor(groups: List<GroupPermission>?, users: List<UserPermission>?) {
-        if (groups != null && groups.indistinctBy { it.groupName }.isNotEmpty())
-            throw ConfigMissingValueException(
-                    "The provided GroupPermissions are not distinct! " +
-                            "Indistinct = ${groups.indistinctBy { it.groupName }}")
-
-        if (users != null && users.indistinctBy { it.userId }.isNotEmpty())
-            throw ConfigMissingValueException(
-                    "The provided UserPermissions are not distinct! " +
-                            "Indistinct = ${users.indistinctBy { it.userId }}")
-
-        this.groups = groups
-        this.users = users
-    }
+//    constructor(groups: List<GroupPermission>?, users: List<UserPermission>?) {
+//        if (groups != null && groups.indistinctBy { it.groupName }.isNotEmpty())
+//            throw ConfigMissingValueException(
+//                    "The provided GroupPermissions are not distinct! " +
+//                            "Indistinct = ${groups.indistinctBy { it.groupName }}")
+//
+//        if (users != null && users.indistinctBy { it.userId }.isNotEmpty())
+//            throw ConfigMissingValueException(
+//                    "The provided UserPermissions are not distinct! " +
+//                            "Indistinct = ${users.indistinctBy { it.userId }}")
+//
+//        this.groups = groups
+//        this.users = users
+//    }
 
     constructor(builder: PermissionMapBuilder) : this(
             builder.groups,
             builder.users
     )
+
+    constructor(groups: List<GroupPermission>?, users: List<UserPermission>?) {
+        this.groups = groups
+        this.users = users
+    }
 
     override fun toString(): String {
         return "PermissionMap(groups=$groups, users=$users)"

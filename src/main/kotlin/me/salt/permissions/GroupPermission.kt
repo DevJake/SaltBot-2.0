@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -23,11 +23,11 @@ class GroupPermission {
     @JsonProperty("Group name")
     val groupName: String
     @JsonProperty("Permissions")
-    val permissions: List<Node>?
+    val permissions: MutableList<Node>?
     @JsonProperty("Enforcements")
-    val enforcements: List<Node>?
+    val enforcements: MutableList<Node>?
     @JsonProperty("Groups")
-    val groups: List<String>?
+    val groups: MutableList<String>?
     @JsonProperty("Apply to all Users?")
     val applyToAllUsers: Boolean
     @JsonProperty("Apply to all Users with role")
@@ -35,9 +35,9 @@ class GroupPermission {
 
     constructor(
             groupName: String,
-            permissions: List<Node>?,
-            enforcements: List<Node>?,
-            groups: List<String>?,
+            permissions: MutableList<Node>?,
+            enforcements: MutableList<Node>?,
+            groups: MutableList<String>?,
             applyToAllUsers: Boolean = false,
             applyToUsersWithRole: List<PermRole>?
     ) {

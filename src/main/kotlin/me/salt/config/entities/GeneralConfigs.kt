@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -19,6 +19,7 @@ package me.salt.config.entities
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.config.ConfigHandler
 import me.salt.config.Handler
+import me.salt.exception.ConfigMissingValueException
 import me.salt.lang.LangCode
 import me.salt.objects.Admin
 import me.salt.objects.Module
@@ -34,8 +35,7 @@ interface ConfigMapBuilder {
 
 interface Configuration {
     fun write(handler: Handler) = ConfigHandler.writeConfig(handler, this)
-    fun overwrite(handler: Handler) = ConfigHandler.overwriteConfig(handler, this
-    )
+    fun overwrite(handler: Handler) = ConfigHandler.overwriteConfig(handler, this)
 }
 
 interface Config : Configuration

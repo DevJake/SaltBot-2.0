@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -46,6 +46,14 @@ class Node {
         this.negate = negate
         this.segments = segments
         this.authority = authority
+    }
+
+    private constructor(node: String?, type: NodeType?, negate: Boolean?, segments: MutableList<NodeSegment>?, authority: Authority.NodeAuthority?) {
+        this.node = node ?: ""
+        this.type = type ?: NodeType.PERMISSION
+        this.negate = negate ?: false
+        this.segments = segments ?: calcSegments()
+        this.authority = authority ?: Authority.None()
     }
 
     constructor(node: String, authority: Authority.NodeAuthority) {

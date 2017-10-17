@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -43,6 +43,7 @@ class Main {
             println(LangCode.en_GB.getLang())
 //            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("mytoken").build())
             Configs.SALT.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
+            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("MjQ2MzA5NDI1OTAyNjQ5MzQ1.DMd7cw.xOR-JF5KrF-frPmwMyXXyvwkbXA").build())
             logEasy("Simple, easy logging")
             logWarn("A warning log")
             LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
@@ -51,34 +52,36 @@ class Main {
             Configs.SALT.PERMISSIONS_MAP.overwriteConfig(
                     PermissionMapBuilder().addGroups(
                             GroupPermission("PermGroup1",
-                                    listOf(
+                                    mutableListOf(
                                             Node("my.first.node", Authority.Guild(Interaction.WRITE)),
                                             Node("my.second.node", Node.NodeType.PERMISSION, true),
                                             Node("my.*", Node.NodeType.PERMISSION, true)),
-                                    listOf(
+                                    mutableListOf(
                                             Node("my.first.enforcement.node", Node.NodeType.ENFORCEMENT),
                                             Node("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true),
                                             Node("my.enforcement.*", Node.NodeType.ENFORCEMENT, true))
                                     , null, false, null),
                             GroupPermission("Group2",
-                                    listOf(
+                                    mutableListOf(
                                             Node("second.perm.node"),
                                             Node("third.perm.node"),
                                             Node("fourth.perm.node", true)
                                     ), null, null, false, null)
                     ).addUsers(
-                            UserPermission("112633500447838208", listOf("Group2"),
-                                    listOf(
+                            UserPermissionBuilder("112633500447838208")
+                                    .addPermissions(
                                             Node("user.perm.node.one", Node.NodeType.PERMISSION),
                                             Node("user.perm.node.two", Node.NodeType.PERMISSION, false),
-                                            Node("user.perm.node.*", Node.NodeType.PERMISSION, true)),
-                                    listOf(
+                                            Node("user.perm.node.*", Node.NodeType.PERMISSION, true))
+                                    .addEnforcements(
                                             Node("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, Authority.None()),
-                                            Node("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false, Authority.Bot(Interaction.READ)
+                                            Node("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false,
+                                                    Authority.Bot(Interaction.READ)
                                                     .addInteractions(Interaction.REMOVE)
                                                     .addLevels(Authority.Level.GUILD)),
-                                            Node("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.Guild(Interaction.WRITE)))
-                            )
+                                            Node("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.Guild(Interaction.WRITE))
+                                    )
+                                    .build()
                     ).build()
             )
 

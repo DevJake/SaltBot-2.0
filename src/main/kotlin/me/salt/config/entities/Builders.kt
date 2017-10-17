@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -25,7 +25,7 @@ import me.salt.permissions.UserPermission
 import me.salt.util.*
 import java.util.concurrent.TimeUnit
 
-class SaltConfigBuilder(botToken: String) : ConfigBuilder {
+class SaltConfigBuilder(botToken: String): ConfigBuilder {
     var botToken: String = botToken
         private set
     var botSafeMode: Boolean = false
@@ -58,7 +58,7 @@ class SaltConfigBuilder(botToken: String) : ConfigBuilder {
     fun removeModules(vararg modules: Module) = apply { this.modules.removeAll(modules) }
     fun setBotSafeMode(safeMode: Boolean) = apply { botSafeMode = safeMode }
     fun addGlobalAdmins(vararg admins: Admin) = apply {
-        if (globalAdmins.contains(Admin("Salt", "tobesorted")) && globalAdmins.size == 1)
+        if (globalAdmins.contains(Admin("Salt", "tobesorted")) && globalAdmins.size == 1) //TODO sort 'tobesorted'
             globalAdmins = mutableListOf()
         globalAdmins.addAll(admins)
     }
@@ -84,8 +84,6 @@ class SaltConfigBuilder(botToken: String) : ConfigBuilder {
     fun setDefaultLangCode(langCode: LangCode) = apply { defaultLangCode = langCode }
 
     //TODO move content pinning, reminders, language, etc. config stuff to own configs in /modules/ dir
-
-    constructor(saltConfig: SaltConfig) : this("")
 }
 
 class PermissionMapBuilder : ConfigMapBuilder {

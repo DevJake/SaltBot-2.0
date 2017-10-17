@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- * you may not use this file except in compliance with the License.
+ *  you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *      http://www.apache.org/licenses/LICENSE-2.0
+ *       http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -29,6 +29,7 @@ import me.salt.entities.Constants
 import me.salt.events.ConfigInteractEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ConfigMissingValueException
+import me.salt.exception.ConfigWriteException
 import me.salt.objects.Interaction
 import me.salt.objects.isEmpty
 import me.salt.util.GenUtil
@@ -65,10 +66,19 @@ object ConfigHandler {
     fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T? = try {
         ObjectMapper(YAMLFactory()).registerKotlinModule()
                 .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                .enable(DeserializationFeature.WRAP_EXCEPTIONS)
                 .readValue(getFile(handler), type)
     } catch (e: IOException) {
-        throw ConfigMissingValueException(//TODO update exception names
-                "The config could not be loaded... it likely does not exist, and must first be created!")
+        throw ConfigWriteException( //TODO update exception names
+                "The config could not be loaded... it likely does not exist, and must first be created! \nSpecified Handler=$handler\nerror=${e.message}")
+
+        /*
+        Due to a limitation with generics and type erasure, it is not possible to automatically create the file.
+        This is because we cannot reliably determine which class pairs with which config type.
+        The only solution would be unscalable and would require constant adaptation.
+        The remaining solution would be for each config class to be annotated.
+         */
+
     } catch (e: JsonMappingException) {
         throw ConfigMissingValueException(
                 "The config could not be mapped to the specified Handler instance... the Handler likely has a different structure to the parsed file!")
