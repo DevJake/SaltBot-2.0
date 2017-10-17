@@ -41,61 +41,54 @@ class Main {
             initConfigs() //Calls init method for configs
             initLangs()
             println(LangCode.en_GB.getLang())
-//            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("mytoken").build())
             Configs.SALT.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
-            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("MjQ2MzA5NDI1OTAyNjQ5MzQ1.DMemJg.pWcndS0P0hIfBp8v-LuX3hWF-cY").build())
-            logEasy("Simple, easy logging")
-            logWarn("A warning log")
-            LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
+            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("").build())
+//            logEasy("Simple, easy logging")
+//            logWarn("A warning log")
+//            LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
             jda = JDABuilder(AccountType.BOT).setToken(Configs.SALT.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken).buildAsync()
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
-            Configs.SALT.PERMISSIONS_MAP.overwriteConfig(
-                    PermissionMapBuilder().addGroups(
-                            GroupPermission("Group2",
-                                    mutableListOf(
-                                            NodeBuilder("second.perm.node").build(),
-                                            NodeBuilder("third.perm.node").build(),
-                                            NodeBuilder("fourth.perm.node", true).build()
-                                    ), null, null, false, null),
-                            GroupPermissionBuilder("PermGroup1")
-                                    .addPermissions(
-                                            NodeBuilder("my.first.node", Authority.Guild(Interaction.WRITE)).build(),
-                                            NodeBuilder("my.second.node", Node.NodeType.PERMISSION, true).build(),
-                                            NodeBuilder("my.*", Node.NodeType.PERMISSION, true).build())
-                                    .addEnforcements(
-                                            NodeBuilder("my.first.enforcement.node", Node.NodeType.ENFORCEMENT).build(),
-                                            NodeBuilder("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true).build(),
-                                            NodeBuilder("my.enforcement.*", Node.NodeType.ENFORCEMENT, true).build())
-                                    .build(),
-                            GroupPermissionBuilder("PermGroup1")
-                                    .addPermissions(
-                                            NodeBuilder("second.perm.node").build(),
-                                            NodeBuilder("third.perm.node").build(),
-                                            NodeBuilder("fourth.perm.node", true).build())
-                                    .build()
-                    ).addUsers(
-                            UserPermissionBuilder("112633500447838208")
-                                    .addPermissions(
-                                            NodeBuilder("user.perm.node.one", Node.NodeType.PERMISSION).build(),
-                                            NodeBuilder("user.perm.node.two", Node.NodeType.PERMISSION, false).build(),
-                                            NodeBuilder("user.perm.node.*", Node.NodeType.PERMISSION, true).build())
-                                    .addEnforcements(
-                                            NodeBuilder("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, Authority.None()).build(),
-                                            NodeBuilder("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false,
-                                                    Authority.Bot(Interaction.READ)
-                                                    .addInteractions(Interaction.REMOVE)
-                                                    .addLevels(Authority.Level.GUILD)).build(),
-                                            NodeBuilder("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.Guild(Interaction.WRITE)).build()
-                                    )
-                                    .addGroups("Group2")
-                                    .build()
-                    ).build()
-            )
+//            Configs.SALT.PERMISSIONS_MAP.overwriteConfig(
+//                    PermissionMapBuilder().addGroups(
+//                            GroupPermissionBuilder("PermGroup1")
+//                                    .addPermissions(
+//                                            NodeBuilder("my.first.node", Authority.Guild(Interaction.WRITE)).build(),
+//                                            NodeBuilder("my.second.node", Node.NodeType.PERMISSION, true).build(),
+//                                            NodeBuilder("my.*", Node.NodeType.PERMISSION, true).build())
+//                                    .addEnforcements(
+//                                            NodeBuilder("my.first.enforcement.node", Node.NodeType.ENFORCEMENT).build(),
+//                                            NodeBuilder("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true).build(),
+//                                            NodeBuilder("my.enforcement.*", Node.NodeType.ENFORCEMENT, true).build())
+//                                    .build(),
+//                            GroupPermissionBuilder("Group2")
+//                                    .addPermissions(
+//                                            NodeBuilder("second.perm.node").build(),
+//                                            NodeBuilder("third.perm.node").build(),
+//                                            NodeBuilder("fourth.perm.node", true).build())
+//                                    .addGroups("PermGroup1")
+//                                    .build()
+//                    ).addUsers(
+//                            UserPermissionBuilder("112633500447838208")
+//                                    .addPermissions(
+//                                            NodeBuilder("user.perm.node.one", Node.NodeType.PERMISSION).build(),
+//                                            NodeBuilder("user.perm.node.two", Node.NodeType.PERMISSION, false).build(),
+//                                            NodeBuilder("user.perm.node.*", Node.NodeType.PERMISSION, true).build())
+//                                    .addEnforcements(
+//                                            NodeBuilder("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, Authority.None()).build(),
+//                                            NodeBuilder("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false,
+//                                                    Authority.Bot(Interaction.READ)
+//                                                    .addInteractions(Interaction.REMOVE)
+//                                                    .addLevels(Authority.Level.GUILD)).build(),
+//                                            NodeBuilder("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.Guild(Interaction.WRITE)).build()
+//                                    )
+//                                    .addGroups("Group2")
+//                                    .build()
+//                    ).build())
 
             println(Configs.SALT.PERMISSIONS_MAP.getConfig(PermissionMap::class.java).toString())
 
             println("hasperm=" +
-                    "${jda.getUserById("112633500447838208").hasBotPermissions("second.perm.node")}")
+                    "${jda.getUserById("112633500447838208").hasBotPermissions("my.first.node")}")
         }
     }
 }
