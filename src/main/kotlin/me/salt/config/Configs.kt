@@ -157,4 +157,5 @@ data class Handler(private val chain: List<String> = emptyList(), private val en
     fun <T : Configuration> getConfig(configClass: Class<T>): T? = ConfigHandler.readConfig(this, configClass)
     fun overwriteConfig(config: Configuration) = ConfigHandler.overwriteConfig(this, config)
     fun writeConfig(config: Configuration) = ConfigHandler.writeConfig(this, config)
+    fun exists(): Boolean = ConfigHandler.configExists(this)
 }

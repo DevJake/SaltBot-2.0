@@ -19,7 +19,6 @@ package me.salt.config.entities
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.config.ConfigHandler
 import me.salt.config.Handler
-import me.salt.exception.ConfigMissingValueException
 import me.salt.lang.LangCode
 import me.salt.objects.Admin
 import me.salt.objects.Module
@@ -100,7 +99,7 @@ class SaltConfig : Config {
 
 }
 
-class GuildConfig {
+class GuildConfig : Config {
     @JsonProperty("Bot enabled")
     val botEnabled: Boolean?
     @JsonProperty("Guild Safe Mode enabled")
@@ -155,7 +154,7 @@ class GuildConfig {
 }
 
 //TODO special permissions to bypass restrictions, like bypassing disabled reminders
-class TextChannelConfig {
+class TextChannelConfig : Config {
     @JsonProperty("Post User_join message")
     val postJoinMessages: Boolean?
     @JsonProperty("Join Message template")
@@ -184,7 +183,7 @@ class TextChannelConfig {
     @JsonProperty("Respond to mentions")
     val respondToMentions: Boolean?
     @JsonProperty("Channel_wide Command Prefixes")
-    val guildPrefixes: List<String>?
+    val channelPrefixes: List<String>?
     @JsonProperty("Force Cooldowns")
     val forceCooldowns: Boolean?
     @JsonProperty("Default Channel Cooldown Value (Seconds)")
@@ -218,7 +217,7 @@ class TextChannelConfig {
         this.modules = modules
         this.guildAdmins = guildAdmins
         this.respondToMentions = respondToMentions
-        this.guildPrefixes = guildPrefixes
+        this.channelPrefixes = guildPrefixes
         this.forceCooldowns = forceCooldowns
         this.defaultCooldownValue = defaultCooldownValue
         this.defaultEmbedColour = defaultEmbedColour
@@ -231,15 +230,15 @@ class TextChannelConfig {
     }
 }
 
-class UserConfig {
+class UserConfig : Config {
     val preferredName: String?
     val preferredLanguage: LangCode?
-    val preferredCmdPrefix: List<String>?
+    val preferredCmdPrefixes: List<String>?
 
     constructor(preferredName: String?, preferredLanguage: LangCode?, preferredCmdPrefix: List<String>?) {
         this.preferredName = preferredName
         this.preferredLanguage = preferredLanguage
-        this.preferredCmdPrefix = preferredCmdPrefix
+        this.preferredCmdPrefixes = preferredCmdPrefix
     }
 }
 

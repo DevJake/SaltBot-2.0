@@ -47,6 +47,8 @@ object ConfigHandler {
 
     private fun getFile(handler: Handler): File = File(File(GenUtil.saltResourceDir, Constants.CONFIG_DIR.value), handler.expectedPath)
 
+    fun configExists(handler: Handler) = getFile(handler).exists()
+
     fun writeConfig(handler: Handler, conf: Configuration) {
         val f = getFile(handler)
         GenUtil.createFile(f)
