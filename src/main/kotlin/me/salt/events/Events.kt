@@ -19,6 +19,9 @@ package me.salt.events
 import me.salt.config.Handler
 import me.salt.config.entities.Configuration
 import me.salt.objects.Interaction
+import me.salt.permissions.Authority
+import me.salt.permissions.Node
+import net.dv8tion.jda.core.entities.User
 import java.io.File
 
 interface Event
@@ -46,7 +49,11 @@ open class EventHandler : ListenerAdapter {
 
     open fun onFileCreate(e: FileCreateEvent) {}
     open fun onConfigReadWrite(e: ConfigInteractEvent) {}
+    open fun checkPermission(e: PermissionCheckEvent) {}
 }
 
 data class FileCreateEvent(val file: File, val isFile: Boolean) : Event
 data class ConfigInteractEvent(val handler: Handler, val entity: Configuration, val type: Interaction) : Event
+data class PermissionCheckEvent(val level: Authority.Level, val nodes: List<Node>, val entityId: String?, val user: User) : Event
+data class PermissionRegisterEvent(val nodes: List<Node>) : Event
+data class PermissionUnregisterEvent(val nodes: List<Node>) : Event
