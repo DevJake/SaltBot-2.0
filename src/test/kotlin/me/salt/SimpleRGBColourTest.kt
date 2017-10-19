@@ -24,7 +24,7 @@ import org.jetbrains.spek.api.dsl.*
 import kotlin.test.fail
 
 class SimpleRGBColourTest : Spek({
-    context("updating and requesting values"){
+    context("updating and requesting values") {
         given("an instance of SimpleRGBColour") {
             describe("with red, green and blue set to zero") {
                 var subject = SimpleRGBColour(0, 0, 0)
@@ -80,15 +80,15 @@ class SimpleRGBColourTest : Spek({
                     }
                 }
 
-                on("providing a valid value for transparency (200)"){
-                    it("should return the value of 200 for transparency"){
+                on("providing a valid value for transparency (200)") {
+                    it("should return the value of 200 for transparency") {
                         subject.transparency = 200
                         subject.transparency.should.equal(200)
                     }
                 }
 
-                on("providing an invalid value for transparency (-10)"){
-                    it("should throw a ColourValueException"){
+                on("providing an invalid value for transparency (-10)") {
+                    it("should throw a ColourValueException") {
                         try {
                             subject.transparency = -10
                         } catch (e: Exception) {
@@ -96,7 +96,7 @@ class SimpleRGBColourTest : Spek({
                         }
                     }
 
-                    it("should throw a ColourValueException with a set message"){
+                    it("should throw a ColourValueException with a set message") {
                         try {
                             subject.transparency = -10
                         } catch (e: Exception) {
@@ -119,8 +119,8 @@ class SimpleRGBColourTest : Spek({
                     }
                 }
 
-                on("providing an incorrect value for the transparency parameter"){
-                    it("should throw a ColourValueException"){
+                on("providing an incorrect value for the transparency parameter") {
+                    it("should throw a ColourValueException") {
                         try {
                             SimpleRGBColour(0, 0, 100, 400)
                         } catch (e: Exception) {
@@ -131,10 +131,10 @@ class SimpleRGBColourTest : Spek({
             }
         }
 
-        context("creating instances with valid parameters"){
-            given("an instance of SimpleRGBColour"){
-                on("passing valid red, green and blue parameters, excluding transparency"){
-                    it("should not throw any exception"){
+        context("creating instances with valid parameters") {
+            given("an instance of SimpleRGBColour") {
+                on("passing valid red, green and blue parameters, excluding transparency") {
+                    it("should not throw any exception") {
                         try {
                             SimpleRGBColour(40, 30, 80)
                         } catch (e: Exception) {
@@ -143,8 +143,8 @@ class SimpleRGBColourTest : Spek({
                     }
                 }
 
-                on("passing valid red, green, blue and transparency parameters"){
-                    it("should not throw any exception"){
+                on("passing valid red, green, blue and transparency parameters") {
+                    it("should not throw any exception") {
                         try {
                             SimpleRGBColour(40, 30, 80, 60)
                         } catch (e: Exception) {

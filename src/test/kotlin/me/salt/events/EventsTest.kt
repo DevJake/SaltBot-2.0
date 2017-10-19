@@ -18,7 +18,10 @@ package me.salt.events
 
 import com.winterbe.expekt.should
 import org.jetbrains.spek.api.Spek
-import org.jetbrains.spek.api.dsl.*
+import org.jetbrains.spek.api.dsl.describe
+import org.jetbrains.spek.api.dsl.given
+import org.jetbrains.spek.api.dsl.it
+import org.jetbrains.spek.api.dsl.on
 import java.io.File
 
 class MyEvent(var testArg: String) : Event
@@ -40,49 +43,49 @@ class SpecificListener : EventHandler() {
 
 
 class EventsTest : Spek({
-        given("an event listener class interfaced to ListenerAdapter") {
-            var subject = GeneralListener()
-            describe("when registering and then firing an event to our event listener") {
-                EventDistributor.registerListener(subject)
-                EventDistributor.fireEvent(MyEvent("Test String to verify instance integrity"))
-                EventDistributor.unregisterListener(subject)
-                it("should relay an instance of our fired event to our listener") {
-                    subject.lastEvent.should.be.instanceof(MyEvent::class.java)
-                }
-
-                it("should relay the exact event instance to our listener") {
-                    (subject.lastEvent as MyEvent).testArg.should.equal("Test String to verify instance integrity")
-                }
+    given("an event listener class interfaced to ListenerAdapter") {
+        var subject = GeneralListener()
+        describe("when registering and then firing an event to our event listener") {
+            EventDistributor.registerListener(subject)
+            EventDistributor.fireEvent(MyEvent("Test String to verify instance integrity"))
+            EventDistributor.unregisterListener(subject)
+            it("should relay an instance of our fired event to our listener") {
+                subject.lastEvent.should.be.instanceof(MyEvent::class.java)
             }
-    }
 
-        given("an event listener extending EventHandler") {
-            describe("when firing an event (FileCreateEvent)") {
-                var subject = SpecificListener()
-                EventDistributor.registerListener(subject)
-                EventDistributor.fireEvent(FileCreateEvent(File("path\\to\\my\\file"), false))
-                EventDistributor.unregisterListener(subject)
-                it("should relay an instance of our fired event to our listener") {
-                    subject.receivedEvent.should.be.an.instanceof(FileCreateEvent::class.java)
-                }
-
-                it("should relay the exact event instance to our listener") {
-                    subject.receivedEvent.file.path.should.equal("path\\to\\my\\file")
-                }
+            it("should relay the exact event instance to our listener") {
+                (subject.lastEvent as MyEvent).testArg.should.equal("Test String to verify instance integrity")
             }
         }
+    }
 
-    on("firing an event by calling fireEvent()"){
+    given("an event listener extending EventHandler") {
+        describe("when firing an event (FileCreateEvent)") {
+            var subject = SpecificListener()
+            EventDistributor.registerListener(subject)
+            EventDistributor.fireEvent(FileCreateEvent(File("path\\to\\my\\file"), false))
+            EventDistributor.unregisterListener(subject)
+            it("should relay an instance of our fired event to our listener") {
+                subject.receivedEvent.should.be.an.instanceof(FileCreateEvent::class.java)
+            }
+
+            it("should relay the exact event instance to our listener") {
+                subject.receivedEvent.file.path.should.equal("path\\to\\my\\file")
+            }
+        }
+    }
+
+    on("firing an event by calling fireEvent()") {
         var subject = GeneralListener()
         EventDistributor.registerListener(subject)
         val p = MyEvent("text-p")
         fireEvent(p)
         EventDistributor.unregisterListener(subject)
-        it("should fire an instance of our event"){
+        it("should fire an instance of our event") {
             subject.lastEvent.should.be.instanceof(p::class.java)
         }
 
-        it("should fire our exact event instance"){
+        it("should fire our exact event instance") {
             subject.lastEvent.should.equal(p)
         }
     }

@@ -22,9 +22,9 @@ import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
-class ColourTest: Spek({
-    on("Requesting the red, green and blue values of Colour.RED"){
-        it("should return 255, 0 and 0, respectively"){
+class ColourTest : Spek({
+    on("Requesting the red, green and blue values of Colour.RED") {
+        it("should return 255, 0 and 0, respectively") {
             Colour.RED.red.should.equal(255)
             Colour.RED.green.should.equal(0)
             Colour.RED.blue.should.equal(0)
