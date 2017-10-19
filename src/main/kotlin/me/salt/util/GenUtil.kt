@@ -21,7 +21,7 @@ import me.salt.events.FileCreateEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ColourValueException
 import me.salt.objects.Colour
-import java.io.*
+import java.io.File
 
 object GenUtil {
     val saltResourceDir = File(File(Main::class.java.protectionDomain.codeSource.location.toURI()).parentFile, "Resources")

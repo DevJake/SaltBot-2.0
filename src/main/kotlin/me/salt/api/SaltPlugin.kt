@@ -20,16 +20,16 @@ import me.salt.config.ConfigHandler
 
 abstract class SaltPlugin {
     open fun onEnable() {
-        TODO("Log plugin enabled")
+        //TODO("Log plugin enabled")
     }
 
     open fun onDisable() {
-        TODO("Log plugin disabled")
+        //TODO("Log plugin disabled")
     }
 
     val configHandler = ConfigHandler
-    get() {
-        return field
-        TODO("Log activity, check plugin permissions (difficult, not enforceable), etc.")
-    }
+        get() {
+            return field
+            //TODO("Log activity, check plugin permissions (difficult, not enforceable), etc.")
+        }
 }

@@ -20,19 +20,19 @@ import me.salt.permissions.Authority
 import me.salt.permissions.Node
 
 enum class Action(val node: Node, val description: String? = null) {
-    GUILD_PERMISSION_CREATE(Authority.Guild(Interaction.WRITE).getAuthorityNodes()[0]),
-    GUILD_PERMISSION_VIEW(Authority.Guild(Interaction.READ).getAuthorityNodes()[0]),
-    GUILD_PERMISSION_REMOVE(Authority.Guild(Interaction.REMOVE).getAuthorityNodes()[0]),
+    GUILD_PERMISSION_CREATE(Authority.guild(Interaction.WRITE).getAuthorityNodes()[0]),
+    GUILD_PERMISSION_VIEW(Authority.guild(Interaction.READ).getAuthorityNodes()[0]),
+    GUILD_PERMISSION_REMOVE(Authority.guild(Interaction.REMOVE).getAuthorityNodes()[0]),
 
-    CHANNEL_PERMISSION_CREATE(Authority.Channel(Interaction.WRITE).getAuthorityNodes()[0]),
-    CHANNEL_PERMISSION_VIEW(Authority.Channel(Interaction.READ).getAuthorityNodes()[0]),
-    CHANNEL_PERMISSION_REMOVE(Authority.Channel(Interaction.REMOVE).getAuthorityNodes()[0]),
+    CHANNEL_PERMISSION_CREATE(Authority.channel(Interaction.WRITE).getAuthorityNodes()[0]),
+    CHANNEL_PERMISSION_VIEW(Authority.channel(Interaction.READ).getAuthorityNodes()[0]),
+    CHANNEL_PERMISSION_REMOVE(Authority.channel(Interaction.REMOVE).getAuthorityNodes()[0]),
 
-    BOT_PERMISSION_CREATE(Authority.Bot(Interaction.WRITE).getAuthorityNodes()[0]),
-    BOT_PERMISSION_VIEW(Authority.Bot(Interaction.READ).getAuthorityNodes()[0]),
-    BOT_PERMISSION_REMOVE(Authority.Bot(Interaction.REMOVE).getAuthorityNodes()[0]);
+    BOT_PERMISSION_CREATE(Authority.bot(Interaction.WRITE).getAuthorityNodes()[0]),
+    BOT_PERMISSION_VIEW(Authority.bot(Interaction.READ).getAuthorityNodes()[0]),
+    BOT_PERMISSION_REMOVE(Authority.bot(Interaction.REMOVE).getAuthorityNodes()[0]);
 
-    private constructor(node: String, description: String? = null): this(Node(node), description)
+    private constructor(node: String, description: String? = null) : this(Node(node), description)
 }
 
 enum class Interaction {

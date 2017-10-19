@@ -19,10 +19,11 @@ package me.salt.lang
 import me.salt.config.Configs
 import me.salt.config.entities.CustomLang
 import me.salt.config.entities.LanguageMap
+import me.salt.objects.writeConfig
 
 fun initLangs() {
 
-    Configs.SALT.LANGUAGE_MAP.writeConfig(
+    Configs.salt.LANGUAGE_MAP.writeConfig(
             LanguageMap().addLang(
                     CustomLang("en_GB", "Administrator", null, null,
                             mapOf(

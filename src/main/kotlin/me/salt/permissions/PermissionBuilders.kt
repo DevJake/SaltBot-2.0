@@ -33,6 +33,7 @@ class UserPermissionBuilder(userId: String) {
         if (Pattern.compile("\\D").matcher(userId).matches())
             throw BuilderValueException("The specified userId contains non-numerical characters!")
     }
+
     fun build() = UserPermission(userId, groups, permissions, enforcements)
 
     fun addGroups(vararg groupTitles: String) = apply { groups.addAll(groupTitles) }

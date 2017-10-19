@@ -16,23 +16,22 @@
 
 package me.salt.config
 
-import me.salt.config.entities.Configuration
 import me.salt.exception.ConfigHandlerException
 
 object Configs {
     private var chain = mutableListOf<String>()
     private var entityId: String? = null
 
-    val SALT: ConfigTypes
+    val salt: ConfigTypes
         get() = clearAndAdd("SALT")
 
-    fun GUILD(entityId: String): ConfigTypes = clearAndAdd("USER", entityId)
+    fun guild(entityId: String): ConfigTypes = clearAndAdd("GUILD", entityId)
 
-    fun TEXTCHANNEL(entityId: String): ConfigTypes = clearAndAdd("TEXTCHANNEL", entityId)
+    fun textChannel(entityId: String): ConfigTypes = clearAndAdd("TEXTCHANNEL", entityId)
 
-    fun VOICECHANNEL(entityId: String): ConfigTypes = clearAndAdd("VOICECHANNEL", entityId)
+    fun voiceChannel(entityId: String): ConfigTypes = clearAndAdd("VOICECHANNEL", entityId)
 
-    fun USER(entityId: String): ConfigTypes = clearAndAdd("USER", entityId)
+    fun user(entityId: String): ConfigTypes = clearAndAdd("USER", entityId)
 
     private fun clearAndAdd(termToAdd: String): ConfigTypes {
         chain.clear()
@@ -151,9 +150,5 @@ data class Handler(private val chain: List<String> = emptyList(), private val en
         //TODO checking specified entityId is valid
         //TODO decipher chain, determine path, throw required exceptions
     }
-
-    fun <T : Configuration> getConfig(configClass: Class<T>): T? = ConfigHandler.readConfig(this, configClass)
-    fun overwriteConfig(config: Configuration) = ConfigHandler.overwriteConfig(this, config)
-    fun writeConfig(config: Configuration) = ConfigHandler.writeConfig(this, config)
-    fun exists(): Boolean = ConfigHandler.configExists(this)
 }
+

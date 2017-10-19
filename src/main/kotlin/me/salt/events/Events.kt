@@ -33,10 +33,13 @@ interface ListenerAdapter {
 fun fireEvent(event: Event) = EventDistributor.fireEvent(event)
 
 object EventDistributor {
-        private var listeners: MutableList<ListenerAdapter> = mutableListOf()
-        fun registerListener(eventListener: ListenerAdapter) { listeners.add(eventListener) }
-        fun unregisterListener(eventListener: ListenerAdapter) = listeners.remove(eventListener)
-        fun fireEvent(event: Event) = listeners.forEach { listener -> listener.onEvent(event) }
+    private var listeners: MutableList<ListenerAdapter> = mutableListOf()
+    fun registerListener(eventListener: ListenerAdapter) {
+        listeners.add(eventListener)
+    }
+
+    fun unregisterListener(eventListener: ListenerAdapter) = listeners.remove(eventListener)
+    fun fireEvent(event: Event) = listeners.forEach { listener -> listener.onEvent(event) }
 }
 
 open class EventHandler : ListenerAdapter {
@@ -47,9 +50,14 @@ open class EventHandler : ListenerAdapter {
         }
     }
 
-    open fun onFileCreate(e: FileCreateEvent) {}
-    open fun onConfigReadWrite(e: ConfigInteractEvent) {}
-    open fun checkPermission(e: PermissionCheckEvent) {}
+    open fun onFileCreate(e: FileCreateEvent) {
+    }
+
+    open fun onConfigReadWrite(e: ConfigInteractEvent) {
+    }
+
+    open fun checkPermission(e: PermissionCheckEvent) {
+    }
 }
 
 data class FileCreateEvent(val file: File, val isFile: Boolean) : Event

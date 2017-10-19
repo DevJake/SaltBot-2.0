@@ -25,6 +25,7 @@ import me.salt.events.PermissionUnregisterEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ConfigMissingValueException
 import me.salt.objects.Action
+import me.salt.objects.getConfig
 import net.dv8tion.jda.core.entities.Guild
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.entities.User
@@ -49,9 +50,9 @@ object PermUtils {
                 else entityId.toString()
 
         return when (level) {
-            Authority.Level.BOT -> Configs.SALT.PERMISSIONS_MAP
-            Authority.Level.GUILD -> Configs.GUILD(tempEntityId).PERMISSIONS_MAP
-            Authority.Level.CHANNEL -> Configs.TEXTCHANNEL(tempEntityId).PERMISSIONS_MAP
+            Authority.Level.BOT -> Configs.salt.PERMISSIONS_MAP
+            Authority.Level.GUILD -> Configs.guild(tempEntityId).PERMISSIONS_MAP
+            Authority.Level.CHANNEL -> Configs.textChannel(tempEntityId).PERMISSIONS_MAP
             else -> throw ConfigMissingValueException() //TODO Replace with exception
         }
     }
@@ -82,23 +83,23 @@ object PermUtils {
                 val indistinctPermList = nodes.mapTo(mutableListOf(), { it.node })
                 indistinctPermList.removeAll(userPerm.permissions?.mapTo(mutableListOf(), { it.node }) ?: return false)
 
-                    /*
-                    Get the permissions the user -should- have, and remove all of those they actually -do- have.
-                    This gives us another list of permissions they're still missing.
-                     */
+                /*
+                Get the permissions the user -should- have, and remove all of those they actually -do- have.
+                This gives us another list of permissions they're still missing.
+                 */
 
-                    groupsToCheck?.forEach { group ->
-                            indistinctPermList
-                                    .removeAll(group.permissions?.mapTo(mutableListOf(), { it.node }) ?:
-                                            throw ConfigMissingValueException())
-                    }
-                    return indistinctPermList.isEmpty()
-                    /*
-                    After removing the assigned permissions from each group,
-                    our list of still-required permissions should be empty.
-                     */
+                groupsToCheck?.forEach { group ->
+                    indistinctPermList
+                            .removeAll(group.permissions?.mapTo(mutableListOf(), { it.node }) ?:
+                                    throw ConfigMissingValueException())
                 }
+                return indistinctPermList.isEmpty()
+                /*
+                After removing the assigned permissions from each group,
+                our list of still-required permissions should be empty.
+                 */
             }
+        }
         return hasNodes
     }
 

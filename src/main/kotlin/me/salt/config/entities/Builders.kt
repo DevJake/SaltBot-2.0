@@ -42,7 +42,7 @@ class SaltConfigBuilder(botToken: String) : ConfigBuilder {
         private set
     var defaultEmbedColour: SimpleRGBColour = SimpleRGBColour(255, 175, 175) /*Pink*/
         private set
-    var defaultLangCode: LangCode = LangCode.en_GB
+    var defaultLangCode: LangCode = LangCode.EN_GB
         private set
 
     override fun build(): Config {

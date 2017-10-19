@@ -36,7 +36,7 @@ class SaltConfigBuilderTest : Spek({
         given("an instance of SaltConfig built by SaltConfigBuilder with no changes") {
             on("requesting defaultLangCode") {
                 it("should return LangCode.en_GB") {
-                    subject.defaultLangCode.should.equal(LangCode.en_GB)
+                    subject.defaultLangCode.should.equal(LangCode.EN_GB)
                 }
             }
 
@@ -350,9 +350,9 @@ class SaltConfigBuilderTest : Spek({
             }
 
             on("setting the default LangCode"){
-                subject.setDefaultLangCode(LangCode.en_GB)
+                subject.setDefaultLangCode(LangCode.EN_GB)
                 it("should update the value of defaultLangCode to LangCode.en_GB"){
-                    (subject.build() as SaltConfig).defaultLangCode.should.equal(LangCode.en_GB)
+                    (subject.build() as SaltConfig).defaultLangCode.should.equal(LangCode.EN_GB)
                 }
             }
         }

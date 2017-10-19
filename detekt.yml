@@ -43,19 +43,19 @@ potential-bugs:
   EqualsWithHashCodeExist:
     active: true
   WrongEqualsTypeParameter:
-    active: false
+    active: true
   ExplicitGarbageCollectionCall:
     active: true
   UnreachableCode:
     active: true
   LateinitUsage:
-    active: false
+    active: true
   UnsafeCallOnNullableType:
-    active: false
+    active: true
   UnsafeCast:
-    active: false
+    active: true
   UselessPostfixExpression:
-    active: false
+    active: true
 
 performance:
   active: true
@@ -206,14 +206,14 @@ style:
   OptionalAbstractKeyword:
     active: true
   OptionalWhenBraces:
-    active: false
+    active: true
   EqualsNullCall:
-    active: false
+    active: true
   ForbiddenComment:
     active: true
     values: 'TODO:,FIXME:,STOPSHIP:'
   ForbiddenImport:
-    active: false
+    active: true
     imports: ''
   ModifierOrder:
     active: true
@@ -245,10 +245,10 @@ style:
     active: true
     functionPattern: '^[a-z$][a-zA-Z$0-9]*$'
   FunctionMaxLength:
-    active: false
+    active: true
     maximumFunctionNameLength: 30
   FunctionMinLength:
-    active: false
+    active: true
     minimumFunctionNameLength: 3
   VariableNaming :
     active: true
@@ -257,7 +257,7 @@ style:
     active: true
     constantPattern: '^([A-Z_]*|serialVersionUID)$'
   VariableMaxLength:
-    active: false
+    active: true
     maximumVariableNameLength: 30
   VariableMinLength:
     active: false
@@ -274,13 +274,13 @@ comments:
   CommentOverPrivateProperty:
     active: true
   UndocumentedPublicClass:
-    active: false
+    active: true
     searchInNestedClass: true
     searchInInnerClass: true
     searchInInnerObject: true
     searchInInnerInterface: true
   UndocumentedPublicFunction:
-    active: false
+    active: true
 
 # *experimental feature*
 # Migration rules can be defined in the same config file or a new one

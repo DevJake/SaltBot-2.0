@@ -54,7 +54,7 @@ class Node {
         this.type = type ?: NodeType.PERMISSION
         this.negate = negate
         this.segments = segments
-        this.authority = authority ?: Authority.None()
+        this.authority = authority ?: Authority.none()
     }
 
     @JsonProperty("authority")
@@ -115,7 +115,7 @@ class NodeBuilder(node: String) {
     private var type = Node.NodeType.PERMISSION
     private var negate = false
     private var segments = mutableListOf<Node.NodeSegment>()
-    private var authority = Authority.None()
+    private var authority = Authority.none()
 
     constructor(node: String, authority: Authority.NodeAuthority) : this(node) {
         this.node = node

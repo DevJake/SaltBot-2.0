@@ -28,10 +28,10 @@ This means that those lacking authority perms at this level cannot have
 this permission.
  */
 object Authority {
-    fun Bot(interaction: Interaction) = NodeAuthority(Level.BOT, interaction)
-    fun Guild(interaction: Interaction) = NodeAuthority(Level.GUILD, interaction)
-    fun Channel(interaction: Interaction) = NodeAuthority(Level.CHANNEL, interaction)
-    fun None() = NodeAuthority(Level.NONE, Interaction.ALL)
+    fun bot(interaction: Interaction) = NodeAuthority(Level.BOT, interaction)
+    fun guild(interaction: Interaction) = NodeAuthority(Level.GUILD, interaction)
+    fun channel(interaction: Interaction) = NodeAuthority(Level.CHANNEL, interaction)
+    fun none() = NodeAuthority(Level.NONE, Interaction.ALL)
 
     enum class Level {
         BOT,

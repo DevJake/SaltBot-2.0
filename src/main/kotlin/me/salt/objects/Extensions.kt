@@ -16,6 +16,9 @@
 
 package me.salt.objects
 
+import me.salt.config.ConfigHandler
+import me.salt.config.Handler
+import me.salt.config.entities.Configuration
 import me.salt.config.entities.CustomLang
 import me.salt.exception.ConfigMissingValueException
 import java.io.BufferedReader
@@ -41,3 +44,8 @@ fun <T, K> List<T>.indistinctBy(selector: (T) -> K): List<T> {
     p.removeAll(this.distinctBy(selector))
     return p
 }
+
+fun <T : Configuration> Handler.getConfig(configClass: Class<T>): T? = ConfigHandler.readConfig(this, configClass)
+fun Handler.overwriteConfig(config: Configuration) = ConfigHandler.overwriteConfig(this, config)
+fun Handler.writeConfig(config: Configuration) = ConfigHandler.writeConfig(this, config)
+fun Handler.exists(): Boolean = ConfigHandler.configExists(this)

@@ -19,6 +19,7 @@ package me.salt.lang
 import me.salt.config.entities.CustomLang
 import me.salt.config.entities.LanguageMap
 import me.salt.exception.ConfigMissingValueException
+import me.salt.objects.getConfig
 import java.util.regex.Pattern
 
 object LangUtils {

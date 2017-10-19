@@ -17,12 +17,17 @@
 package me.salt
 
 import me.salt.config.Configs
-import me.salt.config.entities.*
+import me.salt.config.entities.PermissionMap
+import me.salt.config.entities.SaltConfig
+import me.salt.config.entities.SaltConfigBuilder
+import me.salt.config.entities.SaltLogConfig
 import me.salt.config.initConfigs
 import me.salt.lang.LangCode
 import me.salt.lang.initLangs
-import me.salt.objects.*
-import me.salt.permissions.*
+import me.salt.objects.getConfig
+import me.salt.objects.overwriteConfig
+import me.salt.objects.writeConfig
+import me.salt.permissions.hasBotPermissions
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
@@ -36,13 +41,13 @@ class Main {
         fun main(args: Array<String>) {
             initConfigs() //Calls init method for configs
             initLangs()
-            println(LangCode.en_GB.getLang())
-            Configs.SALT.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
-            Configs.SALT.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("").build())
+            println(LangCode.EN_GB.getLang())
+            Configs.salt.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
+            Configs.salt.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("").build())
 //            logEasy("Simple, easy logging")
 //            logWarn("A warning log")
 //            LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
-            jda = JDABuilder(AccountType.BOT).setToken(Configs.SALT.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken).buildAsync()
+            jda = JDABuilder(AccountType.BOT).setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken).buildAsync()
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
 //            Configs.SALT.PERMISSIONS_MAP.overwriteConfig(
 //                    PermissionMapBuilder().addGroups(
@@ -81,7 +86,7 @@ class Main {
 //                                    .build()
 //                    ).build())
 
-            println(Configs.SALT.PERMISSIONS_MAP.getConfig(PermissionMap::class.java).toString())
+            println(Configs.salt.PERMISSIONS_MAP.getConfig(PermissionMap::class.java).toString())
 
             println("hasperm=" +
                     "${jda.getUserById("112633500447838208").hasBotPermissions("my.first.node")}")

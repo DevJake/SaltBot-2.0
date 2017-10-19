@@ -22,6 +22,8 @@ import me.salt.config.entities.SaltConfig
 import me.salt.config.entities.TextChannelConfig
 import me.salt.config.entities.UserConfig
 import me.salt.objects.Entity
+import me.salt.objects.exists
+import me.salt.objects.getConfig
 
 object CommandParser {
 
@@ -31,17 +33,17 @@ object CommandParser {
         var textMain: TextChannelConfig? = null
         var userMain: UserConfig? = null
 
-        if (Configs.SALT.MAIN_CONFIG.exists())
-            saltMain = Configs.SALT.MAIN_CONFIG.getConfig(SaltConfig::class.java)
+        if (Configs.salt.MAIN_CONFIG.exists())
+            saltMain = Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)
 
-        if (Configs.GUILD(guildId).MAIN_CONFIG.exists())
-            guildMain = Configs.GUILD(guildId).MAIN_CONFIG.getConfig(GuildConfig::class.java)
+        if (Configs.guild(guildId).MAIN_CONFIG.exists())
+            guildMain = Configs.guild(guildId).MAIN_CONFIG.getConfig(GuildConfig::class.java)
 
-        if (Configs.TEXTCHANNEL(guildId).MAIN_CONFIG.exists())
-            textMain = Configs.TEXTCHANNEL(textChannelId).MAIN_CONFIG.getConfig(TextChannelConfig::class.java)
+        if (Configs.textChannel(guildId).MAIN_CONFIG.exists())
+            textMain = Configs.textChannel(textChannelId).MAIN_CONFIG.getConfig(TextChannelConfig::class.java)
 
-        if (Configs.USER(guildId).MAIN_CONFIG.exists())
-            userMain = Configs.USER(userId).MAIN_CONFIG.getConfig(UserConfig::class.java)
+        if (Configs.user(guildId).MAIN_CONFIG.exists())
+            userMain = Configs.user(userId).MAIN_CONFIG.getConfig(UserConfig::class.java)
 
         var beheaded = mutableMapOf<String, Pair<String, Entity>>()
 
