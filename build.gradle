@@ -16,7 +16,6 @@ buildscript {
 plugins {
     id 'idea'
     id 'java'
-    id 'jacoco'
     id 'com.github.johnrengelman.shadow' version '1.2.4'
     id 'application'
     id "org.jetbrains.kotlin.jvm" version "1.1.4"
@@ -26,6 +25,7 @@ plugins {
 apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
+apply plugin: 'jacoco'
 
 detekt {
     version = "1.0.0.RC4-2"
@@ -44,11 +44,13 @@ junitPlatform {
             include 'spek'
         }
     }
+
+//    enableStandardTestTask true
 }
 
 jacoco {
     reportsDir = file("$buildDir/reports/jacoco")
-    toolVersion = "0.6.5.201403032054"
+    toolVersion = "0.7.4+"
 }
 
 jacocoTestReport {
@@ -58,10 +60,10 @@ jacocoTestReport {
     reports {
         html.enabled true
         xml.enabled true
-//        csv.enabled false
+        csv.enabled false
 
-////        xml.destination = "${buildDir}/reports/spek"
-////        html.destination = "${buildDir}/reports/jacoco"
+        xml.destination = "${buildDir}/reports/spek"
+        html.destination = "${buildDir}/reports/jacoco"
     }
 
 onlyIf = {
@@ -143,9 +145,9 @@ repositories {
     mavenCentral()
 }
 
-//test {
-//    finalizedBy jacocoTestReport
-//}
+test {
+    finalizedBy jacocoTestReport
+}
 
 compileJava.options.encoding = 'UTF-8'
 
@@ -162,3 +164,24 @@ compileTestKotlin {
 
 detektFormat.dependsOn detektCheck
 check.dependsOn detektFormat
+
+configurations { codacy }
+repositories {
+    maven { url "https://jitpack.io" }
+    maven { url "http://dl.bintray.com/typesafe/maven-releases" }
+}
+dependencies {
+    codacy 'com.github.codacy:codacy-coverage-reporter:-SNAPSHOT'
+}
+
+task sendCoverageToCodacy(type: JavaExec) {
+    main = "com.codacy.CodacyCoverageReporter"
+    classpath = configurations.codacy
+    args = [
+            "-l",
+            "Java",
+            "-r",
+            "${buildDir}/reports/test-results/junit-platform/TEST-spek.xml"
+    ]
+}
+
