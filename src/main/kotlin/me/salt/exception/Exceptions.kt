@@ -21,4 +21,5 @@ class ConfigMissingValueException(message: String? = null) : RuntimeException(me
 class BuilderValueException(message: String? = null) : RuntimeException(message)
 class ExcessiveValueException(message: String? = null) : RuntimeException(message)
 class ConfigHandlerException(message: String? = null) : RuntimeException(message)
-class ConfigWriteException(message: String? = null) : Exception(message)
+class ConfigWriteException(message: String? = null) : RuntimeException(message)
+class LangConfigReadException(message: String? = null) : Exception(message)
