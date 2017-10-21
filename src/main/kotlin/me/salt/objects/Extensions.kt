@@ -50,3 +50,5 @@ fun <T : Configuration> Handler.getConfig(configClass: Class<T>): T? = ConfigHan
 fun Handler.overwriteConfig(config: Configuration) = ConfigHandler.overwriteConfig(this, config)
 fun Handler.writeConfig(config: Configuration) = ConfigHandler.writeConfig(this, config)
 fun Handler.exists(): Boolean = ConfigHandler.configExists(this)
+
+//TODO add Config caching + method to force a refresh/boolean in read method

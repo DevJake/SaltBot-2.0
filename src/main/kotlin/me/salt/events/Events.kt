@@ -16,6 +16,7 @@
 
 package me.salt.events
 
+import me.salt.cmd.CommandParser
 import me.salt.config.Handler
 import me.salt.config.entities.Configuration
 import me.salt.objects.Interaction
@@ -34,10 +35,8 @@ fun fireEvent(event: Event) = EventDistributor.fireEvent(event)
 
 object EventDistributor {
     private var listeners: MutableList<ListenerAdapter> = mutableListOf()
-    fun registerListener(eventListener: ListenerAdapter) {
-        listeners.add(eventListener)
-    }
-
+    
+    fun registerListener(eventListener: ListenerAdapter) = listeners.add(eventListener)
     fun unregisterListener(eventListener: ListenerAdapter) = listeners.remove(eventListener)
     fun fireEvent(event: Event) = listeners.forEach { listener -> listener.onEvent(event) }
 }
@@ -47,17 +46,18 @@ open class EventHandler : ListenerAdapter {
         when (e) {
             is FileCreateEvent -> onFileCreate(e)
             is ConfigInteractEvent -> onConfigReadWrite(e)
+            is PermissionCheckEvent -> onPermissionCheck(e)
+            is CommandParseEvent -> onCommandParse(e)
         }
     }
 
-    open fun onFileCreate(e: FileCreateEvent) {
-    }
+    open fun onFileCreate(e: FileCreateEvent) {}
 
-    open fun onConfigReadWrite(e: ConfigInteractEvent) {
-    }
+    open fun onConfigReadWrite(e: ConfigInteractEvent) {}
 
-    open fun checkPermission(e: PermissionCheckEvent) {
-    }
+    open fun onPermissionCheck(e: PermissionCheckEvent) {}
+
+    open fun onCommandParse(e: CommandParseEvent) {}
 }
 
 data class FileCreateEvent(val file: File, val isFile: Boolean) : Event
@@ -65,3 +65,4 @@ data class ConfigInteractEvent(val handler: Handler, val entity: Configuration, 
 data class PermissionCheckEvent(val level: Authority.Level, val nodes: List<Node>, val entityId: String?, val user: User) : Event
 data class PermissionRegisterEvent(val nodes: List<Node>) : Event
 data class PermissionUnregisterEvent(val nodes: List<Node>) : Event
+data class CommandParseEvent(val cmdContainer: CommandParser.CommandContainer) : Event

@@ -23,3 +23,6 @@ class ExcessiveValueException(message: String? = null) : RuntimeException(messag
 class ConfigHandlerException(message: String? = null) : RuntimeException(message)
 class ConfigWriteException(message: String? = null) : RuntimeException(message)
 class LangConfigReadException(message: String? = null) : Exception(message)
+class AmorphousCommandException(message: String? = null) : RuntimeException(message)
+class PrefixlessCommandException(message: String? = null) : RuntimeException(message)
+
