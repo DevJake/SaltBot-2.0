@@ -16,5 +16,21 @@
 
 package me.salt.cmd.commands
 
-class CatCommand {
+import me.salt.cmd.Command
+import me.salt.cmd.CommandParser
+import me.salt.permissions.Node
+
+class CatCommand(name: String, description: String, author: String, perms: List<Node>) : Command(name, description, author, perms) {
+    override fun preExecute(cmd: CommandParser.CommandContainer) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun execute(cmd: CommandParser.CommandContainer) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
+    override fun postExecute(cmd: CommandParser.CommandContainer) {
+        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
+    }
+
 }
