@@ -35,7 +35,7 @@ fun fireEvent(event: Event) = EventDistributor.fireEvent(event)
 
 object EventDistributor {
     private var listeners: MutableList<ListenerAdapter> = mutableListOf()
-    
+
     fun registerListener(eventListener: ListenerAdapter) = listeners.add(eventListener)
     fun unregisterListener(eventListener: ListenerAdapter) = listeners.remove(eventListener)
     fun fireEvent(event: Event) = listeners.forEach { listener -> listener.onEvent(event) }
