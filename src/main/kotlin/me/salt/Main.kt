@@ -16,10 +16,12 @@
 
 package me.salt
 
+import me.salt.cmd.CommandListener
+import me.salt.cmd.CommandParser
+import me.salt.cmd.initCommands
 import me.salt.config.Configs
 import me.salt.config.entities.*
 import me.salt.config.initConfigs
-import me.salt.lang.LangCode
 import me.salt.lang.initLangs
 import me.salt.objects.Interaction
 import me.salt.objects.getConfig
@@ -39,55 +41,19 @@ class Main {
         fun main(args: Array<String>) {
             initConfigs() //Calls init method for configs
             initLangs()
-            println(LangCode.EN_GB.getLang())
+            initCommands()
+//            println(LangCode.EN_GB.getLang())
             Configs.salt.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
-            Configs.salt.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("").build())
+//            Configs.salt.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("").build())
+            println(CommandParser.parse(".cMD ArGs My BoIs", "g123", "t123", "u123").toString())
+            println(CommandParser.parse(".scMD ArGs My BoIs", "g123", "t123", "u123").toString())
+            println(CommandParser.parse(".scMD ArGs My BoIs", "g123", "t123", "u123").toString())
 //            logEasy("Simple, easy logging")
 //            logWarn("A warning log")
 //            LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
             jda = JDABuilder(AccountType.BOT).setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken).buildAsync()
+            jda.addEventListener(CommandListener())
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
-            Configs.salt.PERMISSIONS_MAP.overwriteConfig(
-                    PermissionMapBuilder().addGroups(
-                            GroupPermissionBuilder("PermGroup1")
-                                    .addPermissions(
-                                            NodeBuilder("my.first.node", Authority.guild(Interaction.WRITE)).build(),
-                                            NodeBuilder("my.second.node", Node.NodeType.PERMISSION, true).build(),
-                                            NodeBuilder("my.*", Node.NodeType.PERMISSION, true).build())
-                                    .addEnforcements(
-                                            NodeBuilder("my.first.enforcement.node", Node.NodeType.ENFORCEMENT).build(),
-                                            NodeBuilder("my.second.enforcement.node", Node.NodeType.ENFORCEMENT, true).build(),
-                                            NodeBuilder("my.enforcement.*", Node.NodeType.ENFORCEMENT, true).build())
-                                    .build(),
-                            GroupPermissionBuilder("Group2")
-                                    .addPermissions(
-                                            NodeBuilder("second.perm.node").build(),
-                                            NodeBuilder("third.perm.node").build(),
-                                            NodeBuilder("fourth.perm.node", true).build())
-                                    .addGroups("PermGroup1")
-                                    .build()
-                    ).addUsers(
-                            UserPermissionBuilder("112633500447838208")
-                                    .addPermissions(
-                                            NodeBuilder("user.perm.node.one", Node.NodeType.PERMISSION).build(),
-                                            NodeBuilder("user.perm.node.two", Node.NodeType.PERMISSION, false).build(),
-                                            NodeBuilder("user.perm.node.*", Node.NodeType.PERMISSION, true).build())
-                                    .addEnforcements(
-                                            NodeBuilder("user.enforcement.node.one", Node.NodeType.ENFORCEMENT, Authority.none()).build(),
-                                            NodeBuilder("user.enforcement.node.two", Node.NodeType.ENFORCEMENT, false,
-                                                    Authority.bot(Interaction.READ)
-                                                    .addInteractions(Interaction.REMOVE)
-                                                    .addLevels(Authority.Level.GUILD)).build(),
-                                            NodeBuilder("user.enforcement.node.*", Node.NodeType.ENFORCEMENT, true, Authority.guild(Interaction.WRITE)).build()
-                                    )
-                                    .addGroups("Group2")
-                                    .build()
-                    ).build())
-
-            println(Configs.salt.PERMISSIONS_MAP.getConfig(PermissionMap::class.java).toString())
-
-            println("hasperm=" +
-                    "${jda.getUserById("112633500447838208").hasBotPermissions("my.first.node")}")
         }
     }
 }

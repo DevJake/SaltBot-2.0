@@ -24,6 +24,7 @@ class ConfigHandlerException(message: String? = null) : RuntimeException(message
 class ConfigWriteException(message: String? = null) : RuntimeException(message)
 class AmorphousCommandException(message: String? = null) : RuntimeException(message)
 class PrefixlessCommandException(message: String? = null) : RuntimeException(message)
+class ConfigIllegalFieldException(message: String? = null) : RuntimeException(message)
 
 class LangConfigReadException(message: String? = null) : Exception(message)
 class PreExecuteCommandFailureException(message: String? = null) : Exception(message)

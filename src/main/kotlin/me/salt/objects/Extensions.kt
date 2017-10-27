@@ -20,7 +20,6 @@ import me.salt.config.ConfigHandler
 import me.salt.config.Handler
 import me.salt.config.entities.Configuration
 import me.salt.config.entities.CustomLang
-import me.salt.exception.ConfigMissingValueException
 import me.salt.exception.LangConfigReadException
 import java.io.BufferedReader
 import java.io.File

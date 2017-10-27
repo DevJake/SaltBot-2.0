@@ -66,9 +66,9 @@ jacocoTestReport {
         html.destination = "${buildDir}/reports/jacoco"
     }
 
-onlyIf = {
-    true
-}
+//onlyIf = {
+//    true
+//}
 
 }
 

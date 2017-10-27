@@ -66,7 +66,7 @@ class SaltConfigBuilderTest : Spek({
 
             on("requesting globalPrefixes") {
                 it("should return a list of set Strings") {
-                    subject.globalPrefixes.should.equal(listOf(".", ".s"))
+                    subject.globalPrefixes.should.equal(listOf("."))
                 }
             }
 
