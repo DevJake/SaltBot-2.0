@@ -16,7 +16,6 @@
 
 package me.salt.cmd
 
-
 object CommandRegistry {
     private var commands = mutableListOf<Command>()
 

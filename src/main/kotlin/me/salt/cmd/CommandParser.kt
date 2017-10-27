@@ -31,6 +31,7 @@ import me.salt.objects.getConfig
 import java.util.regex.Pattern
 
 object CommandParser {
+    fun isPotentialCommand(raw: String) = Pattern.compile("^[^a-zA-Z]+").matcher(raw.split(" ")[0]).find()
 
     fun parse(raw: String, guildId: String, textChannelId: String, userId: String): CommandContainer {
         var saltMain: SaltConfig? = null
@@ -95,13 +96,19 @@ object CommandParser {
         val cc = CommandContainer(
                 beheaded,
                 beheadedLiteral,
-                raw.split(" "),
-                raw.split(" ").map { it.toLowerCase() }
+                beheadedLiteral.toLowerCase(),
+                beheadedLiteral.split(" "),
+                beheadedLiteral.split(" ").map { it.toLowerCase() }
         )
 
         fireEvent(CommandParseEvent(cc))
         return cc
     }
 
-    data class CommandContainer(val beheaded: MutableMap<Entity, Pair<String, String>>, val beheadedLiteral: String, val args: List<String>, val argsLower: List<String>)
+    data class CommandContainer(
+            val beheaded: MutableMap<Entity, Pair<String, String>>,
+            val beheadedLiteral: String,
+            val beheadedLiteralLower: String,
+            val args: List<String>,
+            val argsLower: List<String>)
 }

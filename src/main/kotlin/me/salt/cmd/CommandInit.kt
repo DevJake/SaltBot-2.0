@@ -16,7 +16,10 @@
 
 package me.salt.cmd
 
+import me.salt.cmd.commands.HelloWorldCommand
 
-fun initCommands(){
+fun initCommands() {
     //TODO init commands
+
+    CommandRegistry.register(HelloWorldCommand("hello", mutableListOf(), "Hello World", "", "", emptyList()))
 }

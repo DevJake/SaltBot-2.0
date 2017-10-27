@@ -20,17 +20,15 @@ import me.salt.exception.ExecuteCommandFailureException
 import me.salt.exception.PostExecuteCommandFailureException
 import me.salt.exception.PreExecuteCommandFailureException
 import me.salt.permissions.Node
+import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
-
-abstract class Command(val name: String, val description: String = "", val author: String = "", val perms: List<Node> = emptyList()) {
-
+abstract class Command(val cmdPrefix: String, val aliases: MutableList<String> = mutableListOf(), val name: String, val description: String = "", val author: String = "", val perms: List<Node> = emptyList()) {
     @Throws(PreExecuteCommandFailureException::class)
-    abstract fun preExecute(cmd: CommandParser.CommandContainer)
+    abstract fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent)
 
     @Throws(ExecuteCommandFailureException::class)
-    abstract fun execute(cmd: CommandParser.CommandContainer)
+    abstract fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent)
 
     @Throws(PostExecuteCommandFailureException::class)
-    abstract fun postExecute(cmd: CommandParser.CommandContainer)
-
+    abstract fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent)
 }
