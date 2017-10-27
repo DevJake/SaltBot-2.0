@@ -26,29 +26,29 @@ import me.salt.util.*
 import java.util.concurrent.TimeUnit
 
 class SaltConfigBuilder(botToken: String) : ConfigBuilder {
-    var botToken: String = botToken
+    private var botToken: String = botToken
         private set
-    var botSafeMode: Boolean = false
+    private var botSafeMode: Boolean = false
         private set
-    var modules: MutableList<Module> = mutableListOf()
+    private var modules: MutableList<Module> = mutableListOf()
         private set
-    var globalAdmins: MutableList<Admin> = mutableListOf(Admin("Salt", "tobesorted"))
+    private var globalAdmins: MutableList<Admin> = mutableListOf(Admin("Salt", "tobesorted"))
         private set
-    var respondToMentions: Boolean = true
+    private var respondToMentions: Boolean = true
         private set
-    var globalPrefixes: MutableList<String> = mutableListOf(".", ".s")
+    private var globalPrefixes: MutableList<String> = mutableListOf(".")
         private set
-    var defaultCooldownValue: Long = TimeUnit.SECONDS.toSeconds(10)
+    private var defaultCooldownValue: Long = TimeUnit.SECONDS.toSeconds(10)
         private set
-    var defaultEmbedColour: SimpleRGBColour = SimpleRGBColour(255, 175, 175) /*Pink*/
+    private var defaultEmbedColour: SimpleRGBColour = SimpleRGBColour(255, 175, 175) /*Pink*/
         private set
-    var defaultLangCode: LangCode = LangCode.EN_GB
+    private var defaultLangCode: LangCode = LangCode.EN_GB
         private set
 
     override fun build(): Config {
         //TODO checking values, throwing exception if invalid values
         //TODO change so default values are assigned and/or added here. Allow build params which determine which params should be defaulted
-        return SaltConfig(this)
+        return SaltConfig(botToken, botSafeMode, modules, globalAdmins, respondToMentions, globalPrefixes, defaultCooldownValue, defaultEmbedColour, defaultLangCode)
     }
 
     //TODO check values in setters below, throwing runtime errors if incorrect values, and failing to update the value
@@ -66,7 +66,7 @@ class SaltConfigBuilder(botToken: String) : ConfigBuilder {
     fun removeGlobalAdmins(vararg admins: Admin) = apply { globalAdmins.removeAll(admins) }
     fun setRespondToMentions(respond: Boolean) = apply { respondToMentions = respond }
     fun addGlobalPrefixes(vararg prefixes: String) = apply {
-        if (globalPrefixes.containsAll(listOf(".", ".s")) && globalPrefixes.size == 2)
+        if (globalPrefixes.containsAll(listOf(".")) && globalPrefixes.size == 1)
             globalPrefixes = mutableListOf()
         globalPrefixes.addAll(prefixes)
     }

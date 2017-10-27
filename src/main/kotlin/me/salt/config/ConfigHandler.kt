@@ -25,9 +25,11 @@ import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
 import me.salt.config.entities.Configuration
+import me.salt.config.entities.SaltConfig
 import me.salt.entities.Constants
 import me.salt.events.ConfigInteractEvent
 import me.salt.events.fireEvent
+import me.salt.exception.ConfigIllegalFieldException
 import me.salt.exception.ConfigMissingValueException
 import me.salt.exception.ConfigWriteException
 import me.salt.objects.Interaction
@@ -65,28 +67,46 @@ object ConfigHandler {
         } else writeConfig(handler, conf)
     }
 
-    fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T? = try {
-        ObjectMapper(YAMLFactory()).registerKotlinModule()
-                .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
-                .enable(DeserializationFeature.WRAP_EXCEPTIONS)
-                .readValue(getFile(handler), type)
-    } catch (e: IOException) {
-        throw ConfigWriteException(//TODO update exception names
-                "The config could not be loaded... it likely does not exist, and must first be created, or there was an internal issue converting it to an object! " +
-                        "\nSpecified Handler=$handler\nerror=${e.message}")
+    fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T? {
+        val conf: T
 
-        /*
-        Due to a limitation with generics and type erasure, it is not possible to automatically create the file.
-        This is because we cannot reliably determine which class pairs with which config type.
-        The only solution would be unscalable and would require constant adaptation.
-        The remaining solution would be for each config class to be annotated.
-         */
+        try {
+            conf = ObjectMapper(YAMLFactory()).registerKotlinModule()
+                    .enable(DeserializationFeature.ACCEPT_EMPTY_STRING_AS_NULL_OBJECT)
+                    .enable(DeserializationFeature.WRAP_EXCEPTIONS)
+                    .readValue(getFile(handler), type)
+        } catch (e: IOException) {
+            throw ConfigWriteException(//TODO update exception names
+                    "The config could not be loaded... it likely does not exist, and must first be created, or there was an internal issue converting it to an object! " +
+                            "\nSpecified Handler=$handler\nerror=${e.message}")
 
-    } catch (e: JsonMappingException) {
-        throw ConfigMissingValueException(
-                "The config could not be mapped to the specified Handler instance... the Handler likely has a different structure to the parsed file!")
-    } catch (e: JsonParseException) {
-        throw ConfigMissingValueException(
-                "The config could not be parsed... it's structure is likely malformed. Regenerate the file to fix structural issues.")
+            /*
+            Due to a limitation with generics and type erasure, it is not possible to automatically create the file.
+            This is because we cannot reliably determine which class pairs with which config type.
+            The only solution would be unscalable and would require constant adaptation.
+            The remaining solution would be for each config class to be annotated.
+             */
+
+        } catch (e: JsonMappingException) {
+            throw ConfigMissingValueException(
+                    "The config could not be mapped to the specified Handler instance... the Handler likely has a different structure to the parsed file!")
+        } catch (e: JsonParseException) {
+            throw ConfigMissingValueException(
+                    "The config could not be parsed... it's structure is likely malformed. Regenerate the file to fix structural issues.")
+        }
+
+        var throwIllegal = false
+        when (conf) {
+            is SaltConfig ->
+            {
+                conf.globalPrefixes?.forEach { if (it.matches(Regex(".*[a-zA-Z]"))) {
+                    throwIllegal = true
+                    return@forEach
+                } }
+            }
+        }
+
+        if (throwIllegal) throw ConfigIllegalFieldException("The config loaded for config class ${type.name} has illegal fields!")
+        return conf
     }
 }

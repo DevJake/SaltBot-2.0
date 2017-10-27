@@ -60,17 +60,6 @@ class SaltConfig : Config {
     @JsonProperty("Default_Language")
     var defaultLangCode: LangCode?
 
-    constructor(builder: SaltConfigBuilder) : this(
-            builder.botToken,
-            builder.botSafeMode,
-            builder.modules,
-            builder.globalAdmins,
-            builder.respondToMentions,
-            builder.globalPrefixes,
-            builder.defaultCooldownValue,
-            builder.defaultEmbedColour,
-            builder.defaultLangCode)
-
     constructor(
             botToken: String?,
             botSafeMode: Boolean?,
