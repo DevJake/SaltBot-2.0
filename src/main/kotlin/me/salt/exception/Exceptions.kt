@@ -30,4 +30,5 @@ class LangConfigReadException(message: String? = null) : Exception(message)
 class PreExecuteCommandFailureException(message: String? = null) : Exception(message)
 class ExecuteCommandFailureException(message: String? = null) : Exception(message)
 class PostExecuteCommandFailureException(message: String? = null) : Exception(message)
+class RollbarInitException(message: String? = null) : Exception(message)
 
