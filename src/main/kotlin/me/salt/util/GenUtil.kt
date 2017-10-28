@@ -20,6 +20,7 @@ import me.salt.Main
 import me.salt.events.FileCreateEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ColourValueException
+import me.salt.exception.exception
 import me.salt.objects.Colour
 import java.io.File
 
@@ -73,7 +74,9 @@ data class SimpleRGBColour(var red: Int, var green: Int, var blue: Int) {
 
     private fun checkVal(value: Int, valName: String): Int = when (value) {
         in 0..255 -> value
-        else -> throw ColourValueException("The value for $valName must be between 0 and 255")
+        else -> {
+            exception(ColourValueException("The value for $valName must be between 0 and 255")); 0
+        }
     }
 
     init {

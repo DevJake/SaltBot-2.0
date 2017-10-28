@@ -17,6 +17,7 @@
 package me.salt.config
 
 import me.salt.exception.ConfigHandlerException
+import me.salt.exception.exception
 
 object Configs {
     private var chain = mutableListOf<String>()
@@ -107,7 +108,7 @@ data class Handler(private val chain: List<String> = emptyList(), private val en
 
     fun check() = apply {
         if (chain.size != 2)
-            throw ConfigHandlerException("The given chain is of the incorrect size(${chain.size})! Chain=$chain")
+            exception(ConfigHandlerException("The given chain is of the incorrect size(${chain.size})! Chain=$chain"))
         when (chain.get(0)) {
             "SALT" -> {
                 expectedPath += "/Admin"
@@ -129,7 +130,7 @@ data class Handler(private val chain: List<String> = emptyList(), private val en
                 expectedPath += "/Users/$entityId"
                 keyword = "User"
             }
-            else -> throw ConfigHandlerException("The value at chain[0] is incorrect! Must be one of either SALT, GUILD, TEXTCHANNEL, VOICECHANNEL or USER")
+            else -> exception(ConfigHandlerException("The value at chain[0] is incorrect! Must be one of either SALT, GUILD, TEXTCHANNEL, VOICECHANNEL or USER"))
         }
 
         expectedPath += when (chain.get(1)) {
@@ -144,7 +145,7 @@ data class Handler(private val chain: List<String> = emptyList(), private val en
             "SAR MAP" -> "/Maps/${keyword}SARMap.yaml"
             "STAT TRACKING MAP" -> "/Maps/${keyword}StatTrackingMap.yaml"
             "LANGUAGE MAP" -> "/Maps/${keyword}LanguageMap.yaml"
-            else -> throw ConfigHandlerException("The value at chain[1] is incorrect! Must be one of me.salt.config.Configs.ConfigTypes")
+            else -> exception(ConfigHandlerException("The value at chain[1] is incorrect! Must be one of me.salt.config.Configs.ConfigTypes"))
         }
 
         //TODO checking specified entityId is valid

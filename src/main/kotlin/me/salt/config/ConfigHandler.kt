@@ -32,6 +32,7 @@ import me.salt.events.fireEvent
 import me.salt.exception.ConfigIllegalFieldException
 import me.salt.exception.ConfigMissingValueException
 import me.salt.exception.ConfigWriteException
+import me.salt.exception.exception
 import me.salt.objects.Interaction
 import me.salt.objects.isEmpty
 import me.salt.util.GenUtil
@@ -68,7 +69,7 @@ object ConfigHandler {
     }
 
     fun <T : Configuration> readConfig(handler: Handler, type: Class<T>): T? {
-        val conf: T
+        var conf: T? = null
 
         try {
             conf = ObjectMapper(YAMLFactory()).registerKotlinModule()
@@ -76,9 +77,8 @@ object ConfigHandler {
                     .enable(DeserializationFeature.WRAP_EXCEPTIONS)
                     .readValue(getFile(handler), type)
         } catch (e: IOException) {
-            throw ConfigWriteException(//TODO update exception names
-                    "The config could not be loaded... it likely does not exist, and must first be created, or there was an internal issue converting it to an object! " +
-                            "\nSpecified Handler=$handler\nerror=${e.message}")
+            exception(ConfigWriteException(//TODO update exception names
+                    "The config could not be loaded... it likely does not exist (and must first be created), or there was an internal issue deserialising it to an object! \nSpecified Handler=$handler\nerror=${e.message}"))
 
             /*
             Due to a limitation with generics and type erasure, it is not possible to automatically create the file.
@@ -88,25 +88,26 @@ object ConfigHandler {
              */
 
         } catch (e: JsonMappingException) {
-            throw ConfigMissingValueException(
-                    "The config could not be mapped to the specified Handler instance... the Handler likely has a different structure to the parsed file!")
+            exception(ConfigMissingValueException(
+                    "The config could not be mapped to the specified Handler instance... the Handler likely has a different structure to the parsed file!"))
         } catch (e: JsonParseException) {
-            throw ConfigMissingValueException(
-                    "The config could not be parsed... it's structure is likely malformed. Regenerate the file to fix structural issues.")
+            exception(ConfigMissingValueException(
+                    "The config could not be parsed... it's structure is likely malformed. Regenerate the file to fix structural issues."))
         }
 
         var throwIllegal = false
         when (conf) {
-            is SaltConfig ->
-            {
-                conf.globalPrefixes?.forEach { if (it.matches(Regex(".*[a-zA-Z]"))) {
-                    throwIllegal = true
-                    return@forEach
-                } }
+            is SaltConfig -> {
+                conf.globalPrefixes?.forEach {
+                    if (it.matches(Regex(".*[a-zA-Z]"))) {
+                        throwIllegal = true
+                        return@forEach
+                    }
+                }
             }
         }
 
-        if (throwIllegal) throw ConfigIllegalFieldException("The config loaded for config class ${type.name} has illegal fields!")
+        if (throwIllegal) exception(ConfigIllegalFieldException("The config loaded for config class ${type.name} has illegal fields!"))
         return conf
     }
 }

@@ -24,6 +24,7 @@ import me.salt.events.PermissionRegisterEvent
 import me.salt.events.PermissionUnregisterEvent
 import me.salt.events.fireEvent
 import me.salt.exception.ConfigMissingValueException
+import me.salt.exception.exception
 import me.salt.objects.Action
 import me.salt.objects.getConfig
 import net.dv8tion.jda.core.entities.Guild
@@ -45,15 +46,19 @@ object PermUtils {
 
     private fun getAuthHandler(level: Authority.Level, entityId: String?): Handler {
         val tempEntityId: String =
-                if (entityId == null && level != Authority.Level.BOT)
-                    throw ConfigMissingValueException()
+                if (entityId == null && level != Authority.Level.BOT) {
+                    exception(ConfigMissingValueException()); ""
+                }
                 else entityId.toString()
 
         return when (level) {
             Authority.Level.BOT -> Configs.salt.PERMISSIONS_MAP
             Authority.Level.GUILD -> Configs.guild(tempEntityId).PERMISSIONS_MAP
             Authority.Level.CHANNEL -> Configs.textChannel(tempEntityId).PERMISSIONS_MAP
-            else -> throw ConfigMissingValueException() //TODO Replace with exception
+            else -> {
+                exception(ConfigMissingValueException())
+                return Handler(emptyList(), null)
+            } //TODO Replace with exception
         }
     }
 
@@ -67,7 +72,7 @@ object PermUtils {
 
         if (permMap?.users?.any { it.userId == user.id } == true) {
 
-            val userPerm: UserPermission = permMap?.users?.first { it.userId == user.id } ?: return false
+            val userPerm: UserPermission = permMap.users?.first { it.userId == user.id } ?: return false
 
             if (userPerm.permissions != null) {
                 hasNodes =
@@ -91,7 +96,7 @@ object PermUtils {
                 groupsToCheck?.forEach { group ->
                     indistinctPermList
                             .removeAll(group.permissions?.mapTo(mutableListOf(), { it.node }) ?:
-                                    throw ConfigMissingValueException())
+                                    { exception(ConfigMissingValueException()); emptyList<String>() } ())
                 }
                 return indistinctPermList.isEmpty()
                 /*

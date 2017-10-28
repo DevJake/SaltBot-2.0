@@ -21,6 +21,7 @@ import me.salt.config.Handler
 import me.salt.config.entities.Configuration
 import me.salt.config.entities.CustomLang
 import me.salt.exception.LangConfigReadException
+import me.salt.exception.exception
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader
@@ -32,7 +33,9 @@ fun File.isEmpty(): Boolean {
 fun List<CustomLang>.getByLangName(langName: String): CustomLang = try {
     this.first { it.languageName == langName }
 } catch (e: Exception) {
-    throw LangConfigReadException("The language file, $langName, could not be read!") //TODO change exception + message
+    exception(LangConfigReadException("The language file, $langName, could not be read!"))
+    //TODO change exception + message
+    CustomLang("", null, null, null, emptyMap())
 }
 
 /*

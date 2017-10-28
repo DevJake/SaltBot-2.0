@@ -3,7 +3,7 @@ package me.salt.cmd
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
-class CommandListener: ListenerAdapter() {
+class CommandListener : ListenerAdapter() {
     private fun MutableList<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
             this.filter {
                 it.cmdPrefix.equals(prefix) &&

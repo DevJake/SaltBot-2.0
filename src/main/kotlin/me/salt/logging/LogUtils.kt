@@ -20,6 +20,7 @@ import me.salt.config.Configs
 import me.salt.config.entities.SaltLogConfig
 import me.salt.events.Event
 import me.salt.exception.ConfigMissingValueException
+import me.salt.exception.exception
 import me.salt.objects.getConfig
 import java.time.Instant
 
@@ -43,8 +44,10 @@ object LogUtils {
     }
 
     private fun flush(entry: LogEntry) {
-        var logConfig = Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java) ?: throw ConfigMissingValueException() //TODO
-        if (logConfig.logToConsole) println(calcLogMessage(entry))
+        var logConfig = Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java) //TODO
+        if (logConfig == null)
+            exception(ConfigMissingValueException())
+        if (logConfig?.logToConsole as Boolean) println(calcLogMessage(entry))
 
         flushCache()
     }

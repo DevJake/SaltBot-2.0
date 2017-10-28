@@ -19,6 +19,7 @@ package me.salt.lang
 import me.salt.config.entities.CustomLang
 import me.salt.config.entities.LanguageMap
 import me.salt.exception.ConfigMissingValueException
+import me.salt.exception.exception
 import me.salt.objects.getConfig
 import java.util.regex.Pattern
 
@@ -38,7 +39,7 @@ object LangUtils {
                     repl.get(matcher.group(0)
                             .removeSurrounding("**", "**")
                             .toLowerCase())
-                            ?: throw ConfigMissingValueException(), //TODO update to better exception. Means we didn't give the proper name of the variable
+                            ?: { exception(ConfigMissingValueException()); "" } (), //TODO update to better exception. Means we didn't give the proper name of the variable
                     true)
 //                else throw ConfigHandlerException("Uhh ohh...") //TODO use different exception + more useful message
         }
@@ -49,18 +50,18 @@ object LangUtils {
 
     fun getTerm(lang: CustomLang, langTerm: LangTerm): String {
         if (!checkLangChain(lang, listOf(langTerm)))
-            throw ConfigMissingValueException() //TODO change exception and add message
+            exception(ConfigMissingValueException()) //TODO change exception and add message
         // No term exists within the chain!
 
         if (lang.termMap.containsKey(langTerm)) return lang.termMap.get(langTerm).toString()
 
             if (lang.languageOverride == null)
-                throw ConfigMissingValueException() //TODO change exception and add message
+                exception(ConfigMissingValueException()) //TODO change exception and add message
             //There is no higher language to check
-            val lMap = lang.languageOverride.handler.getConfig(LanguageMap::class.java)
+            val lMap = lang.languageOverride?.handler?.getConfig(LanguageMap::class.java)
             val filtered = lMap?.languages?.filter { lang.languageOverride.languageName == it.languageName }
             if (filtered?.isEmpty() as Boolean || filtered.size != 1)
-                throw ConfigMissingValueException() //TODO change exception and add message
+                exception(ConfigMissingValueException()) //TODO change exception and add message
             /*
             Checked the overriden language, but it has no languages matching the one specified,
             or too many matching languages.

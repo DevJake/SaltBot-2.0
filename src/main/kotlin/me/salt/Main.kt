@@ -17,17 +17,13 @@
 package me.salt
 
 import me.salt.cmd.CommandListener
-import me.salt.cmd.CommandParser
 import me.salt.cmd.initCommands
 import me.salt.config.Configs
-import me.salt.config.entities.*
+import me.salt.config.entities.SaltConfig
 import me.salt.config.initConfigs
+import me.salt.lang.LangCode
 import me.salt.lang.initLangs
-import me.salt.objects.Interaction
 import me.salt.objects.getConfig
-import me.salt.objects.overwriteConfig
-import me.salt.objects.writeConfig
-import me.salt.permissions.*
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
@@ -39,20 +35,16 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
+
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()
-//            println(LangCode.EN_GB.getLang())
-            Configs.salt.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
-//            Configs.salt.MAIN_CONFIG.overwriteConfig(SaltConfigBuilder("").build())
-            println(CommandParser.parse(".cMD ArGs My BoIs", "g123", "t123", "u123").toString())
-            println(CommandParser.parse(".scMD ArGs My BoIs", "g123", "t123", "u123").toString())
-            println(CommandParser.parse(".scMD ArGs My BoIs", "g123", "t123", "u123").toString())
-//            logEasy("Simple, easy logging")
-//            logWarn("A warning log")
-//            LogUtils.DEBUG("MAINTHREAD").log("A testing debug log entry")
-            jda = JDABuilder(AccountType.BOT).setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken).buildAsync()
-            jda.addEventListener(CommandListener())
+
+            println(LangCode.EN_GB.getLang().toString())
+
+            jda = JDABuilder(AccountType.BOT)
+                    .setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken)
+                    .addEventListener(CommandListener()).buildAsync()
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
         }
     }

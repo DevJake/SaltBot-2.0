@@ -17,21 +17,19 @@
 package me.salt.permissions
 
 import me.salt.exception.BuilderValueException
+import me.salt.exception.exception
 import me.salt.objects.PermRole
 import java.util.regex.Pattern
 
 class UserPermissionBuilder(userId: String) {
     private val userId = userId
     private var groups = mutableListOf<String>()
-        private set
     private var permissions = mutableListOf<Node>() //TODO default permissions, such as permission to send a message to any channel?
-        private set
     private var enforcements = mutableListOf<Node>()
-        private set
 
     init {
         if (Pattern.compile("\\D").matcher(userId).matches())
-            throw BuilderValueException("The specified userId contains non-numerical characters!")
+            exception(BuilderValueException("The specified userId contains non-numerical characters!"))
     }
 
     fun build() = UserPermission(userId, groups, permissions, enforcements)
@@ -49,15 +47,10 @@ class UserPermissionBuilder(userId: String) {
 class GroupPermissionBuilder(groupName: String) {
     private val groupName = groupName
     private var permissions = mutableListOf<Node>()
-        private set
     private var enforcements = mutableListOf<Node>()
-        private set
     private var groups = mutableListOf<String>()
-        private set
     private var applyToAllUsers = false
-        private set
     private var applyToUsersWithRole = mutableListOf<PermRole>()
-        private set
 
     fun build() = GroupPermission(groupName, permissions, enforcements, groups, applyToAllUsers, applyToUsersWithRole)
 

@@ -25,6 +25,7 @@ import me.salt.events.CommandParseEvent
 import me.salt.events.fireEvent
 import me.salt.exception.AmorphousCommandException
 import me.salt.exception.PrefixlessCommandException
+import me.salt.exception.exception
 import me.salt.objects.Entity
 import me.salt.objects.exists
 import me.salt.objects.getConfig
@@ -77,16 +78,16 @@ object CommandParser {
                 beheaded.put(Entity.USER, Pair(it, raw.replaceFirst(it, "")))
         }
 
-        val beheadedLiteral: String
+        var beheadedLiteral: String = ""
 
         if (!Pattern.compile("^[^a-zA-Z]+").matcher(raw.split(" ").get(0)).find())
-            throw PrefixlessCommandException("The given input, $raw, seems to lack any sort of prefix!")
+            exception(PrefixlessCommandException("The given input, $raw, seems to lack any sort of prefix!"))
         if (!Pattern.compile("^.*?[^a-zA-Z]+").matcher(raw.split(" ").get(0)).find())
-            throw AmorphousCommandException("The given input, $raw, has a foul-structured (non-identifiable) prefix!")
+            exception(AmorphousCommandException("The given input, $raw, has a foul-structured (non-identifiable) prefix!"))
         else
             beheadedLiteral = raw.replace(Regex("^.*?[^a-zA-Z]+"), "")
         if (beheaded.isEmpty())
-            throw AmorphousCommandException("The given input, $raw, failed to match any prefixes loaded from configs!")
+            exception(AmorphousCommandException("The given input, $raw, failed to match any prefixes loaded from configs!"))
 
         //TODO If the raw is identified as matching to a command, recursively remove the first character until reaching a letter
         //No specific way to check and appropriately remove identified prefixes without looping over them each removal; inefficient and needless

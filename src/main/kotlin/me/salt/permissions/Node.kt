@@ -21,6 +21,7 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.exception.ConfigMissingValueException
+import me.salt.exception.exception
 import me.salt.objects.Interaction
 import java.util.regex.Pattern
 
@@ -76,8 +77,8 @@ class Node {
             n0 = node.removePrefix("-")
         }
         if (matchIllegals.matcher(n0).find())
-            throw ConfigMissingValueException(
-                    "Illegal characters were specified for node parsing! Allowed = a-z, A-Z, '.' and '*'")
+            exception(ConfigMissingValueException(
+                    "Illegal characters were specified for node parsing! Allowed = a-z, A-Z, '.' and '*'"))
         var parsed = n0.toLowerCase()
         parsed = parsed.replace("\\s+", "")
         parsed = parsed.replace("[.]+", ".")

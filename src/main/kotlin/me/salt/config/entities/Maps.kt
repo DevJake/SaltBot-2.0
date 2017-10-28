@@ -19,6 +19,7 @@ package me.salt.config.entities
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.config.Handler
 import me.salt.exception.ConfigMissingValueException
+import me.salt.exception.exception
 import me.salt.lang.LangTerm
 import me.salt.lang.LangUtils
 import me.salt.objects.*
@@ -122,8 +123,8 @@ class LanguageMap : ConfigMap {
         lang.forEach { cl -> if (!distinct.contains(cl)) indistinct.add(cl) }
 
         if (indistinct.isNotEmpty())
-            throw ConfigMissingValueException("Some languages lack distinct names! " +
-                    "Indistinct names=${indistinct.mapTo(mutableListOf(), { cl -> cl.languageName }).distinct()}")
+            exception(ConfigMissingValueException("Some languages lack distinct names! " +
+                    "Indistinct names=${indistinct.mapTo(mutableListOf(), { cl -> cl.languageName }).distinct()}"))
         //Calculates a list of language names for the indistinct instances, then makes the list entries distinct
 
         languages.addAll(lang)

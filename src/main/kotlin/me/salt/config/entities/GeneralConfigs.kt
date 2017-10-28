@@ -59,6 +59,8 @@ class SaltConfig : Config {
     var defaultEmbedColour: SimpleRGBColour?
     @JsonProperty("Default_Language")
     var defaultLangCode: LangCode?
+    @JsonProperty("Rollbar-Access-Token")
+    var rollbarAccessToken: String?
 
     constructor(
             botToken: String?,
@@ -69,7 +71,9 @@ class SaltConfig : Config {
             globalPrefixes: List<String>?,
             defaultCooldownValue: Long?,
             defaultEmbedColour: SimpleRGBColour?,
-            defaultLangCode: LangCode?) {
+            defaultLangCode: LangCode?,
+            rollbarAccessToken: String?
+    ) {
         this.botToken = botToken
         this.botSafeMode = botSafeMode
         this.modules = modules
@@ -79,6 +83,7 @@ class SaltConfig : Config {
         this.defaultCooldownValue = defaultCooldownValue
         this.defaultEmbedColour = defaultEmbedColour
         this.defaultLangCode = defaultLangCode
+        this.rollbarAccessToken = rollbarAccessToken
     }
 
     override fun toString(): String {
