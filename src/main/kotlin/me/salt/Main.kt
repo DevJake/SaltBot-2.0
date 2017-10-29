@@ -16,15 +16,15 @@
 
 package me.salt
 
-import me.salt.cmd.CommandListener
-import me.salt.cmd.initCommands
-import me.salt.config.Configs
-import me.salt.config.entities.SaltConfig
-import me.salt.config.initConfigs
-import me.salt.exception.Errorlevel
-import me.salt.exception.exception
-import me.salt.lang.initLangs
-import me.salt.objects.getConfig
+import me.salt.entities.cmd.CommandListener
+import me.salt.entities.cmd.initCommands
+import me.salt.entities.config.Configs
+import me.salt.entities.config.entities.SaltConfig
+import me.salt.entities.config.initConfigs
+import me.salt.util.exception.Errorlevel
+import me.salt.util.exception.exception
+import me.salt.entities.lang.initLangs
+import me.salt.entities.objects.getConfig
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder

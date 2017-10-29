@@ -17,11 +17,11 @@
 package me.salt.util
 
 import me.salt.Main
-import me.salt.events.FileCreateEvent
-import me.salt.events.fireEvent
-import me.salt.exception.ColourValueException
-import me.salt.exception.exception
-import me.salt.objects.Colour
+import me.salt.util.events.FileCreateEvent
+import me.salt.util.events.fireEvent
+import me.salt.util.exception.ColourValueException
+import me.salt.util.exception.exception
+import me.salt.entities.objects.Colour
 import java.io.File
 
 object GenUtil {
