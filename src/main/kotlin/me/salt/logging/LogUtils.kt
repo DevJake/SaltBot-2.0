@@ -28,7 +28,7 @@ object LogUtils {
     private val cache = mutableListOf<LogEntry>()
     private fun addLogEntry(entry: LogEntry) {
         cache.add(entry)
-        flush(entry)
+        flush(entry) //TODO remove when log system is done
     }
 
     private fun flushCache() {
@@ -36,6 +36,7 @@ object LogUtils {
 
         cache.forEach { entry ->
             println(entry.toString())
+            //TODO writing cache, ignore optional if null
         }
 
         cache.clear()
@@ -59,20 +60,23 @@ object LogUtils {
                         "/${entry.optional}" else ""}] " +
                     entry.elements.joinToString()
 
-    fun info(optional: String? = null) =
-            Logger(LogType.INFO, optional)
+    fun info(prefix: String? = null) =
+            Logger(LogType.INFO, prefix)
 
-    fun debug(optional: String? = null) =
-            Logger(LogType.DEBUG, optional)
+    fun debug(prefix: String? = null) =
+            Logger(LogType.DEBUG, prefix)
 
-    fun warn(optional: String? = null) =
-            Logger(LogType.WARNING, optional)
+    fun warn(prefix: String? = null) =
+            Logger(LogType.WARNING, prefix)
 
-    fun fatal(optional: String? = null) =
-            Logger(LogType.FATAL, optional)
+    fun fatal(prefix: String? = null) =
+            Logger(LogType.FATAL, prefix)
 
-    fun severe(optional: String? = null) =
-            Logger(LogType.SEVERE, optional)
+    fun severe(prefix: String? = null) =
+            Logger(LogType.SEVERE, prefix)
+
+    fun exception(prefix: String? = null) =
+            Logger(LogType.EXCEPTION, prefix)
 
     class Logger(private val type: LogType, private val optional: String?) {
         fun log(message: String) =
@@ -97,7 +101,8 @@ object LogUtils {
         DEBUG("DEBUG"),
         WARNING("WARN"),
         SEVERE("SEVERE"),
-        FATAL("FATAL");
+        FATAL("FATAL"),
+        EXCEPTION("EXCEPTION");
 
         init {
             entryName = entryName.toUpperCase()
@@ -118,5 +123,6 @@ fun logDebug(message: String, optional: String? = null) = LogUtils.debug(optiona
 fun logWarn(message: String, optional: String? = null) = LogUtils.warn(optional).log(message)
 fun logSevere(message: String, optional: String? = null) = LogUtils.severe(optional).log(message)
 fun logFatal(message: String, optional: String? = null) = LogUtils.fatal(optional).log(message)
+fun logException(exception: Exception, optional: String? = null) = LogUtils.exception(optional).log(exception)
 
 fun logEasy(message: String) = LogUtils.info(Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java)?.easyLogMessage ?: "EASYLOG").log(message)

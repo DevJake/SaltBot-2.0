@@ -21,6 +21,8 @@ import com.rollbar.notifier.Rollbar
 import com.rollbar.notifier.config.ConfigBuilder
 import me.salt.config.Configs
 import me.salt.config.entities.SaltConfig
+import me.salt.logging.LogUtils
+import me.salt.logging.logException
 import me.salt.objects.getConfig
 
 object ExceptionHandler {
@@ -35,7 +37,7 @@ object ExceptionHandler {
 
     fun handle(e: Exception) {
         rb.error(e)
-        println(e)
+        logException(e)
     }
 
     fun handle(e: Exception, level: Errorlevel) {
@@ -48,7 +50,7 @@ object ExceptionHandler {
             Errorlevel.WARNING -> rb.warning(e)
         }
 
-        println(e)
+        logException(e)
     }
 }
 
