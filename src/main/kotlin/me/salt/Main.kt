@@ -21,7 +21,8 @@ import me.salt.cmd.initCommands
 import me.salt.config.Configs
 import me.salt.config.entities.SaltConfig
 import me.salt.config.initConfigs
-import me.salt.lang.LangCode
+import me.salt.exception.Errorlevel
+import me.salt.exception.exception
 import me.salt.lang.initLangs
 import me.salt.objects.getConfig
 import net.dv8tion.jda.core.AccountType
@@ -35,16 +36,20 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
-
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()
 
-            println(LangCode.EN_GB.getLang().toString())
+            try {
+                jda = JDABuilder(AccountType.BOT)
+                        .setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken)
+                        .addEventListener(CommandListener()).buildAsync()
+            } catch (e: Exception) {
+                exception(e, Errorlevel.CRITICAL)
+                System.exit(-1)
+            }
 
-            jda = JDABuilder(AccountType.BOT)
-                    .setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken)
-                    .addEventListener(CommandListener()).buildAsync()
+            Thread({ while (true) Thread.sleep(Integer.MAX_VALUE.toLong()) }, "RuntimePersistence").start()
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
         }
     }
