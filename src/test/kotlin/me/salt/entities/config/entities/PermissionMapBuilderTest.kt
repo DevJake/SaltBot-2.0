@@ -18,12 +18,14 @@ package me.salt.entities.config.entities
 
 import com.winterbe.expekt.should
 import me.salt.entities.permissions.GroupPermission
+import me.salt.util.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
 class PermissionMapBuilderTest : Spek({
+    ExceptionHandler.isTesting = true
     var subject = PermissionMapBuilder()
     val g0 = GroupPermission("group1", mutableListOf(), mutableListOf(), mutableListOf(), true, mutableListOf())
     val g1 = GroupPermission("group2", mutableListOf(), mutableListOf(), mutableListOf(), false, mutableListOf())

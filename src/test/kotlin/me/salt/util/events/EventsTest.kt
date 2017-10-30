@@ -17,6 +17,7 @@
 package me.salt.util.events
 
 import com.winterbe.expekt.should
+import me.salt.util.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.given
@@ -43,6 +44,7 @@ class SpecificListener : EventHandler() {
 
 
 class EventsTest : Spek({
+    ExceptionHandler.isTesting = true
     given("an event listener class interfaced to ListenerAdapter") {
         var subject = GeneralListener()
         describe("when registering and then firing an event to our event listener") {

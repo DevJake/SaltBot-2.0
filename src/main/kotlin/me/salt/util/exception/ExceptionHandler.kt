@@ -25,35 +25,38 @@ import me.salt.util.logging.logException
 import me.salt.entities.objects.getConfig
 
 object ExceptionHandler {
-
     private val s = Server.Builder().build()
     private val c = ConfigBuilder
             .withAccessToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.rollbarAccessToken)
             .environment("development")
             .language("Kotlin")
-            .build()
+            .build() ?: throw RollbarInitException("SaltConfig lacks a value for rollbarAccessToken! Does it exist?")
     private val rb = Rollbar.init(c)
     var latestException: Exception? = null
     private set
+    get() {
+        val b = field
+        latestException = null
+        return b
+    }
+
+    var isTesting = false
 
     fun handle(e: Exception) {
-        rb.error(e)
+        if (!isTesting) rb?.error(e)
         logException(e)
         latestException = e
     }
 
     fun handle(e: Exception, level: Errorlevel) {
         when (level) {
-            Errorlevel.ERROR -> rb.error(e)
-            Errorlevel.CRITICAL -> rb.critical(e)
-            Errorlevel.DEBUG -> rb.debug(e)
-            Errorlevel.INFO -> rb.info(e)
-            Errorlevel.LOG -> rb.log(e)
-            Errorlevel.WARNING -> rb.warning(e)
+            Errorlevel.ERROR -> handle(e)
+            Errorlevel.CRITICAL -> handle(e)
+            Errorlevel.DEBUG -> handle(e)
+            Errorlevel.INFO -> handle(e)
+            Errorlevel.LOG -> handle(e)
+            Errorlevel.WARNING -> handle(e)
         }
-
-        logException(e)
-        latestException = e
     }
 }
 

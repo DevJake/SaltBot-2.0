@@ -20,9 +20,11 @@ import me.salt.entities.cmd.CommandListener
 import me.salt.entities.cmd.initCommands
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltConfig
+import me.salt.entities.config.entities.SaltConfigBuilder
 import me.salt.entities.config.initConfigs
 import me.salt.entities.lang.initLangs
 import me.salt.entities.objects.getConfig
+import me.salt.entities.objects.writeConfig
 import me.salt.util.exception.Errorlevel
 import me.salt.util.exception.exception
 import net.dv8tion.jda.core.AccountType
@@ -39,6 +41,8 @@ class Main {
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()
+
+            Configs.salt.MAIN_CONFIG.writeConfig(SaltConfigBuilder("bottoken").setRollbarAccessToken("token").build())
 
             try {
                 jda = JDABuilder(AccountType.BOT)

@@ -77,8 +77,8 @@ object ConfigHandler {
                     .enable(DeserializationFeature.WRAP_EXCEPTIONS)
                     .readValue(getFile(handler), type)
         } catch (e: IOException) {
-            exception(ConfigWriteException(//TODO update exception names
-                    "The config could not be loaded... it likely does not exist (and must first be created), or there was an internal issue deserialising it to an object! \nSpecified Handler=$handler\nerror=${e.message}"))
+            throw ConfigWriteException(//TODO update exception names
+                    "The config could not be loaded... it likely does not exist (and must first be created), or there was an internal issue deserialising it to an object! \nSpecified Handler=$handler\nerror=${e.message}")
 
             /*
             Due to a limitation with generics and type erasure, it is not possible to automatically create the file.

@@ -25,7 +25,7 @@ fun initLangs() {
 
     Configs.salt.LANGUAGE_MAP.writeConfig(
             LanguageMap().addLang(
-                    CustomLang("en_GB", "Administrator", null, null,
+                    CustomLang("EN_GB", "Administrator", null, null,
                             mapOf(
                                     Pair(LangTerm.USER_WELCOME, "Welcome to **guild**, **user**! :)"),
                                     Pair(LangTerm.USER_GOODBYE, "Goodbye **user**!"))

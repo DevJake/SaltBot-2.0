@@ -18,11 +18,13 @@ package me.salt.util
 
 import com.winterbe.expekt.should
 import me.salt.entities.objects.Colour
+import me.salt.util.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 
 class ColourTest : Spek({
+    ExceptionHandler.isTesting = true
     on("requesting the red, green and blue values of Colour.RED") {
         it("should return 255, 0 and 0, respectively") {
             Colour.RED.red.should.equal(255)

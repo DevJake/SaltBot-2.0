@@ -17,13 +17,17 @@
 package me.salt
 
 import com.winterbe.expekt.should
-import me.salt.util.exception.ColourValueException
+import me.salt.entities.config.Configs
+import me.salt.entities.config.entities.SaltLogConfig
+import me.salt.entities.objects.overwriteConfig
 import me.salt.util.SimpleRGBColour
+import me.salt.util.exception.ColourValueException
+import me.salt.util.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.*
-import kotlin.test.fail
 
 class SimpleRGBColourTest : Spek({
+    ExceptionHandler.isTesting = true
     context("updating and requesting values") {
         given("an instance of SimpleRGBColour") {
             describe("with red, green and blue set to zero") {
@@ -62,21 +66,15 @@ class SimpleRGBColourTest : Spek({
 
                 on("updating and requesting the value of green to 400") {
                     it("should throw a ColourValueException") {
-                        try {
-                            subject.green = 400
-                        } catch (e: Exception) {
-                            e.should.be.instanceof(ColourValueException::class.java)
-                        }
+                        subject.green = 400
+                        ExceptionHandler.latestException.should.be.instanceof(ColourValueException::class.java)
                     }
                 }
 
                 on("updating and requesting the value of green to -10") {
                     it("should throw a ColourValueException") {
-                        try {
                             subject.red = -10
-                        } catch (e: Exception) {
-                            e.should.be.an.instanceof(ColourValueException::class.java)
-                        }
+                        ExceptionHandler.latestException.should.be.an.instanceof(ColourValueException::class.java)
                     }
                 }
 
@@ -89,19 +87,13 @@ class SimpleRGBColourTest : Spek({
 
                 on("providing an invalid value for transparency (-10)") {
                     it("should throw a ColourValueException") {
-                        try {
                             subject.transparency = -10
-                        } catch (e: Exception) {
-                            e.should.be.an.instanceof(ColourValueException::class.java)
-                        }
+                        ExceptionHandler.latestException.should.be.an.instanceof(ColourValueException::class.java)
                     }
 
                     it("should throw a ColourValueException with a set message") {
-                        try {
                             subject.transparency = -10
-                        } catch (e: Exception) {
-                            e.message.should.equal("The value for transparency must be between 0 and 255")
-                        }
+                            ExceptionHandler.latestException?.message.should.equal("The value for transparency must be between 0 and 255")
                     }
                 }
             }
@@ -111,21 +103,15 @@ class SimpleRGBColourTest : Spek({
             given("an instance of SimpleRGBColour") {
                 on("providing incorrect values and no transparency as parameters") {
                     it("should throw a ColourValueException") {
-                        try {
                             SimpleRGBColour(0, 0, 400)
-                        } catch (e: Exception) {
-                            e.should.be.instanceof(ColourValueException::class.java)
-                        }
+                        ExceptionHandler.latestException.should.be.instanceof(ColourValueException::class.java)
                     }
                 }
 
                 on("providing an incorrect value for the transparency parameter") {
                     it("should throw a ColourValueException") {
-                        try {
                             SimpleRGBColour(0, 0, 100, 400)
-                        } catch (e: Exception) {
-                            e.should.be.instanceof(ColourValueException::class.java)
-                        }
+                        ExceptionHandler.latestException.should.be.instanceof(ColourValueException::class.java)
                     }
                 }
             }
@@ -135,21 +121,15 @@ class SimpleRGBColourTest : Spek({
             given("an instance of SimpleRGBColour") {
                 on("passing valid red, green and blue parameters, excluding transparency") {
                     it("should not throw any exception") {
-                        try {
-                            SimpleRGBColour(40, 30, 80)
-                        } catch (e: Exception) {
-                            fail("The valid instance threw an exception!")
-                        }
+                        SimpleRGBColour(40, 30, 80)
+                        ExceptionHandler.latestException.should.not.be.instanceof(ColourValueException::class.java)
                     }
                 }
 
                 on("passing valid red, green, blue and transparency parameters") {
                     it("should not throw any exception") {
-                        try {
-                            SimpleRGBColour(40, 30, 80, 60)
-                        } catch (e: Exception) {
-                            fail("The valid instance threw an exception!")
-                        }
+                        SimpleRGBColour(40, 30, 80, 60)
+                        ExceptionHandler.latestException.should.not.be.instanceof(ColourValueException::class.java)
                     }
                 }
             }

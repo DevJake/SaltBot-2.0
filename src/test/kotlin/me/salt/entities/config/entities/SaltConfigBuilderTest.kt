@@ -32,6 +32,7 @@ import java.util.concurrent.TimeUnit
 import kotlin.test.fail
 
 class SaltConfigBuilderTest : Spek({
+    ExceptionHandler.isTesting = true
     context("default values") {
         val subject = SaltConfigBuilder("").build() as SaltConfig
         given("an instance of SaltConfig built by SaltConfigBuilder with no changes") {

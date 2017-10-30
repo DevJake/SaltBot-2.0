@@ -66,7 +66,19 @@ object GenUtil {
 }
 
 //TODO: add HEX support
-data class SimpleRGBColour(var red: Int, var green: Int, var blue: Int) {
+data class SimpleRGBColour(private val _red: Int, private val _green: Int, private val _blue: Int) {
+    var green = _green
+    set(value) {
+        field = checkVal(value, "green")
+    }
+    var red = _red
+        set(value) {
+            field = checkVal(value, "green")
+        }
+    var blue = _blue
+        set(value) {
+            field = checkVal(value, "green")
+        }
     var transparency = 255
         set(value) {
             field = checkVal(value, "transparency")

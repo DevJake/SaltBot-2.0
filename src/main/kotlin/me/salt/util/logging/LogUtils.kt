@@ -20,8 +20,8 @@ import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltLogConfig
 import me.salt.util.events.Event
 import me.salt.util.exception.ConfigMissingValueException
-import me.salt.util.exception.exception
 import me.salt.entities.objects.getConfig
+import me.salt.entities.objects.writeConfig
 import java.time.Instant
 
 object LogUtils {
@@ -29,6 +29,10 @@ object LogUtils {
     private fun addLogEntry(entry: LogEntry) {
         cache.add(entry)
         flush(entry) //TODO remove when log system is done
+    }
+
+    init {
+        Configs.salt.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, true, true, mutableListOf()))
     }
 
     private fun flushCache() {
@@ -45,10 +49,10 @@ object LogUtils {
     }
 
     private fun flush(entry: LogEntry) {
-        var logConfig = Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java) //TODO
-        if (logConfig == null)
-            exception(ConfigMissingValueException())
-        if (logConfig?.logToConsole as Boolean) println(calcLogMessage(entry))
+        val logConfig = Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java) ?:
+                //exception(ConfigMissingValueException())
+                throw ConfigMissingValueException("The logging config does not exist! Fix this issue") //TODO
+        if (logConfig.logToConsole as Boolean) println(calcLogMessage(entry))
 
         flushCache()
     }

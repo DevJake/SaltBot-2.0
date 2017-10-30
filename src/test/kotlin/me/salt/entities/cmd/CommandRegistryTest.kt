@@ -20,6 +20,7 @@ import com.winterbe.expekt.should
 import me.salt.util.exception.PostExecuteCommandFailureException
 import me.salt.util.exception.exception
 import me.salt.entities.permissions.Node
+import me.salt.util.exception.ExceptionHandler
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
@@ -28,6 +29,7 @@ import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Assertions
 
 class CommandRegistryTest: Spek({
+    ExceptionHandler.isTesting = true
     context("registering commands"){
         on("registering a single command") {
             it("should register the given command"){
