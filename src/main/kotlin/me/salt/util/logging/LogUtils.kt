@@ -52,7 +52,7 @@ object LogUtils {
         val logConfig = Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java) ?:
                 //exception(ConfigMissingValueException())
                 throw ConfigMissingValueException("The logging config does not exist! Fix this issue") //TODO
-        if (logConfig.logToConsole as Boolean) println(calcLogMessage(entry))
+        if (logConfig.logToConsole) println(calcLogMessage(entry))
 
         flushCache()
     }

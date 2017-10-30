@@ -16,20 +16,17 @@
 
 package me.salt
 
-import io.javalin.Context
-import io.javalin.Javalin
 import me.salt.entities.cmd.CommandListener
 import me.salt.entities.cmd.initCommands
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltConfig
-import me.salt.entities.config.entities.SaltConfigBuilder
 import me.salt.entities.config.initConfigs
 import me.salt.entities.lang.initLangs
 import me.salt.entities.objects.getConfig
-import me.salt.entities.objects.writeConfig
 import me.salt.util.exception.Errorlevel
 import me.salt.util.exception.exception
-import me.salt.util.rest.ConfigController
+import me.salt.util.rest.RestController
+import me.salt.util.rest.initRest
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
@@ -38,14 +35,15 @@ class Main {
     companion object {
         lateinit var jda: JDA
             private set
-        val javalin = Javalin.create().port(7000)
+
         @JvmStatic
         fun main(args: Array<String>) {
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()
+            initRest()
 
-            Configs.salt.MAIN_CONFIG.writeConfig(SaltConfigBuilder("bottoken").setRollbarAccessToken("token").build())
+            RestController.start()
 
             try {
                 jda = JDABuilder(AccountType.BOT)
@@ -53,17 +51,11 @@ class Main {
                         .addEventListener(CommandListener()).buildAsync()
             } catch (e: Exception) {
                 exception(e, Errorlevel.CRITICAL)
-                System.exit(-1)
+//                System.exit(-1)
             }
-
-            javalin.start()
-
-            register("/config/:name", { ConfigController.getConfigByName(it) })
 
             Thread({ while (true) Thread.sleep(Integer.MAX_VALUE.toLong()) }, "RuntimePersistence").start()
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
         }
     }
 }
-
-fun register(path: String, call: (Context)->()->(Context)) = Main.javalin.get(path, {call.invoke(it).invoke()})
