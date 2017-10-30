@@ -33,10 +33,13 @@ object ExceptionHandler {
             .language("Kotlin")
             .build()
     private val rb = Rollbar.init(c)
+    var latestException: Exception? = null
+    private set
 
     fun handle(e: Exception) {
         rb.error(e)
         logException(e)
+        latestException = e
     }
 
     fun handle(e: Exception, level: Errorlevel) {
@@ -50,6 +53,7 @@ object ExceptionHandler {
         }
 
         logException(e)
+        latestException = e
     }
 }
 

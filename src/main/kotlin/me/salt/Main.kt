@@ -21,10 +21,10 @@ import me.salt.entities.cmd.initCommands
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltConfig
 import me.salt.entities.config.initConfigs
-import me.salt.util.exception.Errorlevel
-import me.salt.util.exception.exception
 import me.salt.entities.lang.initLangs
 import me.salt.entities.objects.getConfig
+import me.salt.util.exception.Errorlevel
+import me.salt.util.exception.exception
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder

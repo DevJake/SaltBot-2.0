@@ -10,6 +10,7 @@ buildscript {
     dependencies {
         classpath 'org.jetbrains.dokka:dokka-gradle-plugin:0.9.14'
         classpath 'org.junit.platform:junit-platform-gradle-plugin:1.0.0-M4'
+        classpath 'com.benjaminsproule:swagger-gradle-plugin:0.1.8'
     }
 }
 
@@ -26,6 +27,35 @@ apply plugin: 'org.jetbrains.dokka'
 apply plugin: 'kotlin'
 apply plugin: 'org.junit.platform.gradle.plugin'
 apply plugin: 'jacoco'
+apply plugin: 'com.benjaminsproule.swagger'
+
+swagger {
+    apiSource {
+        springmvc = true
+        locations = ['me.salt']
+        basePath = '/api'
+        outputFormats = 'yaml'
+        info {
+            title = 'Students API'
+            description = 'The super heroic student API.'
+            version = '1.0'
+            contact {
+                email = 'someone@example-rest-api.com'
+                name = 'Lachezar Balev'
+                url = 'http://balev.eu'
+            }
+            license {
+                url = 'http://www.apache.org/licenses/LICENSE-2.0.html'
+                name = 'Apache 2.0'
+            }
+        }
+        securityDefinition {
+            name = 'Basic Authentication'
+            type = 'basic'
+        }
+        swaggerDirectory = "${project.rootDir}/generated/swagger-json"
+    }
+}
 
 detekt {
     version = "1.0.0.RC4-2"
@@ -83,7 +113,7 @@ dependencies {
     compile 'org.neo4j:neo4j-ogm-core:2.1.2'
     compile 'org.neo4j:neo4j-ogm-bolt-driver:2.1.2'
 
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8"
+    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
 
     compile "com.fasterxml.jackson.module:jackson-module-kotlin:2.9.0"
     compile "com.fasterxml.jackson.dataformat:jackson-dataformat-yaml:2.9.0"
@@ -91,6 +121,8 @@ dependencies {
     compile 'com.rollbar:rollbar-java:1.0.0-beta-2'
 
     compile 'io.javalin:javalin:0.5.4'
+
+    compile 'io.swagger:swagger-core:1.5.9'
 
     testCompile "org.jetbrains.spek:spek-api:1.1.2"
     testCompile "org.jetbrains.spek:spek-junit-platform-engine:1.1.2"
@@ -101,7 +133,6 @@ dependencies {
     testRuntime "org.junit.jupiter:junit-jupiter-engine:5.0.0-M4"
 
     testCompile "com.winterbe:expekt:0.5.0"
-    compile "org.jetbrains.kotlin:kotlin-stdlib-jre8:$kotlin_version"
     //compile 'org.junit.jupiter:junit-jupiter-api'
 }
 

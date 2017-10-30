@@ -22,6 +22,7 @@ import me.salt.entities.lang.LangCode
 import me.salt.entities.objects.Admin
 import me.salt.entities.objects.Module
 import me.salt.util.SimpleRGBColour
+import me.salt.util.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given
@@ -322,23 +323,15 @@ class SaltConfigBuilderTest : Spek({
 
             on("attempting to set the default cooldown value to below 0"){
                 it("should throw an ExcessiveValueException"){
-                    try {
                         subject.setDefaultCooldownValue(TimeUnit.MINUTES, -1)
-                        fail("An ExcessiveValueException failed to be thrown")
-                    } catch (e: Exception) {
-                        e.should.be.instanceof(ExcessiveValueException::class.java)
-                    }
+                        ExceptionHandler.latestException.should.be.instanceof(ExcessiveValueException::class.java)
                 }
             }
 
             on("attempting to set the default cooldown value to above 24 hours (86400 seconds)"){
                 it("should throw an ExcessiveValueException"){
-                    try {
                         subject.setDefaultCooldownValue(TimeUnit.SECONDS, 86401)
-                        fail("An ExcessiveValueException failed to be thrown")
-                    } catch (e: Exception) {
-                        e.should.be.instanceof(ExcessiveValueException::class.java)
-                    }
+                    ExceptionHandler.latestException.should.be.instanceof(ExcessiveValueException::class.java)
                 }
             }
 
