@@ -21,6 +21,7 @@ plugins {
     id 'application'
     id "org.jetbrains.kotlin.jvm" version "1.1.4"
     id "io.gitlab.arturbosch.detekt" version "1.0.0.RC4-2"
+    id 'org.hidetake.swagger.generator' version '2.8.0'
 }
 
 apply plugin: 'org.jetbrains.dokka'
@@ -31,8 +32,8 @@ apply plugin: 'com.benjaminsproule.swagger'
 
 swagger {
     apiSource {
-        springmvc = true
-        locations = ['me.salt']
+        springmvc = false
+        locations = ['me.salt.util.rest']
         basePath = '/api'
         outputFormats = 'yaml'
         info {
@@ -53,7 +54,22 @@ swagger {
             name = 'Basic Authentication'
             type = 'basic'
         }
-        swaggerDirectory = "${project.rootDir}/generated/swagger-json"
+        outputPath = "${project.rootDir}/generated/document.html"
+        swaggerDirectory = "${project.rootDir}/build/swagger-json"
+        swaggerApiReader = 'com.github.kongchen.swagger.docgen.reader.JaxrsReader'
+    }
+}
+
+swaggerSources {
+    SaltBot {
+        inputFile = file('build/swagger-json/swagger.yaml')
+        code {
+            language = 'java'
+        }
+
+        ui {
+            options.docExpansion = 'full'
+        }
     }
 }
 
@@ -105,6 +121,9 @@ jacocoTestReport {
 //applicationDefaultJvmArgs = ["-Xmx400m"]
 // In this section you declare the dependencies for your production and test code
 dependencies {
+    swaggerCodegen 'io.swagger:swagger-codegen-cli:2.2.3'
+    swaggerUI 'org.webjars:swagger-ui:2.2.10'
+
     // The production code uses the SLF4J logging API at compile time
     compile 'com.vdurmont:emoji-java:3.2.0'
     compile 'net.dv8tion:JDA:3.3.1_291'
@@ -121,8 +140,9 @@ dependencies {
     compile 'com.rollbar:rollbar-java:1.0.0-beta-2'
 
     compile 'io.javalin:javalin:0.5.4'
-
     compile 'io.swagger:swagger-core:1.5.9'
+    compile 'javax.ws.rs:javax.ws.rs-api:2.0.1'
+    compile 'com.github.kongchen:swagger-maven-plugin:3.1.5'
 
     testCompile "org.jetbrains.spek:spek-api:1.1.2"
     testCompile "org.jetbrains.spek:spek-junit-platform-engine:1.1.2"
