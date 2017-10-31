@@ -16,7 +16,7 @@
 
 package me.salt.entities.config.entities
 
-class SaltLanguageConfig: Config
+class SaltLanguageConfig : Config
 class GuildLanguageConfig
 class TextChannelLanguageConfig
 class UserLanguageConfig

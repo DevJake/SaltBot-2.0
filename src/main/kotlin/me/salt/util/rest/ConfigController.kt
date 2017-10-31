@@ -18,8 +18,7 @@ package me.salt.util.rest
 
 import io.javalin.Context
 import me.salt.entities.config.Configs
-import me.salt.entities.config.entities.SaltConfig
-import me.salt.entities.config.entities.SaltLanguageConfig
+import me.salt.entities.config.entities.*
 import me.salt.entities.objects.getConfig
 
 //@Controller
@@ -30,23 +29,164 @@ object ConfigController {
     //    @GET
 //    @ApiOperation(value = "/configs", response = String::class)
 
-    fun getConfigsByType(ctx: Context): () -> (Context) {
+    fun getSaltConfigByType(ctx: Context): () -> (Context) {
         when (ctx.param("type")) {
             "main" -> return {
                 ctx.json(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)
-                    ?: ctx.status(404)) }
+                        ?: ctx.status(204))
+            }
+
             "language", "lang" -> return {
                 ctx.json(Configs.salt.LANGUAGE_CONFIG.getConfig(SaltLanguageConfig::class.java)
-                    ?: ctx.status(404)) }
+                        ?: ctx.status(204))
+            }
+
+            "log" -> return {
+                ctx.json(Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java)
+                        ?: ctx.status(204))
+            }
+
+            "stats", "statistics" -> return {
+                ctx.json(Configs.salt.STATS_CONFIG.getConfig(SaltStatsConfig::class.java)
+                        ?: ctx.status(204))
+            }
+
             else -> return { ctx.status(404) }
         }
     }
 
-//    fun getConfigsByType(ctx: Context): () -> (Context) = getConfigsByType(ctx.param())
-//    fun getAllConfigs(ctx: Context): () -> (Context) = getConfigsByType(ctx.param())
-//TODO configs here are, so far, for salt configs only. Other conf's require specifying an entityId
+    fun getSaltMapByType(ctx: Context): () -> (Context) {
+        when (ctx.param("type")) {
+            "filters", "filtering" -> return {
+                ctx.json(Configs.salt.FILTERING_MAP.getConfig(FilteringMap::class.java)
+                        ?: ctx.status(204))
+            }
 
-//    fun searchConfigsByCategory(ctx: Context): () -> (Context){}
-//    fun searchConfigsByType(ctx: Context): () -> (Context){}
-//    fun searchConfigsByCategoryAndType(ctx: Context): () -> (Context){}
+            "language", "lang" -> return {
+                ctx.json(Configs.salt.LANGUAGE_MAP.getConfig(LanguageMap::class.java)
+                        ?: ctx.status(204))
+            }
+
+            "levels", "levelling" -> return {
+                ctx.json(Configs.salt.LEVELLING_MAP.getConfig(LevellingMap::class.java)
+                        ?: ctx.status(204))
+            }
+
+            "perms", "permissions" -> return {
+                ctx.json(Configs.salt.PERMISSIONS_MAP.getConfig(PermissionMap::class.java)
+                        ?: ctx.status(204))
+            }
+
+            "sar", "self-roles" -> return {
+                ctx.json(Configs.salt.SELF_ASSIGNABLE_ROLES_MAP.getConfig(RolesMap::class.java)
+                        ?: ctx.status(204))
+            }
+
+            "stats", "statistics" -> return {
+                ctx.json(Configs.salt.STAT_TRACKING_MAP.getConfig(StatTrackingMap::class.java)
+                        ?: ctx.status(204))
+            }
+
+            else -> return { ctx.status(404) }
+        }
+    }
+
+    internal fun getGuildConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getGuildMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getChannelConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getChannelMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getUserConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getUserMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllConfigs(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllConfigsByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllConfigsByCategory(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun searchAllConfigsByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun searchAllConfigsByCategoryAndType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllMaps(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllMapsByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllMapsByCategory(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun searchAllMapsByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun searchAllMapsByCategoryAndType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+
+    internal fun deleteSaltConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteSaltMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteGuildConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteGuildMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteChannelConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteChannelMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteUserConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteUserMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    //TODO making most of bot internal/avoiding exposing internal workings
 }

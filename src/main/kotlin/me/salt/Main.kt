@@ -25,11 +25,13 @@ import me.salt.entities.lang.initLangs
 import me.salt.entities.objects.getConfig
 import me.salt.util.exception.Errorlevel
 import me.salt.util.exception.exception
+import me.salt.util.logging.logInfo
 import me.salt.util.rest.RestController
 import me.salt.util.rest.initRest
 import net.dv8tion.jda.core.AccountType
 import net.dv8tion.jda.core.JDA
 import net.dv8tion.jda.core.JDABuilder
+import java.time.OffsetDateTime
 
 class Main {
     companion object {
@@ -38,6 +40,7 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
+            logInfo("Began startup at ${OffsetDateTime.now()}")
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()

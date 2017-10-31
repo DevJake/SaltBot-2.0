@@ -20,6 +20,7 @@ import io.javalin.Context
 import io.javalin.Javalin
 import me.salt.entities.permissions.UserPermission
 import me.salt.util.logging.logDebug
+import me.salt.util.rest.RestController.addDelete
 import me.salt.util.rest.RestController.addGet
 import java.time.OffsetDateTime
 
@@ -34,33 +35,33 @@ object RestController {
     fun tokenIsValid(token: String) { }
     fun tokenIsValid(token: AccessToken) = tokenIsValid(token.token)
 
-    fun addGet(path: String, call: (Context)->()->(Context)) {
-        javalin.get(path, {call.invoke(it).invoke(); callLog(it, "get")})
+    fun addGet(path: String, call: (Context) -> () -> (Context)) {
+        javalin.get(path, { call.invoke(it).invoke(); callLog(it, "get") })
         regLog(path, "get")
     }
 
-    fun addPost(path: String, call: (Context)->()->(Context)) {
-        javalin.post(path, {call.invoke(it).invoke(); callLog(it, "post")})
+    fun addPost(path: String, call: (Context) -> () -> (Context)) {
+        javalin.post(path, { call.invoke(it).invoke(); callLog(it, "post") })
         regLog(path, "post")
     }
 
-    fun addDelete(path: String, call: (Context)->()->(Context)) {
-        javalin.delete(path, {call.invoke(it).invoke(); callLog(it, "delete")})
+    fun addDelete(path: String, call: (Context) -> () -> (Context)) {
+        javalin.delete(path, { call.invoke(it).invoke(); callLog(it, "delete") })
         regLog(path, "delete")
     }
 
-    fun addPut(path: String, call: (Context)->()->(Context)) {
-        javalin.put(path, {call.invoke(it).invoke(); callLog(it, "put")})
+    fun addPut(path: String, call: (Context) -> () -> (Context)) {
+        javalin.put(path, { call.invoke(it).invoke(); callLog(it, "put") })
         regLog(path, "put")
     }
 
-    fun addPatch(path: String, call: (Context)->()->(Context)) {
-        javalin.patch(path, {call.invoke(it).invoke(); callLog(it, "patch")})
+    fun addPatch(path: String, call: (Context) -> () -> (Context)) {
+        javalin.patch(path, { call.invoke(it).invoke(); callLog(it, "patch") })
         regLog(path, "patch")
     }
 
-    fun addTrace(path: String, call: (Context)->()->(Context)) {
-        javalin.trace(path, {call.invoke(it).invoke(); callLog(it, "trace")})
+    fun addTrace(path: String, call: (Context) -> () -> (Context)) {
+        javalin.trace(path, { call.invoke(it).invoke(); callLog(it, "trace") })
         regLog(path, "trace")
     }
 
@@ -83,9 +84,44 @@ data class AccessToken(
         val hourlyRequestCap: Int
 )
 
+fun initRest() {
+    addGet("/configs/salt/:type", { ConfigController.getSaltConfigByType(it) })
+    addGet("/maps/salt/:type", { ConfigController.getSaltMapByType(it) })
 
+    addGet("/configs/guild/:id/:type", { ConfigController.getGuildConfigByType(it) })
+    addGet("/maps/guild/:id/:type", { ConfigController.getGuildMapByType(it) })
 
-fun initRest(){
-    addGet("/configs/salt/:type", { ConfigController.getConfigsByType(it) })
+    addGet("/configs/channel/:id/:type", { ConfigController.getChannelConfigByType(it) })
+    addGet("/maps/channel/:id/:type", { ConfigController.getChannelMapByType(it) })
+
+    addGet("/configs/user/:id/:type", { ConfigController.getUserConfigByType(it) })
+    addGet("/maps/user/:id/:type", { ConfigController.getUserMapByType(it) })
+
+    addGet("/configs", { ConfigController.getAllConfigs(it) })
+    addGet("/maps", { ConfigController.getAllMaps(it) })
+
+    addGet("/configs/:type", { ConfigController.getAllConfigsByType(it) })
+    addGet("/configs/:category", { ConfigController.getAllConfigsByCategory(it) })
+
+    addGet("/maps/:type", { ConfigController.getAllMapsByType(it) })
+    addGet("/maps/:category", { ConfigController.getAllMapsByCategory(it) })
+
+    addGet("/configs/search/:type", { ConfigController.searchAllConfigsByType(it) })
+    addGet("/maps/search/:type", { ConfigController.searchAllMapsByType(it) })
+
+    addGet("/configs/search/:category/:type", { ConfigController.searchAllConfigsByCategoryAndType(it) })
+    addGet("/maps/search/:category/:type", { ConfigController.searchAllMapsByCategoryAndType(it) })
+
+    addDelete("/configs/salt/:type", { ConfigController.deleteSaltConfigByType(it) })
+    addDelete("/maps/salt/:type", { ConfigController.deleteSaltMapByType(it) })
+
+    addDelete("/configs/guild/:id/:type", { ConfigController.deleteGuildConfigByType(it) })
+    addDelete("/maps/guild/:id/:type", { ConfigController.deleteGuildMapByType(it) })
+
+    addDelete("/configs/channel/:id/:type", { ConfigController.deleteChannelConfigByType(it) })
+    addDelete("/maps/channel/:id/:type", { ConfigController.deleteChannelMapByType(it) })
+
+    addDelete("/configs/user/:id/:type", { ConfigController.deleteUserConfigByType(it) })
+    addDelete("/maps/user/:id/:type", { ConfigController.deleteUserMapByType(it) })
     //TODO /maps/salt/...
 }
