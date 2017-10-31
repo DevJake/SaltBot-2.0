@@ -30,7 +30,7 @@ object GenUtil {
 
     //TODO log directory/file creation. Logging system needs a log-cache, where entries are saved before mass-flushing.
     fun createDirFromResources(dirPath: String) {
-        var file = File(saltResourceDir, dirPath)
+        val file = File(saltResourceDir, dirPath)
         if (!file.isDirectory) {
             file.mkdirs()
             logDebug("Made new dir at path ${file.path}")
@@ -39,7 +39,7 @@ object GenUtil {
     }
 
     fun createDirFromResources(dirPath: File) {
-        var file = File(saltResourceDir, dirPath.parentFile.path)
+        val file = File(saltResourceDir, dirPath.parentFile.path)
         if (!file.isDirectory) {
             file.mkdirs()
             logDebug("Made new dir at path ${file.path}")
@@ -48,7 +48,7 @@ object GenUtil {
     }
 
     fun createFileFromResources(dirPath: String, fileName: String) {
-        var file = File(File(saltResourceDir, dirPath), fileName)
+        val file = File(File(saltResourceDir, dirPath), fileName)
         if (!file.isDirectory) {
             file.mkdirs()
             logDebug("Made new dir at path ${file.path}")
@@ -61,7 +61,7 @@ object GenUtil {
     }
 
     fun createFileFromResources(fileDir: File) {
-        var file = File(File(saltResourceDir, fileDir.parentFile.path), fileDir.name)
+        val file = File(File(saltResourceDir, fileDir.parentFile.path), fileDir.name)
         if (!file.isDirectory) {
             file.mkdirs()
             logDebug("Made new dir at path ${file.path}")
@@ -75,12 +75,12 @@ object GenUtil {
 
     fun createFile(file: File) {
         if (!file.isDirectory) {
-            file.mkdirs()
-            logDebug("Made new dir at path ${file.path}")
+            file.parentFile.mkdirs()
+//            logDebug("Made new dir at path ${file.path}")
         }
         if (!file.exists()) {
             file.createNewFile()
-            logDebug("Made new file at path ${file.path}, name ${file.name}")
+//            logDebug("Made new file at path ${file.path}, name ${file.name}")
             fireEvent(FileCreateEvent(file, true))
         }
     }

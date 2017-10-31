@@ -17,10 +17,12 @@
 package me.salt.entities.config
 
 import me.salt.entities.config.entities.SaltConfigBuilder
+import me.salt.entities.config.entities.SaltLogConfig
 import me.salt.entities.objects.writeConfig
 
 fun initConfigs() {
 //TODO each Guild directory has their own sub-folders for TextChannels
     Configs.salt.MAIN_CONFIG.writeConfig(SaltConfigBuilder("bottoken").setRollbarAccessToken("token").build())
+    Configs.salt.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, false, true, mutableListOf()))
     //TODO add check that a config is being written to the correct location, such as preventing a filteringmap instance being written to a non-filteringmap.yaml file
 }
