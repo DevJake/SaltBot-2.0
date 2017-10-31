@@ -257,5 +257,38 @@ object ConfigController {
         TODO()
     }
 
+
+    internal fun downloadSaltConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadSaltMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadGuildConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadGuildMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadChannelConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadChannelMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadUserConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun downloadUserMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
     //TODO making most of bot internal/avoiding exposing internal workings
 }

@@ -28,52 +28,100 @@ import java.time.OffsetDateTime
 
 object RestController {
     private val javalin = Javalin.create().port(7000)
-    private val tokens = mutableListOf<AccessToken>()
 
-    fun genToken(oldToken: AccessToken): String {
-        TODO()
+    private val tokens = mutableListOf<AccessToken>().plus(AccessToken("pp487", false, "salt", OffsetDateTime.now(), emptyList(), 0)).toMutableList()
+
+    init {
+        tokens.add(genToken())
     }
 
-    fun tokenIsValid(token: String) { }
+    fun genToken(oldToken: AccessToken): AccessToken {
+        logDebug("An old REST auth token has been traded for a new one. Old token=$oldToken")
+        return genToken()
+    }
+
+    fun genToken(): AccessToken {
+        return AccessToken("pp486", true, "salt", OffsetDateTime.now(), emptyList(), 0)
+    }
+
+    private fun accessManager(ctx: Context): Context {
+        val authHeader: String = ctx.header("authorization")
+                ?: return ctx.status(400).result("You must include an auth token!")
+
+        val tokenMap = tokens.map { it.token }
+        if (!tokenMap.contains(authHeader)) return ctx.status(401).result("The specified auth token is non-existent!")
+        else if (!tokens.first { it.token == authHeader }.active) return ctx.status(403).result("The specified token has been marked inactive!")
+        return ctx.status(200)
+    }
+
+    fun tokenIsValid(token: String) {}
     fun tokenIsValid(token: AccessToken) = tokenIsValid(token.token)
 
-    fun addGet(path: String, call: (Context) -> () -> (Context)) {
-        javalin.get(path, { call.invoke(it).invoke(); callLog(it, "get") })
+    internal fun addGet(path: String, call: (Context) -> () -> (Context)) {
+        javalin.get(path, {
+            invoke(it, call)
+            callLog(it, "get")
+        })
         regLog(path, "get")
     }
 
-    fun addPost(path: String, call: (Context) -> () -> (Context)) {
-        javalin.post(path, { call.invoke(it).invoke(); callLog(it, "post") })
+    internal fun addPost(path: String, call: (Context) -> () -> (Context)) {
+        javalin.post(path, {
+            invoke(it, call)
+            callLog(it, "post")
+        })
         regLog(path, "post")
     }
 
-    fun addDelete(path: String, call: (Context) -> () -> (Context)) {
-        javalin.delete(path, { call.invoke(it).invoke(); callLog(it, "delete") })
+    internal fun addDelete(path: String, call: (Context) -> () -> (Context)) {
+        javalin.delete(path, {
+            invoke(it, call)
+            callLog(it, "delete")
+        })
         regLog(path, "delete")
     }
 
-    fun addPut(path: String, call: (Context) -> () -> (Context)) {
-        javalin.put(path, { call.invoke(it).invoke(); callLog(it, "put") })
+    internal fun addPut(path: String, call: (Context) -> () -> (Context)) {
+        javalin.put(path, {
+            invoke(it, call)
+            callLog(it, "put")
+        })
         regLog(path, "put")
     }
 
-    fun addPatch(path: String, call: (Context) -> () -> (Context)) {
-        javalin.patch(path, { call.invoke(it).invoke(); callLog(it, "patch") })
+    internal fun addPatch(path: String, call: (Context) -> () -> (Context)) {
+        javalin.patch(path, {
+            invoke(it, call)
+            callLog(it, "patch")
+        })
         regLog(path, "patch")
     }
 
-    fun addTrace(path: String, call: (Context) -> () -> (Context)) {
-        javalin.trace(path, { call.invoke(it).invoke(); callLog(it, "trace") })
+    internal fun addTrace(path: String, call: (Context) -> () -> (Context)) {
+        javalin.trace(path, {
+            invoke(it, call)
+            callLog(it, "trace")
+        })
         regLog(path, "trace")
+    }
+
+    private fun invoke(it: Context, call: (Context) -> () -> (Context)){
+        val ctx0 = accessManager(it)
+        if (!listOf(400, 401, 403).contains(ctx0.status()))
+            call.invoke(ctx0).invoke()
     }
 
     private fun regLog(path: String, type: String) = logDebug("Registered a new ${type.toUpperCase()} endpoint at path $path")
     private fun callLog(ctx: Context, type: String) = logDebug("Received ${type.toUpperCase()} request at endpoint ${ctx.path()} IP: ${ctx.ip()}")
     //TODO replace with call to ctx to obtain specific type, rather than relying on it being passed in as a parameter
 
-    fun start() { javalin.start() }
+    fun start() {
+        javalin.start()
+    }
 
-    fun stop() { javalin.stop() }
+    fun stop() {
+        javalin.stop()
+    }
 
 }
 
@@ -86,7 +134,7 @@ data class AccessToken(
         val hourlyRequestCap: Int
 )
 
-fun initRest() {
+internal fun initRest() {
     addGet("/configs/salt/:type", { ConfigController.getSaltConfigByType(it) })
     addGet("/maps/salt/:type", { ConfigController.getSaltMapByType(it) })
 

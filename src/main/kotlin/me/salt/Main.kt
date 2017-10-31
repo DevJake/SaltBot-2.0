@@ -40,13 +40,17 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            logInfo("Began startup at ${OffsetDateTime.now()}")
+            logInfo("Began startup at ${OffsetDateTime.now()}", "activity")
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()
             initRest()
 
             RestController.start()
+
+            Runtime.getRuntime().addShutdownHook(Thread({ logInfo("Now shutting down", "activity") }))
+
+
             //TODO generate a 'session ID' (saltId) key, have all logs reference to a key (or perhaps name file according to key/create singular log entry about the generated ID)
             try {
                 jda = JDABuilder(AccountType.BOT)
@@ -57,9 +61,10 @@ class Main {
 //                System.exit(-1)
             }
 
-            Thread({ while (true) Thread.sleep(Integer.MAX_VALUE.toLong()) }, "RuntimePersistence").start()
+            Thread({ while (true) Thread.sleep(Integer.MAX_VALUE.toLong()) }, "RuntimePersistence").start() //TODO fix
             logInfo("Runtime Persistence Daemon now active", "PERSISTENCE")
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
+
         }
     }
 }
