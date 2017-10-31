@@ -188,5 +188,74 @@ object ConfigController {
         TODO()
     }
 
+    /*
+    Simply delete and regen the config. Should create again if it doesn't exist in the first place
+     */
+
+    internal fun resetSaltConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetSaltMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetGuildConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetGuildMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetChannelConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetChannelMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetUserConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun resetUserMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+
+    internal fun patchSaltConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchSaltMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchGuildConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchGuildMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchChannelConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchChannelMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchUserConfigByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun patchUserMapByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
     //TODO making most of bot internal/avoiding exposing internal workings
 }

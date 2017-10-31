@@ -22,6 +22,8 @@ import me.salt.entities.permissions.UserPermission
 import me.salt.util.logging.logDebug
 import me.salt.util.rest.RestController.addDelete
 import me.salt.util.rest.RestController.addGet
+import me.salt.util.rest.RestController.addPatch
+import me.salt.util.rest.RestController.addPost
 import java.time.OffsetDateTime
 
 object RestController {
@@ -123,5 +125,30 @@ fun initRest() {
 
     addDelete("/configs/user/:id/:type", { ConfigController.deleteUserConfigByType(it) })
     addDelete("/maps/user/:id/:type", { ConfigController.deleteUserMapByType(it) })
+
+    addPost("/configs/salt/:type/reset", { ConfigController.resetSaltConfigByType(it) })
+    addPost("/maps/salt/:type/reset", { ConfigController.resetSaltMapByType(it) })
+
+    addPost("/configs/guild/:id/:type/reset", { ConfigController.resetGuildConfigByType(it) })
+    addPost("/maps/guild/:id/:type/reset", { ConfigController.resetGuildMapByType(it) })
+
+    addPost("/configs/channel/:id/:type/reset", { ConfigController.resetChannelConfigByType(it) })
+    addPost("/maps/channel/:id/:type/reset", { ConfigController.resetChannelMapByType(it) })
+
+    addPost("/configs/user/:id/:type/reset", { ConfigController.resetUserConfigByType(it) })
+    addPost("/maps/user/:id/:type/reset", { ConfigController.resetUserMapByType(it) })
+
+    addPatch("/configs/salt/:type/patch", { ConfigController.patchSaltConfigByType(it) })
+    addPatch("/maps/salt/:type/patch", { ConfigController.patchSaltMapByType(it) })
+
+    addPatch("/configs/guild/:id/:type/patch", { ConfigController.patchGuildConfigByType(it) })
+    addPatch("/maps/guild/:id/:type/patch", { ConfigController.patchGuildMapByType(it) })
+
+    addPatch("/configs/channel/:id/:type/patch", { ConfigController.patchChannelConfigByType(it) })
+    addPatch("/maps/channel/:id/:type/patch", { ConfigController.patchChannelMapByType(it) })
+
+    addPatch("/configs/user/:id/:type/patch", { ConfigController.patchUserConfigByType(it) })
+    addPatch("/maps/user/:id/:type/patch", { ConfigController.patchUserMapByType(it) })
+
     //TODO /maps/salt/...
 }
