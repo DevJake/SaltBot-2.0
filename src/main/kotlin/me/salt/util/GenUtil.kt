@@ -17,11 +17,12 @@
 package me.salt.util
 
 import me.salt.Main
+import me.salt.entities.objects.Colour
 import me.salt.util.events.FileCreateEvent
 import me.salt.util.events.fireEvent
 import me.salt.util.exception.ColourValueException
 import me.salt.util.exception.exception
-import me.salt.entities.objects.Colour
+import me.salt.util.logging.logDebug
 import java.io.File
 
 object GenUtil {
@@ -30,36 +31,56 @@ object GenUtil {
     //TODO log directory/file creation. Logging system needs a log-cache, where entries are saved before mass-flushing.
     fun createDirFromResources(dirPath: String) {
         var file = File(saltResourceDir, dirPath)
-        if (!file.isDirectory) println("Made dir: ${file.mkdirs()}")
+        if (!file.isDirectory) {
+            file.mkdirs()
+            logDebug("Made new dir at path ${file.path}")
+        }
         fireEvent(FileCreateEvent(file, false))
     }
 
     fun createDirFromResources(dirPath: File) {
         var file = File(saltResourceDir, dirPath.parentFile.path)
-        if (!file.isDirectory) println("Made dir: ${file.mkdirs()}")
+        if (!file.isDirectory) {
+            file.mkdirs()
+            logDebug("Made new dir at path ${file.path}")
+        }
         fireEvent(FileCreateEvent(file, false))
     }
 
     fun createFileFromResources(dirPath: String, fileName: String) {
         var file = File(File(saltResourceDir, dirPath), fileName)
-        if (!file.isDirectory) println("Made dir: ${file.parentFile.mkdirs()}")
-        if (!file.exists()) println("Made new file: ${file.createNewFile()}")
+        if (!file.isDirectory) {
+            file.mkdirs()
+            logDebug("Made new dir at path ${file.path}")
+        }
+        if (!file.exists()) {
+            file.createNewFile()
+            logDebug("Made new file at path ${file.path}, name ${file.name}")
+        }
         fireEvent(FileCreateEvent(file, true))
     }
 
     fun createFileFromResources(fileDir: File) {
         var file = File(File(saltResourceDir, fileDir.parentFile.path), fileDir.name)
-        if (!file.isDirectory) println("Made dir: ${file.parentFile.mkdirs()}")
+        if (!file.isDirectory) {
+            file.mkdirs()
+            logDebug("Made new dir at path ${file.path}")
+        }
         if (!file.exists()) {
-            println("Made new file: ${file.createNewFile()}")
+            file.createNewFile()
+            logDebug("Made new file at path ${file.path}, name ${file.name}")
             fireEvent(FileCreateEvent(file, true))
         }
     }
 
     fun createFile(file: File) {
-        if (!file.isDirectory) println("Made dir: ${file.parentFile.mkdirs()}")
+        if (!file.isDirectory) {
+            file.mkdirs()
+            logDebug("Made new dir at path ${file.path}")
+        }
         if (!file.exists()) {
-            println("Made new file: ${file.createNewFile()}")
+            file.createNewFile()
+            logDebug("Made new file at path ${file.path}, name ${file.name}")
             fireEvent(FileCreateEvent(file, true))
         }
     }
@@ -68,9 +89,9 @@ object GenUtil {
 //TODO: add HEX support
 data class SimpleRGBColour(private val _red: Int, private val _green: Int, private val _blue: Int) {
     var green = _green
-    set(value) {
-        field = checkVal(value, "green")
-    }
+        set(value) {
+            field = checkVal(value, "green")
+        }
     var red = _red
         set(value) {
             field = checkVal(value, "green")

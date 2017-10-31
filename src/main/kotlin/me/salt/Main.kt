@@ -47,7 +47,7 @@ class Main {
             initRest()
 
             RestController.start()
-
+            //TODO generate a 'session ID' (saltId) key, have all logs reference to a key (or perhaps name file according to key/create singular log entry about the generated ID)
             try {
                 jda = JDABuilder(AccountType.BOT)
                         .setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken)
@@ -58,6 +58,7 @@ class Main {
             }
 
             Thread({ while (true) Thread.sleep(Integer.MAX_VALUE.toLong()) }, "RuntimePersistence").start()
+            logInfo("Runtime Persistence Daemon now active", "PERSISTENCE")
             //TODO accept runtime params, such as regen-default-configs to regenerate default config files
         }
     }
