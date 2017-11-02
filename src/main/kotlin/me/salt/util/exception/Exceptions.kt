@@ -31,4 +31,5 @@ class PreExecuteCommandFailureException(message: String? = null) : Exception(mes
 class ExecuteCommandFailureException(message: String? = null) : Exception(message)
 class PostExecuteCommandFailureException(message: String? = null) : Exception(message)
 class RollbarInitException(message: String? = null) : Exception(message)
+class DuplicateRestEndpointException(message: String? = null) : Exception(message)
 

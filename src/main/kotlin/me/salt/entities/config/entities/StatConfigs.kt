@@ -16,7 +16,7 @@
 
 package me.salt.entities.config.entities
 
-class SaltStatsConfig: Config
+class SaltStatsConfig : Config
 class GuildStatsConfig
 class TextChannelStatsConfig
 class UserStatsConfig

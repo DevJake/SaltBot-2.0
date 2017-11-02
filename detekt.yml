@@ -2,8 +2,8 @@ autoCorrect: true
 failFast: false
 
 build:
-  warningThreshold: 1000
-  failThreshold: 1000
+  warningThreshold: 999999
+  failThreshold: 999999
   weights:
     complexity: 2
     formatting: 1

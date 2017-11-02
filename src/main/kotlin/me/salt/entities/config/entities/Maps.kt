@@ -63,7 +63,7 @@ class PermissionMap : ConfigMap {
 
 }
 
-class RolesMap: ConfigMap {
+class RolesMap : ConfigMap {
     var roles: List<SelfAssignableRole>?
 
     constructor(roles: List<SelfAssignableRole>?) {
@@ -133,7 +133,7 @@ class LanguageMap : ConfigMap {
     fun getLanguage(langName: String) = languages.getByLangName(langName)
 }
 
-class StatTrackingMap: ConfigMap
+class StatTrackingMap : ConfigMap
 //TODO
 
 /*

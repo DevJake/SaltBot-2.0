@@ -40,7 +40,7 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            logInfo("Began startup at ${OffsetDateTime.now()}", "activity")
+            logInfo("Began startup at ${OffsetDateTime.now()}", "ACTIVITY")
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()
@@ -48,8 +48,7 @@ class Main {
 
             RestController.start()
 
-            Runtime.getRuntime().addShutdownHook(Thread({ logInfo("Now shutting down", "activity") }))
-
+            Runtime.getRuntime().addShutdownHook(Thread({ logInfo("Now shutting down", "ACTIVITY") }))
 
             //TODO generate a 'session ID' (saltId) key, have all logs reference to a key (or perhaps name file according to key/create singular log entry about the generated ID)
             try {
@@ -57,7 +56,7 @@ class Main {
                         .setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken)
                         .addEventListener(CommandListener()).buildAsync()
             } catch (e: Exception) {
-                exception(e, Errorlevel.CRITICAL)
+//                exception(e, Errorlevel.CRITICAL)
 //                System.exit(-1)
             }
 

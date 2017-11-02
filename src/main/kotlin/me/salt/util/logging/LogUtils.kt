@@ -84,19 +84,19 @@ object LogUtils {
 
     class Logger(private val type: LogType, private val optional: String?) {
         fun log(message: String) =
-                addLogEntry(LogEntry(type, optional, message))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), message))
 
         fun log(exception: Exception) =
-                addLogEntry(LogEntry(type, optional, exception))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), exception))
 
         fun log(message: String, exception: Exception) =
-                addLogEntry(LogEntry(type, optional, message, exception))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), message, exception))
 
         fun log(event: Event) =
-                addLogEntry(LogEntry(type, optional, event))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), event))
 
         fun log(message: String, event: Event) =
-                addLogEntry(LogEntry(type, optional, message, event))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), message, event))
 
     }
 

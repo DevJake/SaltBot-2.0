@@ -18,13 +18,32 @@ package me.salt.util.rest
 
 import io.javalin.Context
 
-object StatsController {
-
-    fun getBotUptime(ctx: Context): () -> (Context) {
+object AuthController {
+    internal fun getTokenInfo(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun getBotSessionId(ctx: Context): () -> (Context) {
+    internal fun filterTokensByParam(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun deleteToken(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun updateToken(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllEndpoints(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllEndpointsByType(ctx: Context): () -> (Context) {
+        TODO()
+    }
+
+    internal fun getAllEndpointsByParameter(ctx: Context): () -> (Context) {
         TODO()
     }
 }

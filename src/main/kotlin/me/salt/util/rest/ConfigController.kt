@@ -155,7 +155,6 @@ object ConfigController {
         TODO()
     }
 
-
     internal fun deleteSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
@@ -224,7 +223,6 @@ object ConfigController {
         TODO()
     }
 
-
     internal fun patchSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
@@ -256,7 +254,6 @@ object ConfigController {
     internal fun patchUserMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
-
 
     internal fun downloadSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
