@@ -46,6 +46,8 @@ object ExceptionHandler {
         if (!isTesting) rb?.error(e)
         logException(e)
         latestException = e
+        if (e !is RuntimeException)
+            throw e
     }
 
     fun handle(e: Exception, level: Errorlevel) {
