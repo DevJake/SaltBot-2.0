@@ -18,7 +18,6 @@ package me.salt.util.rest
 
 import io.javalin.Context
 import io.javalin.Javalin
-import io.javalin.embeddedserver.Location
 import me.salt.entities.permissions.UserPermission
 import me.salt.util.exception.DuplicateRestEndpointException
 import me.salt.util.exception.exception
@@ -28,9 +27,6 @@ import me.salt.util.rest.RestController.addDelete
 import me.salt.util.rest.RestController.addGet
 import me.salt.util.rest.RestController.addPatch
 import me.salt.util.rest.RestController.addPost
-import okhttp3.WebSocket
-import okhttp3.WebSocketListener
-import okio.ByteString
 import java.time.OffsetDateTime
 
 object RestController {

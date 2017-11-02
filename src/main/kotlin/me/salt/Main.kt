@@ -23,8 +23,6 @@ import me.salt.entities.config.entities.SaltConfig
 import me.salt.entities.config.initConfigs
 import me.salt.entities.lang.initLangs
 import me.salt.entities.objects.getConfig
-import me.salt.util.exception.Errorlevel
-import me.salt.util.exception.exception
 import me.salt.util.logging.logInfo
 import me.salt.util.rest.RestController
 import me.salt.util.rest.initRest

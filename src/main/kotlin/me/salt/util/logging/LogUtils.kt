@@ -22,7 +22,10 @@ import me.salt.util.events.Event
 import me.salt.util.exception.ConfigMissingValueException
 import me.salt.entities.objects.getConfig
 import me.salt.entities.objects.writeConfig
+import me.salt.util.exception.LogEntryIdGenMissingIdException
+import me.salt.util.exception.exception
 import java.time.Instant
+import java.time.OffsetDateTime
 
 object LogUtils {
     private val cache = mutableListOf<LogEntry>()
@@ -64,7 +67,9 @@ object LogUtils {
                         "/${entry.optional}" else ""}] " +
                     entry.elements.joinToString()
 
-    fun info(prefix: String? = null) =
+    data class LogSource(val srcType: Entity, val srcId: String?)
+
+    fun info(prefix: String? = null, src: LogSource?) =
             Logger(LogType.INFO, prefix)
 
     fun debug(prefix: String? = null) =
@@ -113,13 +118,39 @@ object LogUtils {
         }
     }
 
-    private class LogEntry(val type: LogType, val optional: String?, vararg val elements: Any) {
+    private class LogEntry(val type: LogType, val optional: String?, vararg val elements: Any, src: LogSource?) {
         val dateTime = Instant.now()
         val saltId: String = "tempSaltId" //TODO Add SaltId generator
+        val entryId: EntryId = if (src != null) genEntryId(src.srcId, src.srcType) else
         //TODO generate the log message from the provided element(s) and other information.
         //TODO switch through types of loggable entities to determine best formatting
 
     }
+
+    enum class Entity {
+        SALT,
+        GUILD,
+        VOICECHANNEL,
+        CHANNEL,
+        USER
+    }
+
+    private fun genEntryId(entityId: String?, type: Entity): EntryId {
+        if (type == Entity.GUILD || type == Entity.VOICECHANNEL || type == Entity.CHANNEL || type == Entity.USER) {
+            if (entityId == null)
+                exception(LogEntryIdGenMissingIdException("An entity ID was failed to be specified for generation of a log entry ID!"))
+        }
+
+        return makeEntryId(entityId ?: "")
+
+    }
+
+    private fun makeEntryId(preData: String): EntryId {
+        val token: String =
+        return EntryId(token, preData, OffsetDateTime.now())
+    }
+
+    data class EntryId(val fullToken: String, val givenId: String, val dateTime: OffsetDateTime)
 }
 
 fun logInfo(message: String, optional: String? = null) = LogUtils.info(optional).log(message)
