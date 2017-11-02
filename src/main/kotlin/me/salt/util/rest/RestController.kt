@@ -58,51 +58,51 @@ object RestController {
     fun tokenIsValid(token: AccessToken) = tokenIsValid(token.token)
 
     internal fun addGet(path: String, call: (Context) -> () -> (Context)) {
-        javalin.get(path, {
+        javalin.get("/api" + path, {
             invoke(it, call)
             callLog(it, "get")
         })
-        regLog(path, "get")
+        regLog("/api" + path, "get")
     }
 
     internal fun addPost(path: String, call: (Context) -> () -> (Context)) {
-        javalin.post(path, {
+        javalin.post("/api" + path, {
             invoke(it, call)
             callLog(it, "post")
         })
-        regLog(path, "post")
+        regLog("/api" + path, "post")
     }
 
     internal fun addDelete(path: String, call: (Context) -> () -> (Context)) {
-        javalin.delete(path, {
+        javalin.delete("/api" + path, {
             invoke(it, call)
             callLog(it, "delete")
         })
-        regLog(path, "delete")
+        regLog("/api" + path, "delete")
     }
 
     internal fun addPut(path: String, call: (Context) -> () -> (Context)) {
-        javalin.put(path, {
+        javalin.put("/api" + path, {
             invoke(it, call)
             callLog(it, "put")
         })
-        regLog(path, "put")
+        regLog("/api" + path, "put")
     }
 
     internal fun addPatch(path: String, call: (Context) -> () -> (Context)) {
-        javalin.patch(path, {
+        javalin.patch("/api" + path, {
             invoke(it, call)
             callLog(it, "patch")
         })
-        regLog(path, "patch")
+        regLog("/api" + path, "patch")
     }
 
     internal fun addTrace(path: String, call: (Context) -> () -> (Context)) {
-        javalin.trace(path, {
+        javalin.trace("/api" + path, {
             invoke(it, call)
             callLog(it, "trace")
         })
-        regLog(path, "trace")
+        regLog("/api" + path, "trace")
     }
 
     private fun invoke(it: Context, call: (Context) -> () -> (Context)){
