@@ -38,6 +38,11 @@ fun List<CustomLang>.getByLangName(langName: String): CustomLang = try {
     CustomLang("", null, null, null, emptyMap())
 }
 
+fun <E> List<E>.containsAny(list: List<E>): Boolean {
+    list.forEach { if (this.contains(it)) return true }
+    return false
+}
+
 /*
 Get a list of indistinct elements. The opposite result of List<T>.distinct{ ... }
 Effectively removes all distinct values from a list, leaving only those with duplicates
