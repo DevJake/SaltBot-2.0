@@ -19,6 +19,8 @@ package me.salt.util.rest
 import io.javalin.Context
 import io.javalin.Javalin
 import me.salt.entities.permissions.UserPermission
+import me.salt.util.RestEndpointSearchElement
+import me.salt.util.SearchUtil
 import me.salt.util.exception.DuplicateRestEndpointException
 import me.salt.util.exception.exception
 import me.salt.util.logging.logDebug
@@ -48,6 +50,9 @@ object RestController {
 
     internal fun genToken(): AccessToken {
         return AccessToken("pp486", true, "salt", OffsetDateTime.now(), emptyList(), 0)
+        /*
+        Receive request -> Look for param declaring full name (or ID) of discord user to link to) -> message discord user -> if a
+         */
     }
 
     private fun accessManager(ctx: Context): Context {
@@ -59,9 +64,6 @@ object RestController {
         else if (!tokens.first { it.token == authHeader }.active) return ctx.status(403).result("The specified token has been marked inactive!")
         return ctx.status(200)
     }
-
-    internal fun tokenIsValid(token: String) {}
-    internal fun tokenIsValid(token: AccessToken) = tokenIsValid(token.token)
 
     internal fun addGet(path: String, call: (Context) -> () -> (Context)) {
         javalin.get("/api" + path, {
@@ -124,8 +126,10 @@ object RestController {
     }
 
     private fun postInvoke(path: String, call: (Context) -> () -> Context) {
-        if (paths.filter { it.key == path || it.value == call }.isEmpty())
+        if (paths.filter { it.key == path || it.value == call }.isEmpty()) {
             paths.put(path, call)
+            SearchUtil.addSearchables(RestEndpointSearchElement(SearchUtil.SearchCategory.REST_ENDPOINT, path.split("/"), null, call, path))
+        }
         else
             exception(DuplicateRestEndpointException("The endpoint with path $path already shares either the path, function call, or both factors with another endpoint!"))
     }
@@ -211,6 +215,24 @@ internal fun initRest() {
     addGet("/logs/voicechannel/:id/:entry", { LogController.getVoiceChannelLogByIdAndEntryType(it) })
     addGet("/logs/channel/:id/:entry", { LogController.getChannelLogByIdAndEntryType(it) })
     addGet("/logs/user/:id/:entry", { LogController.getUserLogByIdAndEntryType(it) })
+    addGet("/logs/salt/:id/:datetime/:entry", { LogController.getSaltLogByIdAndDateTimeAndEntryType(it) })
+    addGet("/logs/guild/:id/:datetime/:entry", { LogController.getGuildLogByIdAndDateTimeAndEntryType(it) })
+    addGet("/logs/voicechannel/:id/:datetime/:entry", { LogController.getVoiceChannelLogByIdAndDateTimeAndEntryType(it) })
+    addGet("/logs/channel/:id/:datetime/:entry", { LogController.getChannelLogByIdAndDateTimeAndEntryType(it) })
+    addGet("/logs/user/:id/:datetime/:entry", { LogController.getUserLogByIdAndDateTimeAndEntryType(it) })
+    addGet("/logs/salt/:entry", { LogController.getSaltLogByEntryType(it) })
+    addGet("/logs/guild/:entry", { LogController.getGuildLogByEntryType(it) })
+    addGet("/logs/voicechannel/:entry", { LogController.getVoiceChannelLogByEntryType(it) })
+    addGet("/logs/channel/:entry", { LogController.getChannelLogByEntryType(it) })
+    addGet("/logs/user/:entry", { LogController.getUserLogByEntryType(it) })
+    //TODO Search feature. Annotations for these methods
+    addDelete("/logs/:id/delete"){LogController.deleteLogById(it)}
+    addDelete("/logs/salt/:idstart/:idend/delete"){LogController.deleteAllSaltLogsByIdRange(it)}
+    addDelete("/logs/guild/:idstart/:idend/delete"){LogController.deleteAllGuildLogsByIdRange(it)}
+    addDelete("/logs/voicechannel/:idstart/:idend/delete"){LogController.deleteAllVoiceChannelLogsByIdRange(it)}
+    addDelete("/logs/channel/:idstart/:idend/delete"){LogController.deleteAllChannelLogsByIdRange(it)}
+    addDelete("/logs/user/:idstart/:idend/delete"){LogController.deleteAllUserLogsByIdRange(it)}
+    addDelete("/logs/delete"){LogController.deleteAllLogs(it)}
 
     //TODO replace paths with :id/:entry/:datetime/:etc with form param calls. Therefore also replace duplicate check with form param check (through bool passed as addGet() param)
 }
