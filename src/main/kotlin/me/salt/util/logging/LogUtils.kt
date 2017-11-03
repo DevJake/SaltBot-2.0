@@ -70,38 +70,38 @@ object LogUtils {
     data class LogSource(val srcType: Entity, val srcId: String?)
 
     fun info(prefix: String? = null, src: LogSource?) =
-            Logger(LogType.INFO, prefix)
+            Logger(LogType.INFO, src, prefix)
 
-    fun debug(prefix: String? = null) =
-            Logger(LogType.DEBUG, prefix)
+    fun debug(prefix: String? = null, src: LogSource?) =
+            Logger(LogType.DEBUG, src, prefix)
 
-    fun warn(prefix: String? = null) =
-            Logger(LogType.WARNING, prefix)
+    fun warn(prefix: String? = null, src: LogSource?) =
+            Logger(LogType.WARNING, src, prefix)
 
-    fun fatal(prefix: String? = null) =
-            Logger(LogType.FATAL, prefix)
+    fun fatal(prefix: String? = null, src: LogSource?) =
+            Logger(LogType.FATAL, src, prefix)
 
-    fun severe(prefix: String? = null) =
-            Logger(LogType.SEVERE, prefix)
+    fun severe(prefix: String? = null, src: LogSource?) =
+            Logger(LogType.SEVERE, src, prefix)
 
-    fun exception(prefix: String? = null) =
-            Logger(LogType.EXCEPTION, prefix)
+    fun exception(prefix: String? = null, src: LogSource?) =
+            Logger(LogType.EXCEPTION, src, prefix)
 
-    class Logger(private val type: LogType, private val optional: String?) {
+    class Logger(private val type: LogType, private val src: LogSource?, private val optional: String?) {
         fun log(message: String) =
-                addLogEntry(LogEntry(type, optional?.toUpperCase(), message))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), src, message))
 
         fun log(exception: Exception) =
-                addLogEntry(LogEntry(type, optional?.toUpperCase(), exception))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), src, exception))
 
         fun log(message: String, exception: Exception) =
-                addLogEntry(LogEntry(type, optional?.toUpperCase(), message, exception))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), src, message, exception))
 
         fun log(event: Event) =
-                addLogEntry(LogEntry(type, optional?.toUpperCase(), event))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), src, event))
 
         fun log(message: String, event: Event) =
-                addLogEntry(LogEntry(type, optional?.toUpperCase(), message, event))
+                addLogEntry(LogEntry(type, optional?.toUpperCase(), src, message, event))
 
     }
 
@@ -118,10 +118,10 @@ object LogUtils {
         }
     }
 
-    private class LogEntry(val type: LogType, val optional: String?, vararg val elements: Any, src: LogSource?) {
+    private class LogEntry(val type: LogType, val optional: String?, src: LogSource?, vararg val elements: Any) {
         val dateTime = Instant.now()
         val saltId: String = "tempSaltId" //TODO Add SaltId generator
-        val entryId: EntryId = if (src != null) genEntryId(src.srcId, src.srcType) else
+        val entryId: EntryId? = if (src != null) genEntryId(src.srcId, src.srcType) else null
         //TODO generate the log message from the provided element(s) and other information.
         //TODO switch through types of loggable entities to determine best formatting
 
@@ -146,18 +146,18 @@ object LogUtils {
     }
 
     private fun makeEntryId(preData: String): EntryId {
-        val token: String =
+        val token: String = ""
         return EntryId(token, preData, OffsetDateTime.now())
     }
 
     data class EntryId(val fullToken: String, val givenId: String, val dateTime: OffsetDateTime)
 }
 
-fun logInfo(message: String, optional: String? = null) = LogUtils.info(optional).log(message)
-fun logDebug(message: String, optional: String? = null) = LogUtils.debug(optional).log(message)
-fun logWarn(message: String, optional: String? = null) = LogUtils.warn(optional).log(message)
-fun logSevere(message: String, optional: String? = null) = LogUtils.severe(optional).log(message)
-fun logFatal(message: String, optional: String? = null) = LogUtils.fatal(optional).log(message)
-fun logException(exception: Exception, optional: String? = null) = LogUtils.exception(optional).log(exception)
+fun logInfo(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.info(optional, src).log(message)
+fun logDebug(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.debug(optional, src).log(message)
+fun logWarn(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.warn(optional, src).log(message)
+fun logSevere(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.severe(optional, src).log(message)
+fun logFatal(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.fatal(optional, src).log(message)
+fun logException(exception: Exception, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.exception(optional, src).log(exception)
 
-fun logEasy(message: String) = LogUtils.info(Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java)?.easyLogMessage ?: "EASYLOG").log(message)
+fun logEasy(message: String, src: LogUtils.LogSource? = null) = LogUtils.info(Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java)?.easyLogMessage ?: "EASYLOG", src).log(message)
