@@ -226,13 +226,13 @@ internal fun initRest() {
     addGet("/logs/channel/:entry", { LogController.getChannelLogByEntryType(it) })
     addGet("/logs/user/:entry", { LogController.getUserLogByEntryType(it) })
     //TODO Search feature. Annotations for these methods
-    addDelete("/logs/:id/delete"){LogController.deleteLogById(it)}
-    addDelete("/logs/salt/:idstart/:idend/delete"){LogController.deleteAllSaltLogsByIdRange(it)}
-    addDelete("/logs/guild/:idstart/:idend/delete"){LogController.deleteAllGuildLogsByIdRange(it)}
-    addDelete("/logs/voicechannel/:idstart/:idend/delete"){LogController.deleteAllVoiceChannelLogsByIdRange(it)}
-    addDelete("/logs/channel/:idstart/:idend/delete"){LogController.deleteAllChannelLogsByIdRange(it)}
-    addDelete("/logs/user/:idstart/:idend/delete"){LogController.deleteAllUserLogsByIdRange(it)}
-    addDelete("/logs/delete"){LogController.deleteAllLogs(it)}
+    addDelete("/logs/:id/delete") { LogController.deleteLogById(it) }
+    addDelete("/logs/salt/:idstart/:idend/delete") { LogController.deleteAllSaltLogsByIdRange(it) }
+    addDelete("/logs/guild/:idstart/:idend/delete") { LogController.deleteAllGuildLogsByIdRange(it) }
+    addDelete("/logs/voicechannel/:idstart/:idend/delete") { LogController.deleteAllVoiceChannelLogsByIdRange(it) }
+    addDelete("/logs/channel/:idstart/:idend/delete") { LogController.deleteAllChannelLogsByIdRange(it) }
+    addDelete("/logs/user/:idstart/:idend/delete") { LogController.deleteAllUserLogsByIdRange(it) }
+    addDelete("/logs/delete") { LogController.deleteAllLogs(it) }
 
     //TODO replace paths with :id/:entry/:datetime/:etc with form param calls. Therefore also replace duplicate check with form param check (through bool passed as addGet() param)
 }
