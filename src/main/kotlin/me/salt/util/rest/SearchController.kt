@@ -1,3 +1,19 @@
+/*
+ * Copyright 2017 DevJake
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
 package me.salt.util.rest
 
 import io.javalin.Context
@@ -8,7 +24,6 @@ object SearchController {
     Rest Controllers, but this allows for the internal API
     to use this methods as well, as opposed to just the REST API.
      */
-
 
     fun searchByTag(ctx: Context): () -> (Context) {
         TODO()
