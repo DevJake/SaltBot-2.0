@@ -19,7 +19,6 @@ package me.salt.entities.cmd.commands
 import me.salt.entities.cmd.Command
 import me.salt.entities.cmd.CommandParser
 import me.salt.entities.permissions.Node
-import me.salt.entities.permissions.hasGuildAuthority
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
 class HelloWorldCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {

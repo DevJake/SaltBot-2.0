@@ -16,10 +16,10 @@
 
 package me.salt.entities.cmd
 
+import me.salt.entities.permissions.Node
 import me.salt.util.exception.ExecuteCommandFailureException
 import me.salt.util.exception.PostExecuteCommandFailureException
 import me.salt.util.exception.PreExecuteCommandFailureException
-import me.salt.entities.permissions.Node
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
 abstract class Command(val cmdPrefix: String, val aliases: MutableList<String> = mutableListOf(), val name: String, val description: String = "", val author: String = "", val perms: List<Node> = emptyList()) {

@@ -19,6 +19,8 @@ package me.salt.entities.cmd
 object CommandRegistry {
     private var commands = mutableListOf<Command>()
 
+    //TODO duplicate command instance checks in #register
+
     fun register(vararg commands: Command) = apply { this.commands.addAll(commands) }
     fun unregister(vararg commands: Command) = apply { this.commands.removeAll(commands) }
 
