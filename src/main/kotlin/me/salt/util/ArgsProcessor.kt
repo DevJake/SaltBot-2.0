@@ -38,7 +38,7 @@ object ArgsProcessor {
 
     abstract class Argument(val name: String, val multiplicity: Multiplicity, val requiredArgs: List<String>?, val pretag: String, val validityCheck: (ArgComponent, arg: String) -> (ArgComponent))
 
-    class CommandArgument(name: String, multiplicity: Multiplicity, requiredArgs: List<String>?, pretag: String, validityCheck: (ArgComponent, arg: String) -> ArgComponent) : Argument(name, multiplicity, requiredArgs, pretag, validityCheck)
+    class GenericArgument(name: String, multiplicity: Multiplicity, requiredArgs: List<String>?, pretag: String, validityCheck: (ArgComponent, arg: String) -> ArgComponent) : Argument(name, multiplicity, requiredArgs, pretag, validityCheck)
 
     enum class Multiplicity {
         ONCE_EXACTLY,
@@ -48,7 +48,7 @@ object ArgsProcessor {
     }
 
     class ArgComponent {
-        var accepts: Boolean = false
+        var accepts: Boolean = true
             private set
 
         fun accept() = apply { accepts = true }
