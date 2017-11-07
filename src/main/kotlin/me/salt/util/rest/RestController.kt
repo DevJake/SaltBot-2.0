@@ -236,3 +236,12 @@ internal fun initRest() {
 
     //TODO replace paths with :id/:entry/:datetime/:etc with form param calls. Therefore also replace duplicate check with form param check (through bool passed as addGet() param)
 }
+
+enum class RestRequestType {
+    GET,
+    POST,
+    DELETE,
+    PUT,
+    PATCH,
+    TRACE
+}

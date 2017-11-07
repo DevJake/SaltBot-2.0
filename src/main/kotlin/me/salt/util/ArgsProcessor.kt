@@ -30,7 +30,7 @@ object ArgsProcessor {
         return ArgumentReport(map)
     }
 
-    fun process(argString: String, argumentHandler: Argument) = process(argString.split(Pattern.compile(" ")), argumentHandler)
+    fun process(argString: String, argumentHandler: Argument) = process(argString.split(Pattern.compile("-[a-zA-Z]")), argumentHandler)
 
     fun addNewArg(argument: Argument, collectionName: String, tiedName: String) = arguments.getOrPut(tiedName, { mutableListOf(TiedArg(argument, tiedName)) }).add(TiedArg(argument, tiedName))
 

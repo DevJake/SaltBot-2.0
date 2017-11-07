@@ -22,6 +22,9 @@ import me.salt.entities.config.entities.Configuration
 import me.salt.entities.objects.Interaction
 import me.salt.entities.permissions.Authority
 import me.salt.entities.permissions.Node
+import me.salt.util.ArgsProcessor
+import me.salt.util.SearchUtil
+import me.salt.util.rest.RestRequestType
 import net.dv8tion.jda.core.entities.User
 import java.io.File
 
@@ -48,6 +51,14 @@ open class EventHandler : ListenerAdapter {
             is ConfigInteractEvent -> onConfigReadWrite(e)
             is PermissionCheckEvent -> onPermissionCheck(e)
             is CommandParseEvent -> onCommandParse(e)
+            is PermissionRegisterEvent -> onPermissionRegister(e)
+            is PermissionUnregisterEvent -> onPermissionUnregister(e)
+            is RestRequestEvent -> onRestRequest(e)
+            is SearchRequestEvent -> onSearchRequest(e)
+            is SearchRespondEvent -> onSearchRespond(e)
+            is ArgProcessEvent -> onArgProcess(e)
+            is ArgAddEvent -> onArgAdd(e)
+            is ArgRetrieveEvent -> onArgRetrieve(e)
         }
     }
 
@@ -58,11 +69,46 @@ open class EventHandler : ListenerAdapter {
     open fun onPermissionCheck(e: PermissionCheckEvent) {}
 
     open fun onCommandParse(e: CommandParseEvent) {}
+
+    open fun onPermissionRegister(e: PermissionRegisterEvent) {}
+
+    open fun onPermissionUnregister(e: PermissionUnregisterEvent) {}
+
+    open fun onRestRequest(e: RestRequestEvent) {}
+
+    open fun onSearchRequest(e: SearchRequestEvent) {}
+
+    open fun onSearchRespond(e: SearchRespondEvent) {}
+
+    open fun onArgProcess(e: ArgProcessEvent) {}
+
+    open fun onArgAdd(e: ArgAddEvent) {}
+
+    open fun onArgRetrieve(e: ArgRetrieveEvent) {}
 }
 
 data class FileCreateEvent(val file: File, val isFile: Boolean) : Event
+
 data class ConfigInteractEvent(val handler: Handler, val entity: Configuration, val type: Interaction) : Event
+
 data class PermissionCheckEvent(val level: Authority.Level, val nodes: List<Node>, val entityId: String?, val user: User) : Event
+
 data class PermissionRegisterEvent(val nodes: List<Node>) : Event
+
 data class PermissionUnregisterEvent(val nodes: List<Node>) : Event
+
 data class CommandParseEvent(val cmdContainer: CommandParser.CommandContainer) : Event
+
+data class RestRequestEvent(val type: RestRequestType) : Event
+
+data class SearchRequestEvent(val request: SearchUtil.SearchElement) : Event
+
+data class SearchRespondEvent(val successful: Boolean) : Event
+
+data class ArgProcessEvent(val argumentHandler: ArgsProcessor.Argument, val argument: String) : Event
+
+//TODO
+data class ArgAddEvent(val placeholder: Int) : Event
+
+data class ArgRetrieveEvent(val placeholder: Int) : Event
+

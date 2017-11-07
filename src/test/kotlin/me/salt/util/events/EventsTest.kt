@@ -35,9 +35,53 @@ class GeneralListener : ListenerAdapter {
 }
 
 class SpecificListener : EventHandler() {
-    lateinit var receivedEvent: FileCreateEvent
+    lateinit var receivedEvent: Event
 
     override fun onFileCreate(e: FileCreateEvent) {
+        receivedEvent = e
+    }
+
+    override fun onConfigReadWrite(e: ConfigInteractEvent) {
+        receivedEvent = e
+    }
+
+    override fun onPermissionCheck(e: PermissionCheckEvent) {
+        receivedEvent = e
+    }
+
+    override fun onCommandParse(e: CommandParseEvent) {
+        receivedEvent = e
+    }
+
+    override fun onPermissionRegister(e: PermissionRegisterEvent) {
+        receivedEvent = e
+    }
+
+    override fun onPermissionUnregister(e: PermissionUnregisterEvent) {
+        receivedEvent = e
+    }
+
+    override fun onRestRequest(e: RestRequestEvent) {
+        receivedEvent = e
+    }
+
+    override fun onSearchRequest(e: SearchRequestEvent) {
+        receivedEvent = e
+    }
+
+    override fun onSearchRespond(e: SearchRespondEvent) {
+        receivedEvent = e
+    }
+
+    override fun onArgProcess(e: ArgProcessEvent) {
+        receivedEvent = e
+    }
+
+    override fun onArgAdd(e: ArgAddEvent) {
+        receivedEvent = e
+    }
+
+    override fun onArgRetrieve(e: ArgRetrieveEvent) {
         receivedEvent = e
     }
 }
@@ -46,7 +90,7 @@ class SpecificListener : EventHandler() {
 class EventsTest : Spek({
     ExceptionHandler.isTesting = true
     given("an event listener class interfaced to ListenerAdapter") {
-        var subject = GeneralListener()
+        val subject = GeneralListener()
         describe("when registering and then firing an event to our event listener") {
             EventDistributor.registerListener(subject)
             EventDistributor.fireEvent(MyEvent("Test String to verify instance integrity"))
@@ -63,7 +107,7 @@ class EventsTest : Spek({
 
     given("an event listener extending EventHandler") {
         describe("when firing an event (FileCreateEvent)") {
-            var subject = SpecificListener()
+            val subject = SpecificListener()
             EventDistributor.registerListener(subject)
             EventDistributor.fireEvent(FileCreateEvent(File("path\\to\\my\\file"), false))
             EventDistributor.unregisterListener(subject)
@@ -72,13 +116,13 @@ class EventsTest : Spek({
             }
 
             it("should relay the exact event instance to our listener") {
-                subject.receivedEvent.file.path.should.equal("path\\to\\my\\file")
+                (subject.receivedEvent as FileCreateEvent).file.path.should.equal("path\\to\\my\\file")
             }
         }
     }
 
     on("firing an event by calling fireEvent()") {
-        var subject = GeneralListener()
+        val subject = GeneralListener()
         EventDistributor.registerListener(subject)
         val p = MyEvent("text-p")
         fireEvent(p)
