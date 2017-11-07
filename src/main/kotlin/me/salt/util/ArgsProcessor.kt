@@ -48,7 +48,7 @@ object ArgsProcessor {
     }
 
     class ArgComponent {
-        var accepts: Boolean = true
+        var accepts: Boolean = false
             private set
 
         fun accept() = apply { accepts = true }

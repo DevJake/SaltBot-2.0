@@ -18,7 +18,6 @@ package me.salt.util
 
 import java.util.regex.Pattern
 
-
 object MathUtil {
     private val xPlusY = Pattern.compile("(-?[a-zA-Z0-9]+)\\s*[+]\\s*(-?[a-zA-Z0-9]+)")
     private val xDivY = Pattern.compile("(-?[a-zA-Z0-9]+)\\s*[/]\\s*(-?[a-zA-Z0-9]+)")
