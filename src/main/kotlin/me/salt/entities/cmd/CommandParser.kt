@@ -21,14 +21,12 @@ import me.salt.entities.config.entities.GuildConfig
 import me.salt.entities.config.entities.SaltConfig
 import me.salt.entities.config.entities.TextChannelConfig
 import me.salt.entities.config.entities.UserConfig
-import me.salt.util.events.CommandParseEvent
-import me.salt.util.events.fireEvent
-import me.salt.util.exception.AmorphousCommandException
-import me.salt.util.exception.PrefixlessCommandException
-import me.salt.util.exception.exception
 import me.salt.entities.objects.Entity
 import me.salt.entities.objects.exists
 import me.salt.entities.objects.getConfig
+import me.salt.util.events.CommandParseEvent
+import me.salt.util.events.fireEvent
+import me.salt.util.exception.*
 import java.util.regex.Pattern
 
 object CommandParser {
@@ -112,4 +110,15 @@ object CommandParser {
             val beheadedLiteralLower: String,
             val args: List<String>,
             val argsLower: List<String>)
+
+    class CmdInstanceHandle internal constructor() {
+        var accepts: Boolean = false
+            private set
+
+        fun accept() = apply { accepts = true }
+        fun accept(callback: () -> (Unit)) = apply { accepts = true; callback.invoke() }
+
+        fun reject(e: Exception) = ExceptionHandler.handle(e)
+        fun reject(e: Exception, level: Errorlevel) = ExceptionHandler.handle(e, level)
+    }
 }

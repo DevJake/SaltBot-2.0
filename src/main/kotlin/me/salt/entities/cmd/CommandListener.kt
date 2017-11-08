@@ -33,8 +33,8 @@ class CommandListener : ListenerAdapter() {
             val cc = CommandParser.parse(event.message.rawContent, event.guild.id, event.channel.id, event.author.id)
             val filteredCommands = CommandRegistry.getCommands().filterByCommandPrefix(cc.beheadedLiteralLower)
 
-            filteredCommands.forEach { it.preExecute(cc, event) }
-            filteredCommands.forEach { it.execute(cc, event) }
+            filteredCommands.forEach { it.preExecute(cc, event, CommandParser.CmdInstanceHandle()) }
+            filteredCommands.forEach { it.execute(cc, event, CommandParser.CmdInstanceHandle()) }
             filteredCommands.forEach { it.postExecute(cc, event) }
 
         }

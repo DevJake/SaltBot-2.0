@@ -160,6 +160,8 @@ dokka {
     outputFormat = 'html'
     outputDirectory = "docs"
 
+    jdkVersion = 8
+
     linkMapping {
         // Source directory
         dir = "src/main/kotlin"

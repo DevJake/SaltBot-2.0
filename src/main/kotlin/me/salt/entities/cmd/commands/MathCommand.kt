@@ -22,17 +22,15 @@ import me.salt.entities.permissions.Node
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
 class MathCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {
-    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
+    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
-    //TODO split by bidmas, resolve in chunks
-    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
+    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
 
     override fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
     }
-
 }
