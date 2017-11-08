@@ -15,3 +15,5 @@ gradlew
 *.salt
 
 lib/
+
+docs/
