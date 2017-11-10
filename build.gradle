@@ -162,6 +162,8 @@ dokka {
 
     jdkVersion = 8
 
+//    includeNonPublic = true
+
     linkMapping {
         // Source directory
         dir = "src/main/kotlin"

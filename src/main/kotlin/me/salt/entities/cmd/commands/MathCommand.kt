@@ -21,6 +21,27 @@ import me.salt.entities.cmd.CommandParser
 import me.salt.entities.permissions.Node
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
+/**
+ * This command takes in a mathematical expression specified by a user and parses it, then solves it in accordance to how specified.
+ *
+ * Possible instructions that can be given to the parser include:
+ * - Calculating for singular or multiple components
+ * - Rearranging for singular or multiple components
+ * - Factorising the given expression
+ * - Repeatedly solve the expression for *n* to *z*, in increments of *i*
+ * - Repeatedly rearrange the expression for *n* to *z*, in increments of *i*
+ * - Simplifying the given expression
+ *
+ * It may not be possible for the request to be performed. If this is the case, the user shall be informed.
+ *
+ * A range of mathematical constants and inbuilt functions are also available for use. Below details their name and their usage:
+ * - Pi : pi
+ * - Sine(*x*) : sin(*x*)
+ * - Cosine(*x*) : cos(*x*)
+ * - Tangent(*x*) : tan(*x*)
+ * - Square-root(*x*) : sqrt(*x*)
+ * - *n*th-root(*x*) : (*n*)rt(*x*)
+ */
 class MathCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {
     override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
         TODO("not implemented") //To change body of created functions use File | Settings | File Templates.

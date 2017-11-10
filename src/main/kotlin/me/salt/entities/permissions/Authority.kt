@@ -51,11 +51,12 @@ object Authority {
     This also provides more flexibility for self-hosters.
 
     As a result of this, we can allow groups to also provide NodeAuthority permissions, due to being a secure feature.
-    TODO Any plans to allow users to download and upload configs should note down NodeAuthorities beforehand,
-    TODO and fail changes where the NodeAuthorities change. This ensures that Authority's are only edited through commands.
+    */
+    //TODO Any plans to allow users to download and upload configs should note down NodeAuthorities beforehand,
+    //TODO and fail changes where the NodeAuthorities change. This ensures that Authority's are only edited through commands.
 
-    TODO add thorough unit testing to ensure security cannot be reached
-     */
+    //TODO add thorough unit testing to ensure security cannot be breached
+
     data class NodeAuthority(val levels: MutableList<Level>, val interactions: MutableList<Interaction>) {
         fun addLevels(vararg levels: Level) = apply { this.levels.addAll(levels) }
         fun addInteractions(vararg interactions: Interaction) = apply { this.interactions.addAll(interactions) }

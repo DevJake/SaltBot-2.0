@@ -22,7 +22,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 /**
  * This class serves to be implemented by commands, such as the [HelloWorldCommand][me.salt.entities.cmd.commands.HelloWorldCommand].
  *
- * For a class to be able to use [CommandRegistry#register], it must implement this abstract class.
+ * For a class to be able to use [CommandRegistry.register], it must implement this abstract class.
  *
  * Within this class are three methods:
  * - [preExecute]

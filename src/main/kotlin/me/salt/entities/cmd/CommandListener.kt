@@ -19,8 +19,24 @@ package me.salt.entities.cmd
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
+/**
+ * This command listens for a range of events in relation to the Command System, and handles them accordingly.
+ *
+ * Namely, this class identifies [Commands][Command] from a [GuildMessageReceivedEvent], and fires any respective handlers.
+ */
 class CommandListener : ListenerAdapter() {
-    private fun MutableList<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
+
+    /**
+     * This method filters a [MutableList] of [Commands][Command] by the given prefix.
+     *
+     * @param prefix - The prefix to be used for filtering
+     * @param checkAliases - If the filter should also check the current command's aliases
+     *
+     * @return A list of [Commands][Command] filtered by the given [prefix] and the optional [alias check][checkAliases]
+     *
+     * @see Command
+     */
+    fun MutableList<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
             this.filter {
                 it.cmdPrefix.equals(prefix) &&
                         (if (checkAliases)
@@ -28,6 +44,15 @@ class CommandListener : ListenerAdapter() {
                         else true)
             }
 
+    /**
+     * This method receives information about any messages sent to a guild.
+     * As a result, this method handles the analyses of the incoming message's prefix
+     * (performed through [CommandParser.isPotentialCommand]), and identifies any applicable commands.
+     * If any commands are identified, their respective [preExecute][Command.preExecute],
+     * [execute][Command.execute] and [postExecute][Command.postExecute] methods are invoked.
+     *
+     * @see Command
+     */
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent?) {
         if (CommandParser.isPotentialCommand(event?.message?.rawContent ?: return)) {
             val cc = CommandParser.parse(event.message.rawContent, event.guild.id, event.channel.id, event.author.id)
