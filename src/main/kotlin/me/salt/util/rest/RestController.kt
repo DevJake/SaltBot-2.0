@@ -60,64 +60,31 @@ object RestController {
                 ?: return ctx.status(400).result("You must include an auth token!")
 
         val tokenMap = tokens.map { it.token }
-        if (!tokenMap.contains(authHeader)) return ctx.status(401).result("The specified auth token is non-existent!")
-        else if (!tokens.first { it.token == authHeader }.active) return ctx.status(403).result("The specified token has been marked inactive!")
+
+        if (!tokenMap.contains(authHeader))
+            return ctx.status(401).result("The specified auth token is non-existent!")
+        else if (!tokens.first { it.token == authHeader }.active)
+            return ctx.status(403).result("The specified token has been marked inactive!")
         return ctx.status(200)
     }
 
-    internal fun addGet(path: String, call: (Context) -> () -> (Context)) {
-        javalin.get("/api" + path, {
-            invoke(it, call)
-            callLog(it, "get")
-        })
+    private fun addEndpoint(path: String, call: (Context) -> () -> Context, type: String, i: (String, (Context)->(Unit))->Javalin){
+        i.invoke(path, { invoke(it, call); callLog(it, type) })
         postInvoke(path, call)
-        regLog("/api" + path, "get")
+        regLog("/api" + path, type)
     }
 
-    internal fun addPost(path: String, call: (Context) -> () -> (Context)) {
-        javalin.post("/api" + path, {
-            invoke(it, call)
-            callLog(it, "post")
-        })
-        postInvoke(path, call)
-        regLog("/api" + path, "post")
-    }
+    fun addGet(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "get", javalin::get)
 
-    internal fun addDelete(path: String, call: (Context) -> () -> (Context)) {
-        javalin.delete("/api" + path, {
-            invoke(it, call)
-            callLog(it, "delete")
-        })
-        postInvoke(path, call)
-        regLog("/api" + path, "delete")
-    }
+    fun addPost(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "post", javalin::get)
 
-    internal fun addPut(path: String, call: (Context) -> () -> (Context)) {
-        javalin.put("/api" + path, {
-            invoke(it, call)
-            callLog(it, "put")
-        })
-        postInvoke(path, call)
-        regLog("/api" + path, "put")
-    }
+    fun addDelete(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "delete", javalin::get)
 
-    internal fun addPatch(path: String, call: (Context) -> () -> (Context)) {
-        javalin.patch("/api" + path, {
-            invoke(it, call)
-            callLog(it, "patch")
-        })
-        postInvoke(path, call)
-        regLog("/api" + path, "patch")
-    }
+    fun addPut(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "put", javalin::get)
 
-    internal fun addTrace(path: String, call: (Context) -> () -> (Context)) {
-        javalin.trace("/api" + path, {
-            invoke(it, call)
-            callLog(it, "trace")
-        })
-        postInvoke(path, call)
-        regLog("/api" + path, "trace")
-    }
+    fun addPatch(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "patch", javalin::get)
+
+    fun addTrace(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "trace", javalin::get)
 
     private fun invoke(it: Context, call: (Context) -> () -> (Context)) {
         val ctx0 = accessManager(it)
@@ -138,13 +105,9 @@ object RestController {
     private fun callLog(ctx: Context, type: String) = logDebug("Received ${type.toUpperCase()} request at endpoint ${ctx.path()} IP: ${ctx.ip()}")
     //TODO replace with call to ctx to obtain specific type, rather than relying on it being passed in as a parameter
 
-    fun start() {
-        javalin.start()
-    }
+    fun start() { javalin.start() }
 
-    fun stop() {
-        javalin.stop()
-    }
+    fun stop() = { javalin.stop() }
 
 }
 
