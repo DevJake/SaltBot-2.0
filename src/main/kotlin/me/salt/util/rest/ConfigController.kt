@@ -25,6 +25,9 @@ import me.salt.entities.objects.getConfig
 //@Path("/configs")
 //@Produces("application/json")
 //@Api(value = "/configs", description = "Does some stuff")
+/**
+ * This class handles REST endpoints relating to the bot's Configuration System.
+ */
 object ConfigController {
     //    @GET
 //    @ApiOperation(value = "/configs", response = String::class)
@@ -91,99 +94,99 @@ object ConfigController {
         }
     }
 
-    internal fun getGuildConfigByType(ctx: Context): () -> (Context) {
+    fun getGuildConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildMapByType(ctx: Context): () -> (Context) {
+    fun getGuildMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelConfigByType(ctx: Context): () -> (Context) {
+    fun getChannelConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelMapByType(ctx: Context): () -> (Context) {
+    fun getChannelMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserConfigByType(ctx: Context): () -> (Context) {
+    fun getUserConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserMapByType(ctx: Context): () -> (Context) {
+    fun getUserMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllConfigs(ctx: Context): () -> (Context) {
+    fun getAllConfigs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllConfigsByType(ctx: Context): () -> (Context) {
+    fun getAllConfigsByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllConfigsByCategory(ctx: Context): () -> (Context) {
+    fun getAllConfigsByCategory(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun searchAllConfigsByType(ctx: Context): () -> (Context) {
+    fun searchAllConfigsByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun searchAllConfigsByCategoryAndType(ctx: Context): () -> (Context) {
+    fun searchAllConfigsByCategoryAndType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllMaps(ctx: Context): () -> (Context) {
+    fun getAllMaps(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllMapsByType(ctx: Context): () -> (Context) {
+    fun getAllMapsByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllMapsByCategory(ctx: Context): () -> (Context) {
+    fun getAllMapsByCategory(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun searchAllMapsByType(ctx: Context): () -> (Context) {
+    fun searchAllMapsByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun searchAllMapsByCategoryAndType(ctx: Context): () -> (Context) {
+    fun searchAllMapsByCategoryAndType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteSaltConfigByType(ctx: Context): () -> (Context) {
+    fun deleteSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteSaltMapByType(ctx: Context): () -> (Context) {
+    fun deleteSaltMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteGuildConfigByType(ctx: Context): () -> (Context) {
+    fun deleteGuildConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteGuildMapByType(ctx: Context): () -> (Context) {
+    fun deleteGuildMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteChannelConfigByType(ctx: Context): () -> (Context) {
+    fun deleteChannelConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteChannelMapByType(ctx: Context): () -> (Context) {
+    fun deleteChannelMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteUserConfigByType(ctx: Context): () -> (Context) {
+    fun deleteUserConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteUserMapByType(ctx: Context): () -> (Context) {
+    fun deleteUserMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
@@ -191,101 +194,101 @@ object ConfigController {
     Simply delete and regen the config. Should create again if it doesn't exist in the first place
      */
 
-    internal fun resetSaltConfigByType(ctx: Context): () -> (Context) {
+    fun resetSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetSaltMapByType(ctx: Context): () -> (Context) {
+    fun resetSaltMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetGuildConfigByType(ctx: Context): () -> (Context) {
+    fun resetGuildConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetGuildMapByType(ctx: Context): () -> (Context) {
+    fun resetGuildMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetChannelConfigByType(ctx: Context): () -> (Context) {
+    fun resetChannelConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetChannelMapByType(ctx: Context): () -> (Context) {
+    fun resetChannelMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetUserConfigByType(ctx: Context): () -> (Context) {
+    fun resetUserConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun resetUserMapByType(ctx: Context): () -> (Context) {
+    fun resetUserMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchSaltConfigByType(ctx: Context): () -> (Context) {
+    fun patchSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchSaltMapByType(ctx: Context): () -> (Context) {
+    fun patchSaltMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchGuildConfigByType(ctx: Context): () -> (Context) {
+    fun patchGuildConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchGuildMapByType(ctx: Context): () -> (Context) {
+    fun patchGuildMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchChannelConfigByType(ctx: Context): () -> (Context) {
+    fun patchChannelConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchChannelMapByType(ctx: Context): () -> (Context) {
+    fun patchChannelMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchUserConfigByType(ctx: Context): () -> (Context) {
+    fun patchUserConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun patchUserMapByType(ctx: Context): () -> (Context) {
+    fun patchUserMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadSaltConfigByType(ctx: Context): () -> (Context) {
+    fun downloadSaltConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadSaltMapByType(ctx: Context): () -> (Context) {
+    fun downloadSaltMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadGuildConfigByType(ctx: Context): () -> (Context) {
+    fun downloadGuildConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadGuildMapByType(ctx: Context): () -> (Context) {
+    fun downloadGuildMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadChannelConfigByType(ctx: Context): () -> (Context) {
+    fun downloadChannelConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadChannelMapByType(ctx: Context): () -> (Context) {
+    fun downloadChannelMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadUserConfigByType(ctx: Context): () -> (Context) {
+    fun downloadUserConfigByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun downloadUserMapByType(ctx: Context): () -> (Context) {
+    fun downloadUserMapByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    //TODO making most of bot internal/avoiding exposing internal workings
+    //TODO making most of bot internal/avoiding exposing workings
 }

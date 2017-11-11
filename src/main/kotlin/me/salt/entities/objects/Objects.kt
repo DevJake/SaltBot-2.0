@@ -19,7 +19,7 @@ package me.salt.entities.objects
 data class Module(val name: String, val description: String?, val enabled: Boolean)
 data class Admin(val name: String, val id: String)
 
-data class SelfAssignableRole(val name: String?, val description: String?, val enabled: Boolean?, val restrictedUsers: List<String>?, var permissionGroups: List<String>?, var tiedRoles/*Roles given when this role is acquired. Offers an internal link to Discord's roles*/: List<String>?, var requiredRoles: List<String>?)
+data class SelfAssignableRole(val name: String?, val description: String?, val enabled: Boolean?, val restrictedUsers: List<String>?, var permissionGroups: List<String>?, var tiedRoles/*Roles given when this role is acquired. Offers an link to Discord's roles*/: List<String>?, var requiredRoles: List<String>?)
 
 data class PermRole(val roleName: String, val requirementState: RoleRequirementState)
 

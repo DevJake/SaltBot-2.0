@@ -17,11 +17,13 @@
 package me.salt.util
 
 import java.util.regex.Pattern
+typealias Arguments = List<String>
+typealias ResultsMap = Map<String, ArgsProcessor.ArgComponent>
 
 object ArgsProcessor {
     private val arguments = mutableMapOf<String, MutableList<TiedArg>>()
 
-    fun process(args: List<String>, argumentHandler: Argument): ArgumentReport {
+    fun process(args: Arguments, argumentHandler: Argument): ArgumentReport {
         val map: MutableMap<String, ArgComponent> = mutableMapOf()
 
         args.forEach { map.put(it, argumentHandler.validityCheck.invoke(ArgComponent(), it)) }
@@ -36,7 +38,7 @@ object ArgsProcessor {
 
     fun getArgSet(collectionName: String, tiedName: String): List<TiedArg>? = arguments.get(collectionName)
 
-    abstract class Argument(val name: String, val multiplicity: Multiplicity, val requiredArgs: List<String>?, val pretag: String, val validityCheck: (ArgComponent, arg: String) -> (ArgComponent))
+    abstract class Argument(val name: String, val multiplicity: Multiplicity, val requiredArgs: Arguments?, val pretag: String, val validityCheck: (ArgComponent, arg: String) -> (ArgComponent))
 
     class GenericArgument(name: String, multiplicity: Multiplicity, requiredArgs: List<String>?, pretag: String, validityCheck: (ArgComponent, arg: String) -> ArgComponent) : Argument(name, multiplicity, requiredArgs, pretag, validityCheck)
 
@@ -55,7 +57,7 @@ object ArgsProcessor {
         fun reject() = apply { accepts = false }
     }
 
-    data class ArgumentReport(val results: Map<String, ArgComponent>, val duplicateComponents: List<ArgComponent> = emptyList()) {
+    data class ArgumentReport(val results: ResultsMap, val duplicateComponents: List<ArgComponent> = emptyList()) {
         val passed: Boolean = results.values.none { !it.accepts }.and(duplicateComponents.isEmpty())
         val passedArgChecks: Boolean = results.values.none { !it.accepts }
         val passedDuplicateChecks: Boolean = duplicateComponents.isEmpty()

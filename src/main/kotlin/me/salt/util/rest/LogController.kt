@@ -20,248 +20,248 @@ import io.javalin.Context
 
 object LogController {
     //TODO log entry files should generate an ID based upon the ID of the guild, channel, voicechannel or user related -- Allows for easier indexing and searching
-    internal fun getLogById(ctx: Context): () -> (Context) {
+    fun getLogById(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getSaltLogByIdAndDateTime(ctx: Context): () -> (Context) {
+    fun getSaltLogByIdAndDateTime(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildLogByIdAndDateTime(ctx: Context): () -> (Context) {
+    fun getGuildLogByIdAndDateTime(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getVoiceChannelLogByIdAndDateTime(ctx: Context): () -> (Context) {
+    fun getVoiceChannelLogByIdAndDateTime(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelLogByIdAndDateTime(ctx: Context): () -> (Context) {
+    fun getChannelLogByIdAndDateTime(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserLogByIdAndDateTime(ctx: Context): () -> (Context) {
+    fun getUserLogByIdAndDateTime(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getSaltLogByIdAndEntryType(ctx: Context): () -> (Context) {
+    fun getSaltLogByIdAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildLogByIdAndEntryType(ctx: Context): () -> (Context) {
+    fun getGuildLogByIdAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getVoiceChannelLogByIdAndEntryType(ctx: Context): () -> (Context) {
+    fun getVoiceChannelLogByIdAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelLogByIdAndEntryType(ctx: Context): () -> (Context) {
+    fun getChannelLogByIdAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserLogByIdAndEntryType(ctx: Context): () -> (Context) {
+    fun getUserLogByIdAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getSaltLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getSaltLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getGuildLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getVoiceChannelLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getVoiceChannelLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getChannelLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getUserLogByIdAndDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getSaltLogByEntryType(ctx: Context): () -> (Context) {
+    fun getSaltLogByEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildLogByEntryType(ctx: Context): () -> (Context) {
+    fun getGuildLogByEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getVoiceChannelLogByEntryType(ctx: Context): () -> (Context) {
+    fun getVoiceChannelLogByEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelLogByEntryType(ctx: Context): () -> (Context) {
+    fun getChannelLogByEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserLogByEntryType(ctx: Context): () -> (Context) {
+    fun getUserLogByEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getSaltLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getSaltLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getGuildLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getVoiceChannelLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getVoiceChannelLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getChannelLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getUserLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
+    fun getLogByDateTimeAndEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getLogByDateTime(ctx: Context): () -> (Context) {
+    fun getLogByDateTime(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getLogByEntryType(ctx: Context): () -> (Context) {
+    fun getLogByEntryType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getSaltAvailableDateTimes(ctx: Context): () -> (Context) {
+    fun getSaltAvailableDateTimes(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getGuildByIdAvailableDateTimes(ctx: Context): () -> (Context) {
+    fun getGuildByIdAvailableDateTimes(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getVoiceChannelByIdAvailableDateTimes(ctx: Context): () -> (Context) {
+    fun getVoiceChannelByIdAvailableDateTimes(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getChannelByIdAvailableDateTimes(ctx: Context): () -> (Context) {
+    fun getChannelByIdAvailableDateTimes(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getUserByIdAvailableDateTimes(ctx: Context): () -> (Context) {
+    fun getUserByIdAvailableDateTimes(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteLogById(ctx: Context): () -> (Context) {
+    fun deleteLogById(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllSaltLogsByIdRange(ctx: Context): () -> (Context) {
+    fun deleteAllSaltLogsByIdRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllGuildLogsByIdRange(ctx: Context): () -> (Context) {
+    fun deleteAllGuildLogsByIdRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllVoiceChannelLogsByIdRange(ctx: Context): () -> (Context) {
+    fun deleteAllVoiceChannelLogsByIdRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllChannelLogsByIdRange(ctx: Context): () -> (Context) {
+    fun deleteAllChannelLogsByIdRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllUserLogsByIdRange(ctx: Context): () -> (Context) {
+    fun deleteAllUserLogsByIdRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllSaltLogsByDateTimeRange(ctx: Context): () -> (Context) {
+    fun deleteAllSaltLogsByDateTimeRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllGuildLogsByDateTimeRange(ctx: Context): () -> (Context) {
+    fun deleteAllGuildLogsByDateTimeRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllVoiceChannelLogsByDateTimeRange(ctx: Context): () -> (Context) {
+    fun deleteAllVoiceChannelLogsByDateTimeRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllChannelLogsByDateTimeRange(ctx: Context): () -> (Context) {
+    fun deleteAllChannelLogsByDateTimeRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllUserLogsByDateTimeRange(ctx: Context): () -> (Context) {
+    fun deleteAllUserLogsByDateTimeRange(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllSaltLogs(ctx: Context): () -> (Context) {
+    fun deleteAllSaltLogs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllGuildByIdLogs(ctx: Context): () -> (Context) {
+    fun deleteAllGuildByIdLogs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllVoiceChannelByIdLogs(ctx: Context): () -> (Context) {
+    fun deleteAllVoiceChannelByIdLogs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllChannelByIdLogs(ctx: Context): () -> (Context) {
+    fun deleteAllChannelByIdLogs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllUserByIdLogs(ctx: Context): () -> (Context) {
+    fun deleteAllUserByIdLogs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllSaltLogsById(ctx: Context): () -> (Context) {
+    fun deleteAllSaltLogsById(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllGuildByIdLogsById(ctx: Context): () -> (Context) {
+    fun deleteAllGuildByIdLogsById(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllVoiceChannelByIdLogsById(ctx: Context): () -> (Context) {
+    fun deleteAllVoiceChannelByIdLogsById(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllChannelByIdLogsById(ctx: Context): () -> (Context) {
+    fun deleteAllChannelByIdLogsById(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllUserByIdLogsById(ctx: Context): () -> (Context) {
+    fun deleteAllUserByIdLogsById(ctx: Context): () -> (Context) {
         TODO()
     }
 
     //TODO Ensure special perms exist
-    internal fun deleteAllLogs(ctx: Context): () -> (Context) {
+    fun deleteAllLogs(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllSaltLogEntriesByType(ctx: Context): () -> (Context) {
+    fun deleteAllSaltLogEntriesByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllGuildLogEntriesByType(ctx: Context): () -> (Context) {
+    fun deleteAllGuildLogEntriesByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllVoiceChannelLogEntriesByType(ctx: Context): () -> (Context) {
+    fun deleteAllVoiceChannelLogEntriesByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllChannelLogEntriesByType(ctx: Context): () -> (Context) {
+    fun deleteAllChannelLogEntriesByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteAllUserLogEntriesByType(ctx: Context): () -> (Context) {
+    fun deleteAllUserLogEntriesByType(ctx: Context): () -> (Context) {
         TODO()
     }
 

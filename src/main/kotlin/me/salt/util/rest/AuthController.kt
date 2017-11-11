@@ -18,32 +18,35 @@ package me.salt.util.rest
 
 import io.javalin.Context
 
+/**
+ * This class handles REST endpoints relating to the REST API's Authorisation System.
+ */
 object AuthController {
-    internal fun getTokenInfo(ctx: Context): () -> (Context) {
+    fun getTokenInfo(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun filterTokensByParam(ctx: Context): () -> (Context) {
+    fun filterTokensByParam(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun deleteToken(ctx: Context): () -> (Context) {
+    fun deleteToken(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun updateToken(ctx: Context): () -> (Context) {
+    fun updateToken(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllEndpoints(ctx: Context): () -> (Context) {
+    fun getAllEndpoints(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllEndpointsByType(ctx: Context): () -> (Context) {
+    fun getAllEndpointsByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    internal fun getAllEndpointsByParameter(ctx: Context): () -> (Context) {
+    fun getAllEndpointsByParameter(ctx: Context): () -> (Context) {
         TODO()
     }
 }

@@ -43,12 +43,12 @@ object RestController {
         logInfo("Started Javalin REST API server on port 80", "API")
     }
 
-    internal fun genToken(oldToken: AccessToken): AccessToken {
+    fun genToken(oldToken: AccessToken): AccessToken {
         logDebug("An old REST auth token has been traded for a new one. Old token=$oldToken")
         return genToken()
     }
 
-    internal fun genToken(): AccessToken {
+    fun genToken(): AccessToken {
         return AccessToken("pp486", true, "salt", OffsetDateTime.now(), emptyList(), 0)
         /*
         Receive request -> Look for param declaring full name (or ID) of discord user to link to) -> message discord user -> if a
@@ -120,7 +120,7 @@ data class AccessToken(
         val hourlyRequestCap: Int
 )
 
-internal fun initRest() {
+fun initRest() {
     addGet("/configs/salt/:type", { ConfigController.getSaltConfigByType(it) })
     addGet("/maps/salt/:type", { ConfigController.getSaltMapByType(it) })
     addGet("/configs/guild/:id/:type", { ConfigController.getGuildConfigByType(it) })
