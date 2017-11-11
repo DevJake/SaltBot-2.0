@@ -79,10 +79,12 @@ class CommandRegistryTest: Spek({
 })
 
 class TestCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {
-    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
+    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
+        return instHandler.accept()
     }
 
-    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
+    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
+        return instHandler.accept()
     }
 
     override fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
