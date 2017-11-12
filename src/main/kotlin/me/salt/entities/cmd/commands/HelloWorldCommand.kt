@@ -30,7 +30,6 @@ class HelloWorldCommand(cmdPrefix: String, aliases: MutableList<String>, name: S
         return instHandler.accept()
     }
 
-
     override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
         //Run command
         event.channel.sendMessage("Hello, ${event.author.name}").queue()

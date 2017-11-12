@@ -68,7 +68,7 @@ object RestController {
         return ctx.status(200)
     }
 
-    private fun addEndpoint(path: String, call: (Context) -> () -> Context, type: String, i: (String, (Context)->(Unit))->Javalin){
+    private fun addEndpoint(path: String, call: (Context) -> () -> Context, type: String, i: (String, (Context) -> (Unit)) -> Javalin) {
         i.invoke(path, { invoke(it, call); callLog(it, type) })
         postInvoke(path, call)
         regLog("/api" + path, type)
@@ -86,11 +86,7 @@ object RestController {
 
     fun addTrace(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "trace", javalin::get)
 
-    private fun invoke(it: Context, call: (Context) -> () -> (Context)) {
-        val ctx0 = accessManager(it)
-        if (!listOf(400, 401, 403).contains(ctx0.status()))
-            call.invoke(ctx0).invoke()
-    }
+    private fun invoke(it: Context, call: (Context) -> () -> (Context)) { accessManager(it).run { if (!listOf(400, 401, 403).contains(it.status())) call.invoke(it).invoke() } }
 
     private fun postInvoke(path: String, call: (Context) -> () -> Context) {
         if (paths.filter { it.key == path || it.value == call }.isEmpty()) {
