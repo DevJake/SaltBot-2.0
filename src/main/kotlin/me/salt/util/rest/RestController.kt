@@ -60,33 +60,70 @@ object RestController {
                 ?: return ctx.status(400).result("You must include an auth token!")
 
         val tokenMap = tokens.map { it.token }
-
-        if (!tokenMap.contains(authHeader))
-            return ctx.status(401).result("The specified auth token is non-existent!")
-        else if (!tokens.first { it.token == authHeader }.active)
-            return ctx.status(403).result("The specified token has been marked inactive!")
+        if (!tokenMap.contains(authHeader)) return ctx.status(401).result("The specified auth token is non-existent!")
+        else if (!tokens.first { it.token == authHeader }.active) return ctx.status(403).result("The specified token has been marked inactive!")
         return ctx.status(200)
     }
 
-    private fun addEndpoint(path: String, call: (Context) -> () -> Context, type: String, i: (String, (Context) -> (Unit)) -> Javalin) {
-        i.invoke(path, { invoke(it, call); callLog(it, type) })
+    internal fun addGet(path: String, call: (Context) -> () -> (Context)) {
+        javalin.get("/api" + path, {
+            invoke(it, call)
+            callLog(it, "get")
+        })
         postInvoke(path, call)
-        regLog("/api" + path, type)
+        regLog("/api" + path, "get")
     }
 
-    fun addGet(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "get", javalin::get)
+    internal fun addPost(path: String, call: (Context) -> () -> (Context)) {
+        javalin.post("/api" + path, {
+            invoke(it, call)
+            callLog(it, "post")
+        })
+        postInvoke(path, call)
+        regLog("/api" + path, "post")
+    }
 
-    fun addPost(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "post", javalin::get)
+    internal fun addDelete(path: String, call: (Context) -> () -> (Context)) {
+        javalin.delete("/api" + path, {
+            invoke(it, call)
+            callLog(it, "delete")
+        })
+        postInvoke(path, call)
+        regLog("/api" + path, "delete")
+    }
 
-    fun addDelete(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "delete", javalin::get)
+    internal fun addPut(path: String, call: (Context) -> () -> (Context)) {
+        javalin.put("/api" + path, {
+            invoke(it, call)
+            callLog(it, "put")
+        })
+        postInvoke(path, call)
+        regLog("/api" + path, "put")
+    }
 
-    fun addPut(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "put", javalin::get)
+    internal fun addPatch(path: String, call: (Context) -> () -> (Context)) {
+        javalin.patch("/api" + path, {
+            invoke(it, call)
+            callLog(it, "patch")
+        })
+        postInvoke(path, call)
+        regLog("/api" + path, "patch")
+    }
 
-    fun addPatch(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "patch", javalin::get)
+    internal fun addTrace(path: String, call: (Context) -> () -> (Context)) {
+        javalin.trace("/api" + path, {
+            invoke(it, call)
+            callLog(it, "trace")
+        })
+        postInvoke(path, call)
+        regLog("/api" + path, "trace")
+    }
 
-    fun addTrace(path: String, call: (Context) -> () -> (Context)) = addEndpoint(path, call, "trace", javalin::get)
-
-    private fun invoke(it: Context, call: (Context) -> () -> (Context)) { accessManager(it).run { if (!listOf(400, 401, 403).contains(it.status())) call.invoke(it).invoke() } }
+    private fun invoke(it: Context, call: (Context) -> () -> (Context)) {
+        val ctx0 = accessManager(it)
+        if (!listOf(400, 401, 403).contains(ctx0.status()))
+            call.invoke(ctx0).invoke()
+    }
 
     private fun postInvoke(path: String, call: (Context) -> () -> Context) {
         if (paths.filter { it.key == path || it.value == call }.isEmpty()) {

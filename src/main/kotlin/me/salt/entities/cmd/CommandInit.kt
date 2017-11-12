@@ -16,10 +16,36 @@
 
 package me.salt.entities.cmd
 
-import me.salt.entities.cmd.commands.HelloWorldCommand
-
 fun initCommands() {
     //TODO init commands
+    /**
+     * This command serves a simple purpose of responding with 'Hello, {username}', where username is the nickname of the command sender.
+     * This exists so as to ensure the command system is functional as expected -- useful for front-end debugging.
+     */
+    CommandBuilder("hello", "Hello World")
+            .execute { _, event, instHandler -> event.channel.sendMessage("Hello, ${event.author.name}").queue(); instHandler.accept() }
+            .build()
 
-    CommandRegistry.register(HelloWorldCommand("hello", mutableListOf(), "Hello World", "", "", emptyList()))
+    /**
+     * This command takes in a mathematical expression specified by a user and parses it, then solves it in accordance to how specified.
+     *
+     * Possible instructions that can be given to the parser include:
+     * - Calculating for singular or multiple components
+     * - Rearranging for singular or multiple components
+     * - Factorising the given expression
+     * - Repeatedly solve the expression for *n* to *z*, in increments of *i*
+     * - Repeatedly rearrange the expression for *n* to *z*, in increments of *i*
+     * - Simplifying the given expression
+     *
+     * It may not be possible for the request to be performed. If this is the case, the user shall be informed.
+     *
+     * A range of mathematical constants and inbuilt functions are also available for use. Below details their name and their usage:
+     * - Pi : pi
+     * - Sine(*x*) : sin(*x*)
+     * - Cosine(*x*) : cos(*x*)
+     * - Tangent(*x*) : tan(*x*)
+     * - Square-root(*x*) : sqrt(*x*)
+     * - *n*th-root(*x*) : (*n*)rt(*x*)
+     */
+    CommandBuilder("math", "Expression Evaluate").build() //TODO
 }

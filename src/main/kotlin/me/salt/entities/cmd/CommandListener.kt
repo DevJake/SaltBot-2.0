@@ -16,6 +16,8 @@
 
 package me.salt.entities.cmd
 
+import me.salt.util.logging.logDebug
+import me.salt.util.logging.logInfo
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 
@@ -55,12 +57,22 @@ class CommandListener : ListenerAdapter() {
      */
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent?) {
         if (CommandParser.isPotentialCommand(event?.message?.rawContent ?: return)) {
+            logInfo("Received a potential command from user ${event.author} (ID: ${event.author.id})", "COMMAND")
             val cc = CommandParser.parse(event.message.rawContent, event.guild.id, event.channel.id, event.author.id)
             val filteredCommands = CommandRegistry.getCommands().filterByCommandPrefix(cc.beheadedLiteralLower)
 
-            filteredCommands.forEach { it.preExecute(cc, event, CommandParser.CmdInstanceHandle()) }
-            filteredCommands.forEach { it.execute(cc, event, CommandParser.CmdInstanceHandle()) }
-            filteredCommands.forEach { it.postExecute(cc, event) }
+            filteredCommands.forEach {
+                it.preExecute?.invoke(cc, event, CmdInstanceHandle(it))
+                logDebug("Called preExecute method of $it", "COMMAND")
+            }
+            filteredCommands.forEach {
+                it.execute?.invoke(cc, event, CmdInstanceHandle(it))
+                logDebug("Called execute method of $it", "COMMAND")
+            }
+            filteredCommands.forEach {
+                it.postExecute?.invoke(cc, event)
+                logDebug("Called postExecute method of $it", "COMMAND")
+            }
 
         }
     }

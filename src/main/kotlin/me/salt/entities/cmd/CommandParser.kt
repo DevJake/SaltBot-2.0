@@ -27,6 +27,7 @@ import me.salt.entities.objects.getConfig
 import me.salt.util.events.CommandParseEvent
 import me.salt.util.events.fireEvent
 import me.salt.util.exception.*
+import me.salt.util.logging.logDebug
 import java.util.regex.Pattern
 
 object CommandParser {
@@ -101,6 +102,7 @@ object CommandParser {
         )
 
         fireEvent(CommandParseEvent(cc))
+        logDebug("Parsed command; CommandContainer=$cc")
         return cc
     }
 
@@ -111,14 +113,5 @@ object CommandParser {
             val args: List<String>,
             val argsLower: List<String>)
 
-    class CmdInstanceHandle internal constructor() {
-        var accepts: Boolean = false
-            private set
 
-        fun accept() = apply { accepts = true }
-        fun accept(callback: () -> (Unit)) = apply { accepts = true; callback.invoke() }
-
-        fun reject(e: Exception) = ExceptionHandler.handle(e)
-        fun reject(e: Exception, level: Errorlevel) = ExceptionHandler.handle(e, level)
-    }
 }
