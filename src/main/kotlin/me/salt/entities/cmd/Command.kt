@@ -17,56 +17,68 @@
 package me.salt.entities.cmd
 
 import me.salt.entities.permissions.Node
+import me.salt.util.exception.Errorlevel
+import me.salt.util.exception.ExceptionHandler
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
-/**
- * This class serves to be implemented by commands, such as the [HelloWorldCommand][me.salt.entities.cmd.commands.HelloWorldCommand].
- *
- * For a class to be able to use [CommandRegistry.register], it must implement this abstract class.
- *
- * Within this class are three methods:
- * - [preExecute]
- * - [execute]
- * - [postExecute]
- *
- * These methods are executed in this order, and aim to perform the following respective tasks:
- * - Analysing arguments and user input
- * - Executing the main bulk of the code, generating a response and working with verified parameters
- * - Cleaning up code that has been left behind (closing any network connections, shutting off worker threads, etc.)
- *
- * @constructor Stores important information about the command required for analysis and processing
- * @property cmdPrefix The prefix given to this command
- * @property aliases A list of aliases that should also be identified for this command. Allows extending of [cmdPrefix]
- * @property name The name of this command
- * @property description The description of this command
- * @property author The author of this command
- * @property perms The permissions required by an individual to call upon this command. This is different to any internal permission checks performed by the command, and should instead be used to deny complete calling of a command if the user lacks the given permissions
- */
-abstract class Command(
+class Command(
         val cmdPrefix: String,
         val aliases: MutableList<String> = mutableListOf(),
         val name: String,
         val description: String = "",
         val author: String = "",
-        val perms: List<Node> = emptyList()
+        val perms: List<Node> = emptyList(),
+
+        val preExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command,
+        val execute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command,
+        val postExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit
 ) {
-    /**
-     * @param cmd - A [CommandContainer][me.salt.entities.cmd.CommandParser.CommandContainer] generated in respect to the user input
-     * @param event - The [GuildMessageReceivedEvent] which relates to the user input; the event fired from the user inputting the command matching to the given implementation of [me.salt.entities.cmd.Command]
-     * @param instHandler - [CommandParser.CmdInstanceHandle] An instance of CmdInstanceHandle used to allow the [CommandListener][me.salt.entities.cmd.CommandListener] class to handle the order of execution
-     */
-    abstract fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle
 
-    /**
-     * @param cmd - A [CommandContainer][me.salt.entities.cmd.CommandParser.CommandContainer] generated in respect to the user input
-     * @param event - The [GuildMessageReceivedEvent] which relates to the user input; the event fired from the user inputting the command matching to the given implementation of [me.salt.entities.cmd.Command]
-     * @param instHandler - [CommandParser.CmdInstanceHandle] An instance of CmdInstanceHandle used to allow the [CommandListener][me.salt.entities.cmd.CommandListener] class to handle the order of execution
-     */
-    abstract fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle
+    init {
+        CommandRegistry.register(this)
+    }
+}
 
-    /**
-     * @param cmd - A [CommandContainer][me.salt.entities.cmd.CommandParser.CommandContainer] generated in respect to the user input
-     * @param event - The [GuildMessageReceivedEvent] which relates to the user input; the event fired from the user inputting the command matching to the given implementation of [Command][me.salt.entities.cmd.Command]
-     */
-    abstract fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent)
+class CommandBuilder(private var cmdPrefix: String, private var name: String) {
+    private var aliases: MutableList<String> = mutableListOf()
+    private var description: String = ""
+    private var author: String = ""
+    private var perms: List<Node> = emptyList()
+
+    private lateinit var preExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command
+    private lateinit var execute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command
+    private lateinit var postExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit
+
+    fun preExecute(block: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command): CommandBuilder {
+        this.preExecute = block
+        return this
+    }
+
+    fun execute(block: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command): CommandBuilder {
+        this.execute = block
+        return this
+    }
+
+    fun postExecute(block: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit): CommandBuilder {
+        this.postExecute = block
+        return this
+    }
+
+    fun build() = Command(cmdPrefix, aliases, name, description, author, perms, preExecute, execute, postExecute)
+
+    fun setCmdPrefix(prefix: String) = apply { cmdPrefix = prefix }
+    fun setName(name: String) = apply { this.name = name }
+    fun setDescription(description: String) = apply { this.description = description }
+    fun addAlias(vararg aliases: String) = apply { this.aliases.addAll(aliases) }
+}
+
+class CmdInstanceHandle internal constructor(private val cmd: Command) {
+    var accepts: Boolean = false
+        private set
+
+    fun accept(): Command = kotlin.run { accepts = true; cmd }
+    fun accept(callback: () -> (Unit)) = kotlin.run { accepts = true; callback.invoke(); cmd }
+
+    fun reject(e: Exception) = ExceptionHandler.handle(e)
+    fun reject(e: Exception, level: Errorlevel) = ExceptionHandler.handle(e, level)
 }

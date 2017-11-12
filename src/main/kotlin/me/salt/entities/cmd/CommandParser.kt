@@ -111,14 +111,5 @@ object CommandParser {
             val args: List<String>,
             val argsLower: List<String>)
 
-    class CmdInstanceHandle internal constructor() {
-        var accepts: Boolean = false
-            private set
 
-        fun accept() = apply { accepts = true }
-        fun accept(callback: () -> (Unit)) = apply { accepts = true; callback.invoke() }
-
-        fun reject(e: Exception) = ExceptionHandler.handle(e)
-        fun reject(e: Exception, level: Errorlevel) = ExceptionHandler.handle(e, level)
-    }
 }

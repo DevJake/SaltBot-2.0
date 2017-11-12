@@ -16,11 +16,6 @@
 
 package me.salt.entities.cmd.commands
 
-import me.salt.entities.cmd.Command
-import me.salt.entities.cmd.CommandParser
-import me.salt.entities.permissions.Node
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
-
 /**
  * This command takes in a mathematical expression specified by a user and parses it, then solves it in accordance to how specified.
  *
@@ -42,16 +37,4 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
  * - Square-root(*x*) : sqrt(*x*)
  * - *n*th-root(*x*) : (*n*)rt(*x*)
  */
-class MathCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {
-    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-
-    override fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
-        TODO("not implemented") //To change body of created functions use File | Settings | File Templates.
-    }
-}
+class MathCommand

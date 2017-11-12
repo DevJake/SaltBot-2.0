@@ -25,19 +25,5 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
  * This command serves a simple purpose of responding with 'Hello, {username}', where username is the nickname of the command sender.
  * This exists so as to ensure the command system is functional as expected -- useful for front-end debugging.
  */
-class HelloWorldCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {
-    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
-        return instHandler.accept()
-    }
-
-    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
-        //Run command
-        event.channel.sendMessage("Hello, ${event.author.name}").queue()
-        return instHandler.accept()
-    }
-
-    override fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
-        //Cleanup
-    }
+class HelloWorldCommand {
 }
-

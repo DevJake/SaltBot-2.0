@@ -16,10 +16,18 @@
 
 package me.salt.entities.cmd
 
-import me.salt.entities.cmd.commands.HelloWorldCommand
-
 fun initCommands() {
     //TODO init commands
 
-    CommandRegistry.register(HelloWorldCommand("hello", mutableListOf(), "Hello World", "", "", emptyList()))
+    CommandBuilder("hello", "Hello World")
+            .preExecute { cmd, event, instHandler -> println("Hello 1"); instHandler.accept() }
+            .preExecute { cmd, event, instHandler -> println("Hello 2"); instHandler.accept() }
+
+            .execute { cmd, event, instHandler -> println("Hello2 1"); instHandler.accept() }
+            .execute { cmd, event, instHandler -> println("Hello2 2"); instHandler.accept() }
+
+            .postExecute { cmd, event -> println("Hello3 1") }
+            .postExecute { cmd, event -> println("Hello3 2") }
+            .build()
+
 }
