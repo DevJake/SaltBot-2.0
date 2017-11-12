@@ -29,14 +29,19 @@ class Command(
         val author: String = "",
         val perms: List<Node> = emptyList(),
 
-        val preExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command,
-        val execute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command,
-        val postExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit
+        val preExecute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command)?,
+        val execute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command)?,
+        val postExecute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit)?
 ) {
-
     init {
         CommandRegistry.register(this)
     }
+
+    override fun toString(): String {
+        return "Command(cmdPrefix='$cmdPrefix', aliases=$aliases, name='$name', description='$description', author='$author', perms=$perms)"
+    }
+
+
 }
 
 class CommandBuilder(private var cmdPrefix: String, private var name: String) {
@@ -45,9 +50,9 @@ class CommandBuilder(private var cmdPrefix: String, private var name: String) {
     private var author: String = ""
     private var perms: List<Node> = emptyList()
 
-    private lateinit var preExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command
-    private lateinit var execute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command
-    private lateinit var postExecute: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit
+    private var preExecute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command)? = null
+    private var execute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command)? = null
+    private var postExecute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) -> Unit)? = null
 
     fun preExecute(block: (cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command): CommandBuilder {
         this.preExecute = block

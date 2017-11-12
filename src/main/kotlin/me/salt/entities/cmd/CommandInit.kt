@@ -20,14 +20,7 @@ fun initCommands() {
     //TODO init commands
 
     CommandBuilder("hello", "Hello World")
-            .preExecute { cmd, event, instHandler -> println("Hello 1"); instHandler.accept() }
-            .preExecute { cmd, event, instHandler -> println("Hello 2"); instHandler.accept() }
-
-            .execute { cmd, event, instHandler -> println("Hello2 1"); instHandler.accept() }
-            .execute { cmd, event, instHandler -> println("Hello2 2"); instHandler.accept() }
-
-            .postExecute { cmd, event -> println("Hello3 1") }
-            .postExecute { cmd, event -> println("Hello3 2") }
+            .execute { _, event, instHandler -> event.channel.sendMessage("Hello, ${event.author.name}").queue(); instHandler.accept() }
             .build()
 
 }

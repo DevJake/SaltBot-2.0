@@ -27,6 +27,7 @@ import me.salt.entities.objects.getConfig
 import me.salt.util.events.CommandParseEvent
 import me.salt.util.events.fireEvent
 import me.salt.util.exception.*
+import me.salt.util.logging.logDebug
 import java.util.regex.Pattern
 
 object CommandParser {
@@ -101,6 +102,7 @@ object CommandParser {
         )
 
         fireEvent(CommandParseEvent(cc))
+        logDebug("Parsed command; CommandContainer=$cc")
         return cc
     }
 
