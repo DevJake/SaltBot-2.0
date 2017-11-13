@@ -26,8 +26,7 @@ import me.salt.util.exception.ExcessiveValueException
 import me.salt.util.exception.exception
 import java.util.concurrent.TimeUnit
 
-class SaltConfigBuilder(botToken: String) : ConfigBuilder {
-    private var botToken: String = botToken
+class SaltConfigBuilder(private var botToken: String) : ConfigBuilder {
     private var botSafeMode: Boolean = false
     private var modules: MutableList<Module> = mutableListOf()
     private var globalAdmins: MutableList<Admin> = mutableListOf(Admin("Salt", "tobesorted"))

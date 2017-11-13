@@ -31,20 +31,13 @@ object SearchUtil {
         EVENT,
         REST_ENDPOINT,
         CONFIG,
-        LOG_TYPE
+        LOG_TYPE,
+        MODIFIED_MESSAGE,
     }
 
     fun addSearchables(vararg elements: SearchElement) = searchables.addAll(elements)
     fun removeSearchables(vararg elements: SearchElement) = searchables.removeAll(elements)
 }
-
-class RestEndpointSearchElement(
-        category: SearchUtil.SearchCategory,
-        tags: List<String>,
-        description: String?,
-        private val context: (Context) -> () -> Context,
-        private val endpoint: String
-) : SearchUtil.SearchElement(category, tags, description)
 
 class SearchBuilder {
     //Must contain all given tags
@@ -107,3 +100,20 @@ class SearchBuilder {
     private data class DateRange(val lowerBound: OffsetDateTime, val upperBound: OffsetDateTime? = null)
 
 }
+
+class RestEndpointSearchElement(
+        category: SearchUtil.SearchCategory,
+        tags: List<String>,
+        description: String?,
+        private val context: (Context) -> () -> Context,
+        private val endpoint: String
+) : SearchUtil.SearchElement(category, tags, description)
+
+
+
+class ModifiedSearchElement(
+        category: SearchUtil.SearchCategory,
+        tags: List<String>,
+        description: String?
+) : SearchUtil.SearchElement(category, tags, description)
+

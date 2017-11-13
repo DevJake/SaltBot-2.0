@@ -31,7 +31,7 @@ fun initConfigs() {
     Configs.salt.LANGUAGE_MAP.overwriteConfig(
             LanguageMap()
                     .addLang(CustomLang("EN_GB", null, null, null, mapOf(Pair(LangTerm.BOT_WELCOME, "Welcome **user**!")))))
-    
+
     //TODO add check that a config is being written to the correct location, such as preventing a filteringmap instance being written to a non-filteringmap.yaml file
 
     checkConfigs()

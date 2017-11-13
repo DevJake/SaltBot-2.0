@@ -17,5 +17,6 @@
 package me.salt.entities
 
 enum class Constants(val value: String) {
-    CONFIG_DIR("\\Data")
+    CONFIG_DIR("\\Data"),
+    LOG_DIR("\\Logs")
 }
