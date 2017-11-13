@@ -24,5 +24,5 @@ object CommandRegistry {
     fun register(vararg commands: Command) = apply { this.commands.addAll(commands) }
     fun unregister(vararg commands: Command) = apply { this.commands.removeAll(commands) }
 
-    fun getCommands() = commands
+    fun getCommands() = commands.toList()
 }
