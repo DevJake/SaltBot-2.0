@@ -17,33 +17,29 @@
 package me.salt.entities.cmd
 
 import com.winterbe.expekt.should
-import me.salt.util.exception.PostExecuteCommandFailureException
-import me.salt.util.exception.exception
-import me.salt.entities.permissions.Node
 import me.salt.util.exception.ExceptionHandler
-import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import org.junit.jupiter.api.Assertions
 
-class CommandRegistryTest: Spek({
+class CommandRegistryTest : Spek({
     ExceptionHandler.isTesting = true
-    context("registering commands"){
+    context("registering commands") {
         on("registering a single command") {
-            it("should register the given command"){
-                val testCommand0 = TestCommand("TestCommand", mutableListOf(), "", "", "", emptyList())
+            it("should register the given command") {
+                val testCommand0 = CommandBuilder("TestCommand", "testcmd").build()
                 CommandRegistry.register(testCommand0)
                 CommandRegistry.getCommands().should.contain(testCommand0)
             }
         }
 
         on("registering multiple commands") {
-            it("should register the given commands"){
-                val commands1 = TestCommand("TestCommand0", mutableListOf(), "", "", "", emptyList())
-                val commands2 = TestCommand("TestCommand1", mutableListOf(), "", "", "", emptyList())
-                val commands3 = TestCommand("TestCommand2", mutableListOf(), "", "", "", emptyList())
+            it("should register the given commands") {
+                val commands1 = CommandBuilder("TestCommand0", "testcmd").build()
+                val commands2 = CommandBuilder("TestCommand1", "testcmd").build()
+                val commands3 = CommandBuilder("TestCommand2", "testcmd").build()
                 CommandRegistry.register(commands1, commands2, commands3)
                 val commands = CommandRegistry.getCommands()
                 Assertions.assertTrue(
@@ -54,10 +50,10 @@ class CommandRegistryTest: Spek({
         }
     }
 
-    context("unregistering commands"){
+    context("unregistering commands") {
         on("registering a single command") {
-            it("should register the given command"){
-                val testCommand0 = TestCommand("TestCommand", mutableListOf(), "", "", "", emptyList())
+            it("should register the given command") {
+                val testCommand0 = CommandBuilder("TestCommand", "testcmd").build()
                 CommandRegistry.register(testCommand0)
                 CommandRegistry.unregister(testCommand0)
                 CommandRegistry.getCommands().should.not.contain(testCommand0)
@@ -65,10 +61,10 @@ class CommandRegistryTest: Spek({
         }
 
         on("registering multiple commands") {
-            it("should register the given commands"){
-                val commands1 = TestCommand("TestCommand0", mutableListOf(), "", "", "", emptyList())
-                val commands2 = TestCommand("TestCommand1", mutableListOf(), "", "", "", emptyList())
-                val commands3 = TestCommand("TestCommand2", mutableListOf(), "", "", "", emptyList())
+            it("should register the given commands") {
+                val commands1 = CommandBuilder("TestCommand0", "testcmd").build()
+                val commands2 = CommandBuilder("TestCommand1", "testcmd").build()
+                val commands3 = CommandBuilder("TestCommand2", "testcmd").build()
                 CommandRegistry.register(commands1, commands2, commands3)
                 CommandRegistry.unregister(commands1, commands2, commands3)
                 val commands = CommandRegistry.getCommands()
@@ -77,18 +73,3 @@ class CommandRegistryTest: Spek({
         }
     }
 })
-
-class TestCommand(cmdPrefix: String, aliases: MutableList<String>, name: String, description: String, author: String, perms: List<Node>) : Command(cmdPrefix, aliases, name, description, author, perms) {
-    override fun preExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
-        return instHandler.accept()
-    }
-
-    override fun execute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CommandParser.CmdInstanceHandle): CommandParser.CmdInstanceHandle {
-        return instHandler.accept()
-    }
-
-    override fun postExecute(cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent) {
-        exception(PostExecuteCommandFailureException())
-    }
-
-}
