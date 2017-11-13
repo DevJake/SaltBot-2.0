@@ -17,19 +17,18 @@
 package me.salt.entities.config.entities
 
 import com.winterbe.expekt.should
-import me.salt.util.exception.ExcessiveValueException
 import me.salt.entities.lang.LangCode
 import me.salt.entities.objects.Admin
 import me.salt.entities.objects.Module
 import me.salt.util.SimpleRGBColour
 import me.salt.util.exception.ExceptionHandler
+import me.salt.util.exception.ExcessiveValueException
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given
 import org.jetbrains.spek.api.dsl.it
 import org.jetbrains.spek.api.dsl.on
 import java.util.concurrent.TimeUnit
-import kotlin.test.fail
 
 class SaltConfigBuilderTest : Spek({
     ExceptionHandler.isTesting = true
@@ -96,16 +95,16 @@ class SaltConfigBuilderTest : Spek({
                 }
             }
 
-            on("updating the botSafeMode value to true"){
+            on("updating the botSafeMode value to true") {
                 subject.setBotSafeMode(true)
-                it("should update botSafeMode to true"){
+                it("should update botSafeMode to true") {
                     (subject.build() as SaltConfig).botSafeMode.should.be.`true`
                 }
             }
 
-            on("updating the respondToMentions value to false"){
+            on("updating the respondToMentions value to false") {
                 subject.setRespondToMentions(false)
-                it("should update respondToMentions to false"){
+                it("should update respondToMentions to false") {
                     (subject.build() as SaltConfig).respondToMentions.should.be.`false`
                 }
             }
@@ -308,44 +307,44 @@ class SaltConfigBuilderTest : Spek({
                 }
             }
 
-            on("setting the default cooldown value to 200 SECONDS"){
+            on("setting the default cooldown value to 200 SECONDS") {
                 subject.setDefaultCooldownValue(TimeUnit.SECONDS, 200)
-                it("should update defaultCooldownValue to 200"){
+                it("should update defaultCooldownValue to 200") {
                     (subject.build() as SaltConfig).defaultCooldownValue.should.equal(200)
                 }
             }
 
-            on("setting the default cooldown value to 5 MINUTES"){
+            on("setting the default cooldown value to 5 MINUTES") {
                 subject.setDefaultCooldownValue(TimeUnit.MINUTES, 5)
-                it("should update defaultCooldownValue to 1800"){
+                it("should update defaultCooldownValue to 1800") {
                     (subject.build() as SaltConfig).defaultCooldownValue.should.equal(300)
                 }
             }
 
-            on("attempting to set the default cooldown value to below 0"){
-                it("should throw an ExcessiveValueException"){
-                        subject.setDefaultCooldownValue(TimeUnit.MINUTES, -1)
-                        ExceptionHandler.latestException.should.be.instanceof(ExcessiveValueException::class.java)
-                }
-            }
-
-            on("attempting to set the default cooldown value to above 24 hours (86400 seconds)"){
-                it("should throw an ExcessiveValueException"){
-                        subject.setDefaultCooldownValue(TimeUnit.SECONDS, 86401)
+            on("attempting to set the default cooldown value to below 0") {
+                it("should throw an ExcessiveValueException") {
+                    subject.setDefaultCooldownValue(TimeUnit.MINUTES, -1)
                     ExceptionHandler.latestException.should.be.instanceof(ExcessiveValueException::class.java)
                 }
             }
 
-            on("setting the default embed colour"){
+            on("attempting to set the default cooldown value to above 24 hours (86400 seconds)") {
+                it("should throw an ExcessiveValueException") {
+                    subject.setDefaultCooldownValue(TimeUnit.SECONDS, 86401)
+                    ExceptionHandler.latestException.should.be.instanceof(ExcessiveValueException::class.java)
+                }
+            }
+
+            on("setting the default embed colour") {
                 subject.setDefaultEmbedColour(SimpleRGBColour(255, 0, 77))
-                it("should update the value of defaultEmbedColour"){
+                it("should update the value of defaultEmbedColour") {
                     (subject.build() as SaltConfig).defaultEmbedColour.should.equal(SimpleRGBColour(255, 0, 77))
                 }
             }
 
-            on("setting the default LangCode"){
+            on("setting the default LangCode") {
                 subject.setDefaultLangCode(LangCode.EN_GB)
-                it("should update the value of defaultLangCode to LangCode.en_GB"){
+                it("should update the value of defaultLangCode to LangCode.en_GB") {
                     (subject.build() as SaltConfig).defaultLangCode.should.equal(LangCode.EN_GB)
                 }
             }

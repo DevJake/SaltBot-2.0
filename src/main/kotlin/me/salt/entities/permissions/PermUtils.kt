@@ -19,14 +19,14 @@ package me.salt.entities.permissions
 import me.salt.entities.config.Configs
 import me.salt.entities.config.Handler
 import me.salt.entities.config.entities.PermissionMap
+import me.salt.entities.objects.Action
+import me.salt.entities.objects.getConfig
 import me.salt.util.events.PermissionCheckEvent
 import me.salt.util.events.PermissionRegisterEvent
 import me.salt.util.events.PermissionUnregisterEvent
 import me.salt.util.events.fireEvent
 import me.salt.util.exception.ConfigMissingValueException
 import me.salt.util.exception.exception
-import me.salt.entities.objects.Action
-import me.salt.entities.objects.getConfig
 import net.dv8tion.jda.core.entities.Guild
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.entities.User
@@ -48,8 +48,7 @@ object PermUtils {
         val tempEntityId: String =
                 if (entityId == null && level != Authority.Level.BOT) {
                     exception(ConfigMissingValueException()); ""
-                }
-                else entityId.toString()
+                } else entityId.toString()
 
         return when (level) {
             Authority.Level.BOT -> Configs.salt.PERMISSIONS_MAP
@@ -96,7 +95,7 @@ object PermUtils {
                 groupsToCheck?.forEach { group ->
                     indistinctPermList
                             .removeAll(group.permissions?.mapTo(mutableListOf(), { it.node }) ?:
-                                    { exception(ConfigMissingValueException()); emptyList<String>() } ())
+                                    { exception(ConfigMissingValueException()); emptyList<String>() }())
                 }
                 return indistinctPermList.isEmpty()
                 /*
@@ -118,10 +117,16 @@ object PermUtils {
             checkHasPerms(Authority.Level.BOT, nodes, null, user)
 
     fun hasGuildAuthority(user: User, guild: Guild, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
-            hasGuildPermissions(user, guild, authority.getAuthorityNodes().mapTo(mutableListOf(), { Node(it) }), checkGroups)
+            hasGuildPermissions(user,
+                    guild,
+                    authority.getAuthorityNodes().mapTo(mutableListOf(), { Node(it) }),
+                    checkGroups)
 
     fun hasChannelAuthority(user: User, channel: TextChannel, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
-            hasChannelPermissions(user, channel, authority.getAuthorityNodes().mapTo(mutableListOf(), { Node(it) }), checkGroups)
+            hasChannelPermissions(user,
+                    channel,
+                    authority.getAuthorityNodes().mapTo(mutableListOf(), { Node(it) }),
+                    checkGroups)
 
     fun hasBotAuthority(user: User, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
             hasBotPermissions(user, authority.getAuthorityNodes().mapTo(mutableListOf(), { Node(it) }), checkGroups)

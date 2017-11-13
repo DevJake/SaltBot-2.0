@@ -26,7 +26,8 @@ import me.salt.util.logging.logDebug
 import java.io.File
 
 object GenUtil {
-    val saltResourceDir = File(File(Main::class.java.protectionDomain.codeSource.location.toURI()).parentFile, "Resources")
+    val saltResourceDir = File(File(Main::class.java.protectionDomain.codeSource.location.toURI()).parentFile,
+            "Resources")
 
     //TODO log directory/file creation. Logging system needs a log-cache, where entries are saved before mass-flushing.
     fun createDirFromResources(dirPath: String) {

@@ -18,13 +18,13 @@ package me.salt.entities.config.entities
 
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.entities.config.Handler
-import me.salt.util.exception.ConfigMissingValueException
-import me.salt.util.exception.exception
 import me.salt.entities.lang.LangTerm
 import me.salt.entities.lang.LangUtils
 import me.salt.entities.objects.*
 import me.salt.entities.permissions.GroupPermission
 import me.salt.entities.permissions.UserPermission
+import me.salt.util.exception.ConfigMissingValueException
+import me.salt.util.exception.exception
 
 class PermissionMap : ConfigMap {
     @JsonProperty("Groups")
@@ -147,6 +147,9 @@ whilst keeping any unmodified base terms
  */
 data class CustomLang(val languageName: String, val author: String?, val permission: String?, val languageOverride: LanguageOverride?, val termMap: Map<LangTerm, String>) {
     fun getTerm(langTerm: LangTerm) = LangUtils.getTerm(this, langTerm)
-    fun getTerm(langTerm: LangTerm, replacements: MutableMap<String, String>) = LangUtils.getTerm(this, langTerm, replacements)
+    fun getTerm(langTerm: LangTerm, replacements: MutableMap<String, String>) = LangUtils.getTerm(this,
+            langTerm,
+            replacements)
+
     class LanguageOverride(val handler: Handler, val languageName: String)
 }

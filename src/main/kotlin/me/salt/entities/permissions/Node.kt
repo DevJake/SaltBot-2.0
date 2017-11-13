@@ -20,9 +20,9 @@ import com.fasterxml.jackson.annotation.JsonCreator
 import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
+import me.salt.entities.objects.Interaction
 import me.salt.util.exception.ConfigMissingValueException
 import me.salt.util.exception.exception
-import me.salt.entities.objects.Interaction
 import java.util.regex.Pattern
 
 @JsonInclude(JsonInclude.Include.NON_NULL)
@@ -42,7 +42,7 @@ class Node {
         this.node = node
     }
 
-//    constructor(node: String, type: NodeType, negate: Boolean, segments: MutableList<NodeSegment>, authority: Authority.NodeAuthority) {
+    //    constructor(node: String, type: NodeType, negate: Boolean, segments: MutableList<NodeSegment>, authority: Authority.NodeAuthority) {
 //        this.node = node
 //        this.type = type
 //        this.negate = negate
@@ -60,7 +60,8 @@ class Node {
 
     @JsonProperty("authority")
     private fun getJacksonAuthority() =
-            if (!(authority?.levels?.contains(Authority.Level.NONE) ?: true && authority?.interactions?.contains(Interaction.ALL) ?: true)) authority else null
+            if (!(authority?.levels?.contains(Authority.Level.NONE) ?: true && authority?.interactions?.contains(
+                    Interaction.ALL) ?: true)) authority else null
 
 //    PermUtils.registerPermission(this) //Inform the bot of this permission's existence
 

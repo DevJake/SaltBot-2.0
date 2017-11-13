@@ -58,7 +58,10 @@ class SearchBuilder {
 
     fun withSetDateTime(vararg dateTimes: OffsetDateTime) = apply { dateTimes.forEach { dateTimeFilter.add(DateRange(it)) } }
 
-    fun withSetDateTimeRange(startDate: OffsetDateTime, endDate: OffsetDateTime) = apply { dateTimeFilter.add(DateRange(startDate, endDate)) }
+    fun withSetDateTimeRange(startDate: OffsetDateTime, endDate: OffsetDateTime) = apply {
+        dateTimeFilter.add(DateRange(startDate,
+                endDate))
+    }
 
     fun withCategories(vararg categories: SearchUtil.SearchCategory) = apply { categoryFilter.addAll(categories) }
 
@@ -92,7 +95,8 @@ class SearchBuilder {
 
                 searched.filter { se ->
                     val singleDt = dateTimeFilter.filter { it.upperBound == null }.map { it.lowerBound }
-                    singleDt.any { it.isEqual(se.dateTime) } && (se.dateTime.isAfter(lBound?.lowerBound) && se.dateTime.isBefore(uBound?.upperBound))
+                    singleDt.any { it.isEqual(se.dateTime) } && (se.dateTime.isAfter(lBound?.lowerBound) && se.dateTime.isBefore(
+                            uBound?.upperBound))
                 }
             }
         }

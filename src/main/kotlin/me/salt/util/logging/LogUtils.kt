@@ -18,10 +18,10 @@ package me.salt.util.logging
 
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltLogConfig
-import me.salt.util.events.Event
-import me.salt.util.exception.ConfigMissingValueException
 import me.salt.entities.objects.getConfig
 import me.salt.entities.objects.writeConfig
+import me.salt.util.events.Event
+import me.salt.util.exception.ConfigMissingValueException
 import me.salt.util.exception.LogEntryIdGenMissingIdException
 import me.salt.util.exception.exception
 import java.time.Instant
@@ -37,6 +37,8 @@ object LogUtils {
     init {
         Configs.salt.LOG_CONFIG.writeConfig(SaltLogConfig(true, true, true, true, mutableListOf()))
     }
+
+    //TODO add 'spacer'; spacing out messages so that they're consistent, such as ensuring time fragment is properly spaced if below normal length ([2017-11-13T00:29:59.572Z] vs [2017-11-13T00:30Z])
 
     private fun flushCache() {
         if (cache.size < 100) return
@@ -153,11 +155,24 @@ object LogUtils {
     data class EntryId(val fullToken: String, val givenId: String, val dateTime: OffsetDateTime)
 }
 
-fun logInfo(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.info(optional, src).log(message)
-fun logDebug(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.debug(optional, src).log(message)
-fun logWarn(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.warn(optional, src).log(message)
-fun logSevere(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.severe(optional, src).log(message)
-fun logFatal(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.fatal(optional, src).log(message)
-fun logException(exception: Exception, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.exception(optional, src).log(exception)
+fun logInfo(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.info(optional,
+        src).log(message)
 
-fun logEasy(message: String, src: LogUtils.LogSource? = null) = LogUtils.info(Configs.salt.LOG_CONFIG.getConfig(SaltLogConfig::class.java)?.easyLogMessage ?: "EASYLOG", src).log(message)
+fun logDebug(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.debug(optional,
+        src).log(message)
+
+fun logWarn(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.warn(optional,
+        src).log(message)
+
+fun logSevere(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.severe(optional,
+        src).log(message)
+
+fun logFatal(message: String, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.fatal(optional,
+        src).log(message)
+
+fun logException(exception: Exception, optional: String? = null, src: LogUtils.LogSource? = null) = LogUtils.exception(
+        optional,
+        src).log(exception)
+
+fun logEasy(message: String, src: LogUtils.LogSource? = null) = LogUtils.info(Configs.salt.LOG_CONFIG.getConfig(
+        SaltLogConfig::class.java)?.easyLogMessage ?: "EASYLOG", src).log(message)

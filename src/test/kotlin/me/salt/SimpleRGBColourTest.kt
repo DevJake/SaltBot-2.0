@@ -17,9 +17,6 @@
 package me.salt
 
 import com.winterbe.expekt.should
-import me.salt.entities.config.Configs
-import me.salt.entities.config.entities.SaltLogConfig
-import me.salt.entities.objects.overwriteConfig
 import me.salt.util.SimpleRGBColour
 import me.salt.util.exception.ColourValueException
 import me.salt.util.exception.ExceptionHandler
@@ -73,7 +70,7 @@ class SimpleRGBColourTest : Spek({
 
                 on("updating and requesting the value of green to -10") {
                     it("should throw a ColourValueException") {
-                            subject.red = -10
+                        subject.red = -10
                         ExceptionHandler.latestException.should.be.an.instanceof(ColourValueException::class.java)
                     }
                 }
@@ -87,13 +84,13 @@ class SimpleRGBColourTest : Spek({
 
                 on("providing an invalid value for transparency (-10)") {
                     it("should throw a ColourValueException") {
-                            subject.transparency = -10
+                        subject.transparency = -10
                         ExceptionHandler.latestException.should.be.an.instanceof(ColourValueException::class.java)
                     }
 
                     it("should throw a ColourValueException with a set message") {
-                            subject.transparency = -10
-                            ExceptionHandler.latestException?.message.should.equal("The value for transparency must be between 0 and 255")
+                        subject.transparency = -10
+                        ExceptionHandler.latestException?.message.should.equal("The value for transparency must be between 0 and 255")
                     }
                 }
             }
@@ -103,14 +100,14 @@ class SimpleRGBColourTest : Spek({
             given("an instance of SimpleRGBColour") {
                 on("providing incorrect values and no transparency as parameters") {
                     it("should throw a ColourValueException") {
-                            SimpleRGBColour(0, 0, 400)
+                        SimpleRGBColour(0, 0, 400)
                         ExceptionHandler.latestException.should.be.instanceof(ColourValueException::class.java)
                     }
                 }
 
                 on("providing an incorrect value for the transparency parameter") {
                     it("should throw a ColourValueException") {
-                            SimpleRGBColour(0, 0, 100, 400)
+                        SimpleRGBColour(0, 0, 100, 400)
                         ExceptionHandler.latestException.should.be.instanceof(ColourValueException::class.java)
                     }
                 }

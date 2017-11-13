@@ -18,9 +18,9 @@ package me.salt.entities.lang
 
 import me.salt.entities.config.entities.CustomLang
 import me.salt.entities.config.entities.LanguageMap
+import me.salt.entities.objects.getConfig
 import me.salt.util.exception.ConfigMissingValueException
 import me.salt.util.exception.exception
-import me.salt.entities.objects.getConfig
 import java.util.regex.Pattern
 
 object LangUtils {
@@ -39,7 +39,7 @@ object LangUtils {
                     repl.get(matcher.group(0)
                             .removeSurrounding("**", "**")
                             .toLowerCase())
-                            ?: { exception(ConfigMissingValueException()); "" } (), //TODO update to better exception. Means we didn't give the proper name of the variable
+                            ?: { exception(ConfigMissingValueException()); "" }(), //TODO update to better exception. Means we didn't give the proper name of the variable
                     true)
 //                else throw ConfigHandlerException("Uhh ohh...") //TODO use different exception + more useful message
         }
@@ -55,21 +55,21 @@ object LangUtils {
 
         if (lang.termMap.containsKey(langTerm)) return lang.termMap.get(langTerm).toString()
 
-            if (lang.languageOverride == null)
-                exception(ConfigMissingValueException()) //TODO change exception and add message
-            //There is no higher language to check
-            val lMap = lang.languageOverride?.handler?.getConfig(LanguageMap::class.java)
-            val filtered = lMap?.languages?.filter { lang.languageOverride.languageName == it.languageName }
-            if (filtered?.isEmpty() as Boolean || filtered.size != 1)
-                exception(ConfigMissingValueException()) //TODO change exception and add message
-            /*
-            Checked the overriden language, but it has no languages matching the one specified,
-            or too many matching languages.
+        if (lang.languageOverride == null)
+            exception(ConfigMissingValueException()) //TODO change exception and add message
+        //There is no higher language to check
+        val lMap = lang.languageOverride?.handler?.getConfig(LanguageMap::class.java)
+        val filtered = lMap?.languages?.filter { lang.languageOverride.languageName == it.languageName }
+        if (filtered?.isEmpty() as Boolean || filtered.size != 1)
+            exception(ConfigMissingValueException()) //TODO change exception and add message
+        /*
+        Checked the overriden language, but it has no languages matching the one specified,
+        or too many matching languages.
 
-            This is a fail-safe check, as checkLangChain already checks this for us.
-             */
+        This is a fail-safe check, as checkLangChain already checks this for us.
+         */
 
-            return getTerm(filtered.get(0), langTerm)
+        return getTerm(filtered.get(0), langTerm)
         //Recursive call to this method to check the overriden language's superior language
     }
 

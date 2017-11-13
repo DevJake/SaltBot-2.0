@@ -21,8 +21,8 @@ import com.rollbar.notifier.Rollbar
 import com.rollbar.notifier.config.ConfigBuilder
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltConfig
-import me.salt.util.logging.logException
 import me.salt.entities.objects.getConfig
+import me.salt.util.logging.logException
 
 object ExceptionHandler {
     private val s = Server.Builder().build()
@@ -33,12 +33,12 @@ object ExceptionHandler {
             .build() ?: throw RollbarInitException("SaltConfig lacks a value for rollbarAccessToken! Does it exist?")
     private val rb = Rollbar.init(c)
     var latestException: Exception? = null
-    private set
-    get() {
-        val b = field
-        latestException = null
-        return b
-    }
+        private set
+        get() {
+            val b = field
+            latestException = null
+            return b
+        }
 
     var isTesting = false
 

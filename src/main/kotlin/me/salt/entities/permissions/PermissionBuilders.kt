@@ -16,9 +16,9 @@
 
 package me.salt.entities.permissions
 
+import me.salt.entities.objects.PermRole
 import me.salt.util.exception.BuilderValueException
 import me.salt.util.exception.exception
-import me.salt.entities.objects.PermRole
 import java.util.regex.Pattern
 
 class UserPermissionBuilder(userId: String) {
@@ -64,5 +64,7 @@ class GroupPermissionBuilder(groupName: String) {
     fun removeEnforcements(vararg nodes: Node) = apply { enforcements.removeAll(nodes) }
 
     fun setApplyToAllUsers(applyToAllUsers: Boolean) = apply { this.applyToAllUsers = applyToAllUsers }
-    fun setApplyToUsersWithRole(vararg applyToUsersWithRole: PermRole) = apply { this.applyToUsersWithRole.addAll(applyToUsersWithRole) }
+    fun setApplyToUsersWithRole(vararg applyToUsersWithRole: PermRole) = apply {
+        this.applyToUsersWithRole.addAll(applyToUsersWithRole)
+    }
 }

@@ -34,7 +34,12 @@ import java.time.OffsetDateTime
 object RestController {
     private val javalin = Javalin.create().port(80)
 
-    private val tokens = mutableListOf<AccessToken>().plus(AccessToken("pp487", false, "salt", OffsetDateTime.now(), emptyList(), 0)).toMutableList()
+    private val tokens = mutableListOf<AccessToken>().plus(AccessToken("pp487",
+            false,
+            "salt",
+            OffsetDateTime.now(),
+            emptyList(),
+            0)).toMutableList()
 
     private val paths = mutableMapOf<String, (Context) -> () -> (Context)>()
 
@@ -128,9 +133,12 @@ object RestController {
     private fun postInvoke(path: String, call: (Context) -> () -> Context) {
         if (paths.filter { it.key == path || it.value == call }.isEmpty()) {
             paths.put(path, call)
-            SearchUtil.addSearchables(RestEndpointSearchElement(SearchUtil.SearchCategory.REST_ENDPOINT, path.split("/"), null, call, path))
-        }
-        else
+            SearchUtil.addSearchables(RestEndpointSearchElement(SearchUtil.SearchCategory.REST_ENDPOINT,
+                    path.split("/"),
+                    null,
+                    call,
+                    path))
+        } else
             exception(DuplicateRestEndpointException("The endpoint with path $path already shares either the path, function call, or both factors with another endpoint!"))
     }
 
@@ -138,7 +146,9 @@ object RestController {
     private fun callLog(ctx: Context, type: String) = logDebug("Received ${type.toUpperCase()} request at endpoint ${ctx.path()} IP: ${ctx.ip()}")
     //TODO replace with call to ctx to obtain specific type, rather than relying on it being passed in as a parameter
 
-    fun start() { javalin.start() }
+    fun start() {
+        javalin.start()
+    }
 
     fun stop() = { javalin.stop() }
 
@@ -213,7 +223,8 @@ fun initRest() {
     addGet("/logs/user/:id/:entry", { LogController.getUserLogByIdAndEntryType(it) })
     addGet("/logs/salt/:id/:datetime/:entry", { LogController.getSaltLogByIdAndDateTimeAndEntryType(it) })
     addGet("/logs/guild/:id/:datetime/:entry", { LogController.getGuildLogByIdAndDateTimeAndEntryType(it) })
-    addGet("/logs/voicechannel/:id/:datetime/:entry", { LogController.getVoiceChannelLogByIdAndDateTimeAndEntryType(it) })
+    addGet("/logs/voicechannel/:id/:datetime/:entry",
+            { LogController.getVoiceChannelLogByIdAndDateTimeAndEntryType(it) })
     addGet("/logs/channel/:id/:datetime/:entry", { LogController.getChannelLogByIdAndDateTimeAndEntryType(it) })
     addGet("/logs/user/:id/:datetime/:entry", { LogController.getUserLogByIdAndDateTimeAndEntryType(it) })
     addGet("/logs/salt/:entry", { LogController.getSaltLogByEntryType(it) })

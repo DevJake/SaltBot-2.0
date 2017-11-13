@@ -24,18 +24,18 @@ import com.fasterxml.jackson.databind.ObjectMapper
 import com.fasterxml.jackson.dataformat.yaml.YAMLFactory
 import com.fasterxml.jackson.dataformat.yaml.YAMLGenerator
 import com.fasterxml.jackson.module.kotlin.registerKotlinModule
+import me.salt.entities.Constants
 import me.salt.entities.config.entities.Configuration
 import me.salt.entities.config.entities.SaltConfig
-import me.salt.entities.Constants
+import me.salt.entities.objects.Interaction
+import me.salt.entities.objects.isEmpty
+import me.salt.util.GenUtil
 import me.salt.util.events.ConfigInteractEvent
 import me.salt.util.events.fireEvent
 import me.salt.util.exception.ConfigIllegalFieldException
 import me.salt.util.exception.ConfigMissingValueException
 import me.salt.util.exception.ConfigWriteException
 import me.salt.util.exception.exception
-import me.salt.entities.objects.Interaction
-import me.salt.entities.objects.isEmpty
-import me.salt.util.GenUtil
 import java.io.File
 import java.io.IOException
 
@@ -47,7 +47,8 @@ object ConfigHandler {
             .disable(YAMLGenerator.Feature.WRITE_DOC_START_MARKER))
             .setSerializationInclusion(JsonInclude.Include.NON_ABSENT)
 
-    private fun getFile(handler: Handler): File = File(File(GenUtil.saltResourceDir, Constants.CONFIG_DIR.value), handler.expectedPath)
+    private fun getFile(handler: Handler): File = File(File(GenUtil.saltResourceDir, Constants.CONFIG_DIR.value),
+            handler.expectedPath)
 
     fun configExists(handler: Handler) = getFile(handler).exists()
 

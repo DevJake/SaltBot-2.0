@@ -17,6 +17,7 @@
 package me.salt.util
 
 import java.util.regex.Pattern
+
 typealias Arguments = List<String>
 typealias ResultsMap = Map<String, ArgsProcessor.ArgComponent>
 
@@ -32,15 +33,22 @@ object ArgsProcessor {
         return ArgumentReport(map)
     }
 
-    fun process(argString: String, argumentHandler: Argument) = process(argString.split(Pattern.compile("-[a-zA-Z]")), argumentHandler)
+    fun process(argString: String, argumentHandler: Argument) = process(argString.split(Pattern.compile("-[a-zA-Z]")),
+            argumentHandler)
 
-    fun addNewArg(argument: Argument, collectionName: String, tiedName: String) = arguments.getOrPut(tiedName, { mutableListOf(TiedArg(argument, tiedName)) }).add(TiedArg(argument, tiedName))
+    fun addNewArg(argument: Argument, collectionName: String, tiedName: String) = arguments.getOrPut(tiedName,
+            { mutableListOf(TiedArg(argument, tiedName)) }).add(TiedArg(argument, tiedName))
 
     fun getArgSet(collectionName: String, tiedName: String): List<TiedArg>? = arguments.get(collectionName)
 
     abstract class Argument(val name: String, val multiplicity: Multiplicity, val requiredArgs: Arguments?, val pretag: String, val validityCheck: (ArgComponent, arg: String) -> (ArgComponent))
 
-    class GenericArgument(name: String, multiplicity: Multiplicity, requiredArgs: List<String>?, pretag: String, validityCheck: (ArgComponent, arg: String) -> ArgComponent) : Argument(name, multiplicity, requiredArgs, pretag, validityCheck)
+    class GenericArgument(name: String, multiplicity: Multiplicity, requiredArgs: List<String>?, pretag: String, validityCheck: (ArgComponent, arg: String) -> ArgComponent) : Argument(
+            name,
+            multiplicity,
+            requiredArgs,
+            pretag,
+            validityCheck)
 
     enum class Multiplicity {
         ONCE_EXACTLY,

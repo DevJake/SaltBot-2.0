@@ -29,7 +29,10 @@ fun User.hasGuildPermissions(guild: Guild, vararg nodes: Node, checkGroups: Bool
         PermUtils.hasGuildPermissions(this, guild, nodes.toList(), checkGroups)
 
 fun User.hasGuildPermissions(guildId: String, vararg nodes: String, checkGroups: Boolean = true) =
-        PermUtils.hasGuildPermissions(this, Main.jda.getGuildById(guildId), nodes.mapTo(mutableListOf(), { Node(it) }), checkGroups)
+        PermUtils.hasGuildPermissions(this,
+                Main.jda.getGuildById(guildId),
+                nodes.mapTo(mutableListOf(), { Node(it) }),
+                checkGroups)
 
 fun User.hasGuildPermissions(guildId: String, vararg nodes: Node, checkGroups: Boolean = true) =
         PermUtils.hasGuildPermissions(this, Main.jda.getGuildById(guildId), nodes.toList(), checkGroups)
@@ -41,7 +44,10 @@ fun User.hasChannelPermissions(textChannel: TextChannel, vararg nodes: Node, che
         PermUtils.hasChannelPermissions(this, textChannel, nodes.toList(), checkGroups)
 
 fun User.hasChannelPermissions(textChannelId: String, vararg nodes: String, checkGroups: Boolean = true) =
-        PermUtils.hasChannelPermissions(this, Main.jda.getTextChannelById(textChannelId), nodes.mapTo(mutableListOf(), { Node(it) }), checkGroups)
+        PermUtils.hasChannelPermissions(this,
+                Main.jda.getTextChannelById(textChannelId),
+                nodes.mapTo(mutableListOf(), { Node(it) }),
+                checkGroups)
 
 fun User.hasChannelPermissions(textChannelId: String, vararg nodes: Node, checkGroups: Boolean = true) =
         PermUtils.hasChannelPermissions(this, Main.jda.getTextChannelById(textChannelId), nodes.toList(), checkGroups)
@@ -53,7 +59,10 @@ fun User.hasBotPermissions(vararg nodes: Node, checkGroups: Boolean = true) =
         PermUtils.hasBotPermissions(this, nodes.toList(), checkGroups)
 
 fun Guild.hasPermissions(userId: String, vararg nodes: String, checkGroups: Boolean = true) =
-        PermUtils.hasGuildPermissions(Main.jda.getUserById(userId), this, nodes.mapTo(mutableListOf(), { Node(it) }), checkGroups)
+        PermUtils.hasGuildPermissions(Main.jda.getUserById(userId),
+                this,
+                nodes.mapTo(mutableListOf(), { Node(it) }),
+                checkGroups)
 
 fun Guild.hasPermissions(user: User, vararg nodes: String, checkGroups: Boolean = true) =
         PermUtils.hasGuildPermissions(user, this, nodes.mapTo(mutableListOf(), { Node(it) }), checkGroups)
@@ -65,7 +74,10 @@ fun Guild.hasPermissions(userId: String, vararg nodes: Node, checkGroups: Boolea
         PermUtils.hasGuildPermissions(Main.jda.getUserById(userId), this, nodes.toList(), checkGroups)
 
 fun TextChannel.hasPermissions(userId: String, vararg nodes: String, checkGroups: Boolean = true) =
-        PermUtils.hasChannelPermissions(Main.jda.getUserById(userId), this, nodes.mapTo(mutableListOf(), { Node(it) }), checkGroups)
+        PermUtils.hasChannelPermissions(Main.jda.getUserById(userId),
+                this,
+                nodes.mapTo(mutableListOf(), { Node(it) }),
+                checkGroups)
 
 fun TextChannel.hasPermissions(userId: String, vararg nodes: Node, checkGroups: Boolean = true) =
         PermUtils.hasChannelPermissions(Main.jda.getUserById(userId), this, nodes.toList(), checkGroups)
@@ -77,7 +89,10 @@ fun TextChannel.hasPermissions(user: User, vararg nodes: Node, checkGroups: Bool
         PermUtils.hasChannelPermissions(user, this, nodes.toList(), checkGroups)
 
 fun User.hasGuildAuthority(userId: String, guildId: String, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
-        PermUtils.hasGuildAuthority(Main.jda.getUserById(userId), Main.jda.getGuildById(guildId), authority, checkGroups)
+        PermUtils.hasGuildAuthority(Main.jda.getUserById(userId),
+                Main.jda.getGuildById(guildId),
+                authority,
+                checkGroups)
 
 fun User.hasGuildAuthority(userId: String, guild: Guild, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
         PermUtils.hasGuildAuthority(Main.jda.getUserById(userId), guild, authority, checkGroups)
@@ -89,7 +104,10 @@ fun User.hasGuildAuthority(user: User, guild: Guild, authority: Authority.NodeAu
         PermUtils.hasGuildAuthority(user, guild, authority, checkGroups)
 
 fun User.hasChannelAuthority(userId: String, textChannelId: String, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
-        PermUtils.hasChannelAuthority(Main.jda.getUserById(userId), Main.jda.getTextChannelById(textChannelId), authority, checkGroups)
+        PermUtils.hasChannelAuthority(Main.jda.getUserById(userId),
+                Main.jda.getTextChannelById(textChannelId),
+                authority,
+                checkGroups)
 
 fun User.hasChannelAuthority(userId: String, textChannel: TextChannel, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
         PermUtils.hasChannelAuthority(Main.jda.getUserById(userId), textChannel, authority, checkGroups)
@@ -119,7 +137,10 @@ fun TextChannel.hasAuthority(user: User, authority: Authority.NodeAuthority, che
         PermUtils.hasChannelAuthority(user, this, authority, checkGroups)
 
 fun User.canPerformGuildAction(userId: String, guildId: String, action: Action, checkGroups: Boolean = true) =
-        PermUtils.canPerformGuildAction(Main.jda.getUserById(userId), Main.jda.getGuildById(guildId), action, checkGroups)
+        PermUtils.canPerformGuildAction(Main.jda.getUserById(userId),
+                Main.jda.getGuildById(guildId),
+                action,
+                checkGroups)
 
 fun User.canPerformGuildAction(userId: String, guild: Guild, action: Action, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(Main.jda.getUserById(userId), guild, action, checkGroups)
@@ -131,7 +152,10 @@ fun User.canPerformGuildAction(user: User, guild: Guild, action: Action, checkGr
         PermUtils.canPerformGuildAction(user, guild, action, checkGroups)
 
 fun User.canPerformChannelAction(userId: String, textChannelId: String, action: Action, checkGroups: Boolean = true) =
-        PermUtils.canPerformChannelAction(Main.jda.getUserById(userId), Main.jda.getTextChannelById(textChannelId), action, checkGroups)
+        PermUtils.canPerformChannelAction(Main.jda.getUserById(userId),
+                Main.jda.getTextChannelById(textChannelId),
+                action,
+                checkGroups)
 
 fun User.canPerformChannelAction(userId: String, textChannel: TextChannel, action: Action, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(Main.jda.getUserById(userId), textChannel, action, checkGroups)

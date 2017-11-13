@@ -23,7 +23,7 @@ import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
 class Command(
         val cmdPrefix: String,
-        val aliases: MutableList<String> = mutableListOf(),
+        val aliases: List<String> = emptyList(),
         val name: String,
         val description: String = "",
         val author: String = "",
@@ -69,12 +69,21 @@ class CommandBuilder(private var cmdPrefix: String, private var name: String) {
         return this
     }
 
-    fun build() = Command(cmdPrefix, aliases, name, description, author, perms, preExecute, execute, postExecute)
+    fun build() = Command(cmdPrefix.toLowerCase(),
+            aliases.map { it.toLowerCase() }.toList(),
+            name,
+            description,
+            author,
+            perms,
+            preExecute,
+            execute,
+            postExecute)
 
     fun setCmdPrefix(prefix: String) = apply { cmdPrefix = prefix }
     fun setName(name: String) = apply { this.name = name }
     fun setDescription(description: String) = apply { this.description = description }
     fun addAlias(vararg aliases: String) = apply { this.aliases.addAll(aliases) }
+    fun removeAlias(vararg aliases: String) = apply { this.aliases.removeAll(aliases) }
 }
 
 class CmdInstanceHandle internal constructor(private val cmd: Command) {

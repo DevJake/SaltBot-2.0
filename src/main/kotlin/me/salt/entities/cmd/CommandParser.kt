@@ -26,7 +26,9 @@ import me.salt.entities.objects.exists
 import me.salt.entities.objects.getConfig
 import me.salt.util.events.CommandParseEvent
 import me.salt.util.events.fireEvent
-import me.salt.util.exception.*
+import me.salt.util.exception.AmorphousCommandException
+import me.salt.util.exception.PrefixlessCommandException
+import me.salt.util.exception.exception
 import me.salt.util.logging.logDebug
 import java.util.regex.Pattern
 

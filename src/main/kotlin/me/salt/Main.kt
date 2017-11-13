@@ -23,6 +23,8 @@ import me.salt.entities.config.entities.SaltConfig
 import me.salt.entities.config.initConfigs
 import me.salt.entities.lang.initLangs
 import me.salt.entities.objects.getConfig
+import me.salt.util.exception.Errorlevel
+import me.salt.util.exception.exception
 import me.salt.util.logging.logInfo
 import me.salt.util.rest.RestController
 import me.salt.util.rest.initRest
@@ -54,8 +56,8 @@ class Main {
                         .setToken(Configs.salt.MAIN_CONFIG.getConfig(SaltConfig::class.java)?.botToken)
                         .addEventListener(CommandListener()).buildAsync()
             } catch (e: Exception) {
-//                exception(e, Errorlevel.CRITICAL)
-//                System.exit(-1)
+                exception(e, Errorlevel.CRITICAL)
+                System.exit(-1)
             }
 
             Thread({ while (true) Thread.sleep(Integer.MAX_VALUE.toLong()) }, "RuntimePersistence").start() //TODO fix
