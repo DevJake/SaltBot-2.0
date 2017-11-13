@@ -16,6 +16,8 @@
 
 package me.salt.entities.cmd
 
+import me.salt.entities.permissions.Node
+import me.salt.entities.permissions.NodeBuilder
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
@@ -101,6 +103,33 @@ class CommandBuilderTest : Spek({
                 it("should build with the given postExecute function") {
                     cb.postExecute(func1)
                     Assert.assertTrue(cb.build().postExecute == func1)
+                }
+            }
+
+            on("setting the author") {
+                it("should build with the given author") {
+                    cb.setAuthor("Auth1")
+                    Assert.assertTrue(cb.build().author == "Auth1")
+                }
+            }
+
+            on("adding several permission Nodes") {
+                it("should build with the given permission Nodes") {
+                    val n0 = NodeBuilder("Node1").build()
+                    val n1 = NodeBuilder("Node2").build()
+                    cb.addPerms(n0, n1)
+                    Assert.assertTrue(cb.build().perms.containsAll(listOf(n0, n1)))
+                }
+            }
+
+            on("adding then removing several permission Nodes") {
+                it("should build with none of the given permission Nodes") {
+                    val n0 = NodeBuilder("Node1").build()
+                    val n1 = NodeBuilder("Node2").build()
+                    cb.addPerms(n0, n1)
+                    cb.removePerms(n0, n1)
+
+                    Assert.assertTrue(cb.build().perms.isEmpty())
                 }
             }
         }
