@@ -58,7 +58,7 @@ private fun checkConfigs() {
         System.exit(-1)
     } else if (lconf.languages.size != LangTerm.values().size) {
 
-        logFatal("The fallback language - ${mconf?.defaultLangCode} - is lacking ${LangTerm.values().size - lconf.languages.size} LangTerm definitions!", "BOOT")
+        logFatal("The fallback language - ${mconf?.defaultLangCode} - is lacking ${LangTerm.values().size - lconf.languages.size}/${LangTerm.values().size} LangTerm definitions!", "BOOT")
         System.exit(-1)
     }
 }
