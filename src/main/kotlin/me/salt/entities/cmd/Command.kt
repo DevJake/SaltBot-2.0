@@ -41,14 +41,13 @@ class Command(
         return "Command(cmdPrefix='$cmdPrefix', aliases=$aliases, name='$name', description='$description', author='$author', perms=$perms)"
     }
 
-
 }
 
 class CommandBuilder(private var cmdPrefix: String, private var name: String) {
     private var aliases: MutableList<String> = mutableListOf()
     private var description: String = ""
     private var author: String = ""
-    private var perms: List<Node> = emptyList()
+    private var perms: MutableList<Node> = mutableListOf()
 
     private var preExecute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command)? = null
     private var execute: ((cmd: CommandParser.CommandContainer, event: GuildMessageReceivedEvent, instHandler: CmdInstanceHandle) -> Command)? = null
@@ -84,15 +83,20 @@ class CommandBuilder(private var cmdPrefix: String, private var name: String) {
     fun setDescription(description: String) = apply { this.description = description }
     fun addAlias(vararg aliases: String) = apply { this.aliases.addAll(aliases) }
     fun removeAlias(vararg aliases: String) = apply { this.aliases.removeAll(aliases) }
+    fun setAuthor(author: String) = apply { this.author = author }
+    fun addPerms(vararg nodes: Node) = apply { this.perms.addAll(nodes) }
+    fun removePerms(vararg nodes: Node) = apply { this.perms.removeAll(nodes) }
 }
 
 class CmdInstanceHandle internal constructor(private val cmd: Command) {
     var accepts: Boolean = false
         private set
+    var callback: (() -> Unit)? = null
+        private set
 
     fun accept(): Command = kotlin.run { accepts = true; cmd }
-    fun accept(callback: () -> (Unit)) = kotlin.run { accepts = true; callback.invoke(); cmd }
+    fun accept(callback: () -> (Unit)) = kotlin.run { accepts = true; this.callback = callback; cmd }
 
-    fun reject(e: Exception) = ExceptionHandler.handle(e)
-    fun reject(e: Exception, level: Errorlevel) = ExceptionHandler.handle(e, level)
+    fun reject(e: Exception) = kotlin.run { accepts = false; ExceptionHandler.handle(e) }
+    fun reject(e: Exception, level: Errorlevel) = kotlin.run { accepts = false; ExceptionHandler.handle(e, level) }
 }
