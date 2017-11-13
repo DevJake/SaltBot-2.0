@@ -62,16 +62,28 @@ class CommandListener : ListenerAdapter() {
             val filteredCommands = CommandRegistry.getCommands().filterByCommandPrefix(cc.beheadedLiteralLower)
 
             filteredCommands.forEach {
-                it.preExecute?.invoke(cc, event, CmdInstanceHandle(it))
-                logDebug("Called preExecute method of $it", "COMMAND")
+                if (it.preExecute == null) {
+                    logDebug("Didn't call null-value preExecute method of $it", "COMMAND")
+                } else {
+                    it.preExecute.invoke(cc, event, CmdInstanceHandle(it))
+                    logDebug("Called preExecute method of $it", "COMMAND")
+                }
             }
             filteredCommands.forEach {
-                it.execute?.invoke(cc, event, CmdInstanceHandle(it))
-                logDebug("Called execute method of $it", "COMMAND")
+                if (it.execute == null) {
+                    logDebug("Didn't call null-value execute method of $it", "COMMAND")
+                } else {
+                    it.execute.invoke(cc, event, CmdInstanceHandle(it))
+                    logDebug("Called execute method of $it", "COMMAND")
+                }
             }
             filteredCommands.forEach {
-                it.postExecute?.invoke(cc, event)
-                logDebug("Called postExecute method of $it", "COMMAND")
+                if (it.postExecute == null) {
+                    logDebug("Didn't call null-value postExecute method of $it", "COMMAND")
+                } else {
+                    it.postExecute.invoke(cc, event)
+                    logDebug("Called postExecute method of $it", "COMMAND")
+                }
             }
 
         }
