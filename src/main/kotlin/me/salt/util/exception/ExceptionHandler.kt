@@ -51,14 +51,8 @@ object ExceptionHandler {
     }
 
     fun handle(e: Exception, level: Errorlevel) {
-        when (level) {
-            Errorlevel.ERROR -> handle(e)
-            Errorlevel.CRITICAL -> handle(e)
-            Errorlevel.DEBUG -> handle(e)
-            Errorlevel.INFO -> handle(e)
-            Errorlevel.LOG -> handle(e)
-            Errorlevel.WARNING -> handle(e)
-        }
+        handle(e)
+        logException(e, level.name.toUpperCase())
     }
 }
 
