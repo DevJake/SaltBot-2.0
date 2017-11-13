@@ -4,7 +4,6 @@ out/
 .gradle/
 gradle/
 build/
-src/me/Salt/Configuration/config.txt
 libs/
 *.ipr
 gradlew
@@ -15,4 +14,14 @@ gradlew
 
 *.salt
 
+<<<<<<< HEAD
+*.settings
+
+*.salt
+
 docs/
+=======
+lib/
+
+docs/
+>>>>>>> master
