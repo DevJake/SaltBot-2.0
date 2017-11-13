@@ -45,7 +45,7 @@ object RestController {
 
     init {
         tokens.add(genToken())
-        logInfo("Started Javalin REST API server on port 80", "API")
+        logInfo("Started Javalin REST API server on port 80", "REST-INIT")
     }
 
     fun genToken(oldToken: AccessToken): AccessToken {
@@ -142,8 +142,8 @@ object RestController {
             exception(DuplicateRestEndpointException("The endpoint with path $path already shares either the path, function call, or both factors with another endpoint!"))
     }
 
-    private fun regLog(path: String, type: String) = logDebug("Registered a new ${type.toUpperCase()} endpoint at path $path")
-    private fun callLog(ctx: Context, type: String) = logDebug("Received ${type.toUpperCase()} request at endpoint ${ctx.path()} IP: ${ctx.ip()}")
+    private fun regLog(path: String, type: String) = logDebug("Registered a new ${type.toUpperCase()} endpoint at path $path", "REST-INIT")
+    private fun callLog(ctx: Context, type: String) = logDebug("Received ${type.toUpperCase()} request at endpoint ${ctx.path()} IP: ${ctx.ip()}", "REST-RUNTIME")
     //TODO replace with call to ctx to obtain specific type, rather than relying on it being passed in as a parameter
 
     fun start() {

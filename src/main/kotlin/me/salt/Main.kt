@@ -40,7 +40,7 @@ class Main {
 
         @JvmStatic
         fun main(args: Array<String>) {
-            logInfo("Began startup at ${OffsetDateTime.now()}", "ACTIVITY")
+            logInfo("Began startup at ${OffsetDateTime.now()}", "BOOT")
             initConfigs() //Calls init method for configs
             initLangs()
             initCommands()

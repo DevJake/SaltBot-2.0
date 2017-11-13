@@ -32,7 +32,7 @@ enum class Action(val node: Node, val description: String? = null) {
     BOT_PERMISSION_VIEW(Authority.bot(Interaction.READ).getAuthorityNodes()[0]),
     BOT_PERMISSION_REMOVE(Authority.bot(Interaction.REMOVE).getAuthorityNodes()[0]);
 
-    private constructor(node: String, description: String? = null) : this(Node(node), description)
+    constructor(node: String, description: String? = null) : this(Node(node), description)
 }
 
 enum class Interaction {
@@ -115,8 +115,3 @@ enum class Entity {
     TEXTCHANNEL,
     USER;
 }
-
-enum class Modules {
-    //TODO a list of modules, complete with their matching Module instance
-}
-
