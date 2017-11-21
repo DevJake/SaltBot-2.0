@@ -33,4 +33,5 @@ class ExecuteCommandFailureException(message: String? = null) : Exception(messag
 class PostExecuteCommandFailureException(message: String? = null) : Exception(message)
 class RollbarInitException(message: String? = null) : Exception(message)
 class DuplicateRestEndpointException(message: String? = null) : Exception(message)
+class CommandBuilderFailureException(message: String? = null) : Exception(message)
 

@@ -16,8 +16,8 @@
 
 package me.salt.entities.cmd
 
-import me.salt.entities.permissions.Node
 import me.salt.entities.permissions.NodeBuilder
+import me.salt.util.exception.CommandBuilderFailureException
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
@@ -130,6 +130,39 @@ class CommandBuilderTest : Spek({
                     cb.removePerms(n0, n1)
 
                     Assert.assertTrue(cb.build().perms.isEmpty())
+                }
+            }
+
+            on("trying to set the cmdPrefix to an empty string"){
+                it("should throw an Exception"){
+                    try {
+                        cb.setCmdPrefix("").build()
+                        Assert.fail("Expected an instance of CommandBuilderFailureException to be thrown!")
+                    } catch (e: CommandBuilderFailureException) {
+                        Assert.assertTrue(true)
+                    }
+                }
+            }
+
+            on("trying to set the name to an empty string"){
+                it("should throw an Exception"){
+                    try {
+                        cb.setName("").build()
+                        Assert.fail("Expected an instance of CommandBuilderFailureException to be thrown!")
+                    } catch (e: CommandBuilderFailureException) {
+                        Assert.assertTrue(true)
+                    }
+                }
+            }
+
+            on("trying to add aliases with at least 1 empty"){
+                it("should throw an Exception"){
+                    try {
+                        cb.addAlias("a1", "a2", "", "a4").build()
+                        Assert.fail("Expected an instance of CommandBuilderFailureException to be thrown!")
+                    } catch (e: CommandBuilderFailureException) {
+                        Assert.assertTrue(true)
+                    }
                 }
             }
         }

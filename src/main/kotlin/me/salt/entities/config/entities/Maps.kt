@@ -26,7 +26,7 @@ import me.salt.entities.permissions.UserPermission
 import me.salt.util.exception.ConfigMissingValueException
 import me.salt.util.exception.exception
 
-class PermissionMap : ConfigMap {
+internal class PermissionMap : ConfigMap {
     @JsonProperty("Groups")
     var groups: List<GroupPermission>?
     @JsonProperty("Users")
@@ -75,7 +75,7 @@ class RolesMap : ConfigMap {
 No requirement for multiple RolesMap types, as they're consistent across a SaltRolesMap, Guild and TextChannel alternatives
  */
 
-class LevellingMap : ConfigMap {
+internal class LevellingMap : ConfigMap {
     @JsonProperty("Point scoring")
     val pointSystems: List<LevellingPointComponent>?
     @JsonProperty("Level multiplier")
@@ -95,7 +95,7 @@ class LevellingMap : ConfigMap {
 
 //TODO enforcements to require a specific level before allowing usage of a command
 
-class FilteringMap : ConfigMap {
+internal class FilteringMap : ConfigMap {
     @JsonProperty("Filtering enabled")
     val enabled: Boolean?
     @JsonProperty("Filter Maps")
@@ -110,7 +110,7 @@ class FilteringMap : ConfigMap {
     }
 }
 
-class LanguageMap : ConfigMap {
+internal class LanguageMap : ConfigMap {
     val languages: MutableList<CustomLang> = mutableListOf()
     /*
     Allows for code to get an immutable set of the languages, whilst not exposing the mutable set.
@@ -133,7 +133,7 @@ class LanguageMap : ConfigMap {
     fun getLanguage(langName: String) = languages.getByLangName(langName)
 }
 
-class StatTrackingMap : ConfigMap
+internal class StatTrackingMap : ConfigMap
 //TODO
 
 /*

@@ -40,7 +40,7 @@ interface Configuration {
 interface Config : Configuration
 interface ConfigMap : Configuration
 
-class SaltConfig : Config {
+internal class SaltConfig : Config {
     @JsonProperty("Bot_Token")
     val botToken: String?
     @JsonProperty("Global_Safe_Mode_enabled")
@@ -92,7 +92,7 @@ class SaltConfig : Config {
 
 }
 
-class GuildConfig : Config {
+internal class GuildConfig : Config {
     @JsonProperty("Bot enabled")
     val botEnabled: Boolean?
     @JsonProperty("Guild Safe Mode enabled")
@@ -147,7 +147,7 @@ class GuildConfig : Config {
 }
 
 //TODO special permissions to bypass restrictions, like bypassing disabled reminders
-class TextChannelConfig : Config {
+internal class TextChannelConfig : Config {
     @JsonProperty("Post User_join message")
     val postJoinMessages: Boolean?
     @JsonProperty("Join Message template")
@@ -223,7 +223,7 @@ class TextChannelConfig : Config {
     }
 }
 
-class UserConfig : Config {
+internal class UserConfig : Config {
     val preferredName: String?
     val preferredLanguage: LangCode?
     val preferredCmdPrefixes: List<String>?
@@ -232,6 +232,17 @@ class UserConfig : Config {
         this.preferredName = preferredName
         this.preferredLanguage = preferredLanguage
         this.preferredCmdPrefixes = preferredCmdPrefix
+    }
+}
+
+//A custom config, designed to be used by custom commands
+class CustomConfig : Config {
+    val context: String
+    val values: List<String>
+
+    constructor(context: String, values: List<String>) {
+        this.context = context
+        this.values = values
     }
 }
 

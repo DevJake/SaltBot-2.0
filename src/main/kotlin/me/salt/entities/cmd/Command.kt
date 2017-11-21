@@ -17,8 +17,10 @@
 package me.salt.entities.cmd
 
 import me.salt.entities.permissions.Node
+import me.salt.util.exception.CommandBuilderFailureException
 import me.salt.util.exception.Errorlevel
 import me.salt.util.exception.ExceptionHandler
+import me.salt.util.exception.exception
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
 class Command(
@@ -43,6 +45,25 @@ class Command(
 
 }
 
+/**
+ * This class allows for the simple, controlled construction of new [Command] instances.
+ *
+ * @param cmdPrefix The prefix of this [Command]. This is used by the [CommandListener] to identify when this Command is called upon
+ * @param name The name associated with this [Command]
+ *
+ * @property aliases A list of alternative terms that can be used in place of [cmdPrefix]
+ * @property description An optional description of the [Command]
+ * @property author The optional title of this [Command]'s author
+ * @property perms A list of [Node] instances that define the required permissions to use the final [Command] instance
+ * @property preExecute The [Command.preExecute] function
+ * @property execute The [Command.execute] function
+ * @property postExecute The [Command.postExecute] function
+ *
+ * @constructor Declares the [cmdPrefix] and [name] used in the [build] method
+ *
+ * @see Command
+ * @see CommandListener
+ */
 class CommandBuilder(private var cmdPrefix: String, private var name: String) {
     private var aliases: MutableList<String> = mutableListOf()
     private var description: String = ""
@@ -78,10 +99,10 @@ class CommandBuilder(private var cmdPrefix: String, private var name: String) {
             execute,
             postExecute)
 
-    fun setCmdPrefix(prefix: String) = apply { cmdPrefix = prefix }
-    fun setName(name: String) = apply { this.name = name }
+    fun setCmdPrefix(prefix: String) = apply { if (cmdPrefix.isNotEmpty()) cmdPrefix = prefix else exception(CommandBuilderFailureException("The value for cmdPrefix cannot be empty!")) }
+    fun setName(name: String) = apply { if (name.isNotEmpty()) this.name = name else exception(CommandBuilderFailureException("The value for name cannot be empty!")) }
     fun setDescription(description: String) = apply { this.description = description }
-    fun addAlias(vararg aliases: String) = apply { this.aliases.addAll(aliases) }
+    fun addAlias(vararg aliases: String) = apply { if (aliases.any { it.isEmpty() }) exception(CommandBuilderFailureException("You cannot specify an empty alias!")) else this.aliases.addAll(aliases) }
     fun removeAlias(vararg aliases: String) = apply { this.aliases.removeAll(aliases) }
     fun setAuthor(author: String) = apply { this.author = author }
     fun addPerms(vararg nodes: Node) = apply { this.perms.addAll(nodes) }

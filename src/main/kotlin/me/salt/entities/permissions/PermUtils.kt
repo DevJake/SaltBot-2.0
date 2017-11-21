@@ -95,7 +95,7 @@ object PermUtils {
                 groupsToCheck?.forEach { group ->
                     indistinctPermList
                             .removeAll(group.permissions?.mapTo(mutableListOf(), { it.node }) ?:
-                                    { exception(ConfigMissingValueException()); emptyList<String>() }())
+                                    { exception(ConfigMissingValueException()); emptyList<String>() } ())
                 }
                 return indistinctPermList.isEmpty()
                 /*

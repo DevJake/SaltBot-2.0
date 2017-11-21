@@ -50,7 +50,6 @@ enum class LangCode(val language: Language, vararg val country: Country?) {
     AR_AE(Language.ARABIC, Country.UNITED_ARAB_EMIRATES),
     AR_YE(Language.ARABIC, Country.YEMEN);
 
-
     fun getLang() = Configs.salt.LANGUAGE_MAP.getConfig(LanguageMap::class.java)?.getLanguage(this.name)
 
     fun filterBy(language: Language, country: Country, inverse: Boolean = false) =
@@ -156,9 +155,6 @@ enum class LangTerm(vararg val variables: Variable?) {
     COMMAND_CONFIG_UPDATE_FAILURE(),
     COMMAND_CONFIG_RETRIEVE_SUCCESS(),
     COMMAND_CONFIG_RETRIEVE_FAILURE();
-
-
-
 
     //TODO params should be wrapped with double asterisks, i.e., **user**
     data class Variable(var term: String, var name: String, var description: String? = null)

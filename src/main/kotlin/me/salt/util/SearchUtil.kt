@@ -109,8 +109,6 @@ class RestEndpointSearchElement(
         private val endpoint: String
 ) : SearchUtil.SearchElement(category, tags, description)
 
-
-
 class ModifiedSearchElement(
         category: SearchUtil.SearchCategory,
         tags: List<String>,

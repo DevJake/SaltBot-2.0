@@ -39,7 +39,7 @@ object LangUtils {
                     repl.get(matcher.group(0)
                             .removeSurrounding("**", "**")
                             .toLowerCase())
-                            ?: { exception(ConfigMissingValueException()); "" }(), //TODO update to better exception. Means we didn't give the proper name of the variable
+                            ?: { exception(ConfigMissingValueException()); "" } (), //TODO update to better exception. Means we didn't give the proper name of the variable
                     true)
 //                else throw ConfigHandlerException("Uhh ohh...") //TODO use different exception + more useful message
         }

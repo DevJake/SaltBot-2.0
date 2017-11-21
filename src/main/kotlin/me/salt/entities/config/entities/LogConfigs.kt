@@ -16,7 +16,7 @@
 
 package me.salt.entities.config.entities
 
-class SaltLogConfig : Configuration {
+internal class SaltLogConfig : Configuration {
     var logToConsole = false
     var logToFile = true
     var splitLogsByEntryType = false //Separate log file per type of entry. Avoids commands as too many to make splitting useful.
@@ -40,9 +40,9 @@ class SaltLogConfig : Configuration {
     }
 }
 
-class GuildLogConfig
-class TextChannelLogConfig
-class UserLogConfig
+internal class GuildLogConfig
+internal class TextChannelLogConfig
+internal class UserLogConfig
 
 enum class Loggables(description: String) {
     BOT_START("Fired when the bot starts up"),
