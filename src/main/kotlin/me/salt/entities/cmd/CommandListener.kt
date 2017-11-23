@@ -38,7 +38,7 @@ class CommandListener : ListenerAdapter() {
      *
      * @see Command
      */
-    fun MutableList<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
+    fun List<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
             this.filter {
                 it.cmdPrefix.equals(prefix) &&
                         (if (checkAliases)
