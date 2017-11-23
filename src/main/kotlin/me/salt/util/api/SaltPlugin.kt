@@ -16,20 +16,95 @@
 
 package me.salt.util.api
 
-import me.salt.entities.config.ConfigHandler
+import me.salt.entities.config.entities.PluginConfig
+import java.net.URL
 
-abstract class SaltPlugin {
+abstract class SaltPlugin(title: String, description: String, author: String) {
+    internal var isEnabled = false
+    internal var isLoaded = false
+
+    init {
+        //TODO register plugin
+    }
+
     open fun onEnable() {
-        //TODO("Log plugin enabled")
+        isEnabled = true
     }
 
     open fun onDisable() {
-        //TODO("Log plugin disabled")
+        isEnabled = false
     }
 
-    val configHandler = ConfigHandler
-        get() {
-            return field
-            //TODO("Log activity, check plugin permissions (difficult, not enforceable), etc.")
-        }
+    open fun onLoad() {
+        isLoaded = true
+    }
+
+    open fun onUnload() {
+        isLoaded = false
+    }
+
+    fun getConfigHandler() = ConfigHandler(this)
+    fun getLanguageHandler() = LanguageHandler(this)
+    fun getLoggingHandler() = LoggingHandler(this)
+    fun getCommandHandler() = CommandHandler(this)
+    fun getPluginHandler() = PluginHandler(this)
+
+    fun getLogger() = PluginLogger(this)
+}
+
+class ConfigHandler internal constructor(private val plugin: SaltPlugin) {
+    //TODO system for getting system-held configs, but requiring certain permissions ->
+    /*
+    Plugins perhaps need to register with a key, bot can have command to grant plugins certain permissions based
+    on their key.
+
+    Certain configs (Guild, TextChannel and User) should have the plugin request permission from
+    the config's owner to read and write.
+     */
+
+    fun getPluginConfigOrCreate(): PluginConfig {
+        TODO()
+    }
+
+    fun getPluginConfig(): PluginConfig? {
+        TODO()
+    }
+
+    fun createPluginConfig(): PluginConfig? = if (pluginConfigExists()) getPluginConfig()
+    else {
+        TODO()
+    }
+
+    fun pluginConfigExists(): Boolean {
+        TODO()
+    }
+
+    fun pluginConfigExists(pluginTitle: String): Boolean {
+        TODO()
+    }
+
+}
+
+class PermissionsHandler internal constructor(private val plugin: SaltPlugin) {}
+
+class LanguageHandler internal constructor(private val plugin: SaltPlugin) {}
+
+class LoggingHandler internal constructor(private val plugin: SaltPlugin) {
+    //TODO searching and crawling of logs (with perms)
+}
+
+class CommandHandler internal constructor(private val plugin: SaltPlugin) {
+
+}
+
+class PluginHandler internal constructor(private val plugin: SaltPlugin) {
+    fun setContactInfo(discordId: Int) {}
+
+    fun setContactInfo(emailAddress: String) {}
+
+    fun setContactInfo(website: URL) {}
+}
+
+class PluginLogger internal constructor(private val plugin: SaltPlugin) {
+    //TODO
 }

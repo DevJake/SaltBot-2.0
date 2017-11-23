@@ -48,4 +48,6 @@ fun initCommands() {
      * - *n*th-root(*x*) : (*n*)rt(*x*)
      */
     CommandBuilder("math", "Expression Evaluate").build() //TODO
+
+    //TODO commands should place their functional code in external functions, then call upon them and analyse the result. Allows for API to access command functionality
 }
