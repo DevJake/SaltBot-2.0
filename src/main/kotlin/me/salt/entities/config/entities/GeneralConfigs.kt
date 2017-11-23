@@ -23,6 +23,7 @@ import me.salt.entities.lang.LangCode
 import me.salt.entities.objects.Admin
 import me.salt.entities.objects.Module
 import me.salt.util.SimpleRGBColour
+import me.salt.util.api.SaltPlugin
 
 interface ConfigBuilder {
     fun build(): Config
@@ -236,14 +237,39 @@ internal class UserConfig : Config {
 }
 
 //A custom config, designed to be used by custom commands
-class CustomConfig : Config {
-    val context: String
-    val values: List<String>
+class PluginConfig(private val context: SaltPlugin) {
+    private val values: MutableList<Pair<String, Any>> = mutableListOf()
 
-    constructor(context: String, values: List<String>) {
-        this.context = context
-        this.values = values
+    fun addValue(tag: String, value: Any) {
+        TODO()
+
+        //TODO ensure duplicate values cannot exist
     }
+
+    fun removeValue(tag: String, value: Any) {
+        TODO()
+    }
+
+    fun removeAllValues(tag: String) {
+        TODO()
+    }
+
+    fun containsTag(tag: String) {
+        TODO()
+    }
+
+    fun getByTag(tag: String) {
+        TODO()
+    }
+
+    fun reset() {}
+
+    fun delete() {}
+
+    init {
+        //TODO create file, put context in header
+    }
+
 }
 
 //TODO config for guild and textchannel spam filters. filter discord.gg links, foul words, etc.
