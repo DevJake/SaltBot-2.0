@@ -81,7 +81,7 @@ enum class LangCode(val language: Language, vararg val country: Country?) {
     DA_DK(Language.DANISH, Country.DENMARK, Country.FAROE_ISLANDS, Country.GREENLAND, Country.GERMANY),
     PT_BR(Language.PORTUGUESE, Country.ANGOLA, Country.BRAZIL, Country.CAPE_VERDE, Country.EAST_TIMOR, Country.EQUATORIAL_GUINEA, Country.GUINEA_BISSAU, Country.MOZAMBIQUE, Country.PORTUGAL, Country.SAO_TOME_PRINCIPE, Country.MACAU, Country.ANDORRA, Country.CANADA, Country.INDIA, Country.FRANCE, Country.SPAIN, Country.JAPAN, Country.LUXEMBOURG, Country.MALAYSIA, Country.NAMIBIA, Country.PARAGUAY, Country.SOUTH_AFRICA, Country.SWITZERLAND, Country.UNITED_STATES, Country.URUGUAY, Country.VENEZUELA),
     NL_NL(Language.DUTCH, Country.ARUBA, Country.BELGIUM, Country.CURACAO, Country.NETHERLANDS, Country.SINT_MAARTEN, Country.SURINAME),
-    NL_BE(Language.FLEMISH, Country.FLANDERS),
+    NL_BE(Language.FLEMISH, Country.FLANDERS);
 
 
     fun getLang() = Configs.salt.LANGUAGE_MAP.getConfig(LanguageMap::class.java)?.getLanguage(this.name)
