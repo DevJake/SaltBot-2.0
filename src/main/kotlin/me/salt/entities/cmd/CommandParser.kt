@@ -35,7 +35,7 @@ import java.util.regex.Pattern
 object CommandParser {
     fun isPotentialCommand(raw: String) = Pattern.compile("^[^a-zA-Z]+").matcher(raw.split(" ")[0]).find()
 
-    fun parse(raw: String, guildId: String, textChannelId: String, userId: String): CommandContainer {
+    fun parse(raw: String, guildId: String, textChannelId: String, userId: String): CommandContainer? {
         var saltMain: SaltConfig? = null
         var guildMain: GuildConfig? = null
         var textMain: TextChannelConfig? = null
@@ -81,14 +81,20 @@ object CommandParser {
 
         var beheadedLiteral: String = ""
 
-        if (!Pattern.compile("^[^a-zA-Z]+").matcher(raw.split(" ").get(0)).find())
+        if (!Pattern.compile("^[^a-zA-Z]+").matcher(raw.split(" ").get(0)).find()) {
             exception(PrefixlessCommandException("The given input, $raw, seems to lack any sort of prefix!"))
-        if (!Pattern.compile("^.*?[^a-zA-Z]+").matcher(raw.split(" ").get(0)).find())
+            return null
+        }
+        if (!Pattern.compile("^.*?[^a-zA-Z]+").matcher(raw.split(" ").get(0)).find()) {
             exception(AmorphousCommandException("The given input, $raw, has a foul-structured (non-identifiable) prefix!"))
+            return null
+        }
         else
             beheadedLiteral = raw.replace(Regex("^.*?[^a-zA-Z]+"), "")
-        if (beheaded.isEmpty())
+        if (beheaded.isEmpty()) {
             exception(AmorphousCommandException("The given input, $raw, failed to match any prefixes loaded from configs!"))
+            return null
+        }
 
         //TODO If the raw is identified as matching to a command, recursively remove the first character until reaching a letter
         //No specific way to check and appropriately remove identified prefixes without looping over them each removal; inefficient and needless

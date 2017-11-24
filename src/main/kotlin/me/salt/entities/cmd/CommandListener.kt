@@ -58,7 +58,7 @@ class CommandListener : ListenerAdapter() {
     override fun onGuildMessageReceived(event: GuildMessageReceivedEvent?) {
         if (CommandParser.isPotentialCommand(event?.message?.rawContent ?: return)) {
             logInfo("Received a potential command from user ${event.author} (ID: ${event.author.id})", "COMMAND")
-            val cc = CommandParser.parse(event.message.rawContent, event.guild.id, event.channel.id, event.author.id)
+            val cc = CommandParser.parse(event.message.rawContent, event.guild.id, event.channel.id, event.author.id) ?: return
             val filteredCommands = CommandRegistry.getCommands().filterByCommandPrefix(cc.beheadedLiteralLower)
 
             filteredCommands.forEach {
