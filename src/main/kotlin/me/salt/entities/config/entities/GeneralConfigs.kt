@@ -23,7 +23,7 @@ import me.salt.entities.lang.LangCode
 import me.salt.entities.objects.Admin
 import me.salt.entities.objects.Module
 import me.salt.util.SimpleRGBColour
-import me.salt.util.api.SaltPlugin
+import me.salt.util.api.bot.SaltPlugin
 
 interface ConfigBuilder {
     fun build(): Config
