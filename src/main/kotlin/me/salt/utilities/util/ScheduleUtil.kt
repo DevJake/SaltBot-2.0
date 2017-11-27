@@ -16,8 +16,8 @@
 
 package me.salt.utilities.util
 
-import me.salt.utilities.api.news.Days
-import me.salt.utilities.api.news.Months
+import me.salt.entities.objects.Days
+import me.salt.entities.objects.Months
 import me.salt.utilities.exception.ScheduleValueOutOfBoundsException
 import me.salt.utilities.exception.exception
 import java.time.OffsetDateTime
