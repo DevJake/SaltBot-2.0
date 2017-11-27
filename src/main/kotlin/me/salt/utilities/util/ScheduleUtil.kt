@@ -23,7 +23,6 @@ import me.salt.utilities.exception.exception
 import java.time.OffsetDateTime
 import java.time.OffsetTime
 
-
 data class ScheduleHandler(val active: Boolean, val schedule: List<OffsetDateTime>, val operations: List<() -> Any>? = null) {
     fun isCurrentlyInSchedule(): Boolean {
         TODO()
@@ -52,11 +51,9 @@ class ScheduleBuilder {
     // Operations to be run for each met schedule point
     private val operations: MutableList<() -> Any>? = null
 
-
     fun addRepeatDays(vararg days: Days) = apply { repeatDays.addAll(days) }
     fun removeRepeatDays(vararg days: Days) = apply { repeatDays.removeAll(days) }
     fun setRepeatDaily(value: Boolean) = apply { if (value) repeatDays.addAll(Days.values()) else repeatDays.removeAll(Days.values()) }
-
 
     fun addRepeatWeeks(vararg weeks: Int) = apply {
         if (weeks.any { it !in 1..4 }) {
@@ -67,7 +64,6 @@ class ScheduleBuilder {
 
     fun removeRepeatWeeks(vararg weeks: Int) = apply { repeatWeeks.removeAll(weeks.toList()) }
     fun setRepeatWeekly(value: Boolean) = apply { if (value) repeatWeeks.addAll(listOf(1, 2, 3, 4)) else repeatWeeks.removeAll(listOf(1, 2, 3, 4)) }
-
 
     fun addRepeatMonths(vararg months: Months) = apply { repeatMonths.addAll(months) }
     fun removeRepeatMonths(vararg months: Months) = apply { repeatMonths.removeAll(months) }
@@ -130,7 +126,6 @@ class ScheduleBuilder {
     fun build(active: Boolean = true): ScheduleHandler {
         val queue: MutableList<OffsetDateTime> = mutableListOf()
         val now = OffsetDateTime.now()
-
 
         return ScheduleHandler(active, listOf()) //TODO
     }

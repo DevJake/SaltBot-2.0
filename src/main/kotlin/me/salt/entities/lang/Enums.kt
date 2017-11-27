@@ -83,7 +83,6 @@ enum class LangCode(val language: Language, vararg val country: Country?) {
     NL_NL(Language.DUTCH, Country.ARUBA, Country.BELGIUM, Country.CURACAO, Country.NETHERLANDS, Country.SINT_MAARTEN, Country.SURINAME),
     NL_BE(Language.FLEMISH, Country.FLANDERS);
 
-
     fun getLang() = Configs.salt.LANGUAGE_MAP.getConfig(LanguageMap::class.java)?.getLanguage(this.name)
 
     fun filterBy(language: Language, country: Country, inverse: Boolean = false) =
@@ -95,7 +94,6 @@ enum class LangCode(val language: Language, vararg val country: Country?) {
     fun filterBy(country: Country, inverse: Boolean = false) =
             LangCode.values().toList().filter { (it.country.contains(country)) != inverse }
 }
-
 
 enum class Language {
     DUTCH,
