@@ -19,7 +19,7 @@ package me.salt.entities.permissions
 import me.salt.entities.config.Configs
 import me.salt.entities.config.Handler
 import me.salt.entities.config.entities.PermissionMap
-import me.salt.entities.objects.Action
+import me.salt.entities.objects.PermAction
 import me.salt.entities.objects.getConfig
 import me.salt.utilities.events.PermissionCheckEvent
 import me.salt.utilities.events.PermissionRegisterEvent
@@ -131,12 +131,12 @@ object PermUtils {
     fun hasBotAuthority(user: User, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
             hasBotPermissions(user, authority.getAuthorityNodes().mapTo(mutableListOf(), { Node(it) }), checkGroups)
 
-    fun canPerformGuildAction(user: User, guild: Guild, action: Action, checkGroups: Boolean = true) =
+    fun canPerformGuildAction(user: User, guild: Guild, action: PermAction, checkGroups: Boolean = true) =
             hasGuildPermissions(user, guild, listOf(action.node), checkGroups)
 
-    fun canPerformChannelAction(user: User, channel: TextChannel, action: Action, checkGroups: Boolean = true) =
+    fun canPerformChannelAction(user: User, channel: TextChannel, action: PermAction, checkGroups: Boolean = true) =
             hasChannelPermissions(user, channel, listOf(action.node), checkGroups)
 
-    fun canPerformBotAction(user: User, action: Action, checkGroups: Boolean = true) =
+    fun canPerformBotAction(user: User, action: PermAction, checkGroups: Boolean = true) =
             hasBotPermissions(user, listOf(action.node), checkGroups)
 }

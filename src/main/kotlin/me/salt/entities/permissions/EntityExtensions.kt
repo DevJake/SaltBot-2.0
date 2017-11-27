@@ -17,7 +17,7 @@
 package me.salt.entities.permissions
 
 import me.salt.Main
-import me.salt.entities.objects.Action
+import me.salt.entities.objects.PermAction
 import net.dv8tion.jda.core.entities.Guild
 import net.dv8tion.jda.core.entities.TextChannel
 import net.dv8tion.jda.core.entities.User
@@ -136,50 +136,50 @@ fun TextChannel.hasAuthority(userId: String, authority: Authority.NodeAuthority,
 fun TextChannel.hasAuthority(user: User, authority: Authority.NodeAuthority, checkGroups: Boolean = true) =
         PermUtils.hasChannelAuthority(user, this, authority, checkGroups)
 
-fun User.canPerformGuildAction(userId: String, guildId: String, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformGuildAction(userId: String, guildId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(Main.jda.getUserById(userId),
                 Main.jda.getGuildById(guildId),
                 action,
                 checkGroups)
 
-fun User.canPerformGuildAction(userId: String, guild: Guild, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformGuildAction(userId: String, guild: Guild, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(Main.jda.getUserById(userId), guild, action, checkGroups)
 
-fun User.canPerformGuildAction(user: User, guildId: String, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformGuildAction(user: User, guildId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(user, Main.jda.getGuildById(guildId), action, checkGroups)
 
-fun User.canPerformGuildAction(user: User, guild: Guild, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformGuildAction(user: User, guild: Guild, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(user, guild, action, checkGroups)
 
-fun User.canPerformChannelAction(userId: String, textChannelId: String, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformChannelAction(userId: String, textChannelId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(Main.jda.getUserById(userId),
                 Main.jda.getTextChannelById(textChannelId),
                 action,
                 checkGroups)
 
-fun User.canPerformChannelAction(userId: String, textChannel: TextChannel, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformChannelAction(userId: String, textChannel: TextChannel, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(Main.jda.getUserById(userId), textChannel, action, checkGroups)
 
-fun User.canPerformChannelAction(user: User, textChannelId: String, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformChannelAction(user: User, textChannelId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(user, Main.jda.getTextChannelById(textChannelId), action, checkGroups)
 
-fun User.canPerformChannelAction(user: User, textChannel: TextChannel, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformChannelAction(user: User, textChannel: TextChannel, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(user, textChannel, action, checkGroups)
 
-fun User.canPerformBotAction(user: User, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformBotAction(user: User, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformBotAction(user, action, checkGroups)
 
-fun User.canPerformBotAction(userId: String, action: Action, checkGroups: Boolean = true) =
+fun User.canPerformBotAction(userId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformBotAction(Main.jda.getUserById(userId), action, checkGroups)
 
-fun Guild.canPerformAction(userId: String, action: Action, checkGroups: Boolean = true) =
+fun Guild.canPerformAction(userId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(Main.jda.getUserById(userId), this, action, checkGroups)
 
-fun Guild.canPerformAction(user: User, action: Action, checkGroups: Boolean = true) =
+fun Guild.canPerformAction(user: User, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformGuildAction(user, this, action, checkGroups)
 
-fun TextChannel.canPerformAction(userId: String, action: Action, checkGroups: Boolean = true) =
+fun TextChannel.canPerformAction(userId: String, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(Main.jda.getUserById(userId), this, action, checkGroups)
 
-fun TextChannel.canPerformAction(user: User, action: Action, checkGroups: Boolean = true) =
+fun TextChannel.canPerformAction(user: User, action: PermAction, checkGroups: Boolean = true) =
         PermUtils.canPerformChannelAction(user, this, action, checkGroups)

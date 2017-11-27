@@ -19,7 +19,7 @@ package me.salt.entities.objects
 import me.salt.entities.permissions.Authority
 import me.salt.entities.permissions.Node
 
-enum class Action(val node: Node, val description: String? = null) {
+enum class PermAction(val node: Node, val description: String? = null) {
     GUILD_PERMISSION_CREATE(Authority.guild(Interaction.WRITE).getAuthorityNodes()[0]),
     GUILD_PERMISSION_VIEW(Authority.guild(Interaction.READ).getAuthorityNodes()[0]),
     GUILD_PERMISSION_REMOVE(Authority.guild(Interaction.REMOVE).getAuthorityNodes()[0]),
