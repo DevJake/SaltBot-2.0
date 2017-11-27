@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util.exception
+package me.salt.utilities.exception
 
 class ColourValueException(message: String? = null) : RuntimeException(message)
 class ConfigMissingValueException(message: String? = null) : RuntimeException(message)

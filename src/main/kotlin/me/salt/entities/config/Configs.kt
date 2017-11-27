@@ -16,8 +16,8 @@
 
 package me.salt.entities.config
 
-import me.salt.util.exception.ConfigHandlerException
-import me.salt.util.exception.exception
+import me.salt.utilities.exception.ConfigHandlerException
+import me.salt.utilities.exception.exception
 
 object Configs {
     private var chain = mutableListOf<String>()

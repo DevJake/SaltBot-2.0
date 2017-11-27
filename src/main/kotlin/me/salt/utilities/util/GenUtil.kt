@@ -2,10 +2,10 @@
  * Copyright 2017 DevJake
  *
  * Licensed under the Apache License, Version 2.0 (the "License");
- *  you may not use this file except in compliance with the License.
+ * you may not use this file except in compliance with the License.
  * You may obtain a copy of the License at
  *
- *       http://www.apache.org/licenses/LICENSE-2.0
+ *      http://www.apache.org/licenses/LICENSE-2.0
  *
  * Unless required by applicable law or agreed to in writing, software
  * distributed under the License is distributed on an "AS IS" BASIS,
@@ -14,15 +14,15 @@
  * limitations under the License.
  */
 
-package me.salt.util
+package me.salt.utilities.util
 
 import me.salt.Main
 import me.salt.entities.objects.Colour
-import me.salt.util.events.FileCreateEvent
-import me.salt.util.events.fireEvent
-import me.salt.util.exception.ColourValueException
-import me.salt.util.exception.exception
-import me.salt.util.logging.logDebug
+import me.salt.utilities.events.FileCreateEvent
+import me.salt.utilities.events.fireEvent
+import me.salt.utilities.exception.ColourValueException
+import me.salt.utilities.exception.exception
+import me.salt.utilities.logging.logDebug
 import java.io.File
 
 object GenUtil {

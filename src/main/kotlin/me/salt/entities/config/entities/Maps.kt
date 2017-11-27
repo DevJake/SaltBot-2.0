@@ -23,8 +23,8 @@ import me.salt.entities.lang.LangUtils
 import me.salt.entities.objects.*
 import me.salt.entities.permissions.GroupPermission
 import me.salt.entities.permissions.UserPermission
-import me.salt.util.exception.ConfigMissingValueException
-import me.salt.util.exception.exception
+import me.salt.utilities.exception.ConfigMissingValueException
+import me.salt.utilities.exception.exception
 
 internal class PermissionMap : ConfigMap {
     @JsonProperty("Groups")

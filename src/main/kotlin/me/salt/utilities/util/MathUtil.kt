@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util
+package me.salt.utilities.util
 
 import java.util.regex.Pattern
 

@@ -14,68 +14,28 @@
  * limitations under the License.
  */
 
-package me.salt.util.api.news
+package me.salt.utilities.util
 
-import me.salt.entities.lang.Country
-import me.salt.entities.lang.Language
-import me.salt.util.exception.ScheduleValueOutOfBoundsException
-import me.salt.util.exception.exception
+import me.salt.utilities.api.news.Days
+import me.salt.utilities.api.news.Months
+import me.salt.utilities.exception.ScheduleValueOutOfBoundsException
+import me.salt.utilities.exception.exception
 import java.time.OffsetDateTime
 import java.time.OffsetTime
 
 
-object NewsApi {
-
-    fun find(searchCriteria: NewsSearchCriteria, forceRefresh: Boolean = false) {
-
+data class ScheduleHandler(val active: Boolean, val schedule: List<OffsetDateTime>, val operations: List<() -> Any>? = null) {
+    fun isCurrentlyInSchedule(): Boolean {
+        TODO()
     }
 
-    fun findAndSort(searchCriteria: NewsSearchCriteria, sortCriteria: NewsSortCriteria, forceRefresh: Boolean = false) {
-
+    fun nextScheduledPoint() {
+        TODO()
     }
 
-//TODO    fun registerSchedule(schedule: NewsSchedule)
-//TODO    fun unregisterSchedule(schedule: NewsSchedule)
-}
-
-data class NewsSearchCriteria(val keyword: String?, val sourcePublishDate: OffsetDateTime?, val sourceName: String?, val sourceLanguage: Language?, val sourceCountry: Country?)
-
-/**
- * This enum contains different characteristics that can be used to order the results retrieved by the [NewsApi].
- */
-enum class NewsSortCriteria {
-    /**
-     * Sort the results by the date they were [published][NewsSearchCriteria.sourcePublishDate] in ascending order
-     */
-    PUBLISH_DATE,
-    /**
-     * Sort the results by their relevance to the given [keyword][NewsSearchCriteria.keyword] in ascending order
-     */
-    KEYWORD_RELEVANCE,
-    /**
-     * Sort the results by their given popularity in ascending order
-     */
-    SOURCE_POPULARITY,
-    /**
-     * Sort the results by the date they were [published][NewsSearchCriteria.sourcePublishDate] in descending order
-     */
-    PUBLISH_DATE_REVERSED,
-    /**
-     * Sort the results by their relevance to the given [keyword][NewsSearchCriteria.keyword] in descending order
-     */
-    KEYWORD_RELEVANCE_REVERSED,
-    /**
-     * Sort the results by their given popularity in descending order
-     */
-    SOURCE_POPULARITY_REVERSED
-}
-
-class NewsSchedule(val userId: String, val searchCriteria: NewsSearchCriteria, val sortCriteria: NewsSortCriteria?, val schedule: ScheduleHandler)
-
-data class ScheduleHandler(val active: Boolean, val schedule: List<OffsetDateTime>) {
-//TODO    fun isCurrentlyInSchedule(): Boolean
-//TODO    fun nextScheduledPoint()
-//TODO    fun lastScheduledPoint()
+    fun lastScheduledPoint() {
+        TODO()
+    }
 }
 
 class ScheduleBuilder {
@@ -174,29 +134,4 @@ class ScheduleBuilder {
 
         return ScheduleHandler(active, listOf()) //TODO
     }
-}
-
-enum class Days {
-    MONDAY,
-    TUESDAY,
-    WEDNESDAY,
-    THURSDAY,
-    FRIDAY,
-    SATURDAY,
-    SUNDAY
-}
-
-enum class Months {
-    JANUARY,
-    FEBRUARY,
-    MARCH,
-    APRIL,
-    MAY,
-    JUNE,
-    JULY,
-    AUGUST,
-    SEPTEMBER,
-    OCTOBER,
-    NOVEMBER,
-    DECEMBER
 }

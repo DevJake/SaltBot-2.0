@@ -14,10 +14,10 @@
  * limitations under the License.
  */
 
-package me.salt.util.events
+package me.salt.utilities.events
 
 import com.winterbe.expekt.should
-import me.salt.util.exception.ExceptionHandler
+import me.salt.utilities.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.describe
 import org.jetbrains.spek.api.dsl.given

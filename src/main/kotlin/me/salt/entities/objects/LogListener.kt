@@ -16,7 +16,7 @@
 
 package me.salt.entities.objects
 
-import me.salt.util.logging.logInfo
+import me.salt.utilities.logging.logInfo
 import net.dv8tion.jda.core.events.guild.GuildJoinEvent
 import net.dv8tion.jda.core.events.guild.GuildLeaveEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter

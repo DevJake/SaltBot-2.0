@@ -33,7 +33,7 @@ apply plugin: 'com.benjaminsproule.swagger'
 swagger {
     apiSource {
         springmvc = false
-        locations = ['me.salt.util.rest']
+        locations = ['me.salt.utilities.rest']
         basePath = '/api'
         outputFormats = 'yaml'
         info {

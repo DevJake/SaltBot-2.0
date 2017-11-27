@@ -16,8 +16,8 @@
 
 package me.salt.entities.cmd
 
-import me.salt.util.logging.logDebug
-import me.salt.util.logging.logInfo
+import me.salt.utilities.logging.logDebug
+import me.salt.utilities.logging.logInfo
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import net.dv8tion.jda.core.hooks.ListenerAdapter
 

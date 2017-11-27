@@ -20,9 +20,9 @@ import com.winterbe.expekt.should
 import me.salt.entities.lang.LangCode
 import me.salt.entities.objects.Admin
 import me.salt.entities.objects.Module
-import me.salt.util.SimpleRGBColour
-import me.salt.util.exception.ExceptionHandler
-import me.salt.util.exception.ExcessiveValueException
+import me.salt.utilities.util.SimpleRGBColour
+import me.salt.utilities.exception.ExceptionHandler
+import me.salt.utilities.exception.ExcessiveValueException
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context
 import org.jetbrains.spek.api.dsl.given

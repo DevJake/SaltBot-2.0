@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util.rest
+package me.salt.utilities.rest
 
 import io.javalin.Context
 import me.salt.entities.config.Configs

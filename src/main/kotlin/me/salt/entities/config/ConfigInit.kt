@@ -22,7 +22,7 @@ import me.salt.entities.objects.exists
 import me.salt.entities.objects.getConfig
 import me.salt.entities.objects.overwriteConfig
 import me.salt.entities.objects.writeConfig
-import me.salt.util.logging.logFatal
+import me.salt.utilities.logging.logFatal
 
 fun initConfigs() {
 //TODO each Guild directory has their own sub-folders for TextChannels

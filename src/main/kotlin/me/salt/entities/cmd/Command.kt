@@ -17,10 +17,10 @@
 package me.salt.entities.cmd
 
 import me.salt.entities.permissions.Node
-import me.salt.util.exception.CommandBuilderFailureException
-import me.salt.util.exception.Errorlevel
-import me.salt.util.exception.ExceptionHandler
-import me.salt.util.exception.exception
+import me.salt.utilities.exception.CommandBuilderFailureException
+import me.salt.utilities.exception.Errorlevel
+import me.salt.utilities.exception.ExceptionHandler
+import me.salt.utilities.exception.exception
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 
 class Command(

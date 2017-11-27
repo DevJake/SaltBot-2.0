@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util.api.bot
+package me.salt.utilities.api.bot
 
 import me.salt.entities.config.entities.PluginConfig
 import java.net.URL

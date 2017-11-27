@@ -21,9 +21,9 @@ import me.salt.entities.objects.Admin
 import me.salt.entities.objects.Module
 import me.salt.entities.permissions.GroupPermission
 import me.salt.entities.permissions.UserPermission
-import me.salt.util.SimpleRGBColour
-import me.salt.util.exception.ExcessiveValueException
-import me.salt.util.exception.exception
+import me.salt.utilities.util.SimpleRGBColour
+import me.salt.utilities.exception.ExcessiveValueException
+import me.salt.utilities.exception.exception
 import java.util.concurrent.TimeUnit
 
 class SaltConfigBuilder(private var botToken: String) : ConfigBuilder {

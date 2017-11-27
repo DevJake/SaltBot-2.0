@@ -17,7 +17,7 @@
 package me.salt.entities.cmd
 
 import me.salt.entities.permissions.NodeBuilder
-import me.salt.util.exception.CommandBuilderFailureException
+import me.salt.utilities.exception.CommandBuilderFailureException
 import net.dv8tion.jda.core.events.message.guild.GuildMessageReceivedEvent
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.context

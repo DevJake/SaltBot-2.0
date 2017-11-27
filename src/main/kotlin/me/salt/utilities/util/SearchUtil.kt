@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util
+package me.salt.utilities.util
 
 import io.javalin.Context
 import me.salt.entities.objects.containsAny

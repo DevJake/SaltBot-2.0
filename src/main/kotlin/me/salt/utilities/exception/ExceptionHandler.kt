@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util.exception
+package me.salt.utilities.exception
 
 import com.rollbar.api.payload.data.Server
 import com.rollbar.notifier.Rollbar
@@ -22,7 +22,7 @@ import com.rollbar.notifier.config.ConfigBuilder
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltConfig
 import me.salt.entities.objects.getConfig
-import me.salt.util.logging.logException
+import me.salt.utilities.logging.logException
 
 object ExceptionHandler {
     private val s = Server.Builder().build()

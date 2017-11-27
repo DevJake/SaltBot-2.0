@@ -21,8 +21,8 @@ import com.fasterxml.jackson.annotation.JsonIgnore
 import com.fasterxml.jackson.annotation.JsonInclude
 import com.fasterxml.jackson.annotation.JsonProperty
 import me.salt.entities.objects.Interaction
-import me.salt.util.exception.ConfigMissingValueException
-import me.salt.util.exception.exception
+import me.salt.utilities.exception.ConfigMissingValueException
+import me.salt.utilities.exception.exception
 import java.util.regex.Pattern
 
 @JsonInclude(JsonInclude.Include.NON_NULL)

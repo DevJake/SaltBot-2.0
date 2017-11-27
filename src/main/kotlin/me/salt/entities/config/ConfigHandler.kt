@@ -29,13 +29,13 @@ import me.salt.entities.config.entities.Configuration
 import me.salt.entities.config.entities.SaltConfig
 import me.salt.entities.objects.Interaction
 import me.salt.entities.objects.isEmpty
-import me.salt.util.GenUtil
-import me.salt.util.events.ConfigInteractEvent
-import me.salt.util.events.fireEvent
-import me.salt.util.exception.ConfigIllegalFieldException
-import me.salt.util.exception.ConfigMissingValueException
-import me.salt.util.exception.ConfigWriteException
-import me.salt.util.exception.exception
+import me.salt.utilities.util.GenUtil
+import me.salt.utilities.events.ConfigInteractEvent
+import me.salt.utilities.events.fireEvent
+import me.salt.utilities.exception.ConfigIllegalFieldException
+import me.salt.utilities.exception.ConfigMissingValueException
+import me.salt.utilities.exception.ConfigWriteException
+import me.salt.utilities.exception.exception
 import java.io.File
 import java.io.IOException
 

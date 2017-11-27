@@ -24,12 +24,12 @@ import me.salt.entities.config.entities.UserConfig
 import me.salt.entities.objects.Entity
 import me.salt.entities.objects.exists
 import me.salt.entities.objects.getConfig
-import me.salt.util.events.CommandParseEvent
-import me.salt.util.events.fireEvent
-import me.salt.util.exception.AmorphousCommandException
-import me.salt.util.exception.PrefixlessCommandException
-import me.salt.util.exception.exception
-import me.salt.util.logging.logDebug
+import me.salt.utilities.events.CommandParseEvent
+import me.salt.utilities.events.fireEvent
+import me.salt.utilities.exception.AmorphousCommandException
+import me.salt.utilities.exception.PrefixlessCommandException
+import me.salt.utilities.exception.exception
+import me.salt.utilities.logging.logDebug
 import java.util.regex.Pattern
 
 object CommandParser {

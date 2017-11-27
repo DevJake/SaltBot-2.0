@@ -14,16 +14,16 @@
  * limitations under the License.
  */
 
-package me.salt.util.logging
+package me.salt.utilities.logging
 
 import me.salt.entities.config.Configs
 import me.salt.entities.config.entities.SaltLogConfig
 import me.salt.entities.objects.getConfig
 import me.salt.entities.objects.writeConfig
-import me.salt.util.events.Event
-import me.salt.util.exception.ConfigMissingValueException
-import me.salt.util.exception.LogEntryIdGenMissingIdException
-import me.salt.util.exception.exception
+import me.salt.utilities.events.Event
+import me.salt.utilities.exception.ConfigMissingValueException
+import me.salt.utilities.exception.LogEntryIdGenMissingIdException
+import me.salt.utilities.exception.exception
 import java.time.Instant
 import java.time.OffsetDateTime
 

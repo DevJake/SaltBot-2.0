@@ -14,43 +14,39 @@
  * limitations under the License.
  */
 
-package me.salt.util.rest
+package me.salt.utilities.rest
 
 import io.javalin.Context
 
-object SearchController {
-    /*
-    Each specifies a return type. Dissimilar to other
-    Rest Controllers, but this allows for the internal API
-    to use this methods as well, as opposed to just the REST API.
-     */
-
-    fun searchByTag(ctx: Context): () -> (Context) {
+/**
+ * This class handles REST endpoints relating to the REST API's Authorisation System.
+ */
+object AuthController {
+    fun getTokenInfo(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun searchByDateTime(ctx: Context): () -> (Context) {
+    fun filterTokensByParam(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun searchByCategory(ctx: Context): () -> (Context) {
+    fun deleteToken(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun searchByCategoryAndTag(ctx: Context): () -> (Context) {
+    fun updateToken(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun searchByCategoryAndDateTime(ctx: Context): () -> (Context) {
+    fun getAllEndpoints(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun searchByTagAndDateTime(ctx: Context): () -> (Context) {
+    fun getAllEndpointsByType(ctx: Context): () -> (Context) {
         TODO()
     }
 
-    fun searchByCategoryAndTagAndDateTime(ctx: Context): () -> (Context) {
+    fun getAllEndpointsByParameter(ctx: Context): () -> (Context) {
         TODO()
     }
-
 }

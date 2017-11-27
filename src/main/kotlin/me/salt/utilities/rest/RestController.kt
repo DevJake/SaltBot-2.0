@@ -14,21 +14,21 @@
  * limitations under the License.
  */
 
-package me.salt.util.rest
+package me.salt.utilities.rest
 
 import io.javalin.Context
 import io.javalin.Javalin
 import me.salt.entities.permissions.UserPermission
-import me.salt.util.RestEndpointSearchElement
-import me.salt.util.SearchUtil
-import me.salt.util.exception.DuplicateRestEndpointException
-import me.salt.util.exception.exception
-import me.salt.util.logging.logDebug
-import me.salt.util.logging.logInfo
-import me.salt.util.rest.RestController.addDelete
-import me.salt.util.rest.RestController.addGet
-import me.salt.util.rest.RestController.addPatch
-import me.salt.util.rest.RestController.addPost
+import me.salt.utilities.util.RestEndpointSearchElement
+import me.salt.utilities.util.SearchUtil
+import me.salt.utilities.exception.DuplicateRestEndpointException
+import me.salt.utilities.exception.exception
+import me.salt.utilities.logging.logDebug
+import me.salt.utilities.logging.logInfo
+import me.salt.utilities.rest.RestController.addDelete
+import me.salt.utilities.rest.RestController.addGet
+import me.salt.utilities.rest.RestController.addPatch
+import me.salt.utilities.rest.RestController.addPost
 import java.time.OffsetDateTime
 
 object RestController {

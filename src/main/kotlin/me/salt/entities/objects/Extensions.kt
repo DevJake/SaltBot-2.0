@@ -20,8 +20,8 @@ import me.salt.entities.config.ConfigHandler
 import me.salt.entities.config.Handler
 import me.salt.entities.config.entities.Configuration
 import me.salt.entities.config.entities.CustomLang
-import me.salt.util.exception.LangConfigReadException
-import me.salt.util.exception.exception
+import me.salt.utilities.exception.LangConfigReadException
+import me.salt.utilities.exception.exception
 import java.io.BufferedReader
 import java.io.File
 import java.io.FileReader

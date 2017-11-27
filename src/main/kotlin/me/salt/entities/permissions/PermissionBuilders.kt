@@ -17,8 +17,8 @@
 package me.salt.entities.permissions
 
 import me.salt.entities.objects.PermRole
-import me.salt.util.exception.BuilderValueException
-import me.salt.util.exception.exception
+import me.salt.utilities.exception.BuilderValueException
+import me.salt.utilities.exception.exception
 import java.util.regex.Pattern
 
 class UserPermissionBuilder(userId: String) {

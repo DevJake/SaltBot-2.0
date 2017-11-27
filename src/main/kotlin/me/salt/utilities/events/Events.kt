@@ -14,7 +14,7 @@
  * limitations under the License.
  */
 
-package me.salt.util.events
+package me.salt.utilities.events
 
 import me.salt.entities.cmd.CommandParser
 import me.salt.entities.config.Handler
@@ -22,9 +22,9 @@ import me.salt.entities.config.entities.Configuration
 import me.salt.entities.objects.Interaction
 import me.salt.entities.permissions.Authority
 import me.salt.entities.permissions.Node
-import me.salt.util.ArgsProcessor
-import me.salt.util.SearchUtil
-import me.salt.util.rest.RestRequestType
+import me.salt.utilities.ArgsProcessor
+import me.salt.utilities.util.SearchUtil
+import me.salt.utilities.rest.RestRequestType
 import net.dv8tion.jda.core.entities.User
 import java.io.File
 

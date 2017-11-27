@@ -17,9 +17,9 @@
 package me.salt
 
 import com.winterbe.expekt.should
-import me.salt.util.SimpleRGBColour
-import me.salt.util.exception.ColourValueException
-import me.salt.util.exception.ExceptionHandler
+import me.salt.utilities.util.SimpleRGBColour
+import me.salt.utilities.exception.ColourValueException
+import me.salt.utilities.exception.ExceptionHandler
 import org.jetbrains.spek.api.Spek
 import org.jetbrains.spek.api.dsl.*
 
