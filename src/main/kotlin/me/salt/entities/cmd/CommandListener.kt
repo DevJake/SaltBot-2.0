@@ -27,25 +27,6 @@ import net.dv8tion.jda.core.hooks.ListenerAdapter
  * Namely, this class identifies [Commands][Command] from a [GuildMessageReceivedEvent], and fires any respective handlers.
  */
 class CommandListener : ListenerAdapter() {
-
-    /**
-     * This method filters a [MutableList] of [Commands][Command] by the given prefix.
-     *
-     * @param prefix - The prefix to be used for filtering
-     * @param checkAliases - If the filter should also check the current command's aliases
-     *
-     * @return A list of [Commands][Command] filtered by the given [prefix] and the optional [alias check][checkAliases]
-     *
-     * @see Command
-     */
-    fun List<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
-            this.filter {
-                it.cmdPrefix.equals(prefix) &&
-                        (if (checkAliases)
-                            it.aliases.map { it.toLowerCase() }.contains(prefix)
-                        else true)
-            }
-
     /**
      * This method receives information about any messages sent to a guild.
      * As a result, this method handles the analyses of the incoming message's prefix
@@ -89,3 +70,25 @@ class CommandListener : ListenerAdapter() {
         }
     }
 }
+
+/**
+ * This method filters a [List] of [Commands][Command] by the given prefix.
+ *
+ * @param prefix - The prefix to be used for filtering
+ * @param checkAliases - If the filter should also check the current command's aliases
+ *
+ * @return A list of [Commands][Command] filtered by the given [prefix] and the optional [alias check][checkAliases]
+ *
+ * @see Command
+ */
+fun List<Command>.filterByCommandPrefix(prefix: String, checkAliases: Boolean = false): List<Command> =
+        this.filter {
+            if (!it.cmdPrefix.isBlank())
+                if (it.cmdPrefix == prefix.toLowerCase())
+                    return@filter true
+
+            if (checkAliases)
+                it.aliases.any { it == prefix.toLowerCase() }
+            else
+                false
+        }
