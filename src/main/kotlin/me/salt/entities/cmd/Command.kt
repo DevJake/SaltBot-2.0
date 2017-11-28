@@ -102,8 +102,8 @@ class CommandBuilder(private var cmdPrefix: String, private var name: String) {
     fun setCmdPrefix(prefix: String) = apply { if (prefix.isNotBlank()) cmdPrefix = prefix else exception(CommandBuilderFailureException("The value for cmdPrefix cannot be empty!")) }
     fun setName(name: String) = apply { if (name.isNotEmpty()) this.name = name else exception(CommandBuilderFailureException("The value for name cannot be empty!")) }
     fun setDescription(description: String) = apply { this.description = description }
-    fun addAlias(vararg aliases: String) = apply { if (aliases.any { it.isEmpty() }) exception(CommandBuilderFailureException("You cannot specify an empty alias!")) else this.aliases.addAll(aliases) }
-    fun removeAlias(vararg aliases: String) = apply { this.aliases.removeAll(aliases) }
+    fun addAliases(vararg aliases: String) = apply { if (aliases.any { it.isBlank() }) exception(CommandBuilderFailureException("You cannot specify an empty alias!")) else this.aliases.addAll(aliases) }
+    fun removeAliases(vararg aliases: String) = apply { this.aliases.removeAll(aliases) }
     fun setAuthor(author: String) = apply { this.author = author }
     fun addPerms(vararg nodes: Node) = apply { this.perms.addAll(nodes) }
     fun removePerms(vararg nodes: Node) = apply { this.perms.removeAll(nodes) }
