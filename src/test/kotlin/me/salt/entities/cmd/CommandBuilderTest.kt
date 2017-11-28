@@ -33,7 +33,7 @@ class CommandBuilderTest : Spek({
             beforeEachTest { cb = CommandBuilder("prefix", "name") }
             on("adding aliases") {
                 it("should add the given aliases") {
-                    cb.addAlias("Alias1", "Alias2")
+                    cb.addAliases("Alias1", "Alias2")
                     val build = cb.build()
                     Assert.assertTrue(build.aliases.size == 2 && build.aliases.containsAll(listOf("alias1",
                             "alias2")))
@@ -42,8 +42,8 @@ class CommandBuilderTest : Spek({
 
             on("adding then removing the same aliases") {
                 it("should list no aliases") {
-                    cb.addAlias("Alias1", "Alias2")
-                    cb.removeAlias("Alias1", "Alias2")
+                    cb.addAliases("Alias1", "Alias2")
+                    cb.removeAliases("Alias1", "Alias2")
                     val build = cb.build()
                     Assert.assertTrue(build.aliases.isEmpty() && !build.aliases.containsAll(listOf("Alias1",
                             "Alias2")))
@@ -52,7 +52,7 @@ class CommandBuilderTest : Spek({
 
             on("adding aliases") {
                 it("should convert them to lowercase") {
-                    cb.addAlias("Alias1", "Alias2")
+                    cb.addAliases("Alias1", "Alias2")
                     val build = cb.build()
                     Assert.assertTrue(build.aliases.size == 2 && build.aliases.containsAll(listOf("alias1",
                             "alias2")))
@@ -158,7 +158,7 @@ class CommandBuilderTest : Spek({
             on("trying to add aliases with at least 1 empty"){
                 it("should throw an Exception"){
                     try {
-                        cb.addAlias("a1", "a2", "", "a4").build()
+                        cb.addAliases("a1", "a2", "", "a4").build()
                         Assert.fail("Expected an instance of CommandBuilderFailureException to be thrown!")
                     } catch (e: CommandBuilderFailureException) {
                         Assert.assertTrue(true)
